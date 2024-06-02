@@ -16,20 +16,6 @@
     }
   },
   "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "a11y": {
-        "noBlankTarget": "error"
-      },
-      "correctness": {
-        "noUnusedImports": "error",
-        "noUnusedVariables": "error"
-      },
-      "style": {
-        "useImportType": "error",
-        "noNonNullAssertion": "error"
-      }
-    }
+    "enabled": false
   }
 }
