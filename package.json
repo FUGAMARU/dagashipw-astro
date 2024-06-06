@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "eslint": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,astro}\""
+    "eslint": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,astro}\"",
+    "stylelint": "stylelint --fix \"**/*.css\""
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -33,6 +34,9 @@
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "globals": "^15.3.0",
+    "stylelint": "^16.6.1",
+    "stylelint-config-recess-order": "^5.0.1",
+    "stylelint-config-standard": "^36.0.0",
     "typescript-eslint": "^7.11.0"
   }
 }

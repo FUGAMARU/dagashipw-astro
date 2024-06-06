@@ -2,11 +2,15 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "eslint.experimental.useFlatConfig": true,
   "editor.defaultFormatter": "biomejs.biome",
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
     "source.fixAll.eslint": "explicit",
-    "source.addMissingImports": "explicit"
+    "source.addMissingImports": "explicit",
+    "source.fixAll.stylelint": "explicit"
   },
   "[astro]": {
     "editor.defaultFormatter": "biomejs.biome"
