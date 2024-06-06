@@ -3,5 +3,6 @@ export default {
   rules: {
     /** class名はkebab-caseを今回は使用しないので無効化 */
     "selector-class-pattern": null
-  }
+  },
+  ignoreFiles: ["**/node_modules/**"]
 }

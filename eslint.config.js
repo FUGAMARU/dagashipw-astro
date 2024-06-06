@@ -1,5 +1,6 @@
 import eslintJS from "@eslint/js"
 import tsEslintPlugin from "@typescript-eslint/eslint-plugin"
+import eslintConfigPrettier from "eslint-config-prettier"
 import eslintPluginAstro from "eslint-plugin-astro"
 import eslintPluginImport from "eslint-plugin-import"
 import eslintPluginJsdoc from "eslint-plugin-jsdoc"
@@ -10,7 +11,7 @@ import tsEslint from "typescript-eslint"
 
 export default [
   {
-    ignores: ["**/dist/**", "**/node_modules/**", ".stylelintrc.js"]
+    ignores: ["**/dist/**", "**/node_modules/**", ".stylelintrc.js", ".prettierrc.js"]
   },
   {
     languageOptions: {
@@ -22,6 +23,7 @@ export default [
     }
   },
   eslintJS.configs.recommended,
+  eslintConfigPrettier,
   eslintPluginJsdoc.configs["flat/recommended-typescript-error"],
   ...tsEslint.configs.recommended,
   ...eslintPluginAstro.configs["flat/recommended"],

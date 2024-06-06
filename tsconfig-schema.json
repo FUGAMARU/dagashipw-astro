@@ -342,13 +342,7 @@
             },
             "jsx": {
               "description": "Specify what JSX code is generated.",
-              "enum": [
-                "preserve",
-                "react",
-                "react-jsx",
-                "react-jsxdev",
-                "react-native"
-              ]
+              "enum": ["preserve", "react", "react-jsx", "react-jsxdev", "react-native"]
             },
             "reactNamespace": {
               "$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
@@ -425,14 +419,7 @@
               "type": ["string", "null"],
               "anyOf": [
                 {
-                  "enum": [
-                    "Classic",
-                    "Node",
-                    "Node10",
-                    "Node16",
-                    "NodeNext",
-                    "Bundler"
-                  ],
+                  "enum": ["Classic", "Node", "Node10", "Node16", "NodeNext", "Bundler"],
                   "markdownEnumDescriptions": [
                     "It’s recommended to use `\"Node16\"` instead",
                     "Deprecated, use `\"Node10\"` in TypeScript 5.0+ instead",
