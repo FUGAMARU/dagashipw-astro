@@ -1,6 +1,8 @@
+import Input from "@/components/input/Input"
 import HeaderPC from "@/components/layout/sidebar/HeaderPC"
 import styles from "@/components/layout/sidebar/index.module.css"
 import Infobar from "@/components/layout/sidebar/Infobar"
+import SidebarItemWithTitle from "@/components/layout/sidebar/SidebarItemWithTitle"
 
 import type { ReactNode } from "react"
 
@@ -17,6 +19,10 @@ const Sidebar = (): ReactNode => {
 
       <div className={styles.main}>
         <Infobar />
+
+        <SidebarItemWithTitle title="さがす">
+          <Input hasSearchIcon placeholder="キーワードを入力…" />
+        </SidebarItemWithTitle>
       </div>
     </div>
   )

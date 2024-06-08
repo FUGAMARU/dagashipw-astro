@@ -156,6 +156,12 @@ export default [
           checkConstructors: false
         }
       ],
+      "jsdoc/require-param": [
+        "error",
+        {
+          checkDestructuredRoots: false
+        }
+      ],
       /** import/order ルールを追加 */
       "import/order": [
         "error",

@@ -1,0 +1,11 @@
+.sidebarItemWithTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  > .title {
+    padding-left: 4px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
