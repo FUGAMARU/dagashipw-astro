@@ -13,3 +13,19 @@
   src: url("/fonts/NotoSansJP-Bold.woff2") format("woff2");
   font-display: swap;
 }
+
+@font-face {
+  font-family: Staatliches;
+  font-style: normal;
+  font-weight: normal;
+  src: url("/fonts/Staatliches-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Gabarito;
+  font-style: normal;
+  font-weight: bold;
+  src: url("/fonts/Gabarito-Bold.woff2") format("woff2");
+  font-display: swap;
+}

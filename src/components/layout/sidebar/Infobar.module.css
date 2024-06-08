@@ -1,0 +1,55 @@
+.infobarContainer {
+  display: flex;
+  gap: 36px;
+  justify-content: center;
+  font-family: Staatliches, "Noto Sans JP", sans-serif;
+  font-size: 16px;
+}
+
+.sectionCalendar {
+  display: flex;
+  gap: 6px;
+
+  > .year {
+    transform: rotate(90deg);
+  }
+}
+
+.dateAndDay {
+  display: flex;
+  gap: 2px;
+  align-items: baseline;
+
+  > .date {
+    font-size: 36px;
+    transform: translateY(2px);
+  }
+
+  > .day {
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+
+.sectionConnection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > .via {
+    display: flex;
+    gap: 4px;
+
+    > .type {
+      display: grid;
+      place-items: center;
+      padding: 0 4px;
+      font-family: Gabarito, sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--color-white);
+      background-color: var(--color-background-green);
+      border-radius: 4px;
+    }
+  }
+}
