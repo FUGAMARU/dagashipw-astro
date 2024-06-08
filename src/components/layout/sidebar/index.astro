@@ -1,0 +1,21 @@
+---
+import Input from "@/components/input/Input"
+import HeaderPC from "@/components/layout/sidebar/HeaderPC"
+import Infobar from "@/components/layout/sidebar/Infobar"
+import SidebarItemWithTitle from "@/components/layout/sidebar/SidebarItemWithTitle"
+import styles from "@/components/layout/sidebar/index.module.css"
+---
+
+<div class={styles.sidebarContainer}>
+  <header class={styles.header}>
+    <HeaderPC />
+  </header>
+
+  <div class={styles.main}>
+    <Infobar />
+
+    <SidebarItemWithTitle title="さがす">
+      <Input hasSearchIcon placeholder="キーワードを入力…" client:load />
+    </SidebarItemWithTitle>
+  </div>
+</div>
