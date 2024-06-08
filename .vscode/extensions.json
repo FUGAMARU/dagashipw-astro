@@ -3,7 +3,8 @@
     "astro-build.astro-vscode",
     "dbaeumer.vscode-eslint",
     "stylelint.vscode-stylelint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "jacobcassidy.css-nesting-syntax-highlighting"
   ],
   "unwantedRecommendations": []
 }

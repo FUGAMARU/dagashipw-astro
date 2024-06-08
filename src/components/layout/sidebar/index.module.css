@@ -1,0 +1,29 @@
+.sidebarContainer {
+  overflow: hidden;
+  border-radius: 24px;
+
+  > .header {
+    display: none;
+  }
+
+  > .main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 16px;
+  }
+}
+
+@media (width >= 768px) {
+  .sidebarContainer {
+    border-radius: 16px;
+
+    > .header {
+      display: inline;
+    }
+
+    > .main {
+      padding: 16px 12px;
+    }
+  }
+}

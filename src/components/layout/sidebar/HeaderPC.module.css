@@ -1,0 +1,9 @@
+.headerPC {
+  padding: 8px 0;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    var(--color-gradient-header-start) 0%,
+    var(--color-gradient-header-end) 100%
+  );
+}

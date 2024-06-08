@@ -1,0 +1,12 @@
+{
+  "Append Element (TSX)": {
+    "scope": "typescriptreact",
+    "prefix": "..",
+    "body": ["<${1:div} className={styles.$2}>$0</${1:div}>"]
+  },
+  "Append Element (React)": {
+    "scope": "astro",
+    "prefix": "..",
+    "body": ["<${1:div} class={styles.$2}>$0</${1:div}>"]
+  }
+}

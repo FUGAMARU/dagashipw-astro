@@ -1,16 +1,8 @@
 .layoutContainer {
   width: 100%;
 
-  > .header {
-    background-color: aqua;
-  }
-
   > .main {
     background-color: lightblue;
-  }
-
-  > .sidebar {
-    background-color: lightgreen;
   }
 }
 
@@ -28,12 +20,10 @@
 
     > .main {
       flex: 7;
-      background-color: lightblue;
     }
 
     > .sidebar {
       flex: 3;
-      background-color: lightgreen;
     }
   }
 }
