@@ -8,5 +8,10 @@
     "scope": "astro",
     "prefix": "..",
     "body": ["<${1:div} class={styles.$2}>$0</${1:div}>"]
+  },
+  "Media Query": {
+    "scope": "css",
+    "prefix": "media",
+    "body": ["@media (width >= 768px) {", "\t$0", "}"]
   }
 }
