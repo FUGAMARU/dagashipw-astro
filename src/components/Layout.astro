@@ -1,0 +1,39 @@
+---
+import "@/styles/global.css"
+
+import styles from "@/components/Layout.module.css"
+
+type Props = {
+  /** ページタイトル */
+  title: string
+  /** 子要素 */
+  children: any
+}
+
+const { title } = Astro.props
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+    <meta content="width=device-width" name="viewport" />
+    <meta content={Astro.generator} name="generator" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class={styles.layoutContainer}>
+      <header class={styles.header}>
+        <span>SPHeader</span>
+      </header>
+
+      <main class={styles.main}>
+        <slot />
+      </main>
+
+      <aside class={styles.sidebar}>
+        <span>Sidebar</span>
+      </aside>
+    </div>
+  </body>
+</html>

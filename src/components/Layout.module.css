@@ -1,0 +1,39 @@
+.layoutContainer {
+  width: 100%;
+
+  > .header {
+    background-color: aqua;
+  }
+
+  > .main {
+    background-color: lightblue;
+  }
+
+  > .sidebar {
+    background-color: lightgreen;
+  }
+}
+
+@media (width >= 768px) {
+  .layoutContainer {
+    display: flex;
+    gap: 48px;
+    max-width: 1280px;
+    padding-top: 96px;
+    margin: 0 auto;
+
+    > .header {
+      display: none;
+    }
+
+    > .main {
+      flex: 7;
+      background-color: lightblue;
+    }
+
+    > .sidebar {
+      flex: 3;
+      background-color: lightgreen;
+    }
+  }
+}

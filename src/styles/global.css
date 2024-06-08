@@ -1,0 +1,9 @@
+@import url("./destyle.css");
+@import url("./font.css");
+@import url("./variable.css");
+
+html,
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  color: var(--color-text-dark);
+}
