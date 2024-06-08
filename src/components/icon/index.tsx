@@ -1,6 +1,6 @@
 import { lazy, type ReactNode } from "react"
 
-import type { IconProps } from "@/types/IconProps"
+import type { IconProps } from "@/types/icon"
 
 type IconName = "search"
 

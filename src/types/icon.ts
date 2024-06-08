@@ -1,3 +1,7 @@
+/**
+ * @file アイコンに関する型定義
+ */
+
 /** Iconコンポーネントの共通Props */
 export type IconProps = {
   /** 幅 */

@@ -1,4 +1,4 @@
-import type { IconProps } from "@/types/IconProps"
+import type { IconProps } from "@/types/icon"
 import type { ReactNode } from "react"
 
 /**
