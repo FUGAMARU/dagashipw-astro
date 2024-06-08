@@ -1,3 +1,10 @@
 :root {
   --color-text-dark: #343434;
+  --color-gradient-header-start: #545454;
+  --color-gradient-header-end: #171717;
+  --color-gradient-header: linear-gradient(
+    180deg,
+    rgb(84 84 84 / 100%) 0%,
+    rgb(23 23 23 / 100%) 100%
+  );
 }
