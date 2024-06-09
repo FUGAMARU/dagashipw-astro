@@ -11,7 +11,14 @@ import tsEslint from "typescript-eslint"
 
 export default [
   {
-    ignores: ["**/dist/**", "**/node_modules/**", ".stylelintrc.js", ".prettierrc.js"]
+    ignores: [
+      "**/dist/**",
+      "**/node_modules/**",
+      ".prettierrc.js",
+      ".stylelintrc.js",
+      ".storybook/main.ts",
+      ".storybook/preview.ts"
+    ]
   },
   {
     languageOptions: {
