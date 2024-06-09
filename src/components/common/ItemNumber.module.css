@@ -3,23 +3,37 @@
   place-items: center;
   width: max-content;
   height: 18px;
-  padding: 0 6.5px;
+  padding: 0 4px;
   font-family: Gabarito, sans-serif;
   font-size: 12px;
   font-weight: bold;
-  color: var(--color-white);
+  color: var(--color-light-dark);
   letter-spacing: 0.08em;
-  background-color: var(--color-light-dark);
+  background-color: var(--color-white);
   border: solid 1px var(--color-light-dark);
   border-radius: 4px;
 
-  &.SizeFixed {
+  &.OneCharacter {
     width: 18px;
     padding: 0;
+    letter-spacing: normal;
   }
 
-  &.Outlined {
-    color: var(--color-light-dark);
-    background-color: var(--color-white);
+  &.TwoCharacters {
+    width: 22px;
+    padding: 0;
+    letter-spacing: 0.05em;
+  }
+
+  &.ThreeCharacters {
+    width: 26px;
+    padding: 0;
+    letter-spacing: normal;
+    letter-spacing: 0.05em;
+  }
+
+  &.Filled {
+    color: var(--color-white);
+    background-color: var(--color-light-dark);
   }
 }
