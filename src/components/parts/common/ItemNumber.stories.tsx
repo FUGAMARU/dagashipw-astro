@@ -1,4 +1,4 @@
-import ItemNumber from "@/components/common/ItemNumber"
+import ItemNumber from "@/components/parts/common/ItemNumber"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

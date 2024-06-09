@@ -1,5 +1,5 @@
-import Link from "@/components/common/Link"
 import styles from "@/components/layout/HeaderSP.module.css"
+import Link from "@/components/parts/common/Link"
 import { PAGE_PATH } from "@/constants/page"
 
 import type { ReactNode } from "react"

@@ -1,0 +1,13 @@
+.tableOfContentsItem {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  > .title {
+    font-size: 14px;
+
+    &.Active {
+      font-weight: bold;
+    }
+  }
+}

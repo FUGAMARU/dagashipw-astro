@@ -1,7 +1,7 @@
 import { useCallback, type ComponentProps, type ReactNode } from "react"
 
-import Icon from "@/components/icon"
-import styles from "@/components/input/Input.module.css"
+import Icon from "@/components/parts/icon"
+import styles from "@/components/parts/input/Input.module.css"
 
 type Props = ComponentProps<"input"> & {
   hasSearchIcon?: boolean

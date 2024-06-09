@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import { useMemo, type ReactNode } from "react"
 
-import styles from "@/components/common/ItemNumber.module.css"
+import styles from "@/components/parts/common/ItemNumber.module.css"
 
 type Props = {
   /** 項番 */

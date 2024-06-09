@@ -1,4 +1,4 @@
-import IconSearch from "@/components/icon/IconSearch"
+import IconSearch from "@/components/parts/icon/IconSearch"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

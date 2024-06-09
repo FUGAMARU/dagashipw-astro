@@ -1,10 +1,15 @@
 :root {
   --color-white: #fff;
+  --color-black: #000;
   --color-text-dark: #343434;
   --color-light-dark: #555;
   --color-text-gray: #9a9a9a;
+  --color-soft-gray: #d2d2d2;
   --color-page-background: #f0f0f0;
   --color-background-green: #18e107;
   --color-gradient-header-start: #545454;
   --color-gradient-header-end: #171717;
+  --color-gradient-green-start: #ebff00;
+  --color-gradient-green-end: #61ff00;
+  --color-gradient-green-passing-point: #daff03;
 }

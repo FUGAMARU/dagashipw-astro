@@ -5,7 +5,7 @@ import type { IconProps } from "@/types/icon"
 type IconName = "search"
 
 const ICONS = {
-  search: lazy(() => import("@/components/icon/IconSearch"))
+  search: lazy(() => import("@/components/parts/icon/IconSearch"))
 } as const satisfies Record<IconName, (props: IconProps) => ReactNode>
 
 type Props = IconProps & {
