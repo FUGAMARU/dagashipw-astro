@@ -12,5 +12,6 @@
     "source.fixAll.stylelint": "explicit"
   },
   "prettier.configPath": ".prettierrc.js",
-  "prettier.documentSelectors": ["**/*.astro"]
+  "prettier.documentSelectors": ["**/*.astro"],
+  "cSpell.ignoreWords": ["autodocs"]
 }

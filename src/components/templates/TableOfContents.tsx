@@ -6,7 +6,7 @@ import TableOfContentsItem from "@/components/templates/TableOfContentsItem"
 
 type Props = {
   contents: Array<{
-    h2?: {
+    h2: {
       title: string
       href: string
       h3?: Array<{
@@ -19,32 +19,32 @@ type Props = {
       }>
     }
   }>
+  /** アクティブ表示にするアイテムのhref */
+  activeItemHref: string
 }
 
 /**
  * 目次
  * @returns ReactNode
  */
-const TableOfContents = ({ contents }: Props): ReactNode => {
+const TableOfContents = ({ contents, activeItemHref }: Props): ReactNode => {
   return (
     <div className={styles.tableOfContents}>
       <div className={styles.main}>
         {contents.map((content, h2Index) => (
-          <Fragment key={content.h2?.title}>
-            {content.h2 !== undefined && (
-              <TableOfContentsItem
-                href={content.h2.href}
-                isActive={false}
-                itemNumber={`${h2Index + 1}`}
-                title={content.h2.title}
-              />
-            )}
-            {content.h2?.h3?.map((h3, h3Index) => (
+          <Fragment key={content.h2.title}>
+            <TableOfContentsItem
+              href={content.h2.href}
+              isActive={activeItemHref === content.h2.href}
+              itemNumber={`${h2Index + 1}`}
+              title={content.h2.title}
+            />
+            {content.h2.h3?.map((h3, h3Index) => (
               <Fragment key={h3.title}>
                 <div className={styles.headingH3}>
                   <TableOfContentsItem
                     href={h3.href}
-                    isActive={false}
+                    isActive={activeItemHref === h3.href}
                     itemNumber={`${h2Index + 1}-${h3Index + 1}`}
                     title={h3.title}
                   />
@@ -53,7 +53,7 @@ const TableOfContents = ({ contents }: Props): ReactNode => {
                   <div key={h4.title} className={styles.headingH4}>
                     <TableOfContentsItem
                       href={h4.href}
-                      isActive={false}
+                      isActive={activeItemHref === h4.href}
                       itemNumber={`${h2Index + 1}-${h3Index + 1}-${h4Index + 1}`}
                       title={h4.title}
                     />
