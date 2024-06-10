@@ -1,6 +1,6 @@
 import { useCallback, type ComponentProps, type ReactNode } from "react"
 
-import Icon from "@/components/parts/icon"
+import Icon from "@/components/parts/icon/Icon"
 import styles from "@/components/parts/input/Input.module.css"
 
 type Props = ComponentProps<"input"> & {

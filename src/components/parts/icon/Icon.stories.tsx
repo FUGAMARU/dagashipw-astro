@@ -1,4 +1,4 @@
-import Icon from "@/components/parts/icon"
+import Icon from "@/components/parts/icon/Icon"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
