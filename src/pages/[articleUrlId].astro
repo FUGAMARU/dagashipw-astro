@@ -1,6 +1,7 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
 import styles from "@/pages/[articleUrlId].module.css"
+import { getArticle } from "@/services/api"
 
 /** TODO: articleUrlId一覧を渡してあげる */
 export const getStaticPaths = () => {
@@ -10,6 +11,9 @@ export const getStaticPaths = () => {
     { params: { articleUrlId: "fuga" } }
   ]
 }
+
+const articleData = await getArticle(1)
+console.log(articleData)
 ---
 
 <Layout title="記事タイトル | 麩菓子の雑記帳">

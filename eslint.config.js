@@ -154,7 +154,6 @@ export default [
           },
           contexts: [
             "PropertyDefinition",
-            "VariableDeclaration",
             "TSInterfaceDeclaration",
             "TSTypeAliasDeclaration",
             "TSPropertySignature",
