@@ -1,8 +1,8 @@
 .layoutContainer {
   width: 100%;
 
-  > .main {
-    background-color: lightblue;
+  > .sidebar {
+    margin-top: 32px;
   }
 }
 
@@ -24,6 +24,7 @@
 
     > .sidebar {
       flex: 3;
+      margin-top: 0;
     }
   }
 }
