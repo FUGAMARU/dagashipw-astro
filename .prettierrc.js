@@ -10,7 +10,8 @@ export default {
   bracketSameLine: false,
   arrowParens: "avoid",
   printWidth: 100,
-  plugins: ["prettier-plugin-astro"],
+  plugins: ["prettier-plugin-astro", "prettier-plugin-astro-organize-imports"],
+  pluginSearchDirs: false,
   overrides: [
     {
       files: "*.astro",
@@ -18,5 +19,6 @@ export default {
         parser: "astro"
       }
     }
-  ]
+  ],
+  astroOrganizeImportsMode: "All"
 }

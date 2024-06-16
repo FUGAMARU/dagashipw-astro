@@ -1,8 +1,8 @@
 ---
 import "@/styles/global.css"
 
-import styles from "@/components/layout/Layout.module.css"
 import HeaderSP from "@/components/layout/HeaderSP"
+import styles from "@/components/layout/Layout.module.css"
 import Sidebar from "@/components/layout/sidebar/Sidebar.astro"
 
 type Props = {
@@ -21,7 +21,7 @@ const { title } = Astro.props
     <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
     <meta content="width=device-width" name="viewport" />
     <meta content={Astro.generator} name="generator" />
-    <meta name="theme-color" content="#545454" />
+    <meta content="#545454" name="theme-color" />
     <title>{title}</title>
   </head>
   <body>
