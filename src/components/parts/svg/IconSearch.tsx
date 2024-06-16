@@ -1,11 +1,11 @@
-import type { IconProps } from "@/types/icon"
+import type { SvgProps } from "@/types/svg"
 import type { ReactNode } from "react"
 
 /**
  * 検索アイコン
  * @returns ReactNode
  */
-const IconSearch = ({ width, height, className }: IconProps): ReactNode => {
+const IconSearch = ({ width, height, className }: SvgProps): ReactNode => {
   return (
     <svg
       className={className}

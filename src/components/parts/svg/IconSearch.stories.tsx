@@ -1,9 +1,9 @@
-import Icon from "@/components/parts/icon/Icon"
+import IconSearch from "@/components/parts/svg/IconSearch"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
-const meta: Meta<typeof Icon> = {
-  component: Icon,
+const meta: Meta<typeof IconSearch> = {
+  component: IconSearch,
   tags: ["autodocs"],
   args: {},
   argTypes: {}
@@ -15,7 +15,6 @@ type Story = StoryObj<typeof meta>
 /** 初期表示 */
 export const Primary: Story = {
   args: {
-    name: "search",
     width: 64,
     height: 64
   }

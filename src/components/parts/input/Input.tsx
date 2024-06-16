@@ -1,7 +1,7 @@
 import { useCallback, type ComponentProps, type ReactNode } from "react"
 
-import Icon from "@/components/parts/icon/Icon"
 import styles from "@/components/parts/input/Input.module.css"
+import SvgLoader from "@/components/parts/svg/SvgLoader"
 
 type Props = ComponentProps<"input"> & {
   hasSearchIcon?: boolean
@@ -21,7 +21,7 @@ const Input = ({ hasSearchIcon = false, ...props }: Props): ReactNode => {
       <input className={styles.inputElement} type="text" {...props} />
       {hasSearchIcon && (
         <button onClick={handleSearchButtonClick} type="button">
-          <Icon className={styles.searchIcon} height={16} name="search" width={16} />
+          <SvgLoader className={styles.searchIcon} height={16} name="search" width={16} />
         </button>
       )}
     </div>

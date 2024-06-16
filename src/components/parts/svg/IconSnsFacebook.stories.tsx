@@ -1,9 +1,9 @@
-import IconSearch from "@/components/parts/icon/IconSearch"
+import IconSnsFacebook from "@/components/parts/svg/IconSnsFacebook"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
-const meta: Meta<typeof IconSearch> = {
-  component: IconSearch,
+const meta: Meta<typeof IconSnsFacebook> = {
+  component: IconSnsFacebook,
   tags: ["autodocs"],
   args: {},
   argTypes: {}
@@ -12,10 +12,9 @@ const meta: Meta<typeof IconSearch> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 初期表示 */
 export const Primary: Story = {
   args: {
-    width: 64,
-    height: 64
+    width: 128,
+    height: 128
   }
 }
