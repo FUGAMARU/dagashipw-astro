@@ -1,14 +1,6 @@
 import { lazy, type ReactNode } from "react"
 
-import type { SvgProps } from "@/types/svg"
-
-type SvgComponentName =
-  | "search"
-  | "linkCircle"
-  | "snsX"
-  | "snsFacebook"
-  | "snsLine"
-  | "snsHatenaBookmark"
+import type { SvgComponentName, SvgProps } from "@/types/svg"
 
 const SVG_COMPONENTS = {
   search: lazy(() => import("@/components/parts/svg/IconSearch")),

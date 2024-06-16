@@ -11,3 +11,12 @@ export type SvgProps = {
   /** クラス */
   className?: string
 }
+
+/** SVGコンポーネント名一覧 */
+export type SvgComponentName =
+  | "search"
+  | "linkCircle"
+  | "snsX"
+  | "snsFacebook"
+  | "snsLine"
+  | "snsHatenaBookmark"

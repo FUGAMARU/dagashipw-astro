@@ -1,9 +1,13 @@
 ---
 import HeaderPC from "@/components/layout/sidebar/HeaderPC"
 import Infobar from "@/components/layout/sidebar/Infobar"
+import ShareButtons from "@/components/layout/sidebar/ShareButtons"
 import styles from "@/components/layout/sidebar/Sidebar.module.css"
 import SidebarItemWithTitle from "@/components/layout/sidebar/SidebarItemWithTitle"
 import Input from "@/components/parts/input/Input"
+
+const curentArticleTitle = "記事のタイトル" // TODO: 仮当て
+const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 ---
 
 <div class={styles.sidebarContainer}>
@@ -17,5 +21,11 @@ import Input from "@/components/parts/input/Input"
     <SidebarItemWithTitle title="さがす">
       <Input hasSearchIcon placeholder="キーワードを入力…" client:load />
     </SidebarItemWithTitle>
+
+    <ShareButtons
+      currentArticleTitle={curentArticleTitle}
+      currentArticleUrl={currentArticleUrl}
+      client:load
+    />
   </div>
 </div>
