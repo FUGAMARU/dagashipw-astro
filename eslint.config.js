@@ -1,5 +1,5 @@
 import eslintJS from "@eslint/js"
-import tsEslintPlugin from "@typescript-eslint/eslint-plugin"
+import tsEslintPlugin, { rules } from "@typescript-eslint/eslint-plugin"
 import eslintConfigPrettier from "eslint-config-prettier"
 import eslintPluginAstro from "eslint-plugin-astro"
 import eslintPluginImport from "eslint-plugin-import"
@@ -198,6 +198,13 @@ export default [
           project: "./tsconfig.json"
         }
       }
+    }
+  },
+  {
+    /** AstroファイルではclassName属性は使えないのでoff */
+    files: ["**/*.{astro}"],
+    rules: {
+      "react/no-unknown-property": "off"
     }
   }
 ]
