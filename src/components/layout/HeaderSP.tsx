@@ -1,5 +1,6 @@
 import styles from "@/components/layout/HeaderSP.module.css"
 import Link from "@/components/parts/common/Link"
+import SvgLoader from "@/components/parts/svg/SvgLoader"
 import { PAGE_PATH } from "@/constants/page"
 
 import type { ReactNode } from "react"
@@ -11,9 +12,8 @@ import type { ReactNode } from "react"
 const HeaderSP = (): ReactNode => {
   return (
     <div className={styles.headerSP}>
-      {/* TODO: ロゴはSVGに置き換える */}
       <Link href={PAGE_PATH.TOP}>
-        <img height={40} src="/logo-full.png" width={188} />
+        <SvgLoader height={40} name="logoFullSP" width={198.19} />
       </Link>
     </div>
   )

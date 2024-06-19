@@ -1,4 +1,4 @@
-import { lazy, type ReactNode } from "react"
+import { lazy, useEffect, type ReactNode } from "react"
 
 import type { SvgComponentName, SvgProps } from "@/types/svg"
 
@@ -8,7 +8,9 @@ const SVG_COMPONENTS = {
   snsFacebook: lazy(() => import("@/components/parts/svg/IconSnsFacebook")),
   snsLine: lazy(() => import("@/components/parts/svg/IconSnsLine")),
   snsHatenaBookmark: lazy(() => import("@/components/parts/svg/IconSnsHatenaBookmark")),
-  linkCircle: lazy(() => import("@/components/parts/svg/IconLinkCircle"))
+  linkCircle: lazy(() => import("@/components/parts/svg/IconLinkCircle")),
+  logoFullSP: lazy(() => import("@/components/parts/svg/LogoFullSP")), // TODO: 最終的にLogoFullを1つにしたいが、SP(HeaderSP)で表示した時に表示がおかしくなるので仕方なく分離させている。
+  logoFullPC: lazy(() => import("@/components/parts/svg/LogoFullPC"))
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 
 type Props = {

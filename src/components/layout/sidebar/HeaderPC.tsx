@@ -1,5 +1,6 @@
 import styles from "@/components/layout/sidebar/HeaderPC.module.css"
 import Link from "@/components/parts/common/Link"
+import SvgLoader from "@/components/parts/svg/SvgLoader"
 import { PAGE_PATH } from "@/constants/page"
 
 import type { ReactNode } from "react"
@@ -11,9 +12,8 @@ import type { ReactNode } from "react"
 const HeaderPC = (): ReactNode => {
   return (
     <div className={styles.headerPC}>
-      {/* TODO: ロゴはSVGに置き換える */}
       <Link href={PAGE_PATH.TOP}>
-        <img height={60} src="/logo-full.png" width={283} />
+        <SvgLoader height={60} name="logoFullPC" width={297.28} />
       </Link>
     </div>
   )
