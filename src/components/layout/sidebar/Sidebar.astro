@@ -10,22 +10,22 @@ const curentArticleTitle = "記事のタイトル" // TODO: 仮当て
 const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 ---
 
-<div class={styles.sidebarContainer}>
-  <header class={styles.header}>
+<div className={styles.sidebarContainer}>
+  <header className={styles.header}>
     <HeaderPC />
   </header>
 
-  <div class={styles.main}>
+  <div className={styles.main}>
     <Infobar />
 
     <SidebarItemWithTitle title="さがす">
-      <Input hasSearchIcon placeholder="キーワードを入力…" client:load />
+      <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
     <ShareButtons
+      client:load
       currentArticleTitle={curentArticleTitle}
       currentArticleUrl={currentArticleUrl}
-      client:load
     />
   </div>
 </div>

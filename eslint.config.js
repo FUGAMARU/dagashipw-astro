@@ -1,5 +1,5 @@
 import eslintJS from "@eslint/js"
-import tsEslintPlugin, { rules } from "@typescript-eslint/eslint-plugin"
+import tsEslintPlugin from "@typescript-eslint/eslint-plugin"
 import eslintConfigPrettier from "eslint-config-prettier"
 import eslintPluginAstro from "eslint-plugin-astro"
 import eslintPluginImport from "eslint-plugin-import"
@@ -202,7 +202,7 @@ export default [
   },
   {
     /** AstroファイルではclassName属性は使えないのでoff */
-    files: ["**/*.{astro}"],
+    files: ["**/*.astro"],
     rules: {
       "react/no-unknown-property": "off"
     }

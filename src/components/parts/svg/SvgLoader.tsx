@@ -1,4 +1,4 @@
-import { lazy, useEffect, type ReactNode } from "react"
+import { lazy, type ReactNode } from "react"
 
 import type { SvgComponentName, SvgProps } from "@/types/svg"
 

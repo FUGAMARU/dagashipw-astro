@@ -3,8 +3,13 @@ import Layout from "@/components/layout/Layout.astro"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getArticle } from "@/services/api"
 
-/** TODO: articleUrlId一覧を渡してあげる */
-export const getStaticPaths = () => {
+import type { GetStaticPaths } from "astro"
+
+/**
+ * TODO: articleUrlId一覧を渡してあげる
+ * @returns GetStaticPaths
+ */
+export const getStaticPaths: GetStaticPaths = () => {
   return [
     { params: { articleUrlId: "hoge" } },
     { params: { articleUrlId: "piyo" } },
