@@ -18,6 +18,7 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {}
   },
+  staticDirs: ["../dummy-images"],
   async viteFinal(config) {
     return mergeConfig(config, {
       plugins: [

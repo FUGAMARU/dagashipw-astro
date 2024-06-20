@@ -1,0 +1,9 @@
+.imageRow {
+  display: flex;
+
+  > .image {
+    flex: 1;
+    width: 100%;
+    height: fit-content;
+  }
+}

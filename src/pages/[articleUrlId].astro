@@ -1,4 +1,10 @@
 ---
+import { Markdown } from "astro-remote"
+import axios from "axios"
+
+import ImageRow from "@/components/article/originals/image/ImageRow"
+import H2 from "@/components/article/standards/heading/H2"
+import Paragraph from "@/components/article/standards/Paragraph"
 import Layout from "@/components/layout/Layout.astro"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getArticle } from "@/services/api"
@@ -19,19 +25,27 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 const articleData = await getArticle(1)
 console.log(articleData)
+
+const url = "https://strapi.dagashi.pw/api/articles/3"
+const response = await axios.get(url)
+const content = response.data.data.attributes.body
 ---
 
 <Layout title="記事タイトル | 麩菓子の雑記帳">
   <div class={styles.articlePageMain}>
     {/* 記事本文エリア */}
     <div class={styles.body}>
-      <p>
-        それは今どうしてもその講義人という訳の以上をしますだ。同時に昔に構成院はどうもこの尊重ななまでのあるばいたくをは持ありましなが、そうにもしなけれますでない。習慣に思いないものははなはだ昨日がよくたないた。よしネルソン君に発展教師しっかり意見を越せまし文芸どんな道具私か附随にというご活動でただろまして、その十一月は私か顔日本人にありて、木下さんのものに客のそこにはなはだご汚辱ともっであなた人格をご横着をしようとけっしてお批評を倒さうだって、勢いいったん会得の云いますていたものに充たすないな。それでまた不神経に上げよのはあまり立派となっんが、その気には通じあっがという文学でなれているなませ。
-      </p>
-      <h2 style="font-weight: bold; font-size: 28px;margin: 16px 0;">見出しなのだ</h2>
-      <p>
-        それは今どうしてもその講義人という訳の以上をしますだ。同時に昔に構成院はどうもこの尊重ななまでのあるばいたくをは持ありましなが、そうにもしなけれますでない。習慣に思いないものははなはだ昨日がよくたないた。よしネルソン君に発展教師しっかり意見を越せまし文芸どんな道具私か附随にというご活動でただろまして、その十一月は私か顔日本人にありて、木下さんのものに客のそこにはなはだご汚辱ともっであなた人格をご横着をしようとけっしてお批評を倒さうだって、勢いいったん会得の云いますていたものに充たすないな。それでまた不神経に上げよのはあまり立派となっんが、その気には通じあっがという文学でなれているなませ。
-      </p>
+      <Markdown
+        components={{
+          h2: H2,
+          p: Paragraph,
+          ImageRow
+        }}
+        content={content}
+        sanitize={{
+          allowComponents: true
+        }}
+      />
 
       <p class={styles.built}>この記事は 2024/04/29 13:35:41 にビルドされました</p>
     </div>
