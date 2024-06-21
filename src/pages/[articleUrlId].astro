@@ -1,39 +1,47 @@
 ---
 import { Markdown } from "astro-remote"
-import axios from "axios"
 
 import ImageRow from "@/components/article/originals/image/ImageRow"
 import H2 from "@/components/article/standards/heading/H2"
 import Paragraph from "@/components/article/standards/Paragraph"
 import Layout from "@/components/layout/Layout.astro"
 import styles from "@/pages/_[articleUrlId].module.css"
-import { getArticle } from "@/services/api"
+import { getAllArticleUrlIds, getArticle } from "@/services/api"
+import { isDefined } from "@/utils/isDefined"
 
 import type { GetStaticPaths } from "astro"
 
 /**
- * TODO: articleUrlId一覧を渡してあげる
+ * 存在する記事のパス一覧をexportする
  * @returns GetStaticPaths
  */
-export const getStaticPaths: GetStaticPaths = () => {
-  return [
-    { params: { articleUrlId: "hoge" } },
-    { params: { articleUrlId: "piyo" } },
-    { params: { articleUrlId: "fuga" } }
-  ]
+export const getStaticPaths: GetStaticPaths = async () => {
+  const allArticleUrlIds = await getAllArticleUrlIds()
+
+  return allArticleUrlIds.map(({ articleUrlId }) => ({
+    params: {
+      articleUrlId
+    }
+  }))
 }
 
-const articleData = await getArticle(1)
-console.log(articleData)
+const { params: articleUrlIdParams } = Astro
+const allArticleUrlIds = await getAllArticleUrlIds()
 
-const url = "https://strapi.dagashi.pw/api/articles/3"
-const response = await axios.get(url)
-const content = response.data.data.attributes.body
+// articleUrlIdParamsからidを逆引き
+const articleId = allArticleUrlIds.find(
+  ({ articleUrlId }) => articleUrlId === articleUrlIdParams.articleUrlId
+)?.articleId
+
+if (!isDefined(articleId)) {
+  throw new Error("存在しないarticleUrlIdのブログ記事を読み込もうとしました")
+}
+
+const article = await getArticle(articleId)
 ---
 
-<Layout title="記事タイトル | 麩菓子の雑記帳">
+<Layout title={`${article?.title} | 麩菓子の雑記帳`}>
   <div class={styles.articlePageMain}>
-    {/* 記事本文エリア */}
     <div class={styles.body}>
       <Markdown
         components={{
@@ -41,7 +49,7 @@ const content = response.data.data.attributes.body
           p: Paragraph,
           ImageRow
         }}
-        content={content}
+        content={article?.body}
         sanitize={{
           allowComponents: true
         }}

@@ -17,7 +17,8 @@ export default [
       ".prettierrc.js",
       ".stylelintrc.js",
       ".storybook/main.ts",
-      ".storybook/preview.ts"
+      ".storybook/preview.ts",
+      "src/types/schema.ts"
     ]
   },
   {

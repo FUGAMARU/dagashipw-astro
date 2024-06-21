@@ -1,4 +1,4 @@
-import H2 from "@/components/article/heading/H2"
+import H2 from "@/components/article/standards/heading/H2"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
