@@ -9,28 +9,23 @@ import type { components, paths } from "@/types/schema"
 
 /**
  * 記事を取得する
- * @param articleId 記事ID (articleUrlIdではないので注意)
+ * @param articleUrlId 記事のURL ID
  * @returns 記事データ
  */
 export const getArticle = async (
-  articleId: number
+  articleUrlId: string
 ): Promise<components["schemas"]["Article"] | undefined> => {
   const response = await axiosInstance.get<
-    paths["/articles/{id}"]["get"]["responses"]["200"]["content"]["application/json"]
-  >(`/articles/${articleId}?populate=*`)
-  return response.data.data?.attributes
+    paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
+  >(`/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`)
+  return response.data?.data?.[0]?.attributes
 }
 
 /**
  * articleUrlId一覧を取得する
  * @returns articleUrlId一覧
  */
-export const getAllArticleUrlIds = async (): Promise<
-  Array<{
-    articleId: number
-    articleUrlId: string
-  }>
-> => {
+export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
   const response =
     await axiosInstance.get<
       paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
@@ -39,10 +34,5 @@ export const getAllArticleUrlIds = async (): Promise<
 
   if (!isDefined(articles)) return []
 
-  return articles
-    .map(article => ({
-      articleId: article.id ?? 0,
-      articleUrlId: article.attributes?.articleUrlId ?? ""
-    }))
-    .filter(({ articleId, articleUrlId }) => articleId !== 0 && articleUrlId !== "")
+  return articles.map(article => article.attributes?.articleUrlId).filter(isDefined)
 }

@@ -21,26 +21,20 @@ import type { GetStaticPaths } from "astro"
 export const getStaticPaths: GetStaticPaths = async () => {
   const allArticleUrlIds = await getAllArticleUrlIds()
 
-  return allArticleUrlIds.map(({ articleUrlId }) => ({
+  return allArticleUrlIds.map(articleUrlId => ({
     params: {
       articleUrlId
     }
   }))
 }
 
-const { params: articleUrlIdParams } = Astro
-const allArticleUrlIds = await getAllArticleUrlIds()
+const { articleUrlId } = Astro.params
 
-// articleUrlIdParamsからidを逆引き
-const articleId = allArticleUrlIds.find(
-  ({ articleUrlId }) => articleUrlId === articleUrlIdParams.articleUrlId
-)?.articleId
-
-if (!isDefined(articleId)) {
-  throw new Error("存在しないarticleUrlIdの記事を読み込もうとしました")
+if (typeof articleUrlId !== "string") {
+  throw new Error("記事のURL IDが不正です")
 }
 
-const article = await getArticle(articleId)
+const article = await getArticle(articleUrlId)
 
 if (!isDefined(article)) {
   throw new Error("記事情報が存在しません")
