@@ -22,3 +22,7 @@ export type SvgComponentName =
   | "snsHatenaBookmark"
   | "logoFullSP"
   | "logoFullPC"
+  | "hash"
+  | "writingPen"
+  | "reverseClock"
+  | "commentWithPen"

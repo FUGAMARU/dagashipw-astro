@@ -1,0 +1,24 @@
+.backNumber {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100px;
+  height: 26px;
+  background: linear-gradient(
+    140deg,
+    var(--color-gradient-green-start) 0%,
+    var(--color-gradient-green-end) 85%,
+    var(--color-gradient-green-end) 100%
+  );
+  border-radius: 4px;
+  transform: skew(-28deg);
+
+  > .text {
+    position: absolute;
+    padding-right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-black);
+    transform: skew(28deg);
+  }
+}

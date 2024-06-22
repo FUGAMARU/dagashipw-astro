@@ -1,0 +1,51 @@
+.articleInfo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-family: GreycliffCF, sans-serif;
+  letter-spacing: 0.02em;
+
+  &.WhiteStyle {
+    color: var(--color-white);
+    fill: var(--color-white);
+  }
+}
+
+.sectionCommonStyle {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  border-bottom: solid 0.5px;
+
+  > .pcIcon {
+    display: none;
+  }
+}
+
+.createdAt {
+  gap: 4px;
+}
+
+.updatedAt {
+  gap: 2px;
+}
+
+.commentCount {
+  gap: 4px;
+}
+
+@media (width >= 768px) {
+  .articleInfo {
+    gap: 24px;
+  }
+
+  .sectionCommonStyle {
+    > .spIcon {
+      display: none;
+    }
+
+    > .pcIcon {
+      display: inline;
+    }
+  }
+}

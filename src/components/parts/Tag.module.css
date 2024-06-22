@@ -1,0 +1,11 @@
+.tagComponent {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--color-white);
+  background-color: var(--color-gray-alpha);
+  border-radius: 4px;
+  fill: var(--color-white);
+}

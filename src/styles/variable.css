@@ -1,6 +1,7 @@
 :root {
   --color-white: #fff;
   --color-black: #000;
+  --color-black-20: rgb(0 0 0 / 20%);
   --color-text-dark: #343434;
   --color-light-dark: #555;
   --color-text-gray: #9a9a9a;
@@ -12,4 +13,5 @@
   --color-gradient-green-start: #ebff00;
   --color-gradient-green-end: #61ff00;
   --color-gradient-green-passing-point: #daff03;
+  --color-gray-alpha: rgb(133 133 133 / 80%);
 }

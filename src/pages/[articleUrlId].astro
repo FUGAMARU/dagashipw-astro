@@ -5,6 +5,7 @@ import ImageRow from "@/components/article/originals/image/ImageRow"
 import H2 from "@/components/article/standards/heading/H2"
 import Paragraph from "@/components/article/standards/Paragraph"
 import Layout from "@/components/layout/Layout.astro"
+import HeroSP from "@/components/templates/hero/HeroSP"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { isDefined } from "@/utils/isDefined"
@@ -42,6 +43,17 @@ const article = await getArticle(articleId)
 
 <Layout title={`${article?.title} | 麩菓子の雑記帳`}>
   <div class={styles.articlePageMain}>
+    <div class={styles.hero}>
+      <HeroSP
+        backNumber={1}
+        commentCount={1}
+        createdAt="2021/01/01"
+        tags={["タグ1", "タグ2"]}
+        thumbnailUrl="https://animeanime.jp/imgs/zoom/177259.jpg"
+        title="はがないの聖地「長良公園」に行ってきた！"
+        updatedAt="2021/01/02"
+      />
+    </div>
     <div class={styles.body}>
       <Markdown
         components={{

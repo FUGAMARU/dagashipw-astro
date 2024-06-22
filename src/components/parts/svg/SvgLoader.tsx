@@ -10,7 +10,11 @@ const SVG_COMPONENTS = {
   snsHatenaBookmark: lazy(() => import("@/components/parts/svg/IconSnsHatenaBookmark")),
   linkCircle: lazy(() => import("@/components/parts/svg/IconLinkCircle")),
   logoFullSP: lazy(() => import("@/components/parts/svg/LogoFullSP")), // TODO: 最終的にLogoFullを1つにしたいが、SP(HeaderSP)で表示した時に表示がおかしくなるので仕方なく分離させている。
-  logoFullPC: lazy(() => import("@/components/parts/svg/LogoFullPC"))
+  logoFullPC: lazy(() => import("@/components/parts/svg/LogoFullPC")),
+  hash: lazy(() => import("@/components/parts/svg/IconHash")),
+  writingPen: lazy(() => import("@/components/parts/svg/IconWritingPen")),
+  reverseClock: lazy(() => import("@/components/parts/svg/IconReverseClock")),
+  commentWithPen: lazy(() => import("@/components/parts/svg/IconCommentWithPen"))
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 
 type Props = {
