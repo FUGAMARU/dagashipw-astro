@@ -7,9 +7,10 @@ import Image from "@/components/article/standards/Image"
 import Paragraph from "@/components/article/standards/Paragraph"
 import Layout from "@/components/layout/Layout.astro"
 import Hero from "@/components/templates/hero/Hero"
-import { STRAPI_BASE_URL } from "@/constants/value"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
+import { generateHeroPropsFromArticleInfo } from "@/utils/generateHeroPropsFromArticleInfo"
+import { getCurrentDateTime } from "@/utils/getCurrentDateTime"
 import { isDefined } from "@/utils/isDefined"
 
 import type { GetStaticPaths } from "astro"
@@ -40,15 +41,7 @@ if (!isDefined(article)) {
   throw new Error("記事情報が存在しません")
 }
 
-const heroProps = {
-  createdAt: article.forceCreatedAt ?? article.createdAt ?? "2000/01/01",
-  updatedAt: article.forceUpdatedAt ?? article.updatedAt ?? "2000/01/01",
-  commentCount: 1, // TODO: 実際の値を反映させる必要がある
-  backNumber: 1, // TODO: 実際の値を反映させる必要がある
-  title: article.title,
-  tags: (article.tags as Array<string>) ?? [],
-  thumbnailUrl: `${STRAPI_BASE_URL}${article.thumbnail?.data?.attributes?.url}`
-}
+const heroProps = generateHeroPropsFromArticleInfo(article)
 ---
 
 <Layout title={`${article?.title} | 麩菓子の雑記帳`}>
@@ -75,7 +68,7 @@ const heroProps = {
         }}
       />
 
-      <p class={styles.built}>この記事は 2024/04/29 13:35:41 にビルドされました</p>
+      <p class={styles.built}>{`この記事は ${getCurrentDateTime()} にビルドされました`}</p>
     </div>
     {/* TODO: コメントエリア */}
   </div>

@@ -2,6 +2,7 @@ import clsx from "clsx"
 
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/ArticleInfo.module.css"
+import { isDefined } from "@/utils/isDefined"
 
 import type { ReactNode } from "react"
 
@@ -9,7 +10,7 @@ type Props = {
   /** 作成日 */
   createdAt: string
   /** 更新日 */
-  updatedAt: string
+  updatedAt?: string
   /** コメント数 */
   commentCount: number
   /** 文字色を白にするかどうか */
@@ -38,15 +39,17 @@ const ArticleInfo = ({
         <span>{createdAt}</span>
       </div>
 
-      <div className={clsx(styles.sectionCommonStyle, styles.updatedAt)}>
-        <span className={styles.spIcon}>
-          <SvgLoader height={16} name="reverseClock" width={16} />
-        </span>
-        <span className={styles.pcIcon}>
-          <SvgLoader height={18} name="reverseClock" width={18} />
-        </span>
-        <span>{updatedAt}</span>
-      </div>
+      {isDefined(updatedAt) && (
+        <div className={clsx(styles.sectionCommonStyle, styles.updatedAt)}>
+          <span className={styles.spIcon}>
+            <SvgLoader height={16} name="reverseClock" width={16} />
+          </span>
+          <span className={styles.pcIcon}>
+            <SvgLoader height={18} name="reverseClock" width={18} />
+          </span>
+          <span>{updatedAt}</span>
+        </div>
+      )}
 
       <div className={clsx(styles.sectionCommonStyle, styles.commentCount)}>
         <span className={styles.spIcon}>

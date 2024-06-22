@@ -58,8 +58,6 @@ export default [
       "no-multiple-empty-lines": ["error", { max: 1 }],
       /** 厳密等価演算子を強制する */
       eqeqeq: ["error", "always"],
-      /** マジックナンバー禁止 */
-      "no-magic-numbers": ["error", { ignore: [-1, 0, 1] }],
       /** コメントの後に半角スペースを強制する */
       "spaced-comment": ["error", "always", { exceptions: ["-", "+"] }],
       /** 暗黙の型変換を防ぐ */
