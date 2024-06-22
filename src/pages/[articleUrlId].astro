@@ -7,6 +7,7 @@ import Image from "@/components/article/standards/Image"
 import Paragraph from "@/components/article/standards/Paragraph"
 import Layout from "@/components/layout/Layout.astro"
 import Hero from "@/components/templates/hero/Hero"
+import { STRAPI_BASE_URL } from "@/constants/value"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { isDefined } from "@/utils/isDefined"
@@ -36,38 +37,34 @@ const articleId = allArticleUrlIds.find(
 )?.articleId
 
 if (!isDefined(articleId)) {
-  throw new Error("存在しないarticleUrlIdのブログ記事を読み込もうとしました")
+  throw new Error("存在しないarticleUrlIdの記事を読み込もうとしました")
 }
 
 const article = await getArticle(articleId)
+
+if (!isDefined(article)) {
+  throw new Error("記事情報が存在しません")
+}
+
+const heroProps = {
+  createdAt: article.forceCreatedAt ?? article.createdAt ?? "2000/01/01",
+  updatedAt: article.forceUpdatedAt ?? article.updatedAt ?? "2000/01/01",
+  commentCount: 1, // TODO: 実際の値を反映させる必要がある
+  backNumber: 1, // TODO: 実際の値を反映させる必要がある
+  title: article.title,
+  tags: (article.tags as Array<string>) ?? [],
+  thumbnailUrl: `${STRAPI_BASE_URL}${article.thumbnail?.data?.attributes?.url}`
+}
 ---
 
 <Layout title={`${article?.title} | 麩菓子の雑記帳`}>
   <div class={styles.articlePageMain}>
     <div class={styles.heroSp}>
-      <Hero
-        backNumber={1}
-        commentCount={1}
-        createdAt="2021/01/01"
-        device="sp"
-        tags={["タグ1", "タグ2"]}
-        thumbnailUrl="https://animeanime.jp/imgs/zoom/177259.jpg"
-        title="はがないの聖地「長良公園」に行ってきた！"
-        updatedAt="2021/01/02"
-      />
+      <Hero device="sp" {...heroProps} />
     </div>
 
     <div class={styles.heroPc}>
-      <Hero
-        backNumber={1}
-        commentCount={1}
-        createdAt="2021/01/01"
-        device="pc"
-        tags={["タグ1", "タグ2"]}
-        thumbnailUrl="https://animeanime.jp/imgs/zoom/177259.jpg"
-        title="はがないの聖地「長良公園」に行ってきた！"
-        updatedAt="2021/01/02"
-      />
+      <Hero device="pc" {...heroProps} />
     </div>
 
     <div class={styles.body}>

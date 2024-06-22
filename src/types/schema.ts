@@ -1303,16 +1303,16 @@ export interface components {
     }
     ArticleRequest: {
       data: {
-        title?: string
+        title: string
         /** @example string or id */
         thumbnail?: number | string
-        body?: string
-        tags?: unknown
+        body: string
+        tags: unknown
         /** Format: date */
         forceCreatedAt?: string
         /** Format: date */
         forceUpdatedAt?: string
-        articleUrlId?: string
+        articleUrlId: string
       }
     }
     ArticleListResponseDataItem: {
@@ -1331,7 +1331,7 @@ export interface components {
       }
     }
     Article: {
-      title?: string
+      title: string
       thumbnail?: {
         data?: {
           id?: number
@@ -1559,13 +1559,13 @@ export interface components {
           }
         }
       }
-      body?: string
-      tags?: unknown
+      body: string
+      tags: unknown
       /** Format: date */
       forceCreatedAt?: string
       /** Format: date */
       forceUpdatedAt?: string
-      articleUrlId?: string
+      articleUrlId: string
       /** Format: date-time */
       createdAt?: string
       /** Format: date-time */

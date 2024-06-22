@@ -17,7 +17,7 @@ export const getArticle = async (
 ): Promise<components["schemas"]["Article"] | undefined> => {
   const response = await axiosInstance.get<
     paths["/articles/{id}"]["get"]["responses"]["200"]["content"]["application/json"]
-  >(`/articles/${articleId}`)
+  >(`/articles/${articleId}?populate=*`)
   return response.data.data?.attributes
 }
 
