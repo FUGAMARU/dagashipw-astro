@@ -1,0 +1,30 @@
+.h3Tag {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+
+  > .line {
+    width: 4px;
+    height: 32px;
+    background: linear-gradient(
+      180deg,
+      var(--color-gradient-green-start) 0%,
+      var(--color-gradient-green-end) 100%
+    );
+    border-radius: 4px;
+  }
+
+  > .text {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+@media (width >= 768px) {
+  .h3Tag {
+    > .text {
+      font-size: 21px;
+    }
+  }
+}
