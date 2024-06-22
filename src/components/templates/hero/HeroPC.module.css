@@ -1,0 +1,68 @@
+.heroPC {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.imageContainer {
+  overflow: hidden;
+  border: solid 1px var(--color-hero-pc-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 4px var(--color-black-20);
+
+  > .thumbnail {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+}
+
+.overlayContainer {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+
+  > .upper {
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--color-black-50) 70%,
+      var(--color-black-60) 100%
+    );
+  }
+
+  > .main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 32px;
+    overflow: hidden;
+    color: var(--color-white);
+    background-color: var(--color-black-60);
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+
+    > .title {
+      font-size: 28px;
+      font-weight: bold;
+      line-height: 1.25;
+    }
+
+    > .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    > .number {
+      position: absolute;
+      top: 0;
+      right: -10px;
+    }
+  }
+}
