@@ -1,4 +1,4 @@
-import { clsx } from "clsx"
+import clsx from "clsx"
 
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/ArticleInfo.module.css"

@@ -3,6 +3,7 @@ import { Markdown } from "astro-remote"
 
 import ImageRow from "@/components/article/originals/image/ImageRow"
 import H2 from "@/components/article/standards/heading/H2"
+import Image from "@/components/article/standards/Image"
 import Paragraph from "@/components/article/standards/Paragraph"
 import Layout from "@/components/layout/Layout.astro"
 import Hero from "@/components/templates/hero/Hero"
@@ -74,6 +75,7 @@ const article = await getArticle(articleId)
         components={{
           h2: H2,
           p: Paragraph,
+          img: Image,
           ImageRow
         }}
         content={article?.body}

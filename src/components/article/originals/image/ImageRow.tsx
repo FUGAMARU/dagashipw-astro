@@ -1,4 +1,5 @@
 import styles from "@/components/article/originals/image/ImageRow.module.css"
+import Image from "@/components/article/standards/Image"
 
 import type { ReactNode } from "react"
 
@@ -18,8 +19,8 @@ type Props = {
 const ImageRow = ({ leftSideImageUrl, rightSideImageUrl, gap }: Props): ReactNode => {
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
-      <img alt="" className={styles.image} src={leftSideImageUrl} />
-      <img alt="" className={styles.image} src={rightSideImageUrl} />
+      <Image alt="" className={styles.image} src={leftSideImageUrl} />
+      <Image alt="" className={styles.image} src={rightSideImageUrl} />
     </div>
   )
 }
