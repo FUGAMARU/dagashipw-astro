@@ -17,6 +17,8 @@
 
 @media (width >= 768px) {
   .sidebarContainer {
+    position: sticky;
+    top: 48px;
     border-radius: 16px;
 
     > .header {
