@@ -1,0 +1,12 @@
+.linkInArticle {
+  color: var(--color-link-green);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    /* TODO: 設定する */
+  }
+}
