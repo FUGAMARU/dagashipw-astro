@@ -16,7 +16,6 @@ const meta: Meta<typeof TableOfContentsItem> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 初期表示 */
 export const Primary: Story = {
   args: { title: "コンテンツの見出しテキスト", isActive: false, itemNumber: "1", href: "#" }
 }

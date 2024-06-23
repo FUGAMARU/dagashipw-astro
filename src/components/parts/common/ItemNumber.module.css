@@ -1,5 +1,6 @@
 .itemNumber {
   display: grid;
+  flex-shrink: 0; /* Flexで横並びになった時にItemNumberが潰れて良いパターンは無い */
   place-items: center;
   width: max-content;
   height: 18px;

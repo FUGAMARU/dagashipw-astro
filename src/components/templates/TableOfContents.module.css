@@ -1,6 +1,7 @@
 .tableOfContents {
   position: relative;
   padding: 4px;
+  line-height: 1;
   background: linear-gradient(
     135deg,
     var(--color-gradient-green-start) 0%,

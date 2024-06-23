@@ -1,12 +1,12 @@
-import TableOfContents from "@/components/templates/TableOfContents"
+import TableOfContentsPC from "@/components/layout/sidebar/TableOfContentsPC"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
-const meta: Meta<typeof TableOfContents> = {
-  component: TableOfContents,
+const meta: Meta<typeof TableOfContentsPC> = {
+  component: TableOfContentsPC,
   tags: ["autodocs"],
-  args: { contents: undefined, activeItemHref: undefined },
-  argTypes: { activeItemHref: { control: "text" } }
+  args: {},
+  argTypes: {}
 }
 
 export default meta

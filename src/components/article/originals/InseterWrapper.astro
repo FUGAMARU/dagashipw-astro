@@ -1,0 +1,7 @@
+---
+import Inserter from "@/components/article/originals/Inserter"
+
+const { type } = Astro.props
+---
+
+<Inserter client:only="react" type={type} />

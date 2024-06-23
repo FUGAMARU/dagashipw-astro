@@ -4,6 +4,7 @@ import Infobar from "@/components/layout/sidebar/Infobar"
 import ShareButtons from "@/components/layout/sidebar/ShareButtons"
 import styles from "@/components/layout/sidebar/Sidebar.module.css"
 import SidebarItemWithTitle from "@/components/layout/sidebar/SidebarItemWithTitle"
+import TableOfContentsPC from "@/components/layout/sidebar/TableOfContentsPC"
 import Input from "@/components/parts/input/Input"
 
 const curentArticleTitle = "記事のタイトル" // TODO: 仮当て
@@ -22,10 +23,14 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
       <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
-    <ShareButtons
-      client:load
-      currentArticleTitle={curentArticleTitle}
-      currentArticleUrl={currentArticleUrl}
-    />
+    <TableOfContentsPC client:load />
+
+    <SidebarItemWithTitle title="この記事をシェアする">
+      <ShareButtons
+        client:load
+        currentArticleTitle={curentArticleTitle}
+        currentArticleUrl={currentArticleUrl}
+      />
+    </SidebarItemWithTitle>
   </div>
 </div>

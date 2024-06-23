@@ -15,6 +15,10 @@ import { generateHeroPropsFromArticleInfo } from "@/utils/generateHeroPropsFromA
 import { getCurrentDateTime } from "@/utils/getCurrentDateTime"
 import { isDefined } from "@/utils/isDefined"
 
+import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
+import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
+import { generateTableOfContentsFromMarkdown } from "@/utils/generateTableOfContentsFromMarkdown"
+import { insertTableOfContents } from "@/utils/insertTableOfContents"
 import type { GetStaticPaths } from "astro"
 
 /**
@@ -44,7 +48,17 @@ if (!isDefined(article)) {
 }
 
 const heroProps = generateHeroPropsFromArticleInfo(article)
+
+const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
+const sessionStorageTableOfContentsKey = SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
+
+const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
 ---
+
+<script define:vars={{ tableOfContentsData, sessionStorageTableOfContentsKey }}>
+  // Astroのコンポーネントスクリプト(サーバーサイドで実行される)同士でグローバルステートを共有する良い方法がないためsessionStorageを利用する
+  sessionStorage.setItem(sessionStorageTableOfContentsKey, JSON.stringify(tableOfContentsData))
+</script>
 
 <Layout title={`${article?.title} | 麩菓子の雑記帳`}>
   <div class={styles.articlePageMain}>
@@ -64,9 +78,10 @@ const heroProps = generateHeroPropsFromArticleInfo(article)
           p: Paragraph,
           a: LinkInArticle,
           img: Image,
-          ImageRow
+          ImageRow,
+          Inserter: InseterWrapper
         }}
-        content={article?.body}
+        content={tableOfContentsInsertedArticleBody}
         sanitize={{
           allowComponents: true
         }}

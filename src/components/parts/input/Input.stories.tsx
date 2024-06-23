@@ -16,7 +16,6 @@ const meta: Meta<typeof Input> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** 初期表示 */
 export const Primary: Story = {
   args: { hasSearchIcon: false, placeholder: "Placeholder" }
 }
