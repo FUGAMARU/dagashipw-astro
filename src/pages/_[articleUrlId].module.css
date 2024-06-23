@@ -1,7 +1,8 @@
 .articlePageMain {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+
+  /* gap: 32px; */
   background-color: var(--color-white);
   border-bottom-right-radius: 24px;
   border-bottom-left-radius: 24px;

@@ -20,7 +20,7 @@ const HeroSP = ({
   tags
 }: HeroProps): ReactNode => {
   return (
-    <>
+    <div className={styles.heroSP}>
       <div className={styles.imageContainer}>
         <img alt={title} className={styles.thumbnail} src={thumbnailUrl} />
         <div className={styles.overlay} />
@@ -47,7 +47,7 @@ const HeroSP = ({
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
