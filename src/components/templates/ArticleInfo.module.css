@@ -16,10 +16,6 @@
   align-items: center;
   font-size: 14px;
   border-bottom: solid 0.5px;
-
-  > .pcIcon {
-    display: none;
-  }
 }
 
 .createdAt {
@@ -37,15 +33,5 @@
 @media (width >= 768px) {
   .articleInfo {
     gap: 24px;
-  }
-
-  .sectionCommonStyle {
-    > .spIcon {
-      display: none;
-    }
-
-    > .pcIcon {
-      display: inline;
-    }
   }
 }

@@ -2,6 +2,7 @@ import clsx from "clsx"
 
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/ArticleInfo.module.css"
+import useIsSP from "@/hooks/useIsSP"
 import { isDefined } from "@/utils/isDefined"
 
 import type { ReactNode } from "react"
@@ -27,37 +28,24 @@ const ArticleInfo = ({
   commentCount,
   isWhiteStyle = false
 }: Props): ReactNode => {
+  const isSP = useIsSP()
+
   return (
     <div className={clsx(styles.articleInfo, isWhiteStyle && styles.WhiteStyle)}>
       <div className={clsx(styles.sectionCommonStyle, styles.createdAt)}>
-        <span className={styles.spIcon}>
-          <SvgLoader height={12} name="writingPen" width={12} />
-        </span>
-        <span className={styles.pcIcon}>
-          <SvgLoader height={16} name="writingPen" width={16} />
-        </span>
+        <SvgLoader height={isSP ? 12 : 16} name="writingPen" width={isSP ? 12 : 16} />
         <span>{createdAt}</span>
       </div>
 
       {isDefined(updatedAt) && (
         <div className={clsx(styles.sectionCommonStyle, styles.updatedAt)}>
-          <span className={styles.spIcon}>
-            <SvgLoader height={16} name="reverseClock" width={16} />
-          </span>
-          <span className={styles.pcIcon}>
-            <SvgLoader height={18} name="reverseClock" width={18} />
-          </span>
+          <SvgLoader height={isSP ? 16 : 18} name="reverseClock" width={isSP ? 16 : 18} />
           <span>{updatedAt}</span>
         </div>
       )}
 
       <div className={clsx(styles.sectionCommonStyle, styles.commentCount)}>
-        <span className={styles.spIcon}>
-          <SvgLoader height={12} name="commentWithPen" width={12} />
-        </span>
-        <span className={styles.pcIcon}>
-          <SvgLoader height={16} name="commentWithPen" width={16} />
-        </span>
+        <SvgLoader height={isSP ? 12 : 16} name="commentWithPen" width={isSP ? 12 : 16} />
         <span>{commentCount}</span>
       </div>
     </div>
