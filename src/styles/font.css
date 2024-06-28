@@ -37,3 +37,11 @@
   src: url("/fonts/GreycliffCF-Regular.woff2") format("woff2");
   font-display: swap;
 }
+
+@font-face {
+  font-family: "HackGen35";
+  font-style: normal;
+  font-weight: normal;
+  src: url("/fonts/HackGen35-Regular.woff2") format("woff2");
+  font-display: swap;
+}

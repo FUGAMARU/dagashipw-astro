@@ -16,6 +16,7 @@ import { getCurrentDateTime } from "@/utils/getCurrentDateTime"
 import { isDefined } from "@/utils/isDefined"
 
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
+import Code from "@/components/article/standards/Code"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 import { generateTableOfContentsFromMarkdown } from "@/utils/generateTableOfContentsFromMarkdown"
 import { insertTableOfContents } from "@/utils/insertTableOfContents"
@@ -78,6 +79,7 @@ const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
           p: Paragraph,
           a: LinkInArticle,
           img: Image,
+          code: Code,
           ImageRow,
           Inserter: InseterWrapper
         }}
