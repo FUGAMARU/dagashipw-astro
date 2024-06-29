@@ -1,4 +1,5 @@
 import styles from "@/components/article/standards/heading/H2.module.css"
+import { generateHeadingIdFromChildren } from "@/utils/generateHeadingIdFromChildren"
 
 import type { Children } from "@/types/children"
 import type { ReactNode } from "react"
@@ -9,7 +10,7 @@ import type { ReactNode } from "react"
  */
 const H2 = ({ children }: Children): ReactNode => {
   return (
-    <h2 className={styles.h2Tag}>
+    <h2 className={styles.h2Tag} id={generateHeadingIdFromChildren(children)}>
       <span className={styles.text}>{children}</span>
       <div className={styles.line} />
     </h2>
