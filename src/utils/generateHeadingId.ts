@@ -49,14 +49,14 @@ const extractTextFromHTMLTag = (html: string): string => {
 
 /**
  * 見出し用のIDを生成する関数
- * @param children - ReactNode
+ * @param text - ReactNode | string
  * @returns ID
  */
-export const generateHeadingIdFromChildren = (children: ReactNode): string => {
-  const textWithTag = extractTextFromChildren(children)
-  const text = extractTextFromHTMLTag(textWithTag)
+export const generateHeadingId = (text: ReactNode | string): string => {
+  const targetText =
+    typeof text === "string" ? text : extractTextFromHTMLTag(extractTextFromChildren(text))
 
-  return text
+  return targetText
     .replace(/^\d/, "") // 先頭が数字の場合は削除
     .replace(/[^A-Za-z0-9\u3040-\u309F\u30A0-\u30FF\u3400-\u4DBF\u4E00-\u9FFFー_-]/g, "") // 英数字と日本語と一部記号以外を削除
     .replace(/\s/g, "") // 空白を削除

@@ -1,3 +1,4 @@
+import { generateHeadingId } from "@/utils/generateHeadingId"
 import { isDefined } from "@/utils/isDefined"
 
 import type TableOfContents from "@/components/templates/TableOfContents"
@@ -53,7 +54,7 @@ export const generateTableOfContentsFromMarkdown = (
     if (isDefined(h2Match)) {
       currentH2 = {
         title: h2Match[1],
-        href: `#heading-h2-${h2Match[1].toLowerCase().replace(/\s+/g, "-")}`
+        href: `#${generateHeadingId(h2Match[1])}`
       }
       data.push({ h2: currentH2 })
       currentH3 = null
@@ -63,7 +64,7 @@ export const generateTableOfContentsFromMarkdown = (
     if (isDefined(h3Match) && isDefined(currentH2)) {
       currentH3 = {
         title: h3Match[1],
-        href: `#heading-h3-${h3Match[1].toLowerCase().replace(/\s+/g, "-")}`
+        href: `#${generateHeadingId(h3Match[1])}`
       }
       currentH2.h3 = currentH2.h3 ?? []
       currentH2.h3.push(currentH3)
@@ -75,7 +76,7 @@ export const generateTableOfContentsFromMarkdown = (
     }
     currentH4 = {
       title: h4Match[1],
-      href: `#heading-h4-${h4Match[1].toLowerCase().replace(/\s+/g, "-")}`
+      href: `#${generateHeadingId(h4Match[1])}`
     }
     currentH3.h4 = currentH3.h4 ?? []
     currentH3.h4.push(currentH4)
