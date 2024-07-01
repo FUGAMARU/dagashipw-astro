@@ -19,7 +19,7 @@ const TableOfContentsWrapper = (): ReactNode => {
     return null
   }
 
-  return <TableOfContents activeItemHref="" contents={tableOfContentsData} />
+  return <TableOfContents contents={tableOfContentsData} />
 }
 
 export default TableOfContentsWrapper

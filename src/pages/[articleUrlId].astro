@@ -17,6 +17,7 @@ import { isDefined } from "@/utils/isDefined"
 
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
 import Code from "@/components/article/standards/Code"
+import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 import { generateTableOfContentsFromMarkdown } from "@/utils/generateTableOfContentsFromMarkdown"
 import { insertTableOfContents } from "@/utils/insertTableOfContents"
@@ -56,9 +57,50 @@ const sessionStorageTableOfContentsKey = SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
 const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
 ---
 
-<script define:vars={{ tableOfContentsData, sessionStorageTableOfContentsKey }}>
-  // Astroのコンポーネントスクリプト(サーバーサイドで実行される)同士でグローバルステートを共有する良い方法がないためsessionStorageを利用する
+<script
+  define:vars={{
+    tableOfContentsData,
+    sessionStorageTableOfContentsKey,
+    CUSTOM_EVENT_ACTIVE_HEADING_CHANGE
+  }}
+>
+  /** Astroのコンポーネントスクリプト(サーバーサイドで実行される)同士でグローバルステートを共有する良い方法がないためsessionStorageを利用する */
   sessionStorage.setItem(sessionStorageTableOfContentsKey, JSON.stringify(tableOfContentsData))
+
+  /**
+   * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する
+   * 参考: https://qiita.com/iwmy/items/7e557c7777c927d1bfaa
+   */
+  document.addEventListener("DOMContentLoaded", () => {
+    const relatedHeadingElements = document.querySelectorAll(
+      "h1, h1 ~ *, h2, h2 ~ *, h3, h3 ~ *, h4, h4 ~ *"
+    )
+
+    const observer = new IntersectionObserver(
+      entries => {
+        const intersectingHeading = entries.find(heading => heading.isIntersecting)
+        if (!intersectingHeading) return
+
+        const activeHeadingId = intersectingHeading.target.id // #は含まれない
+
+        if (activeHeadingId === "") {
+          return
+        }
+
+        const event = new CustomEvent(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, {
+          detail: `#${activeHeadingId}`
+        })
+        window.dispatchEvent(event)
+      },
+      {
+        rootMargin: "-10% 0px -90%"
+      }
+    )
+
+    relatedHeadingElements.forEach(element => {
+      observer.observe(element)
+    })
+  })
 </script>
 
 <Layout title={`${article?.title} | 麩菓子の雑記帳`}>

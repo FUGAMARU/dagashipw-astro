@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof TableOfContents> = {
   component: TableOfContents,
   tags: ["autodocs"],
-  args: { contents: undefined, activeItemHref: undefined },
-  argTypes: { activeItemHref: { control: "text" } }
+  args: { contents: undefined },
+  argTypes: {}
 }
 
 export default meta
@@ -73,7 +73,6 @@ export const Primary: Story = {
           href: "#heading4"
         }
       }
-    ],
-    activeItemHref: "#heading2"
+    ]
   }
 }

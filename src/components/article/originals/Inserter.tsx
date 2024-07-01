@@ -27,7 +27,7 @@ const Inserter = ({ type }: Props): ReactNode => {
   ) {
     return (
       <div className={styles.inserterContainer}>
-        <TableOfContents activeItemHref="" contents={tableOfContentsData} />
+        <TableOfContents contents={tableOfContentsData} />
       </div>
     )
   }

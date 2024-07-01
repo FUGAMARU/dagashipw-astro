@@ -1,8 +1,9 @@
-import { Fragment, type ReactNode } from "react"
+import { Fragment, useEffect, useState, type ReactNode } from "react"
 
 import DividerHorizontal from "@/components/parts/common/DividerHorizontal"
 import styles from "@/components/templates/TableOfContents.module.css"
 import TableOfContentsItem from "@/components/templates/TableOfContentsItem"
+import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
 
 type Props = {
   contents: Array<{
@@ -19,15 +20,31 @@ type Props = {
       }>
     }
   }>
-  /** アクティブ表示にするアイテムのhref */
-  activeItemHref: string
 }
 
 /**
  * 目次
  * @returns ReactNode
  */
-const TableOfContents = ({ contents, activeItemHref }: Props): ReactNode => {
+const TableOfContents = ({ contents }: Props): ReactNode => {
+  /** アクティブな見出しのID (sessionStorageからの取得ロジックを複数回用意するのが無駄なのでここでフックを呼んでしまう) */
+  const [activeHeadingHref, setActiveHeadingHref] = useState(contents[0].h2.href)
+
+  useEffect(() => {
+    const handleStateChange = (event: CustomEvent<string>): void => {
+      setActiveHeadingHref(event.detail)
+    }
+
+    window.addEventListener(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, handleStateChange as EventListener)
+
+    return (): void => {
+      window.removeEventListener(
+        CUSTOM_EVENT_ACTIVE_HEADING_CHANGE,
+        handleStateChange as EventListener
+      )
+    }
+  }, [])
+
   return (
     <div className={styles.tableOfContents}>
       <div className={styles.main}>
@@ -35,7 +52,7 @@ const TableOfContents = ({ contents, activeItemHref }: Props): ReactNode => {
           <Fragment key={content.h2.title}>
             <TableOfContentsItem
               href={content.h2.href}
-              isActive={activeItemHref === content.h2.href}
+              isActive={activeHeadingHref === content.h2.href}
               itemNumber={`${h2Index + 1}`}
               title={content.h2.title}
             />
@@ -44,7 +61,7 @@ const TableOfContents = ({ contents, activeItemHref }: Props): ReactNode => {
                 <div className={styles.headingH3}>
                   <TableOfContentsItem
                     href={h3.href}
-                    isActive={activeItemHref === h3.href}
+                    isActive={activeHeadingHref === h3.href}
                     itemNumber={`${h2Index + 1}-${h3Index + 1}`}
                     title={h3.title}
                   />
@@ -53,7 +70,7 @@ const TableOfContents = ({ contents, activeItemHref }: Props): ReactNode => {
                   <div key={h4.title} className={styles.headingH4}>
                     <TableOfContentsItem
                       href={h4.href}
-                      isActive={activeItemHref === h4.href}
+                      isActive={activeHeadingHref === h4.href}
                       itemNumber={`${h2Index + 1}-${h3Index + 1}-${h4Index + 1}`}
                       title={h4.title}
                     />
