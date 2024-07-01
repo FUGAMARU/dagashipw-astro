@@ -2,8 +2,6 @@ import { type ReactNode } from "react"
 
 import TableOfContents from "@/components/templates/TableOfContents"
 import useIsSP from "@/hooks/useIsSP"
-import useTableOfContents from "@/hooks/useTableOfContents"
-import { isDefined } from "@/utils/isDefined"
 
 /**
  * TableOfContentsコンポーネントのラッパー
@@ -12,14 +10,13 @@ import { isDefined } from "@/utils/isDefined"
  */
 const TableOfContentsWrapper = (): ReactNode => {
   const isSP = useIsSP()
-  const tableOfContentsData = useTableOfContents()
 
   // サイドバーでSP表示を出し分けるとreturn nullにしていてもアイテム間のgapは残るのでここで出し分ける
-  if (!isDefined(tableOfContentsData) || tableOfContentsData.length === 0 || isSP) {
+  if (isSP) {
     return null
   }
 
-  return <TableOfContents contents={tableOfContentsData} />
+  return <TableOfContents />
 }
 
 export default TableOfContentsWrapper

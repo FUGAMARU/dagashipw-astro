@@ -50,22 +50,19 @@ if (!isDefined(article)) {
 }
 
 const heroProps = generateHeroPropsFromArticleInfo(article)
-
 const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
-const sessionStorageTableOfContentsKey = SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
-
 const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
 ---
 
 <script
   define:vars={{
     tableOfContentsData,
-    sessionStorageTableOfContentsKey,
+    SESSION_STORAGE_TABLE_OF_CONTENTS_KEY,
     CUSTOM_EVENT_ACTIVE_HEADING_CHANGE
   }}
 >
-  /** Astroのコンポーネントスクリプト(サーバーサイドで実行される)同士でグローバルステートを共有する良い方法がないためsessionStorageを利用する */
-  sessionStorage.setItem(sessionStorageTableOfContentsKey, JSON.stringify(tableOfContentsData))
+  /** 目次コンポーネントがレンダリングされるのがscriptタグの実行後なためカスタムイベントを用いた目次データーの送信ができないのでsessionStorageを利用する */
+  sessionStorage.setItem(SESSION_STORAGE_TABLE_OF_CONTENTS_KEY, JSON.stringify(tableOfContentsData))
 
   /**
    * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する

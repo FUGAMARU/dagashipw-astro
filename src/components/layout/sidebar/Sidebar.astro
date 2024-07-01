@@ -23,7 +23,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
       <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
-    <TableOfContentsPC client:load />
+    <TableOfContentsPC client:only="react" />
 
     <SidebarItemWithTitle title="この記事をシェアする">
       <ShareButtons

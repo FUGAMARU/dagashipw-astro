@@ -1,34 +1,27 @@
 import { Fragment, useEffect, useState, type ReactNode } from "react"
+import { useSessionStorage } from "usehooks-ts"
 
 import DividerHorizontal from "@/components/parts/common/DividerHorizontal"
 import styles from "@/components/templates/TableOfContents.module.css"
 import TableOfContentsItem from "@/components/templates/TableOfContentsItem"
 import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
+import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 
-type Props = {
-  contents: Array<{
-    h2: {
-      title: string
-      href: string
-      h3?: Array<{
-        title: string
-        href: string
-        h4?: Array<{
-          title: string
-          href: string
-        }>
-      }>
-    }
-  }>
-}
+import type { TableOfContentsData } from "@/types/table-of-contents"
 
 /**
  * 目次
  * @returns ReactNode
  */
-const TableOfContents = ({ contents }: Props): ReactNode => {
+const TableOfContents = (): ReactNode => {
+  /** 見出し一覧 (Inserter(SP)とSidebar(PC)でそれぞれ取得ロジックを書くのが無駄なのでここでsessionStorageから取得してしまう) */
+  const [tableOfContents] = useSessionStorage<TableOfContentsData>(
+    SESSION_STORAGE_TABLE_OF_CONTENTS_KEY,
+    []
+  )
+
   /** アクティブな見出しのID (sessionStorageからの取得ロジックを複数回用意するのが無駄なのでここでフックを呼んでしまう) */
-  const [activeHeadingHref, setActiveHeadingHref] = useState(contents[0].h2.href)
+  const [activeHeadingHref, setActiveHeadingHref] = useState(tableOfContents[0].h2.href ?? "#")
 
   useEffect(() => {
     const handleStateChange = (event: CustomEvent<string>): void => {
@@ -48,7 +41,7 @@ const TableOfContents = ({ contents }: Props): ReactNode => {
   return (
     <div className={styles.tableOfContents}>
       <div className={styles.main}>
-        {contents.map((content, h2Index) => (
+        {tableOfContents.map((content, h2Index) => (
           <Fragment key={content.h2.title}>
             <TableOfContentsItem
               href={content.h2.href}
@@ -78,7 +71,7 @@ const TableOfContents = ({ contents }: Props): ReactNode => {
                 ))}
               </Fragment>
             ))}
-            {h2Index !== contents.length - 1 && <DividerHorizontal />}
+            {h2Index !== tableOfContents.length - 1 && <DividerHorizontal />}
           </Fragment>
         ))}
       </div>
