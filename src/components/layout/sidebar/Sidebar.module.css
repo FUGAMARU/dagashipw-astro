@@ -15,7 +15,7 @@
   }
 }
 
-@media (width >= 768px) {
+@media (width >= 1000px) {
   .sidebarContainer {
     position: sticky;
     top: 48px;

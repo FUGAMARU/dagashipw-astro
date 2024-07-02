@@ -6,12 +6,12 @@
   }
 }
 
-@media (width >= 768px) {
+@media (width >= 1000px) {
   .layoutContainer {
     display: flex;
     gap: 48px;
     max-width: 1280px;
-    padding-top: 96px;
+    padding: 96px 24px 0;
     margin: 0 auto;
 
     > .header {
@@ -24,6 +24,7 @@
 
     > .sidebar {
       flex: 3;
+      min-width: 330px;
       margin-top: 0;
     }
   }

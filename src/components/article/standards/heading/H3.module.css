@@ -21,7 +21,7 @@
   }
 }
 
-@media (width >= 768px) {
+@media (width >= 1000px) {
   .h3Tag {
     > .text {
       font-size: 21px;

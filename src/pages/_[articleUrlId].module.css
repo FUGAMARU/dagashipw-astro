@@ -23,7 +23,7 @@
   }
 }
 
-@media (width >= 768px) {
+@media (width >= 1000px) {
   .articlePageMain {
     border-radius: 16px;
 

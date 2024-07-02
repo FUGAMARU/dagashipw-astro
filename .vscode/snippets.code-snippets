@@ -12,6 +12,6 @@
   "Media Query": {
     "scope": "css",
     "prefix": "media",
-    "body": ["@media (width >= 768px) {", "\t$0", "}"]
+    "body": ["@media (width >= 1000px) {", "\t$0", "}"]
   }
 }
