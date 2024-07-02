@@ -6,10 +6,37 @@ import styles from "@/components/layout/sidebar/Sidebar.module.css"
 import SidebarItemWithTitle from "@/components/layout/sidebar/SidebarItemWithTitle"
 import TableOfContentsPC from "@/components/layout/sidebar/TableOfContentsPC"
 import Input from "@/components/parts/input/Input"
+import { PAGE_PATH } from "@/constants/page"
+import { PC_TABLE_OF_CONTENTS_CONTAINER_ID } from "@/constants/value"
 
 const curentArticleTitle = "記事のタイトル" // TODO: 仮当て
 const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 ---
+
+<script
+  define:vars={{
+    PAGE_PATH,
+    PC_TABLE_OF_CONTENTS_CONTAINER_ID
+  }}
+>
+  /** ブログ記事ページ以外ではサイドバーの目次は非表示にする */
+  document.addEventListener("DOMContentLoaded", () => {
+    const { pathname } = location
+
+    // @ts-ignore どうしようもないので。
+    if (!Object.values(PAGE_PATH).includes(pathname)) {
+      return
+    }
+
+    const tableOfContentsPC = document.getElementById(PC_TABLE_OF_CONTENTS_CONTAINER_ID)
+
+    if (tableOfContentsPC === null) {
+      return
+    }
+
+    tableOfContentsPC.style.display = "none"
+  })
+</script>
 
 <div class={styles.sidebarContainer}>
   <header class={styles.header}>
@@ -23,7 +50,9 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
       <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
-    <TableOfContentsPC client:only="react" />
+    <div id={PC_TABLE_OF_CONTENTS_CONTAINER_ID}>
+      <TableOfContentsPC client:only="react" />
+    </div>
 
     <SidebarItemWithTitle title="この記事をシェアする">
       <ShareButtons
