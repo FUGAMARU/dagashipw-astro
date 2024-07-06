@@ -17,6 +17,8 @@ import { isDefined } from "@/utils/isDefined"
 
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
 import Code from "@/components/article/standards/Code"
+import Li from "@/components/article/standards/Li"
+import Ul from "@/components/article/standards/Ul"
 import Video from "@/components/article/standards/Video"
 import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
@@ -121,6 +123,8 @@ const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
           img: Image,
           code: Code,
           video: Video,
+          ul: Ul,
+          li: Li,
           ImageRow,
           Inserter: InseterWrapper
         }}

@@ -1,9 +1,8 @@
+import Image from "@/components/article/standards/Image"
+
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { Image } from "./Image"
-
 const meta: Meta<typeof Image> = {
-  title: "components/Image",
   component: Image,
   tags: ["autodocs"],
   args: { ref: undefined, key: undefined },
@@ -16,4 +15,8 @@ const meta: Meta<typeof Image> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {}
+export const Primary: Story = {
+  args: {
+    src: "/sea-candle.jpg"
+  }
+}
