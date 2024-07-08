@@ -60,6 +60,8 @@ export default [
       eqeqeq: ["error", "always"],
       /** コメントの後に半角スペースを強制する */
       "spaced-comment": ["error", "always", { exceptions: ["-", "+"] }],
+      /** if文の括弧の省略禁止 */
+      curly: "error",
       /** 暗黙の型変換を防ぐ */
       "no-implicit-coercion": ["error", { boolean: false, number: true, string: true }],
       /** 相対パスインポート禁止 */
