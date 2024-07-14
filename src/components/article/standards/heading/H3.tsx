@@ -11,8 +11,8 @@ import type { ReactNode } from "react"
 const H3 = ({ children }: Children): ReactNode => {
   return (
     <h3 className={styles.h3Tag} id={generateHeadingId(children)}>
-      <div className={styles.line} />
       <span className={styles.text}>{children}</span>
+      <div className={styles.line} />
     </h3>
   )
 }
