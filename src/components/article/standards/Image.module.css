@@ -3,4 +3,8 @@
   margin: 6px 0; /* paddingだとborder-radiusがうまくかからない */
   object-fit: contain;
   border-radius: 4px;
+
+  &.Covered {
+    object-fit: cover;
+  }
 }

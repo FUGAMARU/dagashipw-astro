@@ -1,0 +1,95 @@
+.articleCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  > .main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    > .header {
+      display: flex;
+      justify-content: center;
+      padding: 2px 0;
+      background-color: pink;
+      border-radius: 4px;
+    }
+
+    > .details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0 8px;
+
+      > .title {
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1.25;
+      }
+
+      > .body {
+        font-size: 12px;
+        line-height: 1.3;
+        color: var(--color-text-gray);
+      }
+
+      > .tags {
+        display: flex;
+        gap: 8px;
+      }
+    }
+
+    > .link {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.readIt {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  color: var(--color-text-gray);
+  fill: var(--color-text-gray);
+
+  > .text {
+    font-size: 12px;
+  }
+}
+
+@media (width >= 1000px) {
+  .articleCard {
+    flex-direction: row;
+
+    > .main {
+      gap: 12px;
+      padding: 12px 0;
+
+      > .header {
+        justify-content: flex-start;
+        padding: 2px 12px;
+      }
+
+      > .details {
+        gap: 12px;
+        padding: 12px 8px;
+
+        > .title {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+
+  .thumbnailImage {
+    width: 400px;
+  }
+}

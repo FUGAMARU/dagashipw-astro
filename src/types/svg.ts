@@ -26,3 +26,4 @@ export type SvgComponentName =
   | "writingPen"
   | "reverseClock"
   | "commentWithPen"
+  | "doubleRightArrow"
