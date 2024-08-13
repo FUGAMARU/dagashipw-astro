@@ -1,9 +1,16 @@
 .imageRow {
   display: flex;
   align-items: flex-start;
+  margin-top: var(--margin-top-article-section-sp);
 
   > .image {
     flex: 1;
     width: 100%;
+  }
+}
+
+@media (width >= 1000px) {
+  .imageRow {
+    margin-top: var(--margin-top-article-section-pc);
   }
 }

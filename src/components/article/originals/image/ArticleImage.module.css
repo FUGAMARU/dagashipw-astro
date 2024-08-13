@@ -1,12 +1,9 @@
-.ulTag {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.articleImage {
   margin-top: var(--margin-top-article-section-sp);
 }
 
 @media (width >= 1000px) {
-  .ulTag {
+  .articleImage {
     margin-top: var(--margin-top-article-section-pc);
   }
 }

@@ -2,11 +2,10 @@
 import { Markdown } from "astro-remote"
 
 import ImageRow from "@/components/article/originals/image/ImageRow"
-import H2 from "@/components/article/standards/heading/H2"
-import H3 from "@/components/article/standards/heading/H3"
-import Image from "@/components/article/standards/Image"
 import LinkInArticle from "@/components/article/standards/LinkInArticle"
 import Paragraph from "@/components/article/standards/Paragraph"
+import H2 from "@/components/article/standards/heading/H2"
+import H3 from "@/components/article/standards/heading/H3"
 import Layout from "@/components/layout/Layout.astro"
 import Hero from "@/components/templates/hero/Hero"
 import styles from "@/pages/_[articleUrlId].module.css"
@@ -16,6 +15,7 @@ import { getCurrentDateTime } from "@/utils/getCurrentDateTime"
 import { isDefined } from "@/utils/isDefined"
 
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
+import ArticleImage from "@/components/article/originals/image/ArticleImage"
 import Code from "@/components/article/standards/Code"
 import Li from "@/components/article/standards/Li"
 import Ul from "@/components/article/standards/Ul"
@@ -120,7 +120,7 @@ const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
           h3: H3,
           p: Paragraph,
           a: LinkInArticle,
-          img: Image,
+          img: ArticleImage,
           code: Code,
           video: Video,
           ul: Ul,

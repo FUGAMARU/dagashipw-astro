@@ -1,10 +1,10 @@
-import Image from "@/components/article/standards/Image"
 import BackNumber from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
 import Link from "@/components/parts/common/Link"
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import Tag from "@/components/parts/Tag"
 import ArticleInfo from "@/components/templates/ArticleInfo"
+import Image from "@/components/templates/Image"
 
 import type { ComponentProps, ReactNode } from "react"
 

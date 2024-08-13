@@ -1,6 +1,6 @@
 .h2Tag {
   display: flex;
-  padding: 28px 0 8px;
+  margin-top: var(--margin-top-article-section-sp);
 
   > .line {
     width: 8px;
@@ -26,7 +26,7 @@
 
 @media (width >= 1000px) {
   .h2Tag {
-    padding: 32px 0 8px;
+    margin-top: var(--margin-top-article-section-pc);
 
     > .text {
       font-size: 26px;

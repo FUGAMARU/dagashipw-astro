@@ -1,4 +1,4 @@
-import Image from "@/components/article/standards/Image"
+import Image from "@/components/templates/Image"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

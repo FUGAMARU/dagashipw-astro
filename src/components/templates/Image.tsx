@@ -1,8 +1,8 @@
 import clsx from "clsx"
 import { useMemo, type ComponentProps, type ReactNode } from "react"
 
-import styles from "@/components/article/standards/Image.module.css"
 import Link from "@/components/parts/common/Link"
+import styles from "@/components/templates/Image.module.css"
 import { isDefined } from "@/utils/isDefined"
 
 type Props = ComponentProps<"img"> & {

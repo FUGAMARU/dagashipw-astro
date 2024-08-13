@@ -1,9 +1,8 @@
+import LinkInArticle from "@/components/article/standards/LinkInArticle"
+
 import type { Meta, StoryObj } from "@storybook/react"
 
-import LinkInArticle from "./LinkInArticle"
-
 const meta: Meta<typeof LinkInArticle> = {
-  title: "components/LinkInArticle",
   component: LinkInArticle,
   tags: ["autodocs"],
   args: {},
@@ -13,4 +12,9 @@ const meta: Meta<typeof LinkInArticle> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {}
+export const Primary: Story = {
+  args: {
+    href: "https://www.pa-works.jp/",
+    children: "P.A.WORKS公式サイト"
+  }
+}
