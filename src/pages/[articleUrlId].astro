@@ -17,6 +17,7 @@ import { isDefined } from "@/utils/isDefined"
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
 import ArticleImage from "@/components/article/originals/image/ArticleImage"
 import Code from "@/components/article/standards/Code"
+import Iframe from "@/components/article/standards/Iframe"
 import Li from "@/components/article/standards/Li"
 import Ul from "@/components/article/standards/Ul"
 import Video from "@/components/article/standards/Video"
@@ -125,6 +126,7 @@ const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
           video: Video,
           ul: Ul,
           li: Li,
+          iframe: Iframe,
           ImageRow,
           Inserter: InseterWrapper
         }}

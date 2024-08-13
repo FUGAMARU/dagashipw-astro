@@ -1,0 +1,10 @@
+.iframeTag {
+  margin-top: var(--margin-top-article-section-sp);
+  border-radius: 4px;
+}
+
+@media (width >= 1000px) {
+  .iframeTag {
+    margin-top: var(--margin-top-article-section-pc);
+  }
+}
