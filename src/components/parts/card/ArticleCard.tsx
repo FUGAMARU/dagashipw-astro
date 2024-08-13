@@ -46,7 +46,12 @@ const ArticleCard = ({
 
       <div className={styles.main}>
         <div className={styles.header}>
-          <ArticleInfo commentCount={commentCount} createdAt={createdAt} updatedAt={updatedAt} />
+          <ArticleInfo
+            commentCount={commentCount}
+            createdAt={createdAt}
+            isBorderHidden
+            updatedAt={updatedAt}
+          />
         </div>
 
         <div className={styles.details}>

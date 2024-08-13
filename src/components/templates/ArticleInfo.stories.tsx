@@ -9,13 +9,15 @@ const meta: Meta<typeof ArticleInfo> = {
     createdAt: undefined,
     updatedAt: undefined,
     commentCount: undefined,
-    isWhiteStyle: undefined
+    isWhiteStyle: undefined,
+    isBorderHidden: undefined
   },
   argTypes: {
     createdAt: { control: "text" },
     updatedAt: { control: "text" },
     commentCount: { control: "number" },
-    isWhiteStyle: { control: "boolean" }
+    isWhiteStyle: { control: "boolean" },
+    isBorderHidden: { control: "boolean" }
   }
 }
 
@@ -27,5 +29,14 @@ export const Primary: Story = {
     createdAt: "2021/01/01",
     updatedAt: "2021/01/02",
     commentCount: 1
+  }
+}
+
+export const NoBorder: Story = {
+  args: {
+    createdAt: "2021/01/01",
+    updatedAt: "2021/01/02",
+    commentCount: 1,
+    isBorderHidden: true
   }
 }
