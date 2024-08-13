@@ -25,7 +25,7 @@ const HeroSP = ({
         <img alt={title} className={styles.thumbnail} src={thumbnailUrl} />
         <div className={styles.overlay} />
         <div className={styles.number}>
-          <BackNumber backNumber={backNumber} />
+          <BackNumber backNumber={backNumber} isShiftLeft />
         </div>
       </div>
 

@@ -5,25 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof ArticleCard> = {
   component: ArticleCard,
   tags: ["autodocs"],
-  args: {
-    thumbnail: undefined,
-    createdAt: undefined,
-    updatedAt: undefined,
-    commentCount: undefined,
-    title: undefined,
-    body: undefined,
-    tags: undefined,
-    articleUrlId: undefined
-  },
-  argTypes: {
-    thumbnail: { control: "text" },
-    createdAt: { control: "text" },
-    updatedAt: { control: "text" },
-    commentCount: { control: "number" },
-    title: { control: "text" },
-    body: { control: "text" },
-    articleUrlId: { control: "text" }
-  }
+  args: {},
+  argTypes: {}
 }
 
 export default meta
@@ -38,6 +21,7 @@ export const Primary: Story = {
     title: "記事タイトル",
     body: "記事概要文記事概要文記事概要文記事概要文記事概要文記事概要文記事概要文記事概要文",
     tags: ["Tag1", "Tag2", "Tag3"],
-    articleUrlId: "test"
+    articleUrlId: "test",
+    backNumber: 1
   }
 }

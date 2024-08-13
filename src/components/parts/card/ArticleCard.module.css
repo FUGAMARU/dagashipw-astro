@@ -1,7 +1,15 @@
 .articleCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow: hidden;
+
+  > .index {
+    position: absolute;
+    top: 0;
+    left: -4px;
+  }
 
   > .main {
     display: flex;

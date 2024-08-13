@@ -43,7 +43,7 @@ const HeroPC = ({
           </div>
 
           <div className={styles.number}>
-            <BackNumber backNumber={backNumber} />
+            <BackNumber backNumber={backNumber} isShiftLeft />
           </div>
         </div>
       </div>

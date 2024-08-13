@@ -1,11 +1,12 @@
 import Image from "@/components/article/standards/Image"
+import BackNumber from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
 import Link from "@/components/parts/common/Link"
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import Tag from "@/components/parts/Tag"
 import ArticleInfo from "@/components/templates/ArticleInfo"
 
-import type { ReactNode } from "react"
+import type { ComponentProps, ReactNode } from "react"
 
 type Props = {
   /** サムネイル */
@@ -24,7 +25,7 @@ type Props = {
   tags: Array<string>
   /** 記事URL ID */
   articleUrlId: string
-}
+} & ComponentProps<typeof BackNumber>
 
 /**
  * 記事情報カード (トップページで使う)
@@ -38,11 +39,16 @@ const ArticleCard = ({
   title,
   body,
   tags,
-  articleUrlId
+  articleUrlId,
+  backNumber
 }: Props): ReactNode => {
   return (
     <div className={styles.articleCard}>
-      <Image className={styles.thumbnailImage} objectFitCover src={thumbnail} />
+      <Image className={styles.thumbnailImage} noMargin objectFitCover src={thumbnail} />
+
+      <div className={styles.index}>
+        <BackNumber backNumber={backNumber} />
+      </div>
 
       <div className={styles.main}>
         <div className={styles.header}>

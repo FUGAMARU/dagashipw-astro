@@ -15,10 +15,13 @@
 
   > .text {
     position: absolute;
-    padding-right: 10px;
     font-size: 18px;
     font-weight: bold;
     color: var(--color-black);
     transform: skew(28deg);
+
+    &.ShiftLeft {
+      padding-right: 10px;
+    }
   }
 }
