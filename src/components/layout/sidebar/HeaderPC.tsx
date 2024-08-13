@@ -1,6 +1,6 @@
 import styles from "@/components/layout/sidebar/HeaderPC.module.css"
 import Link from "@/components/parts/common/Link"
-import SvgLoader from "@/components/parts/svg/SvgLoader"
+import LogoLoader from "@/components/parts/svg/LogoLoader"
 import { PAGE_PATH } from "@/constants/page"
 
 import type { ReactNode } from "react"
@@ -13,7 +13,7 @@ const HeaderPC = (): ReactNode => {
   return (
     <div className={styles.headerPC}>
       <Link href={PAGE_PATH.TOP}>
-        <SvgLoader height={60} name="logoFullPC" width={297.28} />
+        <LogoLoader height={60} width={297.28} />
       </Link>
     </div>
   )

@@ -20,8 +20,6 @@ export type SvgComponentName =
   | "snsFacebook"
   | "snsLine"
   | "snsHatenaBookmark"
-  | "logoFullSP"
-  | "logoFullPC"
   | "hash"
   | "writingPen"
   | "reverseClock"
