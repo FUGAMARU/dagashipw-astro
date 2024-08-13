@@ -1,12 +1,14 @@
+@import url("/src/styles/post.css");
+
 .paragraphTag {
-  margin-top: calc(var(--margin-top-article-section-sp) / 2);
   font-size: 14px;
   line-height: 1.875;
+
+  @mixin article-section-margin-half;
 }
 
-@media (width >= 1000px) {
+@media (--pc) {
   .paragraphTag {
-    margin-top: calc(var(--margin-top-article-section-pc) / 2);
     font-size: 16px;
   }
 }

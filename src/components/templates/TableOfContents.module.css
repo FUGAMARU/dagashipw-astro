@@ -1,3 +1,5 @@
+@import url("/src/styles/post.css");
+
 .tableOfContents {
   position: relative;
   padding: 4px;
@@ -57,7 +59,7 @@
   }
 }
 
-@media (width >= 1000px) {
+@media (--pc) {
   .tableOfContents {
     > .main {
       max-height: 300px;

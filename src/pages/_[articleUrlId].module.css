@@ -1,3 +1,5 @@
+@import url("/src/styles/post.css");
+
 .articlePageMain {
   display: flex;
   flex-direction: column;
@@ -23,7 +25,7 @@
   }
 }
 
-@media (width >= 1000px) {
+@media (--pc) {
   .articlePageMain {
     border-radius: 16px;
 

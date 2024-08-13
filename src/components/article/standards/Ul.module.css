@@ -1,12 +1,9 @@
+@import url("/src/styles/post.css");
+
 .ulTag {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: var(--margin-top-article-section-sp);
-}
 
-@media (width >= 1000px) {
-  .ulTag {
-    margin-top: var(--margin-top-article-section-pc);
-  }
+  @mixin article-section-margin;
 }

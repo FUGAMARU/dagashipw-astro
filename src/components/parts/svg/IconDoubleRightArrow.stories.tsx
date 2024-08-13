@@ -1,9 +1,8 @@
+import IconDoubleRightArrow from "@/components/parts/svg/IconDoubleRightArrow"
+
 import type { Meta, StoryObj } from "@storybook/react"
 
-import { IconDoubleRightArrow } from "./IconDoubleRightArrow"
-
 const meta: Meta<typeof IconDoubleRightArrow> = {
-  title: "components/IconDoubleRightArrow",
   component: IconDoubleRightArrow,
   tags: ["autodocs"],
   args: {},
@@ -13,4 +12,9 @@ const meta: Meta<typeof IconDoubleRightArrow> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {}
+export const Primary: Story = {
+  args: {
+    width: 128,
+    height: 128
+  }
+}

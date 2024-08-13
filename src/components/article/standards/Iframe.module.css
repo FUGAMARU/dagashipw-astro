@@ -1,10 +1,7 @@
-.iframeTag {
-  margin-top: var(--margin-top-article-section-sp);
-  border-radius: 4px;
-}
+@import url("/src/styles/post.css");
 
-@media (width >= 1000px) {
-  .iframeTag {
-    margin-top: var(--margin-top-article-section-pc);
-  }
+.iframeTag {
+  border-radius: 4px;
+
+  @mixin article-section-margin;
 }

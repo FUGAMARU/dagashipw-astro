@@ -1,8 +1,11 @@
+@import url("/src/styles/post.css");
+
 .h3Tag {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: var(--margin-top-article-section-sp);
+
+  @mixin article-section-margin;
 
   > .text {
     font-size: 18px;
@@ -21,10 +24,8 @@
   }
 }
 
-@media (width >= 1000px) {
+@media (--pc) {
   .h3Tag {
-    margin-top: var(--margin-top-article-section-pc);
-
     > .text {
       font-size: 21px;
     }

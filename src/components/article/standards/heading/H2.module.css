@@ -1,6 +1,9 @@
+@import url("/src/styles/post.css");
+
 .h2Tag {
   display: flex;
-  margin-top: var(--margin-top-article-section-sp);
+
+  @mixin article-section-margin;
 
   > .line {
     width: 8px;
@@ -24,10 +27,8 @@
   }
 }
 
-@media (width >= 1000px) {
+@media (--pc) {
   .h2Tag {
-    margin-top: var(--margin-top-article-section-pc);
-
     > .text {
       font-size: 26px;
     }

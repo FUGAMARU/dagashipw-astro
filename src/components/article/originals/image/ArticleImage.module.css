@@ -1,9 +1,5 @@
-.articleImage {
-  margin-top: var(--margin-top-article-section-sp);
-}
+@import url("/src/styles/post.css");
 
-@media (width >= 1000px) {
-  .articleImage {
-    margin-top: var(--margin-top-article-section-pc);
-  }
+.articleImage {
+  @mixin article-section-margin;
 }

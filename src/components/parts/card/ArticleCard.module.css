@@ -1,3 +1,5 @@
+@import url("/src/styles/post.css");
+
 .articleCard {
   position: relative;
   display: flex;
@@ -74,7 +76,7 @@
   }
 }
 
-@media (width >= 1000px) {
+@media (--pc) {
   .articleCard {
     flex-direction: row;
 

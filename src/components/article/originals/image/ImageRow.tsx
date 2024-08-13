@@ -19,8 +19,8 @@ type Props = {
 const ImageRow = ({ leftSideImageUrl, rightSideImageUrl, gap }: Props): ReactNode => {
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
-      <Image alt="" className={styles.image} src={leftSideImageUrl} />
-      <Image alt="" className={styles.image} src={rightSideImageUrl} />
+      <Image alt="" className={styles.image} noMargin src={leftSideImageUrl} />
+      <Image alt="" className={styles.image} noMargin src={rightSideImageUrl} />
     </div>
   )
 }

@@ -1,0 +1,20 @@
+/* PC表示のカスタムメディアクエリ */
+@custom-media --pc (min-width: 1000px);
+
+/* 記事に並ぶパーツにmarginを設ける */
+@define-mixin article-section-margin {
+  margin-top: var(--margin-top-article-section-sp);
+
+  @media (--pc) {
+    margin-top: var(--margin-top-article-section-pc);
+  }
+}
+
+/* 記事に並ぶパーツにmarginを設ける (半分バージョン) */
+@define-mixin article-section-margin-half {
+  margin-top: calc(var(--margin-top-article-section-sp) / 2);
+
+  @media (--pc) {
+    margin-top: calc(var(--margin-top-article-section-pc) / 2);
+  }
+}

@@ -12,6 +12,11 @@
   "Media Query": {
     "scope": "css",
     "prefix": "media",
-    "body": ["@media (width >= 1000px) {", "\t$0", "}"]
+    "body": ["@media (--pc) {", "\t$0", "}"]
+  },
+  "Import Post CSS Definition": {
+    "scope": "css",
+    "prefix": "post",
+    "body": ["@import url(\"/src/styles/post.css\");"]
   }
 }
