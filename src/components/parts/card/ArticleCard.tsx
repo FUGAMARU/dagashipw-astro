@@ -11,12 +11,6 @@ import type { ComponentProps, ReactNode } from "react"
 type Props = {
   /** サムネイル */
   thumbnail: string
-  /** 作成日 */
-  createdAt: string
-  /** 更新日 */
-  updatedAt?: string
-  /** コメント数 */
-  commentCount: number
   /** 記事タイトル */
   title: string
   /** 記事本文 */
@@ -25,7 +19,8 @@ type Props = {
   tags: Array<string>
   /** 記事URL ID */
   articleUrlId: string
-} & ComponentProps<typeof BackNumber>
+} & Pick<ComponentProps<typeof ArticleInfo>, "createdAt" | "updatedAt" | "commentCount"> &
+  ComponentProps<typeof BackNumber>
 
 /**
  * 記事情報カード (トップページで使う)
