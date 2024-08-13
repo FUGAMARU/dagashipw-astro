@@ -1,7 +1,7 @@
 .tableOfContents {
   position: relative;
   padding: 4px;
-  line-height: 1;
+  line-height: 1.2;
   background: linear-gradient(
     135deg,
     var(--color-gradient-green-start) 0%,
@@ -53,6 +53,15 @@
       color: var(--color-black);
       content: "Contents";
       transform: skew(28deg);
+    }
+  }
+}
+
+@media (width >= 1000px) {
+  .tableOfContents {
+    > .main {
+      max-height: 300px;
+      overflow-y: auto;
     }
   }
 }
