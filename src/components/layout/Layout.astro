@@ -4,6 +4,7 @@ import "@/styles/global.css"
 import HeaderSP from "@/components/layout/HeaderSP"
 import styles from "@/components/layout/Layout.module.css"
 import Sidebar from "@/components/layout/sidebar/Sidebar.astro"
+import SvgLoader from "@/components/parts/svg/SvgLoader"
 
 type Props = {
   /** ページタイトル */
@@ -38,6 +39,10 @@ const { title } = Astro.props
       <aside class={styles.sidebar}>
         <Sidebar />
       </aside>
+    </div>
+
+    <div class={styles.backgroundPattern}>
+      <SvgLoader name="background" />
     </div>
   </body>
 </html>

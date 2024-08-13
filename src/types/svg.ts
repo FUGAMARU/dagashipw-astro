@@ -5,9 +5,9 @@
 /** SVGコンポーネントの共通Props */
 export type SvgProps = {
   /** 幅 */
-  width: number
+  width?: number
   /** 高さ */
-  height: number
+  height?: number
   /** クラス */
   className?: string
 }
@@ -27,3 +27,4 @@ export type SvgComponentName =
   | "reverseClock"
   | "commentWithPen"
   | "doubleRightArrow"
+  | "background"

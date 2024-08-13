@@ -15,7 +15,8 @@ const SVG_COMPONENTS = {
   writingPen: lazy(() => import("@/components/parts/svg/IconWritingPen")),
   reverseClock: lazy(() => import("@/components/parts/svg/IconReverseClock")),
   commentWithPen: lazy(() => import("@/components/parts/svg/IconCommentWithPen")),
-  doubleRightArrow: lazy(() => import("@/components/parts/svg/IconDoubleRightArrow"))
+  doubleRightArrow: lazy(() => import("@/components/parts/svg/IconDoubleRightArrow")),
+  background: lazy(() => import("@/components/parts/svg/PatternBackground"))
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 
 type Props = {
