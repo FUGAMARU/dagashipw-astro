@@ -17,6 +17,11 @@
   }
 }
 
+.colorJunction {
+  display: flex;
+  justify-content: center;
+}
+
 @media (--pc) {
   .sidebarContainer {
     position: sticky;
