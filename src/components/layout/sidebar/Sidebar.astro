@@ -44,7 +44,8 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
   </header>
 
   <div class={styles.main}>
-    <Infobar />
+    {/* ビルド時点の日付で止まってしまうのでCSRさせる */}
+    <Infobar client:load />
 
     <SidebarItemWithTitle title="さがす">
       <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
