@@ -5,7 +5,7 @@ import HeroSP from "@/components/templates/hero/HeroSP"
 
 import type BackNumber from "@/components/parts/BackNumber"
 import type Tag from "@/components/parts/Tag"
-import type ArticleInfo from "@/components/templates/ArticleInfo"
+import type ArticleInfoBar from "@/components/templates/ArticleInfoBar"
 
 /** Heroコンポーネント共通Props */
 export type HeroProps = {
@@ -16,7 +16,7 @@ export type HeroProps = {
   /** タグ一覧 */
   tags: Array<ComponentProps<typeof Tag>["text"]>
 } & ComponentProps<typeof BackNumber> &
-  Pick<ComponentProps<typeof ArticleInfo>, "createdAt" | "updatedAt" | "commentCount">
+  Pick<ComponentProps<typeof ArticleInfoBar>, "createdAt" | "updatedAt" | "commentCount">
 
 type Props = {
   device: "pc" | "sp"

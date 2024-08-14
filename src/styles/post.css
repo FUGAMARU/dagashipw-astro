@@ -18,3 +18,11 @@
     margin-top: calc(var(--margin-top-article-section-pc) / 2);
   }
 }
+
+/** 最大表示行数を指定する (それ以降は三点リーダーで省略) */
+@define-mixin max-lines $lines {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -2,14 +2,13 @@ import clsx from "clsx"
 
 import styles from "@/components/parts/BackNumber.module.css"
 
+import type { ArticleInfo } from "@/types/article"
 import type { ReactNode } from "react"
 
 type Props = {
-  /** バックナンバー */
-  backNumber: number
   /** 文字を少し左にずらすかどうか */
   isShiftLeft?: boolean
-}
+} & Pick<ArticleInfo, "backNumber">
 
 /**
  * バックナンバー

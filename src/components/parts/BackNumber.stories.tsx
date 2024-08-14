@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof BackNumber> = {
   component: BackNumber,
   tags: ["autodocs"],
-  args: { backNumber: undefined, isShiftLeft: undefined },
-  argTypes: { backNumber: { control: "number" }, isShiftLeft: { control: "boolean" } }
+  args: { isShiftLeft: undefined, backNumber: undefined },
+  argTypes: { isShiftLeft: { control: "boolean" } }
 }
 
 export default meta

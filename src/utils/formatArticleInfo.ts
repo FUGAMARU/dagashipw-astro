@@ -1,25 +1,26 @@
 import { STRAPI_BASE_URL } from "@/constants/value"
+import { extractBeginningParagraph } from "@/utils/extractBeginningParagraph"
 import { formatDateString } from "@/utils/formatDateString"
 import { isDefined } from "@/utils/isDefined"
 
-import type { HeroProps } from "@/components/templates/hero/Hero"
+import type { ArticleInfo } from "@/types/article"
 import type { components } from "@/types/schema"
 
 /**
- * 記事情報からHeroPropsを生成する
+ * CMSから取得した記事情報を内部的に扱いやすいフォーマットに整形する
  * @param articleInfo 記事情報
- * @returns HeroProps
+ * @returns 整形された記事情報
  */
-export const generateHeroPropsFromArticleInfo = (
-  articleInfo: components["schemas"]["Article"]
-): HeroProps => {
+export const formatArticleInfo = (articleInfo: components["schemas"]["Article"]): ArticleInfo => {
   const baseData = {
-    commentCount: 1, // TODO: 実際の値を反映させる必要がある
+    articleUrlId: articleInfo.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
     title: articleInfo.title,
+    thumbnailUrl: `${STRAPI_BASE_URL}${articleInfo.thumbnail?.data?.attributes?.url}`,
     tags: (articleInfo.tags as Array<string>) ?? [],
-    thumbnailUrl: `${STRAPI_BASE_URL}${articleInfo.thumbnail?.data?.attributes?.url}`
-  }
+    bodyBeginningParagraph: extractBeginningParagraph(articleInfo.body),
+    commentCount: 1 // TODO: 実際の値を反映させる必要がある
+  } as const satisfies Partial<ArticleInfo>
 
   // 記事作成日はforceCreatedAtが指定されていればその値を優先して使用する
   const createdAtData = articleInfo.forceCreatedAt ?? articleInfo.createdAt
@@ -30,21 +31,12 @@ export const generateHeroPropsFromArticleInfo = (
 
   const createdAt = formatDateString(createdAtData)
 
-  const baseDataWithCreatedAt = {
-    ...baseData,
-    createdAt
-  }
-
   // 記事更新日はforceUpdatedAtだけを使用する
   const updatedAt = articleInfo.forceUpdatedAt
 
-  // 記事更新日が存在しない場合はPropsに含めない
-  if (!isDefined(updatedAt)) {
-    return baseDataWithCreatedAt
-  }
-
   return {
-    ...baseDataWithCreatedAt,
-    updatedAt: formatDateString(updatedAt)
+    ...baseData,
+    createdAt,
+    updatedAt: isDefined(updatedAt) ? formatDateString(updatedAt) : undefined
   }
 }

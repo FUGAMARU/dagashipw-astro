@@ -10,7 +10,7 @@ import Layout from "@/components/layout/Layout.astro"
 import Hero from "@/components/templates/hero/Hero"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
-import { generateHeroPropsFromArticleInfo } from "@/utils/generateHeroPropsFromArticleInfo"
+import { formatArticleInfo } from "@/utils/formatArticleInfo"
 import { getCurrentDateTime } from "@/utils/getCurrentDateTime"
 import { isDefined } from "@/utils/isDefined"
 
@@ -53,7 +53,7 @@ if (!isDefined(article)) {
   throw new Error("記事情報が存在しません")
 }
 
-const heroProps = generateHeroPropsFromArticleInfo(article)
+const heroProps = formatArticleInfo(article)
 const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
 const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
 ---

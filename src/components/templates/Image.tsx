@@ -1,9 +1,9 @@
 import clsx from "clsx"
-import { useMemo, type ComponentProps, type ReactNode } from "react"
 
-import Link from "@/components/parts/common/Link"
 import styles from "@/components/templates/Image.module.css"
 import { isDefined } from "@/utils/isDefined"
+
+import type { ComponentProps, ReactNode } from "react"
 
 type Props = ComponentProps<"img"> & {
   /** object-fir: cover指定かどうか */
@@ -20,27 +20,25 @@ const Image = ({
   className,
   objectFitCover = false,
   noMargin = false,
+  src,
   ...props
 }: Props): ReactNode => {
-  const src = useMemo(() => props.src, [props.src])
-
   if (!isDefined(src)) {
     return <span>NoImage</span>
   }
 
   return (
-    <Link href={src}>
-      {/** TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討 */}
-      <img
-        className={clsx(
-          className,
-          styles.imageTag,
-          objectFitCover && styles.Covered,
-          noMargin && styles.NoMargin
-        )}
-        {...props}
-      />
-    </Link>
+    <img
+      // TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討
+      className={clsx(
+        className,
+        styles.imageTag,
+        objectFitCover && styles.Covered,
+        noMargin && styles.NoMargin
+      )}
+      src={src}
+      {...props}
+    />
   )
 }
 

@@ -7,6 +7,9 @@ import { isDefined } from "@/utils/isDefined"
 
 import type { components, paths } from "@/types/schema"
 
+/** 1ページあたりの記事表示数 */
+const ARTICLES_PER_PAGE = 10
+
 /**
  * 記事を取得する
  * @param articleUrlId 記事のURL ID
@@ -32,7 +35,25 @@ export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
     >("/articles")
   const articles = response.data.data
 
-  if (!isDefined(articles)) return []
+  if (!isDefined(articles)) {
+    return []
+  }
 
   return articles.map(article => article.attributes?.articleUrlId).filter(isDefined)
+}
+
+/**
+ * 記事一覧を取得する (ページネーションあり)
+ * @param pageNumber ページ番号
+ * @returns 記事一覧
+ */
+export const getAllArticlesWithPagination = async (
+  pageNumber: number
+): Promise<Array<components["schemas"]["Article"] | undefined> | undefined> => {
+  const response = await axiosInstance.get<
+    paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
+  >(
+    `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=id:desc&populate=*`
+  )
+  return response.data?.data?.map(article => article.attributes)
 }

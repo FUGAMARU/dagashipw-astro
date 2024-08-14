@@ -1,6 +1,6 @@
 import BackNumber from "@/components/parts/BackNumber"
 import Tag from "@/components/parts/Tag"
-import ArticleInfo from "@/components/templates/ArticleInfo"
+import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
 import styles from "@/components/templates/hero/HeroSP.module.css"
 
 import type { HeroProps } from "@/components/templates/hero/Hero"
@@ -31,7 +31,7 @@ const HeroSP = ({
 
       <div className={styles.articleDetails}>
         <div className={styles.upper}>
-          <ArticleInfo
+          <ArticleInfoBar
             commentCount={commentCount}
             createdAt={createdAt}
             isWhiteStyle

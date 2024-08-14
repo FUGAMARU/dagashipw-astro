@@ -202,10 +202,12 @@ export default [
     }
   },
   {
-    /** AstroファイルではclassName属性は使えないのでoff */
     files: ["**/*.astro"],
     rules: {
-      "react/no-unknown-property": "off"
+      /** AstroファイルではclassName属性は使えないのでoff */
+      "react/no-unknown-property": "off",
+      /** Astroにkeyの概念は無いのでoff */
+      "react/jsx-key": "off"
     }
   }
 ]

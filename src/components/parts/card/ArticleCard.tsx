@@ -3,43 +3,32 @@ import styles from "@/components/parts/card/ArticleCard.module.css"
 import Link from "@/components/parts/common/Link"
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import Tag from "@/components/parts/Tag"
-import ArticleInfo from "@/components/templates/ArticleInfo"
+import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
 import Image from "@/components/templates/Image"
 
-import type { ComponentProps, ReactNode } from "react"
+import type { ArticleInfo } from "@/types/article"
+import type { ReactNode } from "react"
 
-type Props = {
-  /** サムネイル */
-  thumbnail: string
-  /** 記事タイトル */
-  title: string
-  /** 記事本文 */
-  body: string
-  /** タグ */
-  tags: Array<string>
-  /** 記事URL ID */
-  articleUrlId: string
-} & Pick<ComponentProps<typeof ArticleInfo>, "createdAt" | "updatedAt" | "commentCount"> &
-  ComponentProps<typeof BackNumber>
+type Props = ArticleInfo
 
 /**
  * 記事情報カード (トップページで使う)
  * @returns ReactNode
  */
 const ArticleCard = ({
-  thumbnail,
+  thumbnailUrl,
   createdAt,
   updatedAt,
   commentCount,
   title,
-  body,
+  bodyBeginningParagraph,
   tags,
   articleUrlId,
   backNumber
 }: Props): ReactNode => {
   return (
     <div className={styles.articleCard}>
-      <Image className={styles.thumbnailImage} noMargin objectFitCover src={thumbnail} />
+      <Image className={styles.thumbnailImage} noMargin objectFitCover src={thumbnailUrl} />
 
       <div className={styles.index}>
         <BackNumber backNumber={backNumber} />
@@ -47,7 +36,7 @@ const ArticleCard = ({
 
       <div className={styles.main}>
         <div className={styles.header}>
-          <ArticleInfo
+          <ArticleInfoBar
             commentCount={commentCount}
             createdAt={createdAt}
             isBorderHidden
@@ -57,7 +46,7 @@ const ArticleCard = ({
 
         <div className={styles.details}>
           <span className={styles.title}>{title}</span>
-          <span className={styles.body}>{body}</span>
+          <span className={styles.body}>{bodyBeginningParagraph}</span>
           <div className={styles.tags}>
             {tags.map(tagText => (
               <Tag key={tagText} href={`/tags/${tagText}`} text={tagText} />

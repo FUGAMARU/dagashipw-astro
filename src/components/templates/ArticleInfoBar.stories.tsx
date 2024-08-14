@@ -1,24 +1,18 @@
-import ArticleInfo from "@/components/templates/ArticleInfo"
+import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
-const meta: Meta<typeof ArticleInfo> = {
-  component: ArticleInfo,
+const meta: Meta<typeof ArticleInfoBar> = {
+  component: ArticleInfoBar,
   tags: ["autodocs"],
   args: {
+    isWhiteStyle: undefined,
+    isBorderHidden: undefined,
     createdAt: undefined,
     updatedAt: undefined,
-    commentCount: undefined,
-    isWhiteStyle: undefined,
-    isBorderHidden: undefined
+    commentCount: undefined
   },
-  argTypes: {
-    createdAt: { control: "text" },
-    updatedAt: { control: "text" },
-    commentCount: { control: "number" },
-    isWhiteStyle: { control: "boolean" },
-    isBorderHidden: { control: "boolean" }
-  }
+  argTypes: { isWhiteStyle: { control: "boolean" }, isBorderHidden: { control: "boolean" } }
 }
 
 export default meta

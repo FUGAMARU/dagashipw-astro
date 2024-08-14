@@ -1,30 +1,25 @@
 import clsx from "clsx"
 
 import SvgLoader from "@/components/parts/svg/SvgLoader"
-import styles from "@/components/templates/ArticleInfo.module.css"
+import styles from "@/components/templates/ArticleInfoBar.module.css"
 import useIsSP from "@/hooks/useIsSP"
 import { isDefined } from "@/utils/isDefined"
 
+import type { ArticleInfo } from "@/types/article"
 import type { ReactNode } from "react"
 
 type Props = {
-  /** 作成日 */
-  createdAt: string
-  /** 更新日 */
-  updatedAt?: string
-  /** コメント数 */
-  commentCount: number
   /** 文字色を白にするかどうか */
   isWhiteStyle?: boolean
   /** ボーダーを非表示にするかどうか */
   isBorderHidden?: boolean
-}
+} & Pick<ArticleInfo, "createdAt" | "updatedAt" | "commentCount">
 
 /**
  * 記事情報
  * @returns ReactNode
  */
-const ArticleInfo = ({
+const ArticleInfoBar = ({
   createdAt,
   updatedAt,
   commentCount,
@@ -73,4 +68,4 @@ const ArticleInfo = ({
   )
 }
 
-export default ArticleInfo
+export default ArticleInfoBar
