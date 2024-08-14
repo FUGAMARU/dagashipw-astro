@@ -1,16 +1,12 @@
 @import url("/src/styles/post.css");
 
-.pageList {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.topPage {
   padding: 24px 16px;
   background-color: var(--color-white);
 }
 
 @media (--pc) {
-  .pageList {
-    gap: 32px;
+  .topPage {
     border-radius: 16px;
   }
 }

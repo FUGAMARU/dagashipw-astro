@@ -1,33 +1,23 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
-import ArticleCard from "@/components/parts/card/ArticleCard"
-import DividerHorizontal from "@/components/parts/common/DividerHorizontal"
+import ArticleCardList from "@/components/templates/ArticleCardList"
 import { PAGE_NAME } from "@/constants/page"
-import styles from "@/pages/index.module.css"
+import styles from "@/pages/_index.module.css"
 import { getAllArticlesWithPagination } from "@/services/api"
 import { formatArticleInfo } from "@/utils/formatArticleInfo"
 import { isDefined } from "@/utils/isDefined"
 
-const articles = await getAllArticlesWithPagination(1)
+const articles = await getAllArticlesWithPagination(1) // TODO: ページ数はクエリパラメーターから取得
 
 if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")
 }
 
-const articleInfoList = articles.filter(isDefined).map(article => {
-  return formatArticleInfo(article)
-})
+const articleInfoList = articles.filter(isDefined).map(formatArticleInfo)
 ---
 
 <Layout title={PAGE_NAME.TOP}>
-  <div class={styles.pageList}>
-    {
-      articleInfoList.map((article, index) => (
-        <>
-          <ArticleCard {...article} />
-          {index !== articleInfoList.length - 1 && <DividerHorizontal />}
-        </>
-      ))
-    }
+  <div class={styles.topPage}>
+    <ArticleCardList articleInfoList={articleInfoList} client:load />
   </div>
 </Layout>

@@ -1,0 +1,13 @@
+@import url("/src/styles/post.css");
+
+.articleCardList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (--pc) {
+  .articleCardList {
+    gap: 32px;
+  }
+}

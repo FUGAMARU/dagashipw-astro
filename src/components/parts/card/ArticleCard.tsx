@@ -1,6 +1,5 @@
 import BackNumber from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
-import Link from "@/components/parts/common/Link"
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import Tag from "@/components/parts/Tag"
 import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
@@ -23,7 +22,6 @@ const ArticleCard = ({
   title,
   bodyBeginningParagraph,
   tags,
-  articleUrlId,
   backNumber
 }: Props): ReactNode => {
   return (
@@ -55,12 +53,10 @@ const ArticleCard = ({
         </div>
 
         <div className={styles.link}>
-          <Link href={`/${articleUrlId}`}>
-            <div className={styles.readIt}>
-              <SvgLoader height={18} name="doubleRightArrow" width={18} />
-              <span className={styles.text}>読んでみる</span>
-            </div>
-          </Link>
+          <div className={styles.read}>
+            <SvgLoader height={18} name="doubleRightArrow" width={18} />
+            <span className={styles.text}>読んでみる</span>
+          </div>
         </div>
       </div>
     </div>

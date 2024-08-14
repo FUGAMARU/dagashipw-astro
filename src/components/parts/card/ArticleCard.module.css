@@ -57,6 +57,18 @@
     > .link {
       display: flex;
       justify-content: flex-end;
+
+      > .read {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        color: var(--color-text-gray);
+        fill: var(--color-text-gray);
+
+        > .text {
+          font-size: 12px;
+        }
+      }
     }
   }
 }
@@ -66,18 +78,6 @@
   height: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 16px;
-}
-
-.readIt {
-  display: flex;
-  gap: 2px;
-  align-items: center;
-  color: var(--color-text-gray);
-  fill: var(--color-text-gray);
-
-  > .text {
-    font-size: 12px;
-  }
 }
 
 @media (--pc) {
