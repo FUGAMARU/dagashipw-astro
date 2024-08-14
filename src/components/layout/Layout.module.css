@@ -9,9 +9,7 @@
 }
 
 .backgroundPattern {
-  position: fixed;
-  inset: 0;
-  z-index: -1; /* TODO: 一箇所にまとめたほうが良さそう */
+  display: none;
 }
 
 @media (--pc) {
@@ -35,5 +33,12 @@
       min-width: 330px;
       margin-top: 0;
     }
+  }
+
+  .backgroundPattern {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* TODO: 一箇所にまとめたほうが良さそう */
+    display: block;
   }
 }

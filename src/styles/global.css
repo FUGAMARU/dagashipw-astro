@@ -1,11 +1,17 @@
 @import url("./destyle.css");
 @import url("./font.css");
 @import url("./variable.css");
+@import url("./post.css");
 
 html,
 body {
   font-family: "Noto Sans JP", sans-serif;
   line-height: 1;
   color: var(--color-text-dark);
+  background-color: var(--color-page-background);
   fill: var(--color-text-dark);
+
+  @media (--pc) {
+    background-color: var(--color-page-background-alpha);
+  }
 }

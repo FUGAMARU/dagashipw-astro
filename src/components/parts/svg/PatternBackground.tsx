@@ -9,27 +9,15 @@ const PatternBackground = (): ReactNode => {
     <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <style>
-          {`.cls-1 {
+          {` .cls-1 {
         fill: none;
       }
 
-      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
-        stroke-width: 0px;
-      }
-
       .cls-2 {
-        fill: url(#_名称未設定グラデーション_27);
+        isolation: isolate;
       }
 
       .cls-3 {
-        fill: #b6b6b6;
-      }
-
-      .cls-6 {
-        mix-blend-mode: overlay;
-      }
-
-      .cls-7 {
         clip-path: url(#clippath-13);
       }
 
@@ -37,36 +25,28 @@ const PatternBackground = (): ReactNode => {
         fill: #ddd;
       }
 
-      .cls-8 {
+      .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-6 {
+        mix-blend-mode: overlay;
+      }
+
+      .cls-7 {
         mix-blend-mode: screen;
       }
 
-      .cls-9 {
-        isolation: isolate;
-      }
-
-      .cls-5 {
-        fill: #fff;
+      .cls-8 {
+        fill: #b6b6b6;
       }`}
         </style>
         <clipPath id="clippath-13">
           <rect className="cls-1" height="30" width="30" />
         </clipPath>
-        <linearGradient
-          data-name="名称未設定グラデーション 27"
-          gradientUnits="userSpaceOnUse"
-          id="_名称未設定グラデーション_27"
-          x1="15"
-          x2="15"
-          y1="0"
-          y2="30"
-        >
-          <stop offset="0" stopColor="#f0f0f0" stopOpacity=".2" />
-          <stop offset="1" stopColor="#f0f0f0" stopOpacity=".5" />
-        </linearGradient>
       </defs>
-      <g className="cls-9">
-        <g data-name="Layer 1" id="Layer_1">
+      <g className="cls-2">
+        <g id="Layer_1">
           <g>
             <g>
               <g>
@@ -85,7 +65,7 @@ const PatternBackground = (): ReactNode => {
                   />
                 </g>
               </g>
-              <g className="cls-8">
+              <g className="cls-7">
                 <image
                   height="126"
                   transform="translate(-.07 -.17) scale(.24)"
@@ -103,56 +83,56 @@ const PatternBackground = (): ReactNode => {
               </g>
             </g>
             <g className="cls-6">
-              <g className="cls-7">
+              <g className="cls-3">
                 <g>
                   <polygon className="cls-5" points="30.99 1.61 30.02 -.06 29.05 1.61 30.99 1.61" />
                   <polygon className="cls-4" points="29.05 1.61 28.08 -.06 27.11 1.61 29.05 1.61" />
                   <polygon className="cls-4" points="27.11 1.61 26.14 -.06 25.17 1.61 27.11 1.61" />
                   <polygon className="cls-4" points="25.17 1.61 24.2 -.06 23.23 1.61 25.17 1.61" />
-                  <polygon className="cls-3" points="23.23 1.61 22.26 -.06 21.29 1.61 23.23 1.61" />
+                  <polygon className="cls-8" points="23.23 1.61 22.26 -.06 21.29 1.61 23.23 1.61" />
                   <polygon className="cls-4" points="21.29 1.61 20.33 -.06 19.36 1.61 21.29 1.61" />
-                  <polygon className="cls-3" points="19.36 1.61 18.39 -.06 17.42 1.61 19.36 1.61" />
+                  <polygon className="cls-8" points="19.36 1.61 18.39 -.06 17.42 1.61 19.36 1.61" />
                   <polygon className="cls-5" points="17.42 1.61 16.45 -.06 15.48 1.61 17.42 1.61" />
-                  <polygon className="cls-3" points="15.48 1.61 14.51 -.06 13.54 1.61 15.48 1.61" />
+                  <polygon className="cls-8" points="15.48 1.61 14.51 -.06 13.54 1.61 15.48 1.61" />
                   <polygon className="cls-4" points="13.54 1.61 12.57 -.06 11.6 1.61 13.54 1.61" />
-                  <polygon className="cls-3" points="11.6 1.61 10.63 -.06 9.66 1.61 11.6 1.61" />
+                  <polygon className="cls-8" points="11.6 1.61 10.63 -.06 9.66 1.61 11.6 1.61" />
                   <polygon className="cls-4" points="9.66 1.61 8.69 -.06 7.72 1.61 9.66 1.61" />
                   <polygon className="cls-5" points="7.72 1.61 6.75 -.06 5.78 1.61 7.72 1.61" />
-                  <polygon className="cls-3" points="5.78 1.61 4.81 -.06 3.85 1.61 5.78 1.61" />
+                  <polygon className="cls-8" points="5.78 1.61 4.81 -.06 3.85 1.61 5.78 1.61" />
                   <polygon className="cls-5" points="3.85 1.61 2.87 -.06 1.91 1.61 3.85 1.61" />
                   <polygon className="cls-4" points="1.91 1.61 .94 -.06 -.03 1.61 1.91 1.61" />
                   <polygon className="cls-4" points="-1 -.06 -.03 1.61 .94 -.06 -1 -.06" />
-                  <polygon className="cls-3" points=".94 -.06 1.91 1.61 2.87 -.06 .94 -.06" />
-                  <polygon className="cls-3" points="2.87 -.06 3.85 1.61 4.81 -.06 2.87 -.06" />
-                  <polygon className="cls-3" points="4.81 -.06 5.78 1.61 6.75 -.06 4.81 -.06" />
+                  <polygon className="cls-8" points=".94 -.06 1.91 1.61 2.87 -.06 .94 -.06" />
+                  <polygon className="cls-8" points="2.87 -.06 3.85 1.61 4.81 -.06 2.87 -.06" />
+                  <polygon className="cls-8" points="4.81 -.06 5.78 1.61 6.75 -.06 4.81 -.06" />
                   <polygon className="cls-4" points="6.75 -.06 7.72 1.61 8.69 -.06 6.75 -.06" />
                   <polygon className="cls-4" points="8.69 -.06 9.66 1.61 10.63 -.06 8.69 -.06" />
                   <polygon className="cls-5" points="10.63 -.06 11.6 1.61 12.57 -.06 10.63 -.06" />
-                  <polygon className="cls-3" points="12.57 -.06 13.54 1.61 14.51 -.06 12.57 -.06" />
-                  <polygon className="cls-3" points="14.51 -.06 15.48 1.61 16.45 -.06 14.51 -.06" />
-                  <polygon className="cls-3" points="16.45 -.06 17.42 1.61 18.39 -.06 16.45 -.06" />
+                  <polygon className="cls-8" points="12.57 -.06 13.54 1.61 14.51 -.06 12.57 -.06" />
+                  <polygon className="cls-8" points="14.51 -.06 15.48 1.61 16.45 -.06 14.51 -.06" />
+                  <polygon className="cls-8" points="16.45 -.06 17.42 1.61 18.39 -.06 16.45 -.06" />
                   <polygon className="cls-4" points="18.39 -.06 19.36 1.61 20.33 -.06 18.39 -.06" />
                   <polygon className="cls-4" points="20.33 -.06 21.29 1.61 22.26 -.06 20.33 -.06" />
                   <polygon className="cls-4" points="22.26 -.06 23.23 1.61 24.2 -.06 22.26 -.06" />
-                  <polygon className="cls-3" points="24.2 -.06 25.17 1.61 26.14 -.06 24.2 -.06" />
+                  <polygon className="cls-8" points="24.2 -.06 25.17 1.61 26.14 -.06 24.2 -.06" />
                   <polygon className="cls-4" points="26.14 -.06 27.11 1.61 28.08 -.06 26.14 -.06" />
                   <polygon className="cls-5" points="28.08 -.06 29.05 1.61 30.02 -.06 28.08 -.06" />
-                  <polygon className="cls-3" points="30.02 3.28 29.05 1.61 28.08 3.28 30.02 3.28" />
+                  <polygon className="cls-8" points="30.02 3.28 29.05 1.61 28.08 3.28 30.02 3.28" />
                   <polygon className="cls-4" points="28.08 3.28 27.11 1.61 26.14 3.28 28.08 3.28" />
                   <polygon className="cls-5" points="26.14 3.28 25.17 1.61 24.21 3.28 26.14 3.28" />
                   <polygon className="cls-5" points="24.21 3.28 23.24 1.61 22.27 3.28 24.21 3.28" />
                   <polygon className="cls-4" points="22.27 3.28 21.3 1.61 20.33 3.28 22.27 3.28" />
                   <polygon className="cls-4" points="20.33 3.28 19.36 1.61 18.39 3.28 20.33 3.28" />
-                  <polygon className="cls-3" points="18.39 3.28 17.42 1.61 16.45 3.28 18.39 3.28" />
-                  <polygon className="cls-3" points="16.45 3.28 15.48 1.61 14.51 3.28 16.45 3.28" />
+                  <polygon className="cls-8" points="18.39 3.28 17.42 1.61 16.45 3.28 18.39 3.28" />
+                  <polygon className="cls-8" points="16.45 3.28 15.48 1.61 14.51 3.28 16.45 3.28" />
                   <polygon className="cls-4" points="14.51 3.28 13.54 1.61 12.57 3.28 14.51 3.28" />
                   <polygon className="cls-5" points="12.57 3.28 11.6 1.61 10.63 3.28 12.57 3.28" />
                   <polygon className="cls-4" points="10.63 3.28 9.66 1.61 8.69 3.28 10.63 3.28" />
-                  <polygon className="cls-3" points="8.69 3.28 7.72 1.61 6.75 3.28 8.69 3.28" />
+                  <polygon className="cls-8" points="8.69 3.28 7.72 1.61 6.75 3.28 8.69 3.28" />
                   <polygon className="cls-5" points="6.75 3.28 5.79 1.61 4.82 3.28 6.75 3.28" />
-                  <polygon className="cls-3" points="4.82 3.28 3.85 1.61 2.88 3.28 4.82 3.28" />
-                  <polygon className="cls-3" points="2.88 3.28 1.91 1.61 .94 3.28 2.88 3.28" />
-                  <polygon className="cls-3" points=".94 3.28 -.03 1.61 -1 3.28 .94 3.28" />
+                  <polygon className="cls-8" points="4.82 3.28 3.85 1.61 2.88 3.28 4.82 3.28" />
+                  <polygon className="cls-8" points="2.88 3.28 1.91 1.61 .94 3.28 2.88 3.28" />
+                  <polygon className="cls-8" points=".94 3.28 -.03 1.61 -1 3.28 .94 3.28" />
                   <polygon className="cls-4" points="-.03 1.61 .94 3.28 1.91 1.61 -.03 1.61" />
                   <polygon className="cls-4" points="1.91 1.61 2.88 3.28 3.85 1.61 1.91 1.61" />
                   <polygon className="cls-4" points="3.85 1.61 4.82 3.28 5.79 1.61 3.85 1.61" />
@@ -170,38 +150,38 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-4" points="27.11 1.61 28.08 3.28 29.05 1.61 27.11 1.61" />
                   <polygon className="cls-4" points="29.05 1.61 30.02 3.28 30.99 1.61 29.05 1.61" />
                   <polygon className="cls-4" points="31 4.95 30.03 3.28 29.06 4.95 31 4.95" />
-                  <polygon className="cls-3" points="29.06 4.95 28.09 3.28 27.12 4.95 29.06 4.95" />
+                  <polygon className="cls-8" points="29.06 4.95 28.09 3.28 27.12 4.95 29.06 4.95" />
                   <polygon className="cls-4" points="27.12 4.95 26.15 3.28 25.18 4.95 27.12 4.95" />
                   <polygon className="cls-4" points="25.18 4.95 24.21 3.28 23.24 4.95 25.18 4.95" />
                   <polygon className="cls-4" points="23.24 4.95 22.27 3.28 21.3 4.95 23.24 4.95" />
                   <polygon className="cls-5" points="21.3 4.95 20.33 3.28 19.36 4.95 21.3 4.95" />
                   <polygon className="cls-4" points="19.36 4.95 18.39 3.28 17.42 4.95 19.36 4.95" />
-                  <polygon className="cls-3" points="17.42 4.95 16.46 3.28 15.49 4.95 17.42 4.95" />
+                  <polygon className="cls-8" points="17.42 4.95 16.46 3.28 15.49 4.95 17.42 4.95" />
                   <polygon className="cls-4" points="15.49 4.95 14.52 3.28 13.55 4.95 15.49 4.95" />
                   <polygon className="cls-4" points="13.55 4.95 12.58 3.28 11.61 4.95 13.55 4.95" />
                   <polygon className="cls-4" points="11.61 4.95 10.64 3.28 9.67 4.95 11.61 4.95" />
-                  <polygon className="cls-3" points="9.67 4.95 8.7 3.28 7.73 4.95 9.67 4.95" />
-                  <polygon className="cls-3" points="7.73 4.95 6.76 3.28 5.79 4.95 7.73 4.95" />
-                  <polygon className="cls-3" points="5.79 4.95 4.82 3.28 3.85 4.95 5.79 4.95" />
+                  <polygon className="cls-8" points="9.67 4.95 8.7 3.28 7.73 4.95 9.67 4.95" />
+                  <polygon className="cls-8" points="7.73 4.95 6.76 3.28 5.79 4.95 7.73 4.95" />
+                  <polygon className="cls-8" points="5.79 4.95 4.82 3.28 3.85 4.95 5.79 4.95" />
                   <polygon className="cls-5" points="3.85 4.95 2.88 3.28 1.91 4.95 3.85 4.95" />
-                  <polygon className="cls-3" points="1.91 4.95 .94 3.28 -.03 4.95 1.91 4.95" />
-                  <polygon className="cls-3" points="-1 3.28 -.03 4.95 .94 3.28 -1 3.28" />
+                  <polygon className="cls-8" points="1.91 4.95 .94 3.28 -.03 4.95 1.91 4.95" />
+                  <polygon className="cls-8" points="-1 3.28 -.03 4.95 .94 3.28 -1 3.28" />
                   <polygon className="cls-4" points=".94 3.28 1.91 4.95 2.88 3.28 .94 3.28" />
                   <polygon className="cls-5" points="2.88 3.28 3.85 4.95 4.82 3.28 2.88 3.28" />
-                  <polygon className="cls-3" points="4.82 3.28 5.79 4.95 6.76 3.28 4.82 3.28" />
+                  <polygon className="cls-8" points="4.82 3.28 5.79 4.95 6.76 3.28 4.82 3.28" />
                   <polygon className="cls-4" points="6.76 3.28 7.73 4.95 8.7 3.28 6.76 3.28" />
                   <polygon className="cls-4" points="8.7 3.28 9.67 4.95 10.64 3.28 8.7 3.28" />
                   <polygon className="cls-4" points="10.64 3.28 11.61 4.95 12.58 3.28 10.64 3.28" />
                   <polygon className="cls-4" points="12.58 3.28 13.55 4.95 14.52 3.28 12.58 3.28" />
                   <polygon className="cls-4" points="14.52 3.28 15.49 4.95 16.46 3.28 14.52 3.28" />
                   <polygon className="cls-4" points="16.46 3.28 17.42 4.95 18.39 3.28 16.46 3.28" />
-                  <polygon className="cls-3" points="18.39 3.28 19.36 4.95 20.33 3.28 18.39 3.28" />
+                  <polygon className="cls-8" points="18.39 3.28 19.36 4.95 20.33 3.28 18.39 3.28" />
                   <polygon className="cls-5" points="20.33 3.28 21.3 4.95 22.27 3.28 20.33 3.28" />
                   <polygon className="cls-5" points="22.27 3.28 23.24 4.95 24.21 3.28 22.27 3.28" />
                   <polygon className="cls-4" points="24.21 3.28 25.18 4.95 26.15 3.28 24.21 3.28" />
                   <polygon className="cls-4" points="26.15 3.28 27.12 4.95 28.09 3.28 26.15 3.28" />
-                  <polygon className="cls-3" points="28.09 3.28 29.06 4.95 30.03 3.28 28.09 3.28" />
-                  <polygon className="cls-3" points="30.02 6.62 29.05 4.95 28.08 6.62 30.02 6.62" />
+                  <polygon className="cls-8" points="28.09 3.28 29.06 4.95 30.03 3.28 28.09 3.28" />
+                  <polygon className="cls-8" points="30.02 6.62 29.05 4.95 28.08 6.62 30.02 6.62" />
                   <polygon className="cls-5" points="28.08 6.62 27.11 4.95 26.14 6.62 28.08 6.62" />
                   <polygon className="cls-4" points="26.14 6.62 25.17 4.95 24.2 6.62 26.14 6.62" />
                   <polygon className="cls-4" points="24.2 6.62 23.23 4.95 22.26 6.62 24.2 6.62" />
@@ -213,7 +193,7 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-4" points="12.57 6.62 11.6 4.95 10.63 6.62 12.57 6.62" />
                   <polygon className="cls-4" points="10.63 6.62 9.66 4.95 8.69 6.62 10.63 6.62" />
                   <polygon className="cls-4" points="8.69 6.62 7.72 4.95 6.75 6.62 8.69 6.62" />
-                  <polygon className="cls-3" points="6.75 6.62 5.78 4.95 4.81 6.62 6.75 6.62" />
+                  <polygon className="cls-8" points="6.75 6.62 5.78 4.95 4.81 6.62 6.75 6.62" />
                   <polygon className="cls-5" points="4.81 6.62 3.84 4.95 2.87 6.62 4.81 6.62" />
                   <polygon className="cls-4" points="2.87 6.62 1.9 4.95 .94 6.62 2.87 6.62" />
                   <polygon className="cls-4" points=".94 6.62 -.03 4.95 -1 6.62 .94 6.62" />
@@ -229,7 +209,7 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-4" points="17.42 4.95 18.39 6.62 19.35 4.95 17.42 4.95" />
                   <polygon className="cls-4" points="19.35 4.95 20.32 6.62 21.29 4.95 19.35 4.95" />
                   <polygon className="cls-5" points="21.29 4.95 22.26 6.62 23.23 4.95 21.29 4.95" />
-                  <polygon className="cls-3" points="23.23 4.95 24.2 6.62 25.17 4.95 23.23 4.95" />
+                  <polygon className="cls-8" points="23.23 4.95 24.2 6.62 25.17 4.95 23.23 4.95" />
                   <polygon className="cls-4" points="25.17 4.95 26.14 6.62 27.11 4.95 25.17 4.95" />
                   <polygon className="cls-4" points="27.11 4.95 28.08 6.62 29.05 4.95 27.11 4.95" />
                   <polygon className="cls-4" points="29.05 4.95 30.02 6.62 30.99 4.95 29.05 4.95" />
@@ -240,17 +220,17 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-5" points="23.24 8.29 22.27 6.62 21.3 8.29 23.24 8.29" />
                   <polygon className="cls-5" points="21.3 8.29 20.33 6.62 19.36 8.29 21.3 8.29" />
                   <polygon className="cls-5" points="19.36 8.29 18.39 6.62 17.42 8.29 19.36 8.29" />
-                  <polygon className="cls-3" points="17.42 8.29 16.45 6.62 15.48 8.29 17.42 8.29" />
+                  <polygon className="cls-8" points="17.42 8.29 16.45 6.62 15.48 8.29 17.42 8.29" />
                   <polygon className="cls-4" points="15.48 8.29 14.51 6.62 13.54 8.29 15.48 8.29" />
-                  <polygon className="cls-3" points="13.54 8.29 12.57 6.62 11.6 8.29 13.54 8.29" />
+                  <polygon className="cls-8" points="13.54 8.29 12.57 6.62 11.6 8.29 13.54 8.29" />
                   <polygon className="cls-4" points="11.6 8.29 10.63 6.62 9.67 8.29 11.6 8.29" />
                   <polygon className="cls-4" points="9.67 8.29 8.7 6.62 7.73 8.29 9.67 8.29" />
                   <polygon className="cls-5" points="7.73 8.29 6.76 6.62 5.79 8.29 7.73 8.29" />
                   <polygon className="cls-4" points="5.79 8.29 4.82 6.62 3.85 8.29 5.79 8.29" />
-                  <polygon className="cls-3" points="3.85 8.29 2.88 6.62 1.91 8.29 3.85 8.29" />
-                  <polygon className="cls-3" points="1.91 8.29 .94 6.62 -.03 8.29 1.91 8.29" />
+                  <polygon className="cls-8" points="3.85 8.29 2.88 6.62 1.91 8.29 3.85 8.29" />
+                  <polygon className="cls-8" points="1.91 8.29 .94 6.62 -.03 8.29 1.91 8.29" />
                   <polygon className="cls-4" points="-1 6.62 -.03 8.29 .94 6.62 -1 6.62" />
-                  <polygon className="cls-3" points=".94 6.62 1.91 8.29 2.88 6.62 .94 6.62" />
+                  <polygon className="cls-8" points=".94 6.62 1.91 8.29 2.88 6.62 .94 6.62" />
                   <polygon className="cls-5" points="2.88 6.62 3.85 8.29 4.82 6.62 2.88 6.62" />
                   <polygon className="cls-5" points="4.82 6.62 5.79 8.29 6.76 6.62 4.82 6.62" />
                   <polygon className="cls-5" points="6.76 6.62 7.73 8.29 8.7 6.62 6.76 6.62" />
@@ -258,11 +238,11 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-4" points="10.63 6.62 11.6 8.29 12.57 6.62 10.63 6.62" />
                   <polygon className="cls-4" points="12.57 6.62 13.54 8.29 14.51 6.62 12.57 6.62" />
                   <polygon className="cls-4" points="14.51 6.62 15.48 8.29 16.45 6.62 14.51 6.62" />
-                  <polygon className="cls-3" points="16.45 6.62 17.42 8.29 18.39 6.62 16.45 6.62" />
+                  <polygon className="cls-8" points="16.45 6.62 17.42 8.29 18.39 6.62 16.45 6.62" />
                   <polygon className="cls-4" points="18.39 6.62 19.36 8.29 20.33 6.62 18.39 6.62" />
-                  <polygon className="cls-3" points="20.33 6.62 21.3 8.29 22.27 6.62 20.33 6.62" />
+                  <polygon className="cls-8" points="20.33 6.62 21.3 8.29 22.27 6.62 20.33 6.62" />
                   <polygon className="cls-5" points="22.27 6.62 23.24 8.29 24.21 6.62 22.27 6.62" />
-                  <polygon className="cls-3" points="24.21 6.62 25.18 8.29 26.15 6.62 24.21 6.62" />
+                  <polygon className="cls-8" points="24.21 6.62 25.18 8.29 26.15 6.62 24.21 6.62" />
                   <polygon className="cls-5" points="26.15 6.62 27.12 8.29 28.08 6.62 26.15 6.62" />
                   <polygon className="cls-4" points="28.08 6.62 29.05 8.29 30.02 6.62 28.08 6.62" />
                   <polygon className="cls-4" points="30.03 9.96 29.06 8.29 28.09 9.96 30.03 9.96" />
@@ -273,14 +253,14 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-4" points="20.33 9.96 19.36 8.29 18.39 9.96 20.33 9.96" />
                   <polygon className="cls-4" points="18.39 9.96 17.42 8.29 16.45 9.96 18.39 9.96" />
                   <polygon className="cls-4" points="16.45 9.96 15.48 8.29 14.51 9.96 16.45 9.96" />
-                  <polygon className="cls-3" points="14.51 9.96 13.54 8.29 12.58 9.96 14.51 9.96" />
-                  <polygon className="cls-3" points="12.58 9.96 11.61 8.29 10.64 9.96 12.58 9.96" />
+                  <polygon className="cls-8" points="14.51 9.96 13.54 8.29 12.58 9.96 14.51 9.96" />
+                  <polygon className="cls-8" points="12.58 9.96 11.61 8.29 10.64 9.96 12.58 9.96" />
                   <polygon className="cls-5" points="10.64 9.96 9.67 8.29 8.7 9.96 10.64 9.96" />
                   <polygon className="cls-5" points="8.7 9.96 7.73 8.29 6.76 9.96 8.7 9.96" />
                   <polygon className="cls-5" points="6.76 9.96 5.79 8.29 4.82 9.96 6.76 9.96" />
-                  <polygon className="cls-3" points="4.82 9.96 3.85 8.29 2.88 9.96 4.82 9.96" />
-                  <polygon className="cls-3" points="2.88 9.96 1.91 8.29 .94 9.96 2.88 9.96" />
-                  <polygon className="cls-3" points=".94 9.96 -.03 8.29 -1 9.96 .94 9.96" />
+                  <polygon className="cls-8" points="4.82 9.96 3.85 8.29 2.88 9.96 4.82 9.96" />
+                  <polygon className="cls-8" points="2.88 9.96 1.91 8.29 .94 9.96 2.88 9.96" />
+                  <polygon className="cls-8" points=".94 9.96 -.03 8.29 -1 9.96 .94 9.96" />
                   <polygon className="cls-4" points="-.03 8.29 .94 9.96 1.91 8.29 -.03 8.29" />
                   <polygon className="cls-4" points="1.91 8.29 2.88 9.96 3.85 8.29 1.91 8.29" />
                   <polygon className="cls-4" points="3.85 8.29 4.82 9.96 5.79 8.29 3.85 8.29" />
@@ -288,10 +268,10 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-5" points="7.73 8.29 8.7 9.96 9.67 8.29 7.73 8.29" />
                   <polygon className="cls-4" points="9.67 8.29 10.64 9.96 11.61 8.29 9.67 8.29" />
                   <polygon className="cls-5" points="11.61 8.29 12.58 9.96 13.54 8.29 11.61 8.29" />
-                  <polygon className="cls-3" points="13.54 8.29 14.51 9.96 15.48 8.29 13.54 8.29" />
-                  <polygon className="cls-3" points="15.48 8.29 16.45 9.96 17.42 8.29 15.48 8.29" />
-                  <polygon className="cls-3" points="17.42 8.29 18.39 9.96 19.36 8.29 17.42 8.29" />
-                  <polygon className="cls-3" points="19.36 8.29 20.33 9.96 21.3 8.29 19.36 8.29" />
+                  <polygon className="cls-8" points="13.54 8.29 14.51 9.96 15.48 8.29 13.54 8.29" />
+                  <polygon className="cls-8" points="15.48 8.29 16.45 9.96 17.42 8.29 15.48 8.29" />
+                  <polygon className="cls-8" points="17.42 8.29 18.39 9.96 19.36 8.29 17.42 8.29" />
+                  <polygon className="cls-8" points="19.36 8.29 20.33 9.96 21.3 8.29 19.36 8.29" />
                   <polygon className="cls-4" points="21.3 8.29 22.27 9.96 23.24 8.29 21.3 8.29" />
                   <polygon className="cls-4" points="23.24 8.29 24.21 9.96 25.18 8.29 23.24 8.29" />
                   <polygon className="cls-4" points="25.18 8.29 26.15 9.96 27.12 8.29 25.18 8.29" />
@@ -303,11 +283,11 @@ const PatternBackground = (): ReactNode => {
                     points="29.06 11.63 28.09 9.96 27.12 11.63 29.06 11.63"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="27.12 11.63 26.15 9.96 25.18 11.63 27.12 11.63"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="25.18 11.63 24.21 9.96 23.24 11.63 25.18 11.63"
                   />
                   <polygon
@@ -319,11 +299,11 @@ const PatternBackground = (): ReactNode => {
                     points="21.31 11.63 20.34 9.96 19.37 11.63 21.31 11.63"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="19.37 11.63 18.4 9.96 17.43 11.63 19.37 11.63"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="17.43 11.63 16.46 9.96 15.49 11.63 17.43 11.63"
                   />
                   <polygon
@@ -335,20 +315,20 @@ const PatternBackground = (): ReactNode => {
                     points="13.55 11.63 12.58 9.96 11.61 11.63 13.55 11.63"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="11.61 11.63 10.64 9.96 9.67 11.63 11.61 11.63"
                   />
                   <polygon className="cls-4" points="9.67 11.63 8.7 9.96 7.73 11.63 9.67 11.63" />
                   <polygon className="cls-4" points="7.73 11.63 6.76 9.96 5.79 11.63 7.73 11.63" />
-                  <polygon className="cls-3" points="5.79 11.63 4.83 9.96 3.86 11.63 5.79 11.63" />
-                  <polygon className="cls-3" points="3.86 11.63 2.89 9.96 1.92 11.63 3.86 11.63" />
+                  <polygon className="cls-8" points="5.79 11.63 4.83 9.96 3.86 11.63 5.79 11.63" />
+                  <polygon className="cls-8" points="3.86 11.63 2.89 9.96 1.92 11.63 3.86 11.63" />
                   <polygon className="cls-5" points="1.92 11.63 .95 9.96 -.02 11.63 1.92 11.63" />
-                  <polygon className="cls-3" points="-.99 9.96 -.02 11.63 .95 9.96 -.99 9.96" />
-                  <polygon className="cls-3" points=".95 9.96 1.92 11.63 2.89 9.96 .95 9.96" />
-                  <polygon className="cls-3" points="2.89 9.96 3.86 11.63 4.83 9.96 2.89 9.96" />
+                  <polygon className="cls-8" points="-.99 9.96 -.02 11.63 .95 9.96 -.99 9.96" />
+                  <polygon className="cls-8" points=".95 9.96 1.92 11.63 2.89 9.96 .95 9.96" />
+                  <polygon className="cls-8" points="2.89 9.96 3.86 11.63 4.83 9.96 2.89 9.96" />
                   <polygon className="cls-4" points="4.83 9.96 5.79 11.63 6.76 9.96 4.83 9.96" />
                   <polygon className="cls-5" points="6.76 9.96 7.73 11.63 8.7 9.96 6.76 9.96" />
-                  <polygon className="cls-3" points="8.7 9.96 9.67 11.63 10.64 9.96 8.7 9.96" />
+                  <polygon className="cls-8" points="8.7 9.96 9.67 11.63 10.64 9.96 8.7 9.96" />
                   <polygon
                     className="cls-5"
                     points="10.64 9.96 11.61 11.63 12.58 9.96 10.64 9.96"
@@ -361,22 +341,22 @@ const PatternBackground = (): ReactNode => {
                     className="cls-4"
                     points="14.52 9.96 15.49 11.63 16.46 9.96 14.52 9.96"
                   />
-                  <polygon className="cls-3" points="16.46 9.96 17.43 11.63 18.4 9.96 16.46 9.96" />
-                  <polygon className="cls-3" points="18.4 9.96 19.37 11.63 20.34 9.96 18.4 9.96" />
+                  <polygon className="cls-8" points="16.46 9.96 17.43 11.63 18.4 9.96 16.46 9.96" />
+                  <polygon className="cls-8" points="18.4 9.96 19.37 11.63 20.34 9.96 18.4 9.96" />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="20.34 9.96 21.31 11.63 22.28 9.96 20.34 9.96"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="22.28 9.96 23.24 11.63 24.21 9.96 22.28 9.96"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="24.21 9.96 25.18 11.63 26.15 9.96 24.21 9.96"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="26.15 9.96 27.12 11.63 28.09 9.96 26.15 9.96"
                   />
                   <polygon
@@ -392,7 +372,7 @@ const PatternBackground = (): ReactNode => {
                     points="28.08 13.3 27.11 11.63 26.14 13.3 28.08 13.3"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="26.14 13.3 25.17 11.63 24.21 13.3 26.14 13.3"
                   />
                   <polygon
@@ -416,19 +396,19 @@ const PatternBackground = (): ReactNode => {
                     className="cls-4"
                     points="14.51 13.3 13.54 11.63 12.57 13.3 14.51 13.3"
                   />
-                  <polygon className="cls-3" points="12.57 13.3 11.6 11.63 10.63 13.3 12.57 13.3" />
-                  <polygon className="cls-3" points="10.63 13.3 9.66 11.63 8.7 13.3 10.63 13.3" />
-                  <polygon className="cls-3" points="8.7 13.3 7.73 11.63 6.76 13.3 8.7 13.3" />
+                  <polygon className="cls-8" points="12.57 13.3 11.6 11.63 10.63 13.3 12.57 13.3" />
+                  <polygon className="cls-8" points="10.63 13.3 9.66 11.63 8.7 13.3 10.63 13.3" />
+                  <polygon className="cls-8" points="8.7 13.3 7.73 11.63 6.76 13.3 8.7 13.3" />
                   <polygon className="cls-4" points="6.76 13.3 5.79 11.63 4.82 13.3 6.76 13.3" />
-                  <polygon className="cls-3" points="4.82 13.3 3.85 11.63 2.88 13.3 4.82 13.3" />
+                  <polygon className="cls-8" points="4.82 13.3 3.85 11.63 2.88 13.3 4.82 13.3" />
                   <polygon className="cls-4" points="2.88 13.3 1.91 11.63 .94 13.3 2.88 13.3" />
                   <polygon className="cls-4" points=".94 13.3 -.03 11.63 -1 13.3 .94 13.3" />
                   <polygon className="cls-5" points="-.03 11.63 .94 13.3 1.91 11.63 -.03 11.63" />
-                  <polygon className="cls-3" points="1.91 11.63 2.88 13.3 3.85 11.63 1.91 11.63" />
+                  <polygon className="cls-8" points="1.91 11.63 2.88 13.3 3.85 11.63 1.91 11.63" />
                   <polygon className="cls-5" points="3.85 11.63 4.82 13.3 5.79 11.63 3.85 11.63" />
-                  <polygon className="cls-3" points="5.79 11.63 6.76 13.3 7.73 11.63 5.79 11.63" />
+                  <polygon className="cls-8" points="5.79 11.63 6.76 13.3 7.73 11.63 5.79 11.63" />
                   <polygon className="cls-4" points="7.73 11.63 8.7 13.3 9.66 11.63 7.73 11.63" />
-                  <polygon className="cls-3" points="9.66 11.63 10.63 13.3 11.6 11.63 9.66 11.63" />
+                  <polygon className="cls-8" points="9.66 11.63 10.63 13.3 11.6 11.63 9.66 11.63" />
                   <polygon
                     className="cls-4"
                     points="11.6 11.63 12.57 13.3 13.54 11.63 11.6 11.63"
@@ -450,7 +430,7 @@ const PatternBackground = (): ReactNode => {
                     points="19.36 11.63 20.33 13.3 21.3 11.63 19.36 11.63"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="21.3 11.63 22.27 13.3 23.24 11.63 21.3 11.63"
                   />
                   <polygon
@@ -471,7 +451,7 @@ const PatternBackground = (): ReactNode => {
                   />
                   <polygon className="cls-5" points="31 14.97 30.03 13.3 29.06 14.97 31 14.97" />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="29.06 14.97 28.09 13.3 27.12 14.97 29.06 14.97"
                   />
                   <polygon
@@ -518,7 +498,7 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-5" points="-.99 13.3 -.02 14.97 .94 13.3 -.99 13.3" />
                   <polygon className="cls-5" points=".94 13.3 1.91 14.97 2.88 13.3 .94 13.3" />
                   <polygon className="cls-4" points="2.88 13.3 3.85 14.97 4.82 13.3 2.88 13.3" />
-                  <polygon className="cls-3" points="4.82 13.3 5.79 14.97 6.76 13.3 4.82 13.3" />
+                  <polygon className="cls-8" points="4.82 13.3 5.79 14.97 6.76 13.3 4.82 13.3" />
                   <polygon className="cls-5" points="6.76 13.3 7.73 14.97 8.7 13.3 6.76 13.3" />
                   <polygon className="cls-4" points="8.7 13.3 9.67 14.97 10.64 13.3 8.7 13.3" />
                   <polygon
@@ -526,7 +506,7 @@ const PatternBackground = (): ReactNode => {
                     points="10.64 13.3 11.61 14.97 12.58 13.3 10.64 13.3"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="12.58 13.3 13.55 14.97 14.52 13.3 12.58 13.3"
                   />
                   <polygon
@@ -534,14 +514,14 @@ const PatternBackground = (): ReactNode => {
                     points="14.52 13.3 15.49 14.97 16.46 13.3 14.52 13.3"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="16.46 13.3 17.42 14.97 18.39 13.3 16.46 13.3"
                   />
                   <polygon
                     className="cls-4"
                     points="18.39 13.3 19.36 14.97 20.33 13.3 18.39 13.3"
                   />
-                  <polygon className="cls-3" points="20.33 13.3 21.3 14.97 22.27 13.3 20.33 13.3" />
+                  <polygon className="cls-8" points="20.33 13.3 21.3 14.97 22.27 13.3 20.33 13.3" />
                   <polygon
                     className="cls-4"
                     points="22.27 13.3 23.24 14.97 24.21 13.3 22.27 13.3"
@@ -551,7 +531,7 @@ const PatternBackground = (): ReactNode => {
                     points="24.21 13.3 25.18 14.97 26.15 13.3 24.21 13.3"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="26.15 13.3 27.12 14.97 28.09 13.3 26.15 13.3"
                   />
                   <polygon
@@ -583,7 +563,7 @@ const PatternBackground = (): ReactNode => {
                     points="20.33 16.64 19.37 14.97 18.4 16.64 20.33 16.64"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="18.4 16.64 17.43 14.97 16.46 16.64 18.4 16.64"
                   />
                   <polygon
@@ -602,15 +582,15 @@ const PatternBackground = (): ReactNode => {
                     className="cls-5"
                     points="10.64 16.64 9.67 14.97 8.7 16.64 10.64 16.64"
                   />
-                  <polygon className="cls-3" points="8.7 16.64 7.73 14.97 6.76 16.64 8.7 16.64" />
+                  <polygon className="cls-8" points="8.7 16.64 7.73 14.97 6.76 16.64 8.7 16.64" />
                   <polygon className="cls-5" points="6.76 16.64 5.79 14.97 4.82 16.64 6.76 16.64" />
                   <polygon className="cls-5" points="4.82 16.64 3.85 14.97 2.88 16.64 4.82 16.64" />
                   <polygon className="cls-5" points="2.88 16.64 1.92 14.97 .95 16.64 2.88 16.64" />
-                  <polygon className="cls-3" points=".95 16.64 -.02 14.97 -.99 16.64 .95 16.64" />
-                  <polygon className="cls-3" points="-.02 14.97 .95 16.64 1.92 14.97 -.02 14.97" />
+                  <polygon className="cls-8" points=".95 16.64 -.02 14.97 -.99 16.64 .95 16.64" />
+                  <polygon className="cls-8" points="-.02 14.97 .95 16.64 1.92 14.97 -.02 14.97" />
                   <polygon className="cls-4" points="1.92 14.97 2.88 16.64 3.85 14.97 1.92 14.97" />
                   <polygon className="cls-4" points="3.85 14.97 4.82 16.64 5.79 14.97 3.85 14.97" />
-                  <polygon className="cls-3" points="5.79 14.97 6.76 16.64 7.73 14.97 5.79 14.97" />
+                  <polygon className="cls-8" points="5.79 14.97 6.76 16.64 7.73 14.97 5.79 14.97" />
                   <polygon className="cls-5" points="7.73 14.97 8.7 16.64 9.67 14.97 7.73 14.97" />
                   <polygon
                     className="cls-5"
@@ -629,7 +609,7 @@ const PatternBackground = (): ReactNode => {
                     points="15.49 14.97 16.46 16.64 17.43 14.97 15.49 14.97"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="17.43 14.97 18.4 16.64 19.37 14.97 17.43 14.97"
                   />
                   <polygon
@@ -641,11 +621,11 @@ const PatternBackground = (): ReactNode => {
                     points="21.3 14.97 22.27 16.64 23.24 14.97 21.3 14.97"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="23.24 14.97 24.21 16.64 25.18 14.97 23.24 14.97"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="25.18 14.97 26.15 16.64 27.12 14.97 25.18 14.97"
                   />
                   <polygon
@@ -666,7 +646,7 @@ const PatternBackground = (): ReactNode => {
                     points="27.13 18.31 26.16 16.64 25.19 18.31 27.13 18.31"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="25.19 18.31 24.22 16.64 23.25 18.31 25.19 18.31"
                   />
                   <polygon
@@ -678,7 +658,7 @@ const PatternBackground = (): ReactNode => {
                     points="21.31 18.31 20.34 16.64 19.37 18.31 21.31 18.31"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="19.37 18.31 18.4 16.64 17.43 18.31 19.37 18.31"
                   />
                   <polygon
@@ -698,21 +678,21 @@ const PatternBackground = (): ReactNode => {
                     points="11.62 18.31 10.65 16.64 9.68 18.31 11.62 18.31"
                   />
                   <polygon className="cls-5" points="9.68 18.31 8.71 16.64 7.74 18.31 9.68 18.31" />
-                  <polygon className="cls-3" points="7.74 18.31 6.77 16.64 5.8 18.31 7.74 18.31" />
-                  <polygon className="cls-3" points="5.8 18.31 4.83 16.64 3.86 18.31 5.8 18.31" />
+                  <polygon className="cls-8" points="7.74 18.31 6.77 16.64 5.8 18.31 7.74 18.31" />
+                  <polygon className="cls-8" points="5.8 18.31 4.83 16.64 3.86 18.31 5.8 18.31" />
                   <polygon className="cls-5" points="3.86 18.31 2.89 16.64 1.92 18.31 3.86 18.31" />
                   <polygon className="cls-4" points="1.92 18.31 .95 16.64 -.02 18.31 1.92 18.31" />
-                  <polygon className="cls-3" points="-.99 16.64 -.02 18.31 .95 16.64 -.99 16.64" />
+                  <polygon className="cls-8" points="-.99 16.64 -.02 18.31 .95 16.64 -.99 16.64" />
                   <polygon className="cls-4" points=".95 16.64 1.92 18.31 2.89 16.64 .95 16.64" />
                   <polygon className="cls-4" points="2.89 16.64 3.86 18.31 4.83 16.64 2.89 16.64" />
-                  <polygon className="cls-3" points="4.83 16.64 5.8 18.31 6.77 16.64 4.83 16.64" />
+                  <polygon className="cls-8" points="4.83 16.64 5.8 18.31 6.77 16.64 4.83 16.64" />
                   <polygon className="cls-4" points="6.77 16.64 7.74 18.31 8.71 16.64 6.77 16.64" />
                   <polygon
                     className="cls-5"
                     points="8.71 16.64 9.68 18.31 10.65 16.64 8.71 16.64"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="10.65 16.64 11.62 18.31 12.58 16.64 10.65 16.64"
                   />
                   <polygon
@@ -720,7 +700,7 @@ const PatternBackground = (): ReactNode => {
                     points="12.58 16.64 13.55 18.31 14.52 16.64 12.58 16.64"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="14.52 16.64 15.49 18.31 16.46 16.64 14.52 16.64"
                   />
                   <polygon
@@ -740,7 +720,7 @@ const PatternBackground = (): ReactNode => {
                     points="22.28 16.64 23.25 18.31 24.22 16.64 22.28 16.64"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="24.22 16.64 25.19 18.31 26.16 16.64 24.22 16.64"
                   />
                   <polygon
@@ -772,7 +752,7 @@ const PatternBackground = (): ReactNode => {
                     points="22.27 19.98 21.3 18.31 20.33 19.98 22.27 19.98"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="20.33 19.98 19.36 18.31 18.39 19.98 20.33 19.98"
                   />
                   <polygon
@@ -784,7 +764,7 @@ const PatternBackground = (): ReactNode => {
                     points="16.46 19.98 15.49 18.31 14.52 19.98 16.46 19.98"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="14.52 19.98 13.55 18.31 12.58 19.98 14.52 19.98"
                   />
                   <polygon
@@ -798,13 +778,13 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-5" points="8.7 19.98 7.73 18.31 6.76 19.98 8.7 19.98" />
                   <polygon className="cls-4" points="6.76 19.98 5.79 18.31 4.82 19.98 6.76 19.98" />
                   <polygon className="cls-5" points="4.82 19.98 3.85 18.31 2.88 19.98 4.82 19.98" />
-                  <polygon className="cls-3" points="2.88 19.98 1.91 18.31 .94 19.98 2.88 19.98" />
-                  <polygon className="cls-3" points=".94 19.98 -.03 18.31 -1 19.98 .94 19.98" />
-                  <polygon className="cls-3" points="-.03 18.31 .94 19.98 1.91 18.31 -.03 18.31" />
-                  <polygon className="cls-3" points="1.91 18.31 2.88 19.98 3.85 18.31 1.91 18.31" />
+                  <polygon className="cls-8" points="2.88 19.98 1.91 18.31 .94 19.98 2.88 19.98" />
+                  <polygon className="cls-8" points=".94 19.98 -.03 18.31 -1 19.98 .94 19.98" />
+                  <polygon className="cls-8" points="-.03 18.31 .94 19.98 1.91 18.31 -.03 18.31" />
+                  <polygon className="cls-8" points="1.91 18.31 2.88 19.98 3.85 18.31 1.91 18.31" />
                   <polygon className="cls-5" points="3.85 18.31 4.82 19.98 5.79 18.31 3.85 18.31" />
-                  <polygon className="cls-3" points="5.79 18.31 6.76 19.98 7.73 18.31 5.79 18.31" />
-                  <polygon className="cls-3" points="7.73 18.31 8.7 19.98 9.67 18.31 7.73 18.31" />
+                  <polygon className="cls-8" points="5.79 18.31 6.76 19.98 7.73 18.31 5.79 18.31" />
+                  <polygon className="cls-8" points="7.73 18.31 8.7 19.98 9.67 18.31 7.73 18.31" />
                   <polygon
                     className="cls-4"
                     points="9.67 18.31 10.64 19.98 11.61 18.31 9.67 18.31"
@@ -818,7 +798,7 @@ const PatternBackground = (): ReactNode => {
                     points="13.55 18.31 14.52 19.98 15.49 18.31 13.55 18.31"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="15.49 18.31 16.46 19.98 17.42 18.31 15.49 18.31"
                   />
                   <polygon
@@ -842,7 +822,7 @@ const PatternBackground = (): ReactNode => {
                     points="25.18 18.31 26.15 19.98 27.12 18.31 25.18 18.31"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="27.12 18.31 28.09 19.98 29.06 18.31 27.12 18.31"
                   />
                   <polygon
@@ -891,22 +871,22 @@ const PatternBackground = (): ReactNode => {
                     points="11.61 21.65 10.64 19.98 9.67 21.65 11.61 21.65"
                   />
                   <polygon className="cls-5" points="9.67 21.65 8.7 19.98 7.73 21.65 9.67 21.65" />
-                  <polygon className="cls-3" points="7.73 21.65 6.77 19.98 5.8 21.65 7.73 21.65" />
+                  <polygon className="cls-8" points="7.73 21.65 6.77 19.98 5.8 21.65 7.73 21.65" />
                   <polygon className="cls-5" points="5.8 21.65 4.83 19.98 3.86 21.65 5.8 21.65" />
-                  <polygon className="cls-3" points="3.86 21.65 2.89 19.98 1.92 21.65 3.86 21.65" />
+                  <polygon className="cls-8" points="3.86 21.65 2.89 19.98 1.92 21.65 3.86 21.65" />
                   <polygon className="cls-4" points="1.92 21.65 .95 19.98 -.02 21.65 1.92 21.65" />
                   <polygon className="cls-4" points="-.99 19.98 -.02 21.65 .95 19.98 -.99 19.98" />
-                  <polygon className="cls-3" points=".95 19.98 1.92 21.65 2.89 19.98 .95 19.98" />
-                  <polygon className="cls-3" points="2.89 19.98 3.86 21.65 4.83 19.98 2.89 19.98" />
+                  <polygon className="cls-8" points=".95 19.98 1.92 21.65 2.89 19.98 .95 19.98" />
+                  <polygon className="cls-8" points="2.89 19.98 3.86 21.65 4.83 19.98 2.89 19.98" />
                   <polygon className="cls-4" points="4.83 19.98 5.8 21.65 6.77 19.98 4.83 19.98" />
                   <polygon className="cls-4" points="6.77 19.98 7.73 21.65 8.7 19.98 6.77 19.98" />
                   <polygon className="cls-4" points="8.7 19.98 9.67 21.65 10.64 19.98 8.7 19.98" />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="10.64 19.98 11.61 21.65 12.58 19.98 10.64 19.98"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="12.58 19.98 13.55 21.65 14.52 19.98 12.58 19.98"
                   />
                   <polygon
@@ -918,7 +898,7 @@ const PatternBackground = (): ReactNode => {
                     points="16.46 19.98 17.43 21.65 18.4 19.98 16.46 19.98"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="18.4 19.98 19.37 21.65 20.34 19.98 18.4 19.98"
                   />
                   <polygon
@@ -934,7 +914,7 @@ const PatternBackground = (): ReactNode => {
                     points="24.22 19.98 25.18 21.65 26.15 19.98 24.22 19.98"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="26.15 19.98 27.12 21.65 28.09 19.98 26.15 19.98"
                   />
                   <polygon
@@ -966,7 +946,7 @@ const PatternBackground = (): ReactNode => {
                     points="20.34 23.32 19.37 21.65 18.4 23.32 20.34 23.32"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="18.4 23.32 17.43 21.65 16.46 23.32 18.4 23.32"
                   />
                   <polygon
@@ -986,13 +966,13 @@ const PatternBackground = (): ReactNode => {
                     points="10.64 23.32 9.67 21.65 8.71 23.32 10.64 23.32"
                   />
                   <polygon className="cls-4" points="8.71 23.32 7.74 21.65 6.77 23.32 8.71 23.32" />
-                  <polygon className="cls-3" points="6.77 23.32 5.8 21.65 4.83 23.32 6.77 23.32" />
+                  <polygon className="cls-8" points="6.77 23.32 5.8 21.65 4.83 23.32 6.77 23.32" />
                   <polygon className="cls-4" points="4.83 23.32 3.86 21.65 2.89 23.32 4.83 23.32" />
-                  <polygon className="cls-3" points="2.89 23.32 1.92 21.65 .95 23.32 2.89 23.32" />
+                  <polygon className="cls-8" points="2.89 23.32 1.92 21.65 .95 23.32 2.89 23.32" />
                   <polygon className="cls-4" points=".95 23.32 -.02 21.65 -.99 23.32 .95 23.32" />
                   <polygon className="cls-5" points="-.02 21.65 .95 23.32 1.92 21.65 -.02 21.65" />
-                  <polygon className="cls-3" points="1.92 21.65 2.89 23.32 3.86 21.65 1.92 21.65" />
-                  <polygon className="cls-3" points="3.86 21.65 4.83 23.32 5.8 21.65 3.86 21.65" />
+                  <polygon className="cls-8" points="1.92 21.65 2.89 23.32 3.86 21.65 1.92 21.65" />
+                  <polygon className="cls-8" points="3.86 21.65 4.83 23.32 5.8 21.65 3.86 21.65" />
                   <polygon className="cls-5" points="5.8 21.65 6.77 23.32 7.74 21.65 5.8 21.65" />
                   <polygon className="cls-4" points="7.74 21.65 8.71 23.32 9.67 21.65 7.74 21.65" />
                   <polygon
@@ -1012,11 +992,11 @@ const PatternBackground = (): ReactNode => {
                     points="15.49 21.65 16.46 23.32 17.43 21.65 15.49 21.65"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="17.43 21.65 18.4 23.32 19.37 21.65 17.43 21.65"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="19.37 21.65 20.34 23.32 21.31 21.65 19.37 21.65"
                   />
                   <polygon
@@ -1024,11 +1004,11 @@ const PatternBackground = (): ReactNode => {
                     points="21.31 21.65 22.28 23.32 23.25 21.65 21.31 21.65"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="23.25 21.65 24.22 23.32 25.19 21.65 23.25 21.65"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="25.19 21.65 26.16 23.32 27.12 21.65 25.19 21.65"
                   />
                   <polygon
@@ -1036,23 +1016,23 @@ const PatternBackground = (): ReactNode => {
                     points="27.12 21.65 28.09 23.32 29.06 21.65 27.12 21.65"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="29.06 21.65 30.03 23.32 31 21.65 29.06 21.65"
                   />
                   <polygon className="cls-4" points="31.01 25 30.04 23.32 29.07 25 31.01 25" />
                   <polygon className="cls-4" points="29.07 25 28.1 23.32 27.13 25 29.07 25" />
                   <polygon className="cls-4" points="27.13 25 26.16 23.32 25.19 25 27.13 25" />
                   <polygon className="cls-4" points="25.19 25 24.22 23.32 23.25 25 25.19 25" />
-                  <polygon className="cls-3" points="23.25 25 22.28 23.32 21.31 25 23.25 25" />
-                  <polygon className="cls-3" points="21.31 25 20.34 23.32 19.37 25 21.31 25" />
+                  <polygon className="cls-8" points="23.25 25 22.28 23.32 21.31 25 23.25 25" />
+                  <polygon className="cls-8" points="21.31 25 20.34 23.32 19.37 25 21.31 25" />
                   <polygon className="cls-4" points="19.37 25 18.41 23.32 17.44 25 19.37 25" />
                   <polygon className="cls-5" points="17.44 25 16.47 23.32 15.5 25 17.44 25" />
-                  <polygon className="cls-3" points="15.5 25 14.53 23.32 13.56 25 15.5 25" />
-                  <polygon className="cls-3" points="13.56 25 12.59 23.32 11.62 25 13.56 25" />
+                  <polygon className="cls-8" points="15.5 25 14.53 23.32 13.56 25 15.5 25" />
+                  <polygon className="cls-8" points="13.56 25 12.59 23.32 11.62 25 13.56 25" />
                   <polygon className="cls-5" points="11.62 25 10.65 23.32 9.68 25 11.62 25" />
                   <polygon className="cls-5" points="9.68 25 8.71 23.32 7.74 25 9.68 25" />
                   <polygon className="cls-4" points="7.74 25 6.77 23.32 5.8 25 7.74 25" />
-                  <polygon className="cls-3" points="5.8 25 4.83 23.32 3.86 25 5.8 25" />
+                  <polygon className="cls-8" points="5.8 25 4.83 23.32 3.86 25 5.8 25" />
                   <polygon className="cls-4" points="3.86 25 2.89 23.32 1.92 25 3.86 25" />
                   <polygon className="cls-4" points="1.92 25 .96 23.32 -.01 25 1.92 25" />
                   <polygon className="cls-4" points="-.98 23.32 -.01 25 .96 23.32 -.98 23.32" />
@@ -1060,7 +1040,7 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-4" points="2.89 23.32 3.86 25 4.83 23.32 2.89 23.32" />
                   <polygon className="cls-5" points="4.83 23.32 5.8 25 6.77 23.32 4.83 23.32" />
                   <polygon className="cls-5" points="6.77 23.32 7.74 25 8.71 23.32 6.77 23.32" />
-                  <polygon className="cls-3" points="8.71 23.32 9.68 25 10.65 23.32 8.71 23.32" />
+                  <polygon className="cls-8" points="8.71 23.32 9.68 25 10.65 23.32 8.71 23.32" />
                   <polygon
                     className="cls-5"
                     points="10.65 23.32 11.62 25 12.59 23.32 10.65 23.32"
@@ -1079,11 +1059,11 @@ const PatternBackground = (): ReactNode => {
                     points="18.41 23.32 19.37 25 20.34 23.32 18.41 23.32"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="20.34 23.32 21.31 25 22.28 23.32 20.34 23.32"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="22.28 23.32 23.25 25 24.22 23.32 22.28 23.32"
                   />
                   <polygon
@@ -1113,7 +1093,7 @@ const PatternBackground = (): ReactNode => {
                     points="22.28 26.66 21.31 25 20.34 26.66 22.28 26.66"
                   />
                   <polygon className="cls-5" points="20.34 26.66 19.37 25 18.4 26.66 20.34 26.66" />
-                  <polygon className="cls-3" points="18.4 26.66 17.43 25 16.46 26.66 18.4 26.66" />
+                  <polygon className="cls-8" points="18.4 26.66 17.43 25 16.46 26.66 18.4 26.66" />
                   <polygon
                     className="cls-4"
                     points="16.46 26.66 15.49 25 14.52 26.66 16.46 26.66"
@@ -1123,34 +1103,34 @@ const PatternBackground = (): ReactNode => {
                     points="14.52 26.66 13.55 25 12.58 26.66 14.52 26.66"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="12.58 26.66 11.61 25 10.64 26.66 12.58 26.66"
                   />
                   <polygon className="cls-4" points="10.64 26.66 9.67 25 8.7 26.66 10.64 26.66" />
-                  <polygon className="cls-3" points="8.7 26.66 7.73 25 6.76 26.66 8.7 26.66" />
+                  <polygon className="cls-8" points="8.7 26.66 7.73 25 6.76 26.66 8.7 26.66" />
                   <polygon className="cls-4" points="6.76 26.66 5.79 25 4.82 26.66 6.76 26.66" />
                   <polygon className="cls-4" points="4.82 26.66 3.86 25 2.89 26.66 4.82 26.66" />
-                  <polygon className="cls-3" points="2.89 26.66 1.92 25 .95 26.66 2.89 26.66" />
-                  <polygon className="cls-3" points=".95 26.66 -.02 25 -.99 26.66 .95 26.66" />
+                  <polygon className="cls-8" points="2.89 26.66 1.92 25 .95 26.66 2.89 26.66" />
+                  <polygon className="cls-8" points=".95 26.66 -.02 25 -.99 26.66 .95 26.66" />
                   <polygon className="cls-5" points="-.02 25 .95 26.66 1.92 25 -.02 25" />
                   <polygon className="cls-4" points="1.92 25 2.89 26.66 3.86 25 1.92 25" />
                   <polygon className="cls-5" points="3.86 25 4.82 26.66 5.79 25 3.86 25" />
                   <polygon className="cls-4" points="5.79 25 6.76 26.66 7.73 25 5.79 25" />
                   <polygon className="cls-4" points="7.73 25 8.7 26.66 9.67 25 7.73 25" />
                   <polygon className="cls-5" points="9.67 25 10.64 26.66 11.61 25 9.67 25" />
-                  <polygon className="cls-3" points="11.61 25 12.58 26.66 13.55 25 11.61 25" />
+                  <polygon className="cls-8" points="11.61 25 12.58 26.66 13.55 25 11.61 25" />
                   <polygon className="cls-4" points="13.55 25 14.52 26.66 15.49 25 13.55 25" />
                   <polygon className="cls-5" points="15.49 25 16.46 26.66 17.43 25 15.49 25" />
                   <polygon className="cls-5" points="17.43 25 18.4 26.66 19.37 25 17.43 25" />
                   <polygon className="cls-5" points="19.37 25 20.34 26.66 21.31 25 19.37 25" />
                   <polygon className="cls-4" points="21.31 25 22.28 26.66 23.24 25 21.31 25" />
-                  <polygon className="cls-3" points="23.24 25 24.21 26.66 25.18 25 23.24 25" />
+                  <polygon className="cls-8" points="23.24 25 24.21 26.66 25.18 25 23.24 25" />
                   <polygon className="cls-4" points="25.18 25 26.15 26.66 27.12 25 25.18 25" />
                   <polygon className="cls-5" points="27.12 25 28.09 26.66 29.06 25 27.12 25" />
                   <polygon className="cls-5" points="29.06 25 30.03 26.66 31 25 29.06 25" />
                   <polygon className="cls-4" points="31 28.33 30.04 26.66 29.07 28.33 31 28.33" />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="29.07 28.33 28.1 26.66 27.13 28.33 29.07 28.33"
                   />
                   <polygon
@@ -1194,17 +1174,17 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-4" points="5.8 28.33 4.83 26.66 3.86 28.33 5.8 28.33" />
                   <polygon className="cls-4" points="3.86 28.33 2.89 26.66 1.92 28.33 3.86 28.33" />
                   <polygon className="cls-4" points="1.92 28.33 .95 26.66 -.02 28.33 1.92 28.33" />
-                  <polygon className="cls-3" points="-.99 26.66 -.02 28.33 .95 26.66 -.99 26.66" />
+                  <polygon className="cls-8" points="-.99 26.66 -.02 28.33 .95 26.66 -.99 26.66" />
                   <polygon className="cls-4" points=".95 26.66 1.92 28.33 2.89 26.66 .95 26.66" />
                   <polygon className="cls-5" points="2.89 26.66 3.86 28.33 4.83 26.66 2.89 26.66" />
-                  <polygon className="cls-3" points="4.83 26.66 5.8 28.33 6.77 26.66 4.83 26.66" />
+                  <polygon className="cls-8" points="4.83 26.66 5.8 28.33 6.77 26.66 4.83 26.66" />
                   <polygon className="cls-5" points="6.77 26.66 7.74 28.33 8.71 26.66 6.77 26.66" />
                   <polygon
                     className="cls-5"
                     points="8.71 26.66 9.68 28.33 10.65 26.66 8.71 26.66"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="10.65 26.66 11.62 28.33 12.59 26.66 10.65 26.66"
                   />
                   <polygon
@@ -1232,7 +1212,7 @@ const PatternBackground = (): ReactNode => {
                     points="22.28 26.66 23.25 28.33 24.22 26.66 22.28 26.66"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="24.22 26.66 25.19 28.33 26.16 26.66 24.22 26.66"
                   />
                   <polygon
@@ -1246,13 +1226,13 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-5" points="30.04 30 29.07 28.33 28.1 30 30.04 30" />
                   <polygon className="cls-5" points="28.1 30 27.13 28.33 26.16 30 28.1 30" />
                   <polygon className="cls-4" points="26.16 30 25.19 28.33 24.22 30 26.16 30" />
-                  <polygon className="cls-3" points="24.22 30 23.25 28.33 22.28 30 24.22 30" />
+                  <polygon className="cls-8" points="24.22 30 23.25 28.33 22.28 30 24.22 30" />
                   <polygon className="cls-4" points="22.28 30 21.31 28.33 20.34 30 22.28 30" />
-                  <polygon className="cls-3" points="20.34 30 19.37 28.33 18.4 30 20.34 30" />
+                  <polygon className="cls-8" points="20.34 30 19.37 28.33 18.4 30 20.34 30" />
                   <polygon className="cls-4" points="18.4 30 17.43 28.33 16.46 30 18.4 30" />
                   <polygon className="cls-5" points="16.46 30 15.5 28.33 14.53 30 16.46 30" />
-                  <polygon className="cls-3" points="14.53 30 13.56 28.33 12.59 30 14.53 30" />
-                  <polygon className="cls-3" points="12.59 30 11.62 28.33 10.65 30 12.59 30" />
+                  <polygon className="cls-8" points="14.53 30 13.56 28.33 12.59 30 14.53 30" />
+                  <polygon className="cls-8" points="12.59 30 11.62 28.33 10.65 30 12.59 30" />
                   <polygon className="cls-5" points="10.65 30 9.68 28.33 8.71 30 10.65 30" />
                   <polygon className="cls-4" points="8.71 30 7.74 28.33 6.77 30 8.71 30" />
                   <polygon className="cls-4" points="6.77 30 5.8 28.33 4.83 30 6.77 30" />
@@ -1261,23 +1241,23 @@ const PatternBackground = (): ReactNode => {
                   <polygon className="cls-5" points=".95 30 -.02 28.33 -.98 30 .95 30" />
                   <polygon className="cls-4" points="-.02 28.33 .95 30 1.92 28.33 -.02 28.33" />
                   <polygon className="cls-4" points="1.92 28.33 2.89 30 3.86 28.33 1.92 28.33" />
-                  <polygon className="cls-3" points="3.86 28.33 4.83 30 5.8 28.33 3.86 28.33" />
+                  <polygon className="cls-8" points="3.86 28.33 4.83 30 5.8 28.33 3.86 28.33" />
                   <polygon className="cls-4" points="5.8 28.33 6.77 30 7.74 28.33 5.8 28.33" />
                   <polygon className="cls-4" points="7.74 28.33 8.71 30 9.68 28.33 7.74 28.33" />
                   <polygon className="cls-5" points="9.68 28.33 10.65 30 11.62 28.33 9.68 28.33" />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="11.62 28.33 12.59 30 13.56 28.33 11.62 28.33"
                   />
                   <polygon className="cls-4" points="13.56 28.33 14.53 30 15.5 28.33 13.56 28.33" />
                   <polygon className="cls-5" points="15.5 28.33 16.46 30 17.43 28.33 15.5 28.33" />
                   <polygon className="cls-4" points="17.43 28.33 18.4 30 19.37 28.33 17.43 28.33" />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="19.37 28.33 20.34 30 21.31 28.33 19.37 28.33"
                   />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="21.31 28.33 22.28 30 23.25 28.33 21.31 28.33"
                   />
                   <polygon
@@ -1290,14 +1270,13 @@ const PatternBackground = (): ReactNode => {
                   />
                   <polygon className="cls-4" points="27.13 28.33 28.1 30 29.07 28.33 27.13 28.33" />
                   <polygon
-                    className="cls-3"
+                    className="cls-8"
                     points="29.07 28.33 30.04 30 31.01 28.33 29.07 28.33"
                   />
                 </g>
               </g>
             </g>
           </g>
-          <rect className="cls-2" height="30" id="Overlay" width="30" x="0" y="0" />
         </g>
       </g>
     </svg>
