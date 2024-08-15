@@ -12,7 +12,10 @@ const H3 = ({ children }: Children): ReactNode => {
   return (
     <h3 className={styles.h3Tag} id={generateHeadingId(children)}>
       <span className={styles.text}>{children}</span>
-      <div className={styles.line} />
+      <div className={styles.line}>
+        <div className={styles.gradient} />
+        <div className={styles.dark} />
+      </div>
     </h3>
   )
 }
