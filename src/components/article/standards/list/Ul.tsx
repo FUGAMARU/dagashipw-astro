@@ -1,4 +1,4 @@
-import styles from "@/components/article/standards/Ul.module.css"
+import styles from "@/components/article/standards/list/Ul.module.css"
 
 import type { Children } from "@/types/children"
 import type { ReactNode } from "react"

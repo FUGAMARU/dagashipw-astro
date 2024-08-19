@@ -1,4 +1,4 @@
-import styles from "@/components/article/standards/Video.module.css"
+import styles from "@/components/article/standards/media/Video.module.css"
 
 import type { ReactNode } from "react"
 

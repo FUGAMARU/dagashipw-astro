@@ -1,9 +1,9 @@
-import ArticleImage from "@/components/article/originals/image/ArticleImage"
+import Li from "@/components/article/standards/list/Li"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
-const meta: Meta<typeof ArticleImage> = {
-  component: ArticleImage,
+const meta: Meta<typeof Li> = {
+  component: Li,
   tags: ["autodocs"],
   args: {},
   argTypes: {}
@@ -14,6 +14,6 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    src: "/sea-candle.jpg"
+    children: "ListContent"
   }
 }
