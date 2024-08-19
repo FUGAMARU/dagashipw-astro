@@ -1,10 +1,11 @@
+import { Fragment, type ReactNode } from "react"
+
 import ArticleCard from "@/components/parts/card/ArticleCard"
 import DividerHorizontal from "@/components/parts/common/DividerHorizontal"
 import Link from "@/components/parts/common/Link"
 import styles from "@/components/templates/ArticleCardList.module.css"
 
 import type { ArticleInfo } from "@/types/article"
-import type { ReactNode } from "react"
 
 type Props = {
   /** 記事情報リスト */
@@ -22,12 +23,12 @@ const ArticleCardList = ({ articleInfoList }: Props): ReactNode => {
   return (
     <div className={styles.articleCardList}>
       {articleInfoList.map((articleInfo, index) => (
-        <>
+        <Fragment key={articleInfo.articleUrlId}>
           <Link href={`/${articleInfo.articleUrlId}`}>
-            <ArticleCard key={articleInfo.articleUrlId} {...articleInfo} />
+            <ArticleCard {...articleInfo} />
           </Link>
           {index !== articleInfoList.length - 1 && <DividerHorizontal />}
-        </>
+        </Fragment>
       ))}
     </div>
   )
