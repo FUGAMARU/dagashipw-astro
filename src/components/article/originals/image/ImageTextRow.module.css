@@ -1,0 +1,31 @@
+@import url("/src/styles/post.css");
+
+.imageTextRow {
+  display: flex;
+  flex-direction: column;
+
+  @mixin article-section-margin;
+
+  > .text {
+    @mixin article-paragraph;
+
+    white-space: pre-wrap;
+  }
+}
+
+@media (--pc) {
+  .imageTextRow {
+    flex-direction: row;
+    gap: 80px;
+    align-items: center;
+    justify-content: space-between;
+
+    > .image {
+      flex: 1;
+    }
+
+    > .text {
+      flex: 1;
+    }
+  }
+}

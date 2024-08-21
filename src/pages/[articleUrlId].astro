@@ -1,7 +1,7 @@
 ---
 import { Markdown } from "astro-remote"
 
-import ImageRow from "@/components/article/originals/ImageRow"
+import ImageRow from "@/components/article/originals/image/ImageRow"
 import LinkInArticle from "@/components/article/standards/LinkInArticle"
 import Paragraph from "@/components/article/standards/Paragraph"
 import H2 from "@/components/article/standards/heading/H2"
@@ -15,6 +15,7 @@ import { getCurrentDateTime } from "@/utils/getCurrentDateTime"
 import { isDefined } from "@/utils/isDefined"
 
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
+import ImageTextRow from "@/components/article/originals/image/ImageTextRow"
 import Code from "@/components/article/standards/Code"
 import Iframe from "@/components/article/standards/Iframe"
 import Li from "@/components/article/standards/list/Li"
@@ -128,6 +129,7 @@ const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
           li: Li,
           iframe: Iframe,
           ImageRow,
+          ImageTextRow,
           Inserter: InseterWrapper
         }}
         content={tableOfContentsInsertedArticleBody}

@@ -1,4 +1,4 @@
-import styles from "@/components/article/originals/ImageRow.module.css"
+import styles from "@/components/article/originals/image/ImageRow.module.css"
 import Image from "@/components/templates/Image"
 
 import type { ReactNode } from "react"

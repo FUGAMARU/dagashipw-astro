@@ -26,3 +26,15 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/** 記事本文のスタイル */
+@define-mixin article-paragraph {
+  font-size: 14px;
+  line-height: 1.875;
+
+  @mixin article-section-margin-half;
+
+  @media (--pc) {
+    font-size: 16px;
+  }
+}
