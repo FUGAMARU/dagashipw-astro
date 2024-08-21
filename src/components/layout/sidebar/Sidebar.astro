@@ -6,6 +6,7 @@ import styles from "@/components/layout/sidebar/Sidebar.module.css"
 import SidebarItemWithTitle from "@/components/layout/sidebar/SidebarItemWithTitle"
 import TableOfContentsPC from "@/components/layout/sidebar/TableOfContentsPC"
 import Input from "@/components/parts/input/Input"
+import SvgLoader from "@/components/parts/svg/SvgLoader"
 import { PAGE_PATH } from "@/constants/page"
 import { PC_TABLE_OF_CONTENTS_CONTAINER_ID } from "@/constants/value"
 
@@ -72,5 +73,10 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
           frameborder="0"></iframe>
       </div>
     </SidebarItemWithTitle>
+
+    <div class={styles.notbyai}>
+      <SvgLoader name="notByAi" width={131} height={42} />
+      <span class={styles.slogan}>このブログは人間が丹精込めて書いていますᕕ( ᐛ )ᕗ</span>
+    </div>
   </div>
 </div>

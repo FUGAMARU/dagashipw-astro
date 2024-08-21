@@ -26,3 +26,4 @@ export type SvgComponentName =
   | "commentWithPen"
   | "doubleRightArrow"
   | "background"
+  | "notByAi"

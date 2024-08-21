@@ -13,7 +13,7 @@ type Props = SvgProps
  * @param props Props
  * @returns ReactNode
  */
-const SvgLoader = (props: Props): ReactNode => {
+const LogoLoader = (props: Props): ReactNode => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -39,4 +39,4 @@ const SvgLoader = (props: Props): ReactNode => {
   return <div ref={containerRef} />
 }
 
-export default SvgLoader
+export default LogoLoader
