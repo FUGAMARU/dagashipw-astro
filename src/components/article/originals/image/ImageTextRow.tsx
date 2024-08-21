@@ -19,7 +19,7 @@ type Props = {
 const ImageTextRow = ({ imageUrl, imageHeight, text }: Props): ReactNode => {
   return (
     <div className={styles.imageTextRow}>
-      <Image className={styles.image} height={imageHeight} noMargin src={imageUrl} />
+      <Image className={styles.image} height={imageHeight} src={imageUrl} />
       <p className={styles.text}>{text}</p>
     </div>
   )

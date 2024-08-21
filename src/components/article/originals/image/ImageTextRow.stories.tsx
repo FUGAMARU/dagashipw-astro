@@ -5,8 +5,12 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof ImageTextRow> = {
   component: ImageTextRow,
   tags: ["autodocs"],
-  args: { imageUrl: undefined, text: undefined },
-  argTypes: { imageUrl: { control: "text" }, text: { control: "text" } }
+  args: { imageUrl: undefined, imageHeight: undefined, text: undefined },
+  argTypes: {
+    imageUrl: { control: "text" },
+    imageHeight: { control: "text" },
+    text: { control: "text" }
+  }
 }
 
 export default meta

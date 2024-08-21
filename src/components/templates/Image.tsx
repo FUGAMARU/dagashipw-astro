@@ -8,21 +8,13 @@ import type { ComponentProps, ReactNode } from "react"
 type Props = ComponentProps<"img"> & {
   /** object-fir: cover指定かどうか */
   objectFitCover?: boolean
-  /** marginを消すかどうか */
-  noMargin?: boolean
 }
 
 /**
  * 画像コンポーネント
  * @returns ReactNode
  */
-const Image = ({
-  className,
-  objectFitCover = false,
-  noMargin = false,
-  src,
-  ...props
-}: Props): ReactNode => {
+const Image = ({ className, objectFitCover = false, src, ...props }: Props): ReactNode => {
   if (!isDefined(src)) {
     return <span>NoImage</span>
   }
@@ -30,12 +22,7 @@ const Image = ({
   return (
     <img
       // TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討
-      className={clsx(
-        className,
-        styles.imageTag,
-        objectFitCover && styles.Covered,
-        noMargin && styles.NoMargin
-      )}
+      className={clsx(className, styles.imageTag, objectFitCover && styles.Covered)}
       src={src}
       {...props}
     />

@@ -3,7 +3,7 @@ import Image from "@/components/templates/Image"
 
 import type { ComponentProps, ReactNode } from "react"
 
-type Props = Omit<ComponentProps<typeof Image>, "objectFitCover" | "noMargin">
+type Props = Omit<ComponentProps<typeof Image>, "objectFitCover">
 
 /**
  * 記事中で表示する画像表示用コンポーネント
@@ -13,7 +13,7 @@ type Props = Omit<ComponentProps<typeof Image>, "objectFitCover" | "noMargin">
 const ArticleImage = (props: Props): ReactNode => {
   return (
     <div className={styles.articleImage}>
-      <Image noMargin {...props} />
+      <Image {...props} />
     </div>
   )
 }

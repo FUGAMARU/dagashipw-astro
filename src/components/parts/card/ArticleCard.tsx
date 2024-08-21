@@ -26,7 +26,7 @@ const ArticleCard = ({
 }: Props): ReactNode => {
   return (
     <div className={styles.articleCard}>
-      <Image className={styles.thumbnailImage} noMargin objectFitCover src={thumbnailUrl} />
+      <Image className={styles.thumbnailImage} objectFitCover src={thumbnailUrl} />
 
       <div className={styles.index}>
         <BackNumber backNumber={backNumber} />
