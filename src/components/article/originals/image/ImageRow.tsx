@@ -9,14 +9,14 @@ type Props = {
   /** 右側の画像 */
   rightSideImageUrl: string
   /** gap */
-  gap: string
+  gap?: string
 }
 
 /**
  * 画像を横並びに表示するコンポーネント
  * @returns ReactNode
  */
-const ImageRow = ({ leftSideImageUrl, rightSideImageUrl, gap }: Props): ReactNode => {
+const ImageRow = ({ leftSideImageUrl, rightSideImageUrl, gap = "16" }: Props): ReactNode => {
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
       <Image alt="" className={styles.image} src={leftSideImageUrl} />
