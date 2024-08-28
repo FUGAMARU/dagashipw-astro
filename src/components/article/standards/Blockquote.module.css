@@ -1,0 +1,23 @@
+@import url("/src/styles/post.css");
+
+.blockquoteTag {
+  display: flex;
+  gap: 16px;
+
+  @mixin article-section-margin-half;
+
+  > .bar {
+    flex-shrink: 0;
+    width: 6px;
+    background-color: var(--color-text-gray);
+    border-radius: 4px;
+  }
+
+  > p {
+    /* なぜかastro-remoteがchildrenをpタグでラップして渡してくるので仕方なくタグ直指定 */
+    @mixin article-paragraph;
+
+    margin-top: 0 !important; /* @mixin article-paragraphのmargin-topが何故か優先されるのでimportantを付ける */
+    color: var(--color-light-dark);
+  }
+}

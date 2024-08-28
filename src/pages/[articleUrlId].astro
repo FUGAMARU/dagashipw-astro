@@ -16,6 +16,7 @@ import { isDefined } from "@/utils/isDefined"
 
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
 import ImageTextRow from "@/components/article/originals/image/ImageTextRow"
+import Blockquote from "@/components/article/standards/Blockquote"
 import Code from "@/components/article/standards/Code"
 import Iframe from "@/components/article/standards/Iframe"
 import Li from "@/components/article/standards/list/Li"
@@ -128,6 +129,7 @@ const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
           ul: Ul,
           li: Li,
           iframe: Iframe,
+          blockquote: Blockquote,
           ImageRow,
           ImageTextRow,
           Inserter: InseterWrapper
