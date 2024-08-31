@@ -22,6 +22,9 @@
   --color-gray-alpha: rgb(133 133 133 / 80%);
   --color-code-tag-background: #eff1f2;
   --color-pale-green: #f6ffe8;
+  --color-pale-yellow: #fefaeb;
+  --color-yellow: #ffd95c;
+  --color-brown: #6c3038;
   --margin-top-article-section-sp: 25px;
   --margin-top-article-section-pc: 40px;
 }

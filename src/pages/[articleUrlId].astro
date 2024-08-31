@@ -23,6 +23,7 @@ import Li from "@/components/article/standards/list/Li"
 import Ul from "@/components/article/standards/list/Ul"
 import ArticleImage from "@/components/article/standards/media/ArticleImage"
 import Video from "@/components/article/standards/media/Video"
+import StaleContentWarning from "@/components/templates/StaleContentWarning"
 import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 import { generateTableOfContentsFromMarkdown } from "@/utils/generateTableOfContentsFromMarkdown"
@@ -55,9 +56,12 @@ if (!isDefined(article)) {
   throw new Error("記事情報が存在しません")
 }
 
-const heroProps = formatArticleInfo(article)
+const articleInfo = formatArticleInfo(article)
 const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
 const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
+const articleDate = articleInfo.updatedAt
+  ? new Date(articleInfo.updatedAt)
+  : new Date(articleInfo.createdAt)
 ---
 
 <script
@@ -109,14 +113,16 @@ const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
 <Layout title={`${article?.title} | 麩菓子の雑記帳`}>
   <div class={styles.articlePageMain}>
     <div class={styles.heroSp}>
-      <Hero device="sp" {...heroProps} />
+      <Hero device="sp" {...articleInfo} />
     </div>
 
     <div class={styles.heroPc}>
-      <Hero device="pc" {...heroProps} />
+      <Hero device="pc" {...articleInfo} />
     </div>
 
     <div class={styles.body}>
+      <StaleContentWarning articleDate={articleDate} client:load />
+
       <Markdown
         components={{
           h2: H2,

@@ -27,3 +27,4 @@ export type SvgComponentName =
   | "doubleRightArrow"
   | "background"
   | "notByAi"
+  | "warning"

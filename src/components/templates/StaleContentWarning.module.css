@@ -1,0 +1,33 @@
+@import url("/src/styles/post.css");
+
+/* 表示の出し分けをReactでやった方が都合が良いので、コンポーネントのコンテナのスタイリング(本来は[articleUrlId].module.cssに書くもの)もここに記述している */
+
+.staleContentWarning {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  @mixin article-section-margin-half;
+
+  > .main {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    width: fit-content;
+    padding: 6px 10px;
+    color: var(--color-brown);
+    background-color: var(--color-pale-yellow);
+    border: solid 1px var(--color-yellow);
+    border-radius: 8px;
+    fill: var(--color-brown);
+
+    > .text {
+      font-size: 12px;
+      line-height: 1.2;
+
+      > .years {
+        font-weight: bold;
+      }
+    }
+  }
+}
