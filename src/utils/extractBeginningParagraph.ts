@@ -9,6 +9,8 @@ export const extractBeginningParagraph = (markdown: string): string => {
   const paragraphs = markdown
     // Markdownリンクのテキスト部分だけを抽出
     .replace(/\[([^\]]+)]\([^)]+\)/g, "$1")
+    // Markdown画像を削除
+    .replace(/!\[[^\]]*]\([^)]+\)/g, "")
     // HTMLタグを削除し、タグ内のテキストを保持
     .replace(/<\/?[^>]+(>|$)/g, "")
     // 見出しなどの余計なものを削除
