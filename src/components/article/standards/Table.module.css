@@ -1,7 +1,11 @@
+@import url("/src/styles/post.css");
+
 .tableTag {
   position: relative;
   overflow-x: auto;
   border-radius: 4px;
+
+  @mixin article-section-margin;
 
   > .main {
     width: 100%;
