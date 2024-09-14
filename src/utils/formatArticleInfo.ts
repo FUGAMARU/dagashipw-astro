@@ -1,4 +1,7 @@
+import { getColorFromURL } from "color-thief-node"
+
 import { STRAPI_BASE_URL } from "@/constants/value"
+import { convertRGBToHex } from "@/utils/color"
 import { extractBeginningParagraph } from "@/utils/extractBeginningParagraph"
 import { formatDateString } from "@/utils/formatDateString"
 import { isDefined } from "@/utils/isDefined"
@@ -11,12 +14,19 @@ import type { components } from "@/types/schema"
  * @param articleInfo 記事情報
  * @returns 整形された記事情報
  */
-export const formatArticleInfo = (articleInfo: components["schemas"]["Article"]): ArticleInfo => {
+export const formatArticleInfo = async (
+  articleInfo: components["schemas"]["Article"]
+): Promise<ArticleInfo> => {
+  const thumbnailUrl = `${STRAPI_BASE_URL}${articleInfo.thumbnail.data?.attributes?.url}`
+
+  const thumbnailDominantColorRGB = await getColorFromURL(thumbnailUrl)
+
   const baseData = {
     articleUrlId: articleInfo.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
     title: articleInfo.title,
-    thumbnailUrl: `${STRAPI_BASE_URL}${articleInfo.thumbnail?.data?.attributes?.url}`,
+    thumbnailUrl,
+    dominantColorCode: convertRGBToHex(thumbnailDominantColorRGB),
     tags: (articleInfo.tags as Array<string>) ?? [],
     bodyBeginningParagraph: extractBeginningParagraph(articleInfo.body),
     commentCount: 1 // TODO: 実際の値を反映させる必要がある

@@ -57,7 +57,7 @@ if (!isDefined(article)) {
   throw new Error("記事情報が存在しません")
 }
 
-const articleInfo = formatArticleInfo(article)
+const articleInfo = await formatArticleInfo(article)
 const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
 const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
 const articleDate = articleInfo.updatedAt

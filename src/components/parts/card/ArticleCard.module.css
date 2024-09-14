@@ -22,8 +22,11 @@
       display: flex;
       justify-content: center;
       padding: 2px 0;
-      background-color: pink;
       border-radius: 4px;
+
+      &.WhiteText {
+        color: var(--color-white);
+      }
     }
 
     > .details {

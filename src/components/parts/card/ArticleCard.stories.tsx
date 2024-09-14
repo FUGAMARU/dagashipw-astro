@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     thumbnailUrl: "/sea-candle.jpg",
+    dominantColorCode: "#bdf2ea",
     createdAt: "2024/07/14",
     updatedAt: "2024/07/15",
     commentCount: 100,

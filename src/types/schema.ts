@@ -1305,7 +1305,7 @@ export interface components {
       data: {
         title: string
         /** @example string or id */
-        thumbnail?: number | string
+        thumbnail: number | string
         body: string
         tags: unknown
         /** Format: date */
@@ -1332,7 +1332,7 @@ export interface components {
     }
     Article: {
       title: string
-      thumbnail?: {
+      thumbnail: {
         data?: {
           id?: number
           attributes?: {
@@ -1657,23 +1657,17 @@ export interface components {
       user?: components["schemas"]["Users-Permissions-User"]
     }
     "Users-Permissions-PermissionsTree": {
-      [key: string]:
-        | {
-            /** @description every controller of the api */
-            controllers?: {
-              [key: string]:
-                | {
-                    [key: string]:
-                      | {
-                          enabled?: boolean
-                          policy?: string
-                        }
-                      | undefined
-                  }
-                | undefined
+      [key: string]: {
+        /** @description every controller of the api */
+        controllers?: {
+          [key: string]: {
+            [key: string]: {
+              enabled?: boolean
+              policy?: string
             }
           }
-        | undefined
+        }
+      }
     }
   }
   responses: never

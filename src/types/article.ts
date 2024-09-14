@@ -8,6 +8,8 @@ export type ArticleInfo = {
   title: string
   /** サムネイル */
   thumbnailUrl: string
+  /** サムネイルに紐づく色 */
+  dominantColorCode: string
   /** タグ */
   tags: Array<string>
   /** 記事本文段落冒頭 */

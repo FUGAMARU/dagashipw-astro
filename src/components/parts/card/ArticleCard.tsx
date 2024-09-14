@@ -1,12 +1,15 @@
+import clsx from "clsx"
+import { useMemo, type ReactNode } from "react"
+
 import BackNumber from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
 import SvgLoader from "@/components/parts/svg/SvgLoader"
 import Tag from "@/components/parts/Tag"
 import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
 import Image from "@/components/templates/Image"
+import { determineWhiteTextColor } from "@/utils/color"
 
 import type { ArticleInfo } from "@/types/article"
-import type { ReactNode } from "react"
 
 type Props = ArticleInfo
 
@@ -16,6 +19,7 @@ type Props = ArticleInfo
  */
 const ArticleCard = ({
   thumbnailUrl,
+  dominantColorCode,
   createdAt,
   updatedAt,
   commentCount,
@@ -24,6 +28,11 @@ const ArticleCard = ({
   tags,
   backNumber
 }: Props): ReactNode => {
+  const isHeaderTextColorWhite = useMemo(
+    () => determineWhiteTextColor(dominantColorCode),
+    [dominantColorCode]
+  )
+
   return (
     <div className={styles.articleCard}>
       <Image className={styles.thumbnailImage} objectFitCover src={thumbnailUrl} />
@@ -33,11 +42,15 @@ const ArticleCard = ({
       </div>
 
       <div className={styles.main}>
-        <div className={styles.header}>
+        <div
+          className={clsx(styles.header, isHeaderTextColorWhite && styles.WhiteText)}
+          style={{ backgroundColor: dominantColorCode }}
+        >
           <ArticleInfoBar
             commentCount={commentCount}
             createdAt={createdAt}
             isBorderHidden
+            isWhiteStyle={isHeaderTextColorWhite}
             updatedAt={updatedAt}
           />
         </div>
