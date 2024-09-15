@@ -75,8 +75,6 @@ export default [
       "@typescript-eslint/no-non-null-assertion": "error",
       /** typeのみをimportする時はtypeと記載することを強制する */
       "@typescript-eslint/consistent-type-imports": "error",
-      /** 関数の戻り値記述必須 */
-      "@typescript-eslint/explicit-function-return-type": "error",
       /** 配列の型定義をする際にArray<T>を強制する (T[]は禁止) */
       "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
       /** 条件式での暗黙の型変換を防ぐ */
@@ -116,12 +114,25 @@ export default [
         }
       ],
       /** JSDocのコメントを強制 */
-      "jsdoc/check-alignment": "error",
-      "jsdoc/check-indentation": "error",
-      "jsdoc/check-param-names": "error",
-      "jsdoc/check-tag-names": "error",
-      "jsdoc/implements-on-classes": "error",
-      /** jsdoc/require-description と jsdoc-require-docs は https://zenn.dev/wakamsha/articles/setup-eslint-plugin-jsdoc のコピペ */
+      "jsdoc/require-jsdoc": [
+        "error",
+        {
+          contexts: [
+            "ArrowFunctionExpression",
+            "ClassDeclaration",
+            "ClassExpression",
+            "FunctionDeclaration",
+            "FunctionExpression",
+            "MethodDefinition",
+            "PropertyDefinition",
+            "TSInterfaceDeclaration",
+            "TSTypeAliasDeclaration",
+            "TSPropertySignature",
+            "TSMethodSignature"
+          ]
+        }
+      ],
+      "jsdoc/require-hyphen-before-param-description": ["error", "always"],
       "jsdoc/require-description": [
         "error",
         {
@@ -141,35 +152,34 @@ export default [
           ]
         }
       ],
-      "jsdoc/require-jsdoc": [
-        "error",
-        {
-          publicOnly: true,
-          require: {
-            ArrowFunctionExpression: true,
-            ClassDeclaration: true,
-            ClassExpression: true,
-            FunctionDeclaration: true,
-            FunctionExpression: true,
-            MethodDefinition: true
-          },
-          contexts: [
-            "PropertyDefinition",
-            "TSInterfaceDeclaration",
-            "TSTypeAliasDeclaration",
-            "TSPropertySignature",
-            "TSMethodSignature"
-          ],
-          checkConstructors: false
-        }
-      ],
+      "jsdoc/require-returns": ["off"],
       "jsdoc/require-param": [
-        "error",
+        "off",
         {
           checkDestructuredRoots: false
         }
       ],
-      /** import/order ルールを追加 */
+      "jsdoc/check-tag-names": [
+        "error",
+        {
+          definedTags: ["typeParam", "remarks"]
+        }
+      ],
+      "jsdoc/tag-lines": [
+        "error",
+        "never",
+        {
+          startLines: 1
+        }
+      ],
+      "jsdoc/sort-tags": [
+        "error",
+        {
+          reportIntraTagGroupSpacing: false
+        }
+      ],
+      "jsdoc/no-types": ["off"],
+      /** importの順番を種類ごとに統一する */
       "import/order": [
         "error",
         {
@@ -208,6 +218,48 @@ export default [
       "react/no-unknown-property": "off",
       /** Astroにkeyの概念は無いのでoff */
       "react/jsx-key": "off"
+    }
+  },
+  {
+    files: ["src/hooks/**"],
+    rules: {
+      /** JSDocにおける引数の記述必須 */
+      "jsdoc/require-param": [
+        "error",
+        {
+          checkDestructuredRoots: false
+        }
+      ]
+    }
+  },
+  {
+    files: ["src/utils/**", "src/types/**", "src/constants/**", "src/services/**"],
+    rules: {
+      /** 関数の戻り値記述必須 */
+      "@typescript-eslint/explicit-function-return-type": "error",
+      /** JSDocにおける戻り値の記述必須 */
+      "jsdoc/require-returns": ["error"],
+      /** JSDocにおける引数の記述必須 */
+      "jsdoc/require-param": [
+        "error",
+        {
+          checkDestructuredRoots: false
+        }
+      ],
+      /** JSDocにおけるそのファイルに関する説明の記述必須 */
+      "jsdoc/require-file-overview": ["error"]
+    }
+  },
+  {
+    files: ["src/**/*.stories.tsx"],
+    /** typeに対するJSDocの記述を任意にする */
+    rules: {
+      "jsdoc/require-jsdoc": [
+        "off",
+        {
+          contexts: ["TSTypeAliasDeclaration"]
+        }
+      ]
     }
   }
 ]

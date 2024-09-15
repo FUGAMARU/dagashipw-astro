@@ -1,4 +1,4 @@
-import HeaderPC from "@/components/layout/sidebar/HeaderPC"
+import { HeaderPC } from "@/components/layout/sidebar/HeaderPC"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

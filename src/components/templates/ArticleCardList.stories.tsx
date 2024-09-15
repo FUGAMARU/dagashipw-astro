@@ -1,4 +1,4 @@
-import ArticleCardList from "@/components/templates/ArticleCardList"
+import { ArticleCardList } from "@/components/templates/ArticleCardList"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -16,6 +16,7 @@ export const Primary: Story = {
   args: {
     articleInfoList: Array.from({ length: 3 }, () => ({
       thumbnailUrl: "/sea-candle.jpg",
+      dominantColorCode: "#efa9fc",
       createdAt: "2024/07/14",
       updatedAt: "2024/07/15",
       commentCount: 100,

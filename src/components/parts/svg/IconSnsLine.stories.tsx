@@ -1,4 +1,4 @@
-import IconSnsLine from "@/components/parts/svg/IconSnsLine"
+import { IconSnsLine } from "@/components/parts/svg/IconSnsLine"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

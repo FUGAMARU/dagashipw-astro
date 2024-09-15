@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * SNSアイコン (Facebook)
- * @returns ReactNode
- */
-const IconSnsFacebook = ({ width, height, className }: SvgProps): ReactNode => {
+/** SNSアイコン (Facebook) */
+export const IconSnsFacebook = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -48,5 +44,3 @@ const IconSnsFacebook = ({ width, height, className }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default IconSnsFacebook

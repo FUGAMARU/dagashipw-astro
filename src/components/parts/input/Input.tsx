@@ -1,17 +1,16 @@
-import { useCallback, type ComponentProps, type ReactNode } from "react"
+import { useCallback, type ComponentProps } from "react"
 
 import styles from "@/components/parts/input/Input.module.css"
-import SvgLoader from "@/components/parts/svg/SvgLoader"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 
+/** Props */
 type Props = ComponentProps<"input"> & {
+  /** 検索アイコンを表示するか */
   hasSearchIcon?: boolean
 }
 
-/**
- * 入力欄
- * @returns ReactNode
- */
-const Input = ({ hasSearchIcon = false, ...props }: Props): ReactNode => {
+/** 入力欄 */
+export const Input = ({ hasSearchIcon = false, ...props }: Props) => {
   const handleSearchButtonClick = useCallback(() => {
     alert("TODO: 検索処理")
   }, [])
@@ -27,5 +26,3 @@ const Input = ({ hasSearchIcon = false, ...props }: Props): ReactNode => {
     </div>
   )
 }
-
-export default Input

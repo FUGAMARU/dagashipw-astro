@@ -1,4 +1,4 @@
-import ImageRow from "@/components/article/originals/image/ImageRow"
+import { ImageRow } from "@/components/article/originals/image/ImageRow"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

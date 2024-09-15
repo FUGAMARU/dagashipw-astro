@@ -12,7 +12,8 @@ const ARTICLES_PER_PAGE = 10
 
 /**
  * 記事を取得する
- * @param articleUrlId 記事のURL ID
+ *
+ * @param articleUrlId - 記事のURL ID
  * @returns 記事データ
  */
 export const getArticle = async (
@@ -26,6 +27,7 @@ export const getArticle = async (
 
 /**
  * articleUrlId一覧を取得する
+ *
  * @returns articleUrlId一覧
  */
 export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
@@ -44,7 +46,8 @@ export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
 
 /**
  * 記事一覧を取得する (ページネーションあり)
- * @param pageNumber ページ番号
+ *
+ * @param pageNumber - ページ番号
  * @returns 記事一覧
  */
 export const getAllArticlesWithPagination = async (

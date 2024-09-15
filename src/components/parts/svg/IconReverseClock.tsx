@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * 時計巻き戻しアイコン
- * @returns ReactNode
- */
-const IconReverseClock = ({ width, height, className }: SvgProps): ReactNode => {
+/** 時計巻き戻しアイコン */
+export const IconReverseClock = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -18,5 +14,3 @@ const IconReverseClock = ({ width, height, className }: SvgProps): ReactNode => 
     </svg>
   )
 }
-
-export default IconReverseClock

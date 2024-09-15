@@ -1,14 +1,10 @@
 import styles from "@/components/article/standards/heading/H3.module.css"
-import { generateHeadingId } from "@/utils/generateHeadingId"
+import { generateHeadingId } from "@/utils/formatter"
 
 import type { Children } from "@/types/children"
-import type { ReactNode } from "react"
 
-/**
- * 段落 (H3)
- * @returns ReactNode
- */
-const H3 = ({ children }: Children): ReactNode => {
+/** 段落 (H3) */
+export const H3 = ({ children }: Children) => {
   return (
     <h3 className={styles.h3Tag} id={generateHeadingId(children)}>
       <span className={styles.text}>{children}</span>
@@ -19,5 +15,3 @@ const H3 = ({ children }: Children): ReactNode => {
     </h3>
   )
 }
-
-export default H3

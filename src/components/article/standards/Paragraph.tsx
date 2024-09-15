@@ -1,14 +1,8 @@
 import styles from "@/components/article/standards/Paragraph.module.css"
 
 import type { Children } from "@/types/children"
-import type { ReactNode } from "react"
 
-/**
- * 段落
- * @returns ReactNode
- */
-const Paragraph = ({ children }: Children): ReactNode => {
+/** 段落(pタグ)コンポーネント */
+export const Paragraph = ({ children }: Children) => {
   return <p className={styles.paragraphTag}>{children}</p>
 }
-
-export default Paragraph

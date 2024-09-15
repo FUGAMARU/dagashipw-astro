@@ -1,4 +1,4 @@
-import Tag from "@/components/parts/Tag"
+import { Tag } from "@/components/parts/Tag"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

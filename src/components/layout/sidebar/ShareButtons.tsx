@@ -1,10 +1,12 @@
+import { useCallback } from "react"
+
 import styles from "@/components/layout/sidebar/ShareButtons.module.css"
-import Link from "@/components/parts/common/Link"
-import SvgLoader from "@/components/parts/svg/SvgLoader"
+import { Link } from "@/components/parts/common/Link"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 
 import type { SvgComponentName } from "@/types/svg"
-import type { ReactNode } from "react"
 
+/** Props */
 type Props = {
   /** 現在表示中の記事のURL */
   currentArticleUrl: string
@@ -12,11 +14,8 @@ type Props = {
   currentArticleTitle: string
 }
 
-/**
- * 記事シェア用ボタン
- * @returns ReactNode
- */
-const ShareButtons = ({ currentArticleUrl, currentArticleTitle }: Props): ReactNode => {
+/** 記事シェア用ボタン */
+export const ShareButtons = ({ currentArticleUrl, currentArticleTitle }: Props) => {
   // 参考: https://webdesign-trends.net/entry/3632
   const shareButtons = [
     {
@@ -36,22 +35,25 @@ const ShareButtons = ({ currentArticleUrl, currentArticleTitle }: Props): ReactN
       shareUrl: `https://b.hatena.ne.jp/add?mode=confirm&url=${currentArticleUrl}&title=${currentArticleTitle}`
     }
   ] as const satisfies Array<{
+    /** アイコン名 */
     iconName: SvgComponentName
+    /** 共有用URL */
     shareUrl: string
   }>
 
   /** LinkCircleButtonをクリックした時の処理 */
-  const handleLinkCircleButtonClick = async (): Promise<void> => {
+  const handleLinkCircleButtonClick = useCallback(async () => {
     await navigator.clipboard.writeText(currentArticleUrl)
-  }
+  }, [currentArticleUrl])
 
-  const LinkCircleButton = (): ReactNode => {
+  /** リンクアイコンのボタン */
+  const LinkCircleButton = useCallback(() => {
     return (
       <button onClick={handleLinkCircleButtonClick} type="button">
         <SvgLoader height={32} name="linkCircle" width={32} />
       </button>
     )
-  }
+  }, [handleLinkCircleButtonClick])
 
   return (
     <div className={styles.shareButtons}>
@@ -64,5 +66,3 @@ const ShareButtons = ({ currentArticleUrl, currentArticleTitle }: Props): ReactN
     </div>
   )
 }
-
-export default ShareButtons

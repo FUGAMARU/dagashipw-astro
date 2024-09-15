@@ -1,4 +1,4 @@
-import HeaderSP from "@/components/layout/HeaderSP"
+import { HeaderSP } from "@/components/layout/HeaderSP"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

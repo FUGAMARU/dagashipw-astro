@@ -1,4 +1,4 @@
-import ArticleCard from "@/components/parts/card/ArticleCard"
+import { ArticleCard } from "@/components/parts/card/ArticleCard"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     thumbnailUrl: "/sea-candle.jpg",
-    dominantColorCode: "#bdf2ea",
+    dominantColorCode: "#efa9fc",
     createdAt: "2024/07/14",
     updatedAt: "2024/07/15",
     commentCount: 100,

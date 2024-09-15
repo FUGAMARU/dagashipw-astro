@@ -1,15 +1,10 @@
 import styles from "@/components/layout/HeaderSP.module.css"
-import Link from "@/components/parts/common/Link"
-import LogoLoader from "@/components/parts/svg/LogoLoader"
+import { Link } from "@/components/parts/common/Link"
+import { LogoLoader } from "@/components/parts/svg/LogoLoader"
 import { PAGE_PATH } from "@/constants/page"
 
-import type { ReactNode } from "react"
-
-/**
- * SP用ヘッダー
- * @returns ReactNode
- */
-const HeaderSP = (): ReactNode => {
+/** SP用ヘッダー */
+export const HeaderSP = () => {
   return (
     <div className={styles.headerSP}>
       <Link href={PAGE_PATH.TOP}>
@@ -18,5 +13,3 @@ const HeaderSP = (): ReactNode => {
     </div>
   )
 }
-
-export default HeaderSP

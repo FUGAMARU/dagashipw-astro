@@ -1,4 +1,4 @@
-import PatternBackground from "@/components/parts/svg/PatternBackground"
+import { PatternBackground } from "@/components/parts/svg/PatternBackground"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

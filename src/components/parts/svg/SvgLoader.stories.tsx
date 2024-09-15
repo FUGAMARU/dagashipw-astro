@@ -1,4 +1,4 @@
-import SvgLoader from "@/components/parts/svg/SvgLoader"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

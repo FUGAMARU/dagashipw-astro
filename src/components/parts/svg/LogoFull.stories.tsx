@@ -1,4 +1,4 @@
-import LogoFull from "@/components/parts/svg/LogoFull"
+import { LogoFull } from "@/components/parts/svg/LogoFull"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

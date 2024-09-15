@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * ハッシュタグアイコン
- * @returns ReactNode
- */
-const IconHash = ({ width, height, className }: SvgProps): ReactNode => {
+/** ハッシュタグアイコン */
+export const IconHash = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -24,5 +20,3 @@ const IconHash = ({ width, height, className }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default IconHash

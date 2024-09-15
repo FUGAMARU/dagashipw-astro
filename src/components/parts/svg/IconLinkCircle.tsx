@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * 丸で囲まれたリンクアイコン
- * @returns ReactNode
- */
-const IconLinkCircle = ({ width, height, className }: SvgProps): ReactNode => {
+/** 丸で囲まれたリンクアイコン */
+export const IconLinkCircle = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -46,5 +42,3 @@ const IconLinkCircle = ({ width, height, className }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default IconLinkCircle

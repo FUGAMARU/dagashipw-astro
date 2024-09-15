@@ -1,19 +1,16 @@
-import { Fragment, useEffect, useState, type ReactNode } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { useSessionStorage } from "usehooks-ts"
 
-import DividerHorizontal from "@/components/parts/common/DividerHorizontal"
+import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import styles from "@/components/templates/TableOfContents.module.css"
-import TableOfContentsItem from "@/components/templates/TableOfContentsItem"
+import { TableOfContentsItem } from "@/components/templates/TableOfContentsItem"
 import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 
 import type { TableOfContentsData } from "@/types/table-of-contents"
 
-/**
- * 目次
- * @returns ReactNode
- */
-const TableOfContents = (): ReactNode => {
+/** 目次 */
+export const TableOfContents = () => {
   /** 見出し一覧 (Inserter(SP)とSidebar(PC)でそれぞれ取得ロジックを書くのが無駄なのでここでsessionStorageから取得してしまう) */
   const [tableOfContents] = useSessionStorage<TableOfContentsData>(
     SESSION_STORAGE_TABLE_OF_CONTENTS_KEY,
@@ -24,16 +21,20 @@ const TableOfContents = (): ReactNode => {
   const [activeHeadingHref, setActiveHeadingHref] = useState(tableOfContents[0].h2.href ?? "#")
 
   useEffect(() => {
-    const handleStateChange = (event: CustomEvent<string>): void => {
+    /** アクティブな見出しアイテムが変わったときの処理 */
+    const handleActiveHeadingChange = (event: CustomEvent<string>) => {
       setActiveHeadingHref(event.detail)
     }
 
-    window.addEventListener(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, handleStateChange as EventListener)
+    window.addEventListener(
+      CUSTOM_EVENT_ACTIVE_HEADING_CHANGE,
+      handleActiveHeadingChange as EventListener
+    )
 
-    return (): void => {
+    return () => {
       window.removeEventListener(
         CUSTOM_EVENT_ACTIVE_HEADING_CHANGE,
-        handleStateChange as EventListener
+        handleActiveHeadingChange as EventListener
       )
     }
   }, [])
@@ -82,5 +83,3 @@ const TableOfContents = (): ReactNode => {
     </div>
   )
 }
-
-export default TableOfContents

@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * 検索アイコン
- * @returns ReactNode
- */
-const IconSearch = ({ width, height, className }: SvgProps): ReactNode => {
+/** 検索アイコン */
+export const IconSearch = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -18,5 +14,3 @@ const IconSearch = ({ width, height, className }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default IconSearch

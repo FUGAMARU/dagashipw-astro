@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * 執筆中アイコン
- * @returns ReactNode
- */
-const IconWritingPen = ({ width, height, className }: SvgProps): ReactNode => {
+/** 執筆中アイコン */
+export const IconWritingPen = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -20,5 +16,3 @@ const IconWritingPen = ({ width, height, className }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default IconWritingPen

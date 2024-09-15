@@ -1,19 +1,15 @@
-import { useEffect, useRef, type ReactNode } from "react"
+import { useEffect, useRef } from "react"
 import { createRoot } from "react-dom/client"
 
-import LogoFull from "@/components/parts/svg/LogoFull"
+import { LogoFull } from "@/components/parts/svg/LogoFull"
 
 import type { SvgProps } from "@/types/svg"
-
-type Props = SvgProps
 
 /**
  * ブログロゴ表示用コンポーネント
  * (SVG内で使用しているクラス名などがグローバル汚染で衝突するのでShadow DOMを使用している)
- * @param props Props
- * @returns ReactNode
  */
-const LogoLoader = (props: Props): ReactNode => {
+export const LogoLoader = (props: SvgProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -30,7 +26,7 @@ const LogoLoader = (props: Props): ReactNode => {
     const root = createRoot(spanElement)
     root.render(<LogoFull {...props} />)
 
-    return (): void => {
+    return () => {
       root.unmount()
       shadowRoot.removeChild(spanElement)
     }
@@ -38,5 +34,3 @@ const LogoLoader = (props: Props): ReactNode => {
 
   return <div ref={containerRef} />
 }
-
-export default LogoLoader

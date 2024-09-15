@@ -1,4 +1,4 @@
-import ShareButtons from "@/components/layout/sidebar/ShareButtons"
+import { ShareButtons } from "@/components/layout/sidebar/ShareButtons"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

@@ -1,4 +1,4 @@
-import Blockquote from "@/components/article/standards/Blockquote"
+import { Blockquote } from "@/components/article/standards/Blockquote"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

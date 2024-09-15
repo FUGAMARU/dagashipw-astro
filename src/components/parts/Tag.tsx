@@ -1,9 +1,8 @@
-import Link from "@/components/parts/common/Link"
-import SvgLoader from "@/components/parts/svg/SvgLoader"
+import { Link } from "@/components/parts/common/Link"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/parts/Tag.module.css"
 
-import type { ReactNode } from "react"
-
+/** Props */
 type Props = {
   /** テキスト */
   text: string
@@ -11,11 +10,8 @@ type Props = {
   href: string
 }
 
-/**
- * タグ
- * @returns ReactNode
- */
-const Tag = ({ text, href }: Props): ReactNode => {
+/** タグ */
+export const Tag = ({ text, href }: Props) => {
   return (
     <Link href={href}>
       <span className={styles.tagComponent}>
@@ -25,5 +21,3 @@ const Tag = ({ text, href }: Props): ReactNode => {
     </Link>
   )
 }
-
-export default Tag

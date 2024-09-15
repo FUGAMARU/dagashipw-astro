@@ -1,4 +1,4 @@
-import IconHash from "@/components/parts/svg/IconHash"
+import { IconHash } from "@/components/parts/svg/IconHash"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

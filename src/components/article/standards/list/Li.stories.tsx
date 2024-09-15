@@ -1,4 +1,4 @@
-import Li from "@/components/article/standards/list/Li"
+import { Li } from "@/components/article/standards/list/Li"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

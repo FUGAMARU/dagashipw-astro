@@ -1,4 +1,4 @@
-import IconNotByAi from "@/components/parts/svg/IconNotByAi"
+import { IconNotByAi } from "@/components/parts/svg/IconNotByAi"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

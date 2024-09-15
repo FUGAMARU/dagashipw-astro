@@ -1,15 +1,10 @@
 import styles from "@/components/layout/sidebar/HeaderPC.module.css"
-import Link from "@/components/parts/common/Link"
-import LogoLoader from "@/components/parts/svg/LogoLoader"
+import { Link } from "@/components/parts/common/Link"
+import { LogoLoader } from "@/components/parts/svg/LogoLoader"
 import { PAGE_PATH } from "@/constants/page"
 
-import type { ReactNode } from "react"
-
-/**
- * PC用ヘッダー
- * @returns ReactNode
- */
-const HeaderPC = (): ReactNode => {
+/** PC用ヘッダー */
+export const HeaderPC = () => {
   return (
     <div className={styles.headerPC}>
       <Link href={PAGE_PATH.TOP}>
@@ -18,5 +13,3 @@ const HeaderPC = (): ReactNode => {
     </div>
   )
 }
-
-export default HeaderPC

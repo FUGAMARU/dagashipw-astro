@@ -1,4 +1,4 @@
-import HeroPC from "@/components/templates/hero/HeroPC"
+import { HeroPC } from "@/components/templates/hero/HeroPC"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

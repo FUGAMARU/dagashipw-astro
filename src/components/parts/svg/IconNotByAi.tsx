@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * Not By AIのアイコン
- * @returns ReactNode
- */
-const IconNotByAi = ({ width, height }: SvgProps): ReactNode => {
+/** Not By AIのアイコン */
+export const IconNotByAi = ({ width, height }: SvgProps) => {
   return (
     <svg
       fill="none"
@@ -117,5 +113,3 @@ const IconNotByAi = ({ width, height }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default IconNotByAi

@@ -2,6 +2,7 @@ import styles from "@/components/layout/sidebar/SidebarItemWithTitle.module.css"
 
 import type { ReactNode } from "react"
 
+/** Props */
 type Props = {
   /** タイトル */
   title: string
@@ -9,11 +10,8 @@ type Props = {
   children: ReactNode
 }
 
-/**
- * タイトル付きのサイドバーアイテム
- * @returns ReactNode
- */
-const SidebarItemWithTitle = ({ title, children }: Props): ReactNode => {
+/** タイトル付きのサイドバーアイテム */
+export const SidebarItemWithTitle = ({ title, children }: Props) => {
   return (
     <div className={styles.sidebarItemWithTitle}>
       <span className={styles.title}>{title}</span>
@@ -21,5 +19,3 @@ const SidebarItemWithTitle = ({ title, children }: Props): ReactNode => {
     </div>
   )
 }
-
-export default SidebarItemWithTitle

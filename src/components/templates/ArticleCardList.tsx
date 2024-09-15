@@ -1,12 +1,13 @@
-import { Fragment, type ReactNode } from "react"
+import { Fragment } from "react"
 
-import ArticleCard from "@/components/parts/card/ArticleCard"
-import DividerHorizontal from "@/components/parts/common/DividerHorizontal"
-import Link from "@/components/parts/common/Link"
+import { ArticleCard } from "@/components/parts/card/ArticleCard"
+import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
+import { Link } from "@/components/parts/common/Link"
 import styles from "@/components/templates/ArticleCardList.module.css"
 
 import type { ArticleInfo } from "@/types/article"
 
+/** Props */
 type Props = {
   /** 記事情報リスト */
   articleInfoList: Array<ArticleInfo>
@@ -17,9 +18,8 @@ type Props = {
  * NOTICE: 本来ならトップページのAstroコンポーネントからデーターをmapで回してリストを描写すれば良いのだが、カードをaタグでラップした時にスタイルが崩れる原因不明のバグがあった。
  * そのため、リストをReactコンポーネントとして切り出し、clientディレクティブを付与することによって問題を回避している。
  * TODO: Astroのバグの可能性があるので将来的に修正されているかもしれない。
- * @returns ReactNode
  */
-const ArticleCardList = ({ articleInfoList }: Props): ReactNode => {
+export const ArticleCardList = ({ articleInfoList }: Props) => {
   return (
     <div className={styles.articleCardList}>
       {articleInfoList.map((articleInfo, index) => (
@@ -33,5 +33,3 @@ const ArticleCardList = ({ articleInfoList }: Props): ReactNode => {
     </div>
   )
 }
-
-export default ArticleCardList

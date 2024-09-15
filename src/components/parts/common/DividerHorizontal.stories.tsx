@@ -1,4 +1,4 @@
-import DividerHorizontal from "@/components/parts/common/DividerHorizontal"
+import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

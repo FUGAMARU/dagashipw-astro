@@ -1,19 +1,15 @@
 import styles from "@/components/article/originals/Inserter.module.css"
-import TableOfContents from "@/components/templates/TableOfContents"
-import useIsSP from "@/hooks/useIsSP"
+import { TableOfContents } from "@/components/templates/TableOfContents"
+import { useIsSP } from "@/hooks/useIsSP"
 
-import type { ReactNode } from "react"
-
+/** Props */
 type Props = {
   /** 表示するもの */
   type: "tableOfContents" | "ad"
 }
 
-/**
- * 記事中で目次や広告を挿入するためのコンポーネント
- * @returns ReactNode
- */
-const Inserter = ({ type }: Props): ReactNode => {
+/** 記事中で目次や広告を挿入するためのコンポーネント */
+export const Inserter = ({ type }: Props) => {
   const isSP = useIsSP()
 
   if (
@@ -29,5 +25,3 @@ const Inserter = ({ type }: Props): ReactNode => {
 
   return null
 }
-
-export default Inserter

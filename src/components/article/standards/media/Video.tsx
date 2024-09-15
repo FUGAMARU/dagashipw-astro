@@ -1,18 +1,8 @@
 import styles from "@/components/article/standards/media/Video.module.css"
 
-import type { ReactNode } from "react"
+import type { ComponentProps } from "react"
 
-type Props = {
-  /** src */
-  src: string
-}
-
-/**
- * Videoタグコンポーネント
- * @returns Videoタグ
- */
-const Video = ({ src }: Props): ReactNode => {
+/** Videoタグコンポーネント */
+export const Video = ({ src }: ComponentProps<"video">) => {
   return <video className={styles.videoTag} controls src={src} />
 }
-
-export default Video

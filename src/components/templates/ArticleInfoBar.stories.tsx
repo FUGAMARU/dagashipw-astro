@@ -1,4 +1,4 @@
-import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
+import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

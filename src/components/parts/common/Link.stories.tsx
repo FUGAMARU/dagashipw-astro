@@ -1,9 +1,8 @@
+import { Link } from "@/components/parts/common/Link"
+
 import type { Meta, StoryObj } from "@storybook/react"
 
-import Link from "./Link"
-
 const meta: Meta<typeof Link> = {
-  title: "components/Link",
   component: Link,
   tags: ["autodocs"],
   args: { href: undefined, children: "string" },

@@ -1,4 +1,4 @@
-import IconSnsHatenaBookmark from "@/components/parts/svg/IconSnsHatenaBookmark"
+import { IconSnsHatenaBookmark } from "@/components/parts/svg/IconSnsHatenaBookmark"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

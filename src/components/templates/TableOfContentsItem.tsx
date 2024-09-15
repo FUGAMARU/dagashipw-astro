@@ -1,11 +1,12 @@
 import clsx from "clsx"
 
-import ItemNumber from "@/components/parts/common/ItemNumber"
-import Link from "@/components/parts/common/Link"
+import { ItemNumber } from "@/components/parts/common/ItemNumber"
+import { Link } from "@/components/parts/common/Link"
 import styles from "@/components/templates/TableOfContentsItem.module.css"
 
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps } from "react"
 
+/** Props */
 type Props = {
   /** タイトル */
   title: string
@@ -15,11 +16,8 @@ type Props = {
   isActive?: boolean
 } & Pick<ComponentProps<typeof ItemNumber>, "itemNumber">
 
-/**
- * TableOfContentsに並ぶアイテム
- * @returns ReactNode
- */
-const TableOfContentsItem = ({ title, href, isActive = false, itemNumber }: Props): ReactNode => {
+/** TableOfContentsに並ぶアイテム */
+export const TableOfContentsItem = ({ title, href, isActive = false, itemNumber }: Props) => {
   return (
     <Link href={href}>
       <div className={styles.tableOfContentsItem}>
@@ -29,5 +27,3 @@ const TableOfContentsItem = ({ title, href, isActive = false, itemNumber }: Prop
     </Link>
   )
 }
-
-export default TableOfContentsItem

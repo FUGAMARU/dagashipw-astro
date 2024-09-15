@@ -1,4 +1,4 @@
-import StaleContentWarning from "@/components/templates/StaleContentWarning"
+import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -13,5 +13,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  args: { elapsedYears: 5 }
+  args: { articleDate: new Date("2015/12/31") }
 }

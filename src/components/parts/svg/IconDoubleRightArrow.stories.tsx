@@ -1,4 +1,4 @@
-import IconDoubleRightArrow from "@/components/parts/svg/IconDoubleRightArrow"
+import { IconDoubleRightArrow } from "@/components/parts/svg/IconDoubleRightArrow"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

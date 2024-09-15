@@ -1,4 +1,4 @@
-import IconSearch from "@/components/parts/svg/IconSearch"
+import { IconSearch } from "@/components/parts/svg/IconSearch"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

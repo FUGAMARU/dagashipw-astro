@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * 警告アイコン
- * @returns ReactNode
- */
-const IconWarning = ({ width, height, className }: SvgProps): ReactNode => {
+/** 警告アイコン */
+export const IconWarning = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -25,5 +21,3 @@ const IconWarning = ({ width, height, className }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default IconWarning

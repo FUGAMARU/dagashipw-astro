@@ -1,47 +1,40 @@
-import { generateHeadingId } from "@/utils/generateHeadingId"
+/**
+ * @file 目次関連の関数群
+ */
+
+import { generateHeadingId } from "@/utils/formatter"
 import { isDefined } from "@/utils/isDefined"
 
-import type { TableOfContentsData } from "@/types/table-of-contents"
-
-type Heading = {
-  title: string
-  href: string
-  h3?: Array<Heading>
-}
-
-type Data = Array<{
-  h2: Heading & {
-    h3?: Array<Heading & { h4?: Array<Heading> }>
-  }
-}>
+import type { NestedHeading, TableOfContentsData } from "@/types/table-of-contents"
 
 /**
  * Markdownから目次データを生成する
+ *
  * @param markdown - Markdown
  * @returns 目次データ
  */
 export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfContentsData => {
   const lines = markdown.split("\n")
-  const data: Data = []
+  const data: TableOfContentsData = []
 
   let currentH2:
-    | (Heading & {
+    | (NestedHeading & {
         /** h3 */
         h3?: Array<
-          Heading & {
+          NestedHeading & {
             /** h4 */
-            h4?: Array<Heading>
+            h4?: Array<NestedHeading>
           }
         >
       })
     | null = null
   let currentH3:
-    | (Heading & {
+    | (NestedHeading & {
         /** h4 */
-        h4?: Array<Heading>
+        h4?: Array<NestedHeading>
       })
     | null = null
-  let currentH4: Heading | null = null
+  let currentH4: NestedHeading | null = null
 
   lines.forEach(line => {
     const h2Match = line.match(/^## (.+)/)

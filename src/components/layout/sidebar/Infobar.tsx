@@ -1,12 +1,9 @@
-import { useMemo, type ReactNode } from "react"
+import { useMemo } from "react"
 
 import styles from "@/components/layout/sidebar/Infobar.module.css"
 
-/**
- * Infobar - 日付やIPv6 / IPv4の接続情報などを表示する
- * @returns ReactNode
- */
-const Infobar = (): ReactNode => {
+/** 日付やIPv6 / IPv4の接続情報などを表示するコンポーネント */
+export const Infobar = () => {
   const { year, month, day, dayOfWeek } = useMemo(() => {
     const date = new Date()
     const year = date.getFullYear()
@@ -44,5 +41,3 @@ const Infobar = (): ReactNode => {
     </div>
   )
 }
-
-export default Infobar

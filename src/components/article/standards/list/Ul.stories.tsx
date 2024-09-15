@@ -1,5 +1,5 @@
-import Li from "@/components/article/standards/list/Li"
-import Ul from "@/components/article/standards/list/Ul"
+import { Li } from "@/components/article/standards/list/Li"
+import { Ul } from "@/components/article/standards/list/Ul"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

@@ -1,4 +1,4 @@
-import Iframe from "@/components/article/standards/Iframe"
+import { Iframe } from "@/components/article/standards/Iframe"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

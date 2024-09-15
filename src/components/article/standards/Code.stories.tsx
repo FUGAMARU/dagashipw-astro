@@ -1,4 +1,4 @@
-import Code from "@/components/article/standards/Code"
+import { Code } from "@/components/article/standards/Code"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

@@ -1,4 +1,4 @@
-import IconWarning from "@/components/parts/svg/IconWarning"
+import { IconWarning } from "@/components/parts/svg/IconWarning"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

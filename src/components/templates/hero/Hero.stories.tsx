@@ -1,4 +1,4 @@
-import Hero from "@/components/templates/hero/Hero"
+import { Hero } from "@/components/templates/hero/Hero"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

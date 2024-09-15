@@ -1,23 +1,18 @@
 import clsx from "clsx"
-import { useMemo, type ReactNode } from "react"
+import { useMemo } from "react"
 
-import BackNumber from "@/components/parts/BackNumber"
+import { BackNumber } from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
-import SvgLoader from "@/components/parts/svg/SvgLoader"
-import Tag from "@/components/parts/Tag"
-import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
-import Image from "@/components/templates/Image"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { Tag } from "@/components/parts/Tag"
+import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
+import { Image } from "@/components/templates/Image"
 import { determineWhiteTextColor } from "@/utils/color"
 
 import type { ArticleInfo } from "@/types/article"
 
-type Props = ArticleInfo
-
-/**
- * 記事情報カード (トップページで使う)
- * @returns ReactNode
- */
-const ArticleCard = ({
+/** 記事情報カード (トップページで使う) */
+export const ArticleCard = ({
   thumbnailUrl,
   dominantColorCode,
   createdAt,
@@ -27,7 +22,7 @@ const ArticleCard = ({
   bodyBeginningParagraph,
   tags,
   backNumber
-}: Props): ReactNode => {
+}: ArticleInfo) => {
   const isHeaderTextColorWhite = useMemo(
     () => determineWhiteTextColor(dominantColorCode),
     [dominantColorCode]
@@ -75,5 +70,3 @@ const ArticleCard = ({
     </div>
   )
 }
-
-export default ArticleCard

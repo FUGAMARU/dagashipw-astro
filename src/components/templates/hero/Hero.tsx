@@ -1,11 +1,11 @@
-import { useMemo, type ComponentProps, type ReactNode } from "react"
+import { useMemo, type ComponentProps } from "react"
 
-import HeroPC from "@/components/templates/hero/HeroPC"
-import HeroSP from "@/components/templates/hero/HeroSP"
+import { HeroPC } from "@/components/templates/hero/HeroPC"
+import { HeroSP } from "@/components/templates/hero/HeroSP"
 
-import type BackNumber from "@/components/parts/BackNumber"
-import type Tag from "@/components/parts/Tag"
-import type ArticleInfoBar from "@/components/templates/ArticleInfoBar"
+import type { BackNumber } from "@/components/parts/BackNumber"
+import type { Tag } from "@/components/parts/Tag"
+import type { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 
 /** Heroコンポーネント共通Props */
 export type HeroProps = {
@@ -18,18 +18,15 @@ export type HeroProps = {
 } & ComponentProps<typeof BackNumber> &
   Pick<ComponentProps<typeof ArticleInfoBar>, "createdAt" | "updatedAt" | "commentCount">
 
+/** Props */
 type Props = {
+  /** デバイス */
   device: "pc" | "sp"
 } & HeroProps
 
-/**
- * Hero親コンポーネント
- * @returns ReactNode
- */
-const Hero = ({ device, ...props }: Props): ReactNode => {
+/** Hero親コンポーネント */
+export const Hero = ({ device, ...props }: Props) => {
   const HeroComponent = useMemo(() => (device === "pc" ? HeroPC : HeroSP), [device])
 
   return <HeroComponent {...props} />
 }
-
-export default Hero

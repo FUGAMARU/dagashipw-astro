@@ -2,10 +2,9 @@ import ResponsivePagination from "react-responsive-pagination"
 
 import { QUERY_PAGE } from "@/constants/query"
 
-import type { ReactNode } from "react"
-
 import "react-responsive-pagination/themes/classic.css"
 
+/** Props */
 type Props = {
   /** 現在のページ数 */
   currentPage: number
@@ -13,16 +12,10 @@ type Props = {
   totalPageCount: number
 }
 
-/**
- * NextUIのPaginationをラップしたコンポーネント
- * @returns ページネーションコンポーネント
- */
-export const Pagination = ({ currentPage, totalPageCount }: Props): ReactNode => {
-  /**
-   * ページを変更したときの処理
-   * @param page 変更後のページ数
-   */
-  const handlePageChange = (page: number): void => {
+/** ページネーション用コンポーネント */
+export const Pagination = ({ currentPage, totalPageCount }: Props) => {
+  /** ページを変更したときの処理 */
+  const handlePageChange = (page: number) => {
     window.location.href = `?${QUERY_PAGE}=${page}`
   }
 

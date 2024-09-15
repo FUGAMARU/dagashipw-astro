@@ -1,14 +1,12 @@
-import { type ReactNode } from "react"
-
-import TableOfContents from "@/components/templates/TableOfContents"
-import useIsSP from "@/hooks/useIsSP"
+import { TableOfContents } from "@/components/templates/TableOfContents"
+import { useIsSP } from "@/hooks/useIsSP"
 
 /**
  * TableOfContentsコンポーネントのラッパー
+ * PCのみ表示する出し分けをここで行う (SPはInserterで記事に挿入する)
  * 目次データーの準備を行う
- * @returns ReactNode
  */
-const TableOfContentsWrapper = (): ReactNode => {
+export const TableOfContentsWrapper = () => {
   const isSP = useIsSP()
 
   // サイドバーでSP表示を出し分けるとreturn nullにしていてもアイテム間のgapは残るのでここで出し分ける
@@ -18,5 +16,3 @@ const TableOfContentsWrapper = (): ReactNode => {
 
   return <TableOfContents />
 }
-
-export default TableOfContentsWrapper

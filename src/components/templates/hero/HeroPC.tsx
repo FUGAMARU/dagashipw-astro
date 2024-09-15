@@ -1,16 +1,12 @@
-import BackNumber from "@/components/parts/BackNumber"
-import Tag from "@/components/parts/Tag"
-import ArticleInfoBar from "@/components/templates/ArticleInfoBar"
+import { BackNumber } from "@/components/parts/BackNumber"
+import { Tag } from "@/components/parts/Tag"
+import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 import styles from "@/components/templates/hero/HeroPC.module.css"
 
 import type { HeroProps } from "@/components/templates/hero/Hero"
-import type { ReactNode } from "react"
 
-/**
- * ブログ記事先頭に表示するHero (PC)
- * @returns ReactNode
- */
-const HeroPC = ({
+/** ブログ記事先頭に表示するHero (PC) */
+export const HeroPC = ({
   thumbnailUrl,
   backNumber,
   title,
@@ -18,7 +14,7 @@ const HeroPC = ({
   updatedAt,
   commentCount,
   tags
-}: HeroProps): ReactNode => {
+}: HeroProps) => {
   return (
     <div className={styles.heroPC}>
       <div className={styles.imageContainer}>
@@ -50,5 +46,3 @@ const HeroPC = ({
     </div>
   )
 }
-
-export default HeroPC

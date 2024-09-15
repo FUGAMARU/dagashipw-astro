@@ -1,4 +1,4 @@
-import IconCommentWithPen from "@/components/parts/svg/IconCommentWithPen"
+import { IconCommentWithPen } from "@/components/parts/svg/IconCommentWithPen"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

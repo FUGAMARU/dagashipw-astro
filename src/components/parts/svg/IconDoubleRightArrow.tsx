@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * 右向きの二重矢印アイコン
- * @returns ReactNode
- */
-const IconDoubleRightArrow = ({ width, height, className }: SvgProps): ReactNode => {
+/** 右向きの二重矢印アイコン */
+export const IconDoubleRightArrow = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -18,5 +14,3 @@ const IconDoubleRightArrow = ({ width, height, className }: SvgProps): ReactNode
     </svg>
   )
 }
-
-export default IconDoubleRightArrow

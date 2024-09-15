@@ -1,4 +1,4 @@
-import IconLinkCircle from "@/components/parts/svg/IconLinkCircle"
+import { IconLinkCircle } from "@/components/parts/svg/IconLinkCircle"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

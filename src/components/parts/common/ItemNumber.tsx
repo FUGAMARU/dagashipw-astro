@@ -1,8 +1,9 @@
 import clsx from "clsx"
-import { useMemo, type ReactNode } from "react"
+import { useMemo } from "react"
 
 import styles from "@/components/parts/common/ItemNumber.module.css"
 
+/** Props */
 type Props = {
   /** 項番 */
   itemNumber: string
@@ -10,11 +11,8 @@ type Props = {
   isFilled?: boolean
 }
 
-/**
- * 項番
- * @returns ReactNode
- */
-const ItemNumber = ({ itemNumber, isFilled = false }: Props): ReactNode => {
+/** 項番 */
+export const ItemNumber = ({ itemNumber, isFilled = false }: Props) => {
   /** ハイフンを含むかどうか */
   const includesHyphen = useMemo(() => itemNumber.includes("-"), [itemNumber])
 
@@ -43,5 +41,3 @@ const ItemNumber = ({ itemNumber, isFilled = false }: Props): ReactNode => {
     </div>
   )
 }
-
-export default ItemNumber

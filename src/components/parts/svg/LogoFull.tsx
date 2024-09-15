@@ -1,12 +1,7 @@
-import { type ReactNode } from "react"
-
 import type { SvgProps } from "@/types/svg"
 
-/**
- * ロゴ (フル)
- * @returns ReactNode
- */
-const LogoFull = ({ width, height, className }: SvgProps): ReactNode => {
+/** ロゴ (フル) */
+export const LogoFull = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -142,5 +137,3 @@ const LogoFull = ({ width, height, className }: SvgProps): ReactNode => {
     </svg>
   )
 }
-
-export default LogoFull

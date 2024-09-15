@@ -1,7 +1,7 @@
 /* eslint-disable reactHooks/rules-of-hooks */
 import { useEffect } from "react"
 
-import TableOfContents from "@/components/templates/TableOfContents"
+import { TableOfContents } from "@/components/templates/TableOfContents"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 
 import type { Meta, StoryObj } from "@storybook/react"

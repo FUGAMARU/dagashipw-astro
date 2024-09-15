@@ -1,4 +1,4 @@
-import Paragraph from "@/components/article/standards/Paragraph"
+import { Paragraph } from "@/components/article/standards/Paragraph"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

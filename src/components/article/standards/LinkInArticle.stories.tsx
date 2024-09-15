@@ -1,4 +1,4 @@
-import LinkInArticle from "@/components/article/standards/LinkInArticle"
+import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

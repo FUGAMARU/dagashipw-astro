@@ -1,5 +1,6 @@
 import { useMemo, type ReactNode } from "react"
 
+/** Props */
 type Props = {
   /** リンク先URL */
   href: string
@@ -7,11 +8,8 @@ type Props = {
   children: ReactNode
 }
 
-/**
- * リンク
- * @returns ReactNode
- */
-const Link = ({ href, children }: Props): ReactNode => {
+/** リンク */
+export const Link = ({ href, children }: Props) => {
   const isExternalLink = useMemo(() => href.startsWith("http") || href.startsWith("https"), [href])
 
   if (isExternalLink) {
@@ -24,5 +22,3 @@ const Link = ({ href, children }: Props): ReactNode => {
 
   return <a href={href}>{children}</a>
 }
-
-export default Link

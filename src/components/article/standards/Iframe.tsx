@@ -1,16 +1,11 @@
 import styles from "@/components/article/standards/Iframe.module.css"
 
-import type { ComponentProps, ReactNode } from "react"
+import type { ComponentProps } from "react"
 
+/** Props */
 type Props = ComponentProps<"iframe">
 
-/**
- * iframeタグコンポーネント
- * @param props Props
- * @returns iframeタグ
- */
-const Iframe = (props: Props): ReactNode => {
+/** iframeタグコンポーネント */
+export const Iframe = (props: Props) => {
   return <iframe className={styles.iframeTag} {...props} />
 }
-
-export default Iframe

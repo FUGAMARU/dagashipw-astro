@@ -1,4 +1,4 @@
-import BackNumber from "@/components/parts/BackNumber"
+import { BackNumber } from "@/components/parts/BackNumber"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

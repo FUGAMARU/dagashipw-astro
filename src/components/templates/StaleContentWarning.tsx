@@ -1,19 +1,17 @@
-import { memo, useMemo, type ReactNode } from "react"
+import { useMemo } from "react"
 
-import SvgLoader from "@/components/parts/svg/SvgLoader"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/StaleContentWarning.module.css"
-import { getElapsedYears } from "@/utils/getElapsedYears"
+import { getElapsedYears } from "@/utils/date"
 
+/** Props */
 type Props = {
   /** 記事の投稿（更新）日時 */
   articleDate: Date
 }
 
-/**
- * 古い記事に警告を表示するためのコンポーネント
- * @returns ReactNode
- */
-const StaleContentWarning = ({ articleDate }: Props): ReactNode => {
+/** 古い記事に警告を表示するためのコンポーネント */
+export const StaleContentWarning = ({ articleDate }: Props) => {
   const elapsedYears = useMemo(() => getElapsedYears(articleDate), [articleDate])
 
   if (elapsedYears < 1) {
@@ -33,5 +31,3 @@ const StaleContentWarning = ({ articleDate }: Props): ReactNode => {
     </div>
   )
 }
-
-export default memo(StaleContentWarning)

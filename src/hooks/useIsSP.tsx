@@ -1,11 +1,6 @@
 import { useMediaQuery } from "usehooks-ts"
 
-/**
- * ViewportがSPサイズかどうかを返すフック
- * @returns SPサイズかどうか
- */
-const useIsSP = (): boolean => {
+/** ViewportがSPサイズかどうかを返すフック */
+export const useIsSP = () => {
   return useMediaQuery("(max-width: 767px)")
 }
-
-export default useIsSP

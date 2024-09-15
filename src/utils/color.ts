@@ -4,7 +4,8 @@
 
 /**
  * RGBからHexに変換する
- * @param rgb RGBの配列
+ *
+ * @param rgb - RGBの配列
  * @returns Hex
  */
 export const convertRGBToHex = (rgb: [number, number, number]): string => {
@@ -13,7 +14,8 @@ export const convertRGBToHex = (rgb: [number, number, number]): string => {
 
 /**
  * HexからRGBに変換する
- * @param hex Hex
+ *
+ * @param hex - Hex
  * @returns RGBの配列
  */
 export const convertHexToRGB = (hex: string): [number, number, number] => {
@@ -24,6 +26,7 @@ export const convertHexToRGB = (hex: string): [number, number, number] => {
 /**
  * 背景色から文字色を白にするべきかを判定する
  * 参考: https://zenn.dev/mryhryki/articles/2020-11-12-hatena-background-color
+ *
  * @param backgroundColorCode - 背景色
  * @returns 白文字色にするべきか
  */

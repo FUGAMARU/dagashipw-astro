@@ -1,4 +1,4 @@
-import SidebarItemWithTitle from "@/components/layout/sidebar/SidebarItemWithTitle"
+import { SidebarItemWithTitle } from "@/components/layout/sidebar/SidebarItemWithTitle"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

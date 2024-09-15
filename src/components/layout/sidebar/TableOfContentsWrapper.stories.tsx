@@ -1,9 +1,9 @@
-import TableOfContentsPC from "@/components/layout/sidebar/TableOfContentsPC"
+import { TableOfContentsWrapper } from "@/components/layout/sidebar/TableOfContentsWrapper"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
-const meta: Meta<typeof TableOfContentsPC> = {
-  component: TableOfContentsPC,
+const meta: Meta<typeof TableOfContentsWrapper> = {
+  component: TableOfContentsWrapper,
   tags: ["autodocs"],
   args: {},
   argTypes: {}

@@ -1,11 +1,7 @@
 import type { SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
 
-/**
- * ペンが一緒になったコメントアイコン
- * @returns ReactNode
- */
-const IconCommentWithPen = ({ width, height, className }: SvgProps): ReactNode => {
+/** ペンが一緒になったコメントアイコン */
+export const IconCommentWithPen = ({ width, height, className }: SvgProps) => {
   return (
     <svg
       className={className}
@@ -18,5 +14,3 @@ const IconCommentWithPen = ({ width, height, className }: SvgProps): ReactNode =
     </svg>
   )
 }
-
-export default IconCommentWithPen

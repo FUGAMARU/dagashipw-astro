@@ -1,4 +1,4 @@
-import Infobar from "@/components/layout/sidebar/Infobar"
+import { Infobar } from "@/components/layout/sidebar/Infobar"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

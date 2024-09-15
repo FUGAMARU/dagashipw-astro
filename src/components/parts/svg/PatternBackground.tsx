@@ -1,10 +1,5 @@
-import { type ReactNode } from "react"
-
-/**
- * 背景パターン
- * @returns ReactNode
- */
-const PatternBackground = (): ReactNode => {
+/** 背景パターン */
+export const PatternBackground = () => {
   return (
     <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -1282,5 +1277,3 @@ const PatternBackground = (): ReactNode => {
     </svg>
   )
 }
-
-export default PatternBackground

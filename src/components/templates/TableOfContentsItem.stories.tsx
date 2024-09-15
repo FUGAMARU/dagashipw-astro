@@ -1,4 +1,4 @@
-import TableOfContentsItem from "@/components/templates/TableOfContentsItem"
+import { TableOfContentsItem } from "@/components/templates/TableOfContentsItem"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

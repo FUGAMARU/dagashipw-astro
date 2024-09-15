@@ -1,4 +1,4 @@
-import IconReverseClock from "@/components/parts/svg/IconReverseClock"
+import { IconReverseClock } from "@/components/parts/svg/IconReverseClock"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

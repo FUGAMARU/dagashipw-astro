@@ -1,4 +1,4 @@
-import HeroSP from "@/components/templates/hero/HeroSP"
+import { HeroSP } from "@/components/templates/hero/HeroSP"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
