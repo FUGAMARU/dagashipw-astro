@@ -1,8 +1,7 @@
 import { generateHeadingId } from "@/utils/generateHeadingId"
 import { isDefined } from "@/utils/isDefined"
 
-import type TableOfContents from "@/components/templates/TableOfContents"
-import type { ComponentProps } from "react"
+import type { TableOfContentsData } from "@/types/table-of-contents"
 
 type Heading = {
   title: string
@@ -21,9 +20,7 @@ type Data = Array<{
  * @param markdown - Markdown
  * @returns 目次データ
  */
-export const generateTableOfContentsFromMarkdown = (
-  markdown: string
-): ComponentProps<typeof TableOfContents>["contents"] => {
+export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfContentsData => {
   const lines = markdown.split("\n")
   const data: Data = []
 
