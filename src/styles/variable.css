@@ -28,4 +28,8 @@
   --color-brown: #6c3038;
   --margin-top-article-section-sp: 25px;
   --margin-top-article-section-pc: 40px;
+
+  /* react-responsive-pagination関連 */
+  --pagination-color: #67a700;
+  --pagination-hover-color: #67a700;
 }

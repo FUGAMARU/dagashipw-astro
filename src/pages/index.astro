@@ -1,13 +1,20 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
 import ArticleCardList from "@/components/templates/ArticleCardList"
+import { Pagination } from "@/components/templates/Pagination"
 import { PAGE_NAME } from "@/constants/page"
+import { QUERY_PAGE } from "@/constants/query"
 import styles from "@/pages/_index.module.css"
 import { getAllArticlesWithPagination } from "@/services/api"
 import { formatArticleInfo } from "@/utils/formatArticleInfo"
 import { isDefined } from "@/utils/isDefined"
 
-const articles = await getAllArticlesWithPagination(1) // TODO: ページ数はクエリパラメーターから取得
+export const prerender = false
+
+const currentPageParams = Astro.url.searchParams.get(QUERY_PAGE) ?? "1"
+const currentPage = Number(currentPageParams)
+
+const articles = await getAllArticlesWithPagination(currentPage)
 
 if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")
@@ -19,5 +26,12 @@ const articleInfoList = await Promise.all(articles.filter(isDefined).map(formatA
 <Layout title={PAGE_NAME.TOP}>
   <div class={styles.topPage}>
     <ArticleCardList articleInfoList={articleInfoList} client:load />
+
+    {
+      // TODO: totalPageCountに実際の値を入れるようにする必要がある
+    }
+    <div class={styles.pagination}>
+      <Pagination client:load currentPage={currentPage} totalPageCount={10} />
+    </div>
   </div>
 </Layout>

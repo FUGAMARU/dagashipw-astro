@@ -3,10 +3,18 @@
 .topPage {
   padding: 24px 16px;
   background-color: var(--color-white);
+
+  > .pagination {
+    margin-top: 36px;
+  }
 }
 
 @media (--pc) {
   .topPage {
     border-radius: 16px;
+
+    > .pagination {
+      margin-top: 48px;
+    }
   }
 }
