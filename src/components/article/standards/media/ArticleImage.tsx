@@ -3,11 +3,8 @@ import { Image } from "@/components/templates/Image"
 
 import type { ComponentProps } from "react"
 
-/** Props */
-type Props = Omit<ComponentProps<typeof Image>, "objectFitCover">
-
 /** 記事中で表示する画像表示用コンポーネント */
-export const ArticleImage = (props: Props) => {
+export const ArticleImage = (props: Omit<ComponentProps<typeof Image>, "objectFitCover">) => {
   return (
     <div className={styles.articleImage}>
       <Image {...props} />

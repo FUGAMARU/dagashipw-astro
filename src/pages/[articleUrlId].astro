@@ -28,13 +28,9 @@ import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 import { getCurrentDateTime } from "@/utils/date"
 import { formatArticleInfo, insertTableOfContents } from "@/utils/formatter"
 import { generateTableOfContentsFromMarkdown } from "@/utils/table-of-contents"
-import type { GetStaticPaths } from "astro"
 
-/**
- * 存在する記事のパス一覧をexportする
- * @returns GetStaticPaths
- */
-export const getStaticPaths: GetStaticPaths = async () => {
+/** 存在する記事のパス一覧をexportする */
+export const getStaticPaths = async () => {
   const allArticleUrlIds = await getAllArticleUrlIds()
 
   return allArticleUrlIds.map(articleUrlId => ({
