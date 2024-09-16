@@ -1,6 +1,8 @@
-import { useMemo } from "react"
+import clsx from "clsx"
+import { useEffect, useMemo, useState } from "react"
 
 import styles from "@/components/layout/sidebar/Infobar.module.css"
+import { checkIsIPv4 } from "@/services/api"
 
 /** 日付やIPv6 / IPv4の接続情報などを表示するコンポーネント */
 export const Infobar = () => {
@@ -21,6 +23,12 @@ export const Infobar = () => {
     }
   }, [])
 
+  const [isIPv4, setIsIPv4] = useState(false)
+
+  useEffect(() => {
+    checkIsIPv4().then(setIsIPv4)
+  }, [])
+
   return (
     <div className={styles.infobarContainer}>
       <div className={styles.sectionCalendar}>
@@ -35,7 +43,7 @@ export const Infobar = () => {
         <span>CONNECTED</span>
         <div className={styles.via}>
           <span>VIA</span>
-          <div className={styles.type}>IPv6</div>
+          <div className={clsx(styles.type, isIPv4 && styles.IPv4)}>IPv{isIPv4 ? 4 : 6}</div>
         </div>
       </div>
     </div>

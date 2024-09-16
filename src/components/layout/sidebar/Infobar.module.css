@@ -50,6 +50,10 @@
       color: var(--color-white);
       background-color: var(--color-background-green);
       border-radius: 4px;
+
+      &.IPv4 {
+        background-color: var(--color-vivid-red);
+      }
     }
   }
 }

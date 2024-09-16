@@ -45,7 +45,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
   </header>
 
   <div class={styles.main}>
-    {/* ビルド時点の日付で止まってしまうのでCSRさせる */}
+    {/* ビルド時点の日付で止まってしまうのとIPv4かどうか判定する必要があるのでCSRさせる */}
     <Infobar client:load />
 
     <SidebarItemWithTitle title="さがす">

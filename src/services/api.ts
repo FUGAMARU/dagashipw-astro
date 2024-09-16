@@ -2,6 +2,8 @@
  * @file APIにアクセスしデーターを整形する関数群
  */
 
+import axios from "axios"
+
 import { axiosInstance } from "@/services/axios"
 import { isDefined } from "@/utils/isDefined"
 
@@ -59,4 +61,14 @@ export const getAllArticlesWithPagination = async (
     `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=id:desc&populate=*`
   )
   return response.data?.data?.map(article => article.attributes)
+}
+
+/**
+ * IPv4回線を使用しているどうかをチェックする
+ *
+ * @returns IPv4回線を使用しているかどうか
+ */
+export const checkIsIPv4 = async (): Promise<boolean> => {
+  const response = await axios.get<boolean>("/api/is-ip-v4")
+  return response.data
 }
