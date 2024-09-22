@@ -1,16 +1,9 @@
 import type { SvgProps } from "@/types/svg"
 
 /** SNSアイコン (はてなブックマーク) */
-export const IconSnsHatenaBookmark = ({ width, height, className }: SvgProps) => {
+export const IconSnsHatenaBookmark = (svgProps: SvgProps) => {
   return (
-    <svg
-      className={className}
-      height={height}
-      id="layer"
-      viewBox="0 0 430.98 430.98"
-      width={width}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg id="layer" viewBox="0 0 430.98 430.98" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
       <defs>
         <style>
           {`.cls-1-hatena {

@@ -1,15 +1,9 @@
 import type { SvgProps } from "@/types/svg"
 
 /** ロゴ (フル) */
-export const LogoFull = ({ width, height, className }: SvgProps) => {
+export const LogoFull = (svgProps: SvgProps) => {
   return (
-    <svg
-      className={className}
-      height={height}
-      viewBox="0 0 474.61 95.79"
-      width={width}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 474.61 95.79" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
       <defs>
         <style>
           {`.cls-1 {

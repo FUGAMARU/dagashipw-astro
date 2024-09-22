@@ -1,16 +1,9 @@
 import type { SvgProps } from "@/types/svg"
 
 /** 丸で囲まれたリンクアイコン */
-export const IconLinkCircle = ({ width, height, className }: SvgProps) => {
+export const IconLinkCircle = (svgProps: SvgProps) => {
   return (
-    <svg
-      className={className}
-      height={height}
-      id="Layer"
-      viewBox="0 0 246 246"
-      width={width}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg id="Layer" viewBox="0 0 246 246" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
       <defs>
         <style>
           {`.cls-1-link-circle {

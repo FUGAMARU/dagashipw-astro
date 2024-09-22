@@ -1,16 +1,9 @@
 import type { SvgProps } from "@/types/svg"
 
 /** SNSアイコン (X) */
-export const IconSnsX = ({ width, height, className }: SvgProps) => {
+export const IconSnsX = (svgProps: SvgProps) => {
   return (
-    <svg
-      className={className}
-      height={height}
-      id="layer"
-      viewBox="0 0 1180.51 1180.51"
-      width={width}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg id="layer" viewBox="0 0 1180.51 1180.51" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
       <defs>
         <style>
           {`

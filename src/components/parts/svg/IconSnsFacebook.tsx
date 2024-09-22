@@ -1,20 +1,18 @@
 import type { SvgProps } from "@/types/svg"
 
 /** SNSアイコン (Facebook) */
-export const IconSnsFacebook = ({ width, height, className }: SvgProps) => {
+export const IconSnsFacebook = (svgProps: SvgProps) => {
   return (
     <svg
-      className={className}
-      height={height}
       id="Layer_1"
       version="1.1"
       viewBox="0 0 40 40"
-      width={width}
       x="0px"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       xmlSpace="preserve"
       y="0px"
+      {...svgProps}
     >
       <style type="text/css">
         {`.st0{fill:url(#SVGID_1_);}
