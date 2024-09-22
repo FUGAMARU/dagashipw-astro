@@ -32,8 +32,6 @@
   font-size: 14px;
   line-height: 1.875;
 
-  @mixin article-section-margin-half;
-
   @media (--pc) {
     font-size: 16px;
   }

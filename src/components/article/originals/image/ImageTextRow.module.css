@@ -8,6 +8,7 @@
 
   > .text {
     @mixin article-paragraph;
+    @mixin article-section-margin-half;
 
     white-space: pre-wrap;
   }
@@ -26,6 +27,7 @@
 
     > .text {
       flex: 1;
+      margin-top: 0;
     }
   }
 }

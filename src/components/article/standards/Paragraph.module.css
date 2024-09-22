@@ -2,4 +2,5 @@
 
 .paragraphTag {
   @mixin article-paragraph;
+  @mixin article-section-margin-half;
 }
