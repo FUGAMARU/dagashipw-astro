@@ -28,3 +28,5 @@ export type SvgComponentName =
   | "background"
   | "notByAi"
   | "warning"
+  | "inspiration"
+  | "roundedTriangleDown"

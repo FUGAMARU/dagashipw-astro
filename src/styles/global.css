@@ -15,3 +15,8 @@ body {
     background-color: var(--color-page-background-alpha);
   }
 }
+
+/* detailsをSafariで表示した時のデフォルトの三角形アイコンを消す */
+summary::-webkit-details-marker {
+  display: none;
+}

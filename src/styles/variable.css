@@ -1,5 +1,6 @@
 :root {
   --color-white: #fff;
+  --color-dull-white: #f8f8f8;
   --color-black: #000;
   --color-black-20: rgb(0 0 0 / 20%);
   --color-black-50: rgb(0 0 0 / 50%);
@@ -19,6 +20,8 @@
   --color-gradient-green-start: #ebff00;
   --color-gradient-green-end: #61ff00;
   --color-gradient-green-passing-point: #daff03;
+  --color-gradient-silver-start: #fafafa;
+  --color-gradient-silver-end: #f0f0f0;
   --color-link-green: #67a700;
   --color-gray-alpha: rgb(133 133 133 / 80%);
   --color-code-tag-background: #eff1f2;

@@ -66,6 +66,18 @@ const SVG_COMPONENTS = {
     import("@/components/parts/svg/IconWarning").then(({ IconWarning }) => ({
       default: IconWarning
     }))
+  ),
+  inspiration: lazy(() =>
+    import("@/components/parts/svg/IconInspiration").then(({ IconInspiration }) => ({
+      default: IconInspiration
+    }))
+  ),
+  roundedTriangleDown: lazy(() =>
+    import("@/components/parts/svg/IconRoundedTriangleDown").then(
+      ({ IconRoundedTriangleDown }) => ({
+        default: IconRoundedTriangleDown
+      })
+    )
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 
