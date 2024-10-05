@@ -3,20 +3,21 @@ import { Image } from "@/components/templates/Image"
 
 /** Props */
 type Props = {
-  /** 左側の画像 */
-  leftSideImageUrl: string
-  /** 右側の画像 */
-  rightSideImageUrl: string
+  /** 画像一覧 (カンマ区切りで渡ってくる) */
+  images: string
   /** gap */
   gap?: string
 }
 
 /** 画像を横並びに表示するコンポーネント */
-export const ImageRow = ({ leftSideImageUrl, rightSideImageUrl, gap = "16" }: Props) => {
+export const ImageRow = ({ images, gap = "16" }: Props) => {
+  const imageUrlList = images.replace(/\s+/g, "").split(",")
+
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
-      <Image alt="" className={styles.image} src={leftSideImageUrl} />
-      <Image alt="" className={styles.image} src={rightSideImageUrl} />
+      {imageUrlList.map(imageUrl => (
+        <Image key={imageUrl} alt="" className={styles.image} src={imageUrl} />
+      ))}
     </div>
   )
 }

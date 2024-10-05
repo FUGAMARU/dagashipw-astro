@@ -5,21 +5,25 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof ImageRow> = {
   component: ImageRow,
   tags: ["autodocs"],
-  args: { leftSideImageUrl: undefined, rightSideImageUrl: undefined, gap: undefined },
-  argTypes: {
-    leftSideImageUrl: { control: "text" },
-    rightSideImageUrl: { control: "text" },
-    gap: { control: "text" }
-  }
+  args: { images: undefined, gap: undefined },
+  argTypes: { images: { control: "text" }, gap: { control: "text" } }
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
+/** 2枚表示 */
+export const TwoImages: Story = {
   args: {
-    leftSideImageUrl: "/cat.jpg",
-    rightSideImageUrl: "/sea-candle.jpg",
+    images: "/cat.jpg, /sea-candle.jpg",
+    gap: "16"
+  }
+}
+
+/** 3枚表示 */
+export const ThreeImages: Story = {
+  args: {
+    images: "/cat.jpg, /sea-candle.jpg, /nagara-park.jpg",
     gap: "16"
   }
 }
