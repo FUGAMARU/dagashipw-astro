@@ -1,0 +1,14 @@
+@import url("/src/styles/post.css");
+
+.h4Tag {
+  font-size: 14px;
+  font-weight: bold;
+
+  @mixin article-section-margin;
+}
+
+@media (--pc) {
+  .h4Tag {
+    font-size: 16px;
+  }
+}
