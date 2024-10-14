@@ -11,6 +11,7 @@ import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { isDefined } from "@/utils/isDefined"
 
+import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
 import { ImageRow } from "@/components/article/originals/image/ImageRow"
 import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
@@ -137,7 +138,8 @@ const articleDate = articleInfo.updatedAt
           blockquote: Blockquote,
           ImageRow,
           ImageTextRow,
-          Inserter: InseterWrapper
+          Inserter: InseterWrapper,
+          DownloadButton
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{

@@ -13,5 +13,14 @@
   },
   "prettier.configPath": ".prettierrc.js",
   "prettier.documentSelectors": ["**/*.astro"],
-  "cSpell.ignoreWords": ["autodocs", "hatena", "clsx", "strapi", "usehooks", "astro", "animejs"]
+  "cSpell.ignoreWords": [
+    "autodocs",
+    "hatena",
+    "clsx",
+    "strapi",
+    "usehooks",
+    "astro",
+    "animejs",
+    "gabarito"
+  ]
 }

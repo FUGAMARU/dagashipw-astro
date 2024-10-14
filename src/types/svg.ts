@@ -30,3 +30,4 @@ export type SvgComponentName =
   | "warning"
   | "inspiration"
   | "roundedTriangleDown"
+  | "download"

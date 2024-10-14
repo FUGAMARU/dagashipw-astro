@@ -78,6 +78,11 @@ const SVG_COMPONENTS = {
         default: IconRoundedTriangleDown
       })
     )
+  ),
+  download: lazy(() =>
+    import("@/components/parts/svg/IconDownload").then(({ IconDownload }) => ({
+      default: IconDownload
+    }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 
