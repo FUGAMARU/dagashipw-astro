@@ -24,6 +24,7 @@
         var(--color-gradient-silver-start) 0%,
         var(--color-gradient-silver-end) 100%
       );
+      outline: 0;
       fill: var(--color-light-dark);
 
       > .left {

@@ -4,6 +4,7 @@ import { useCallback, useRef, useState, type MouseEvent } from "react"
 
 import styles from "@/components/article/originals/AccordionInfo.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { useIsSP } from "@/hooks/useIsSP"
 
 /** 共通イージングスタイル */
 const EASING_STYLE = "cubicBezier(0.77,0,0.18,1)"
@@ -19,6 +20,7 @@ type Props = {
 /** アコーディオンで情報を表示するコンポーネント */
 export const AccordionInfo = ({ title, body }: Props) => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
+  const isSP = useIsSP()
 
   const bodyRef = useRef<HTMLDivElement>(null)
   const hiddenBodyRef = useRef<HTMLDivElement>(null)
@@ -38,6 +40,8 @@ export const AccordionInfo = ({ title, body }: Props) => {
       if (body === null || hiddenBody === null || bodyText === null || triangleIcon === null) {
         return
       }
+
+      const paddingSize = isSP ? 16 : 32
 
       if (isAccordionOpen) {
         anime({
@@ -87,7 +91,7 @@ export const AccordionInfo = ({ title, body }: Props) => {
 
       anime({
         targets: body,
-        height: hiddenBody.scrollHeight + 16 * 2, // 垂直方向のpaddingの分をプラスしている
+        height: hiddenBody.scrollHeight + paddingSize * 2, // 垂直方向のpaddingの分をプラスしている
         duration: 700,
         easing: EASING_STYLE
       })
@@ -110,7 +114,7 @@ export const AccordionInfo = ({ title, body }: Props) => {
 
       setIsAccordionOpen(true)
     },
-    [isAccordionOpen]
+    [isAccordionOpen, isSP]
   )
 
   return (
