@@ -33,17 +33,38 @@ export const getArticle = async (
  * @returns articleUrlId一覧
  */
 export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
-  const response =
-    await axiosInstance.get<
+  let currentPage = 1
+  let totalArticleCount = 0
+  let loadedPageCount = 0
+  const articleUrlIds: Array<string> = []
+
+  do {
+    const response = await axiosInstance.get<
       paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
-    >("/articles")
-  const articles = response.data.data
+    >(`/articles?pagination[page]=${currentPage}&pagination[withCount]=true`)
 
-  if (!isDefined(articles)) {
-    return []
-  }
+    const totalArticleCountResponse = response.data.meta?.pagination?.total
+    const itemCountPerPageResponse = response.data.meta?.pagination?.pageSize
 
-  return articles.map(article => article.attributes?.articleUrlId).filter(isDefined)
+    if (!isDefined(totalArticleCountResponse) || !isDefined(itemCountPerPageResponse)) {
+      break
+    }
+
+    totalArticleCount = totalArticleCountResponse
+
+    response.data.data?.forEach(article => {
+      const articleUrlId = article.attributes?.articleUrlId
+
+      if (isDefined(articleUrlId)) {
+        articleUrlIds.push(articleUrlId)
+      }
+    })
+
+    loadedPageCount += itemCountPerPageResponse
+    currentPage++
+  } while (loadedPageCount < totalArticleCount)
+
+  return articleUrlIds
 }
 
 /**
