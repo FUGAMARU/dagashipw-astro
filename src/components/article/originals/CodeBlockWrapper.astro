@@ -1,0 +1,11 @@
+---
+import { CodeBlock } from "@/components/article/originals/CodeBlock"
+
+const { language } = Astro.props
+const code = await Astro.slots.render("default")
+// slotからコードを取得するとなぜか前後に改行が入るので削除
+const codeLines = code.split("\n")
+const trimmedCode = codeLines.slice(1, -1).join("\n")
+---
+
+<CodeBlock client:only="react" code={trimmedCode} language={language} />

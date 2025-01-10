@@ -21,6 +21,8 @@
     "usehooks",
     "astro",
     "animejs",
-    "gabarito"
+    "gabarito",
+    "monokai",
+    "shiki"
   ]
 }

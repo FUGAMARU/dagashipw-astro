@@ -11,6 +11,7 @@ import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { isDefined } from "@/utils/isDefined"
 
+import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.astro"
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
 import { YouTube } from "@/components/article/originals/YouTube"
@@ -141,7 +142,8 @@ const articleDate = articleInfo.updatedAt
           ImageTextRow,
           Inserter: InserterWrapper,
           DownloadButton,
-          YouTube
+          YouTube,
+          CodeBlock: CodeBlockWrapper
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{
