@@ -3,7 +3,7 @@
   border-radius: 4px;
 
   > .language {
-    padding: 8px;
+    padding: 8px 16px;
     font-size: 12px;
     color: var(--color-white);
     background: linear-gradient(

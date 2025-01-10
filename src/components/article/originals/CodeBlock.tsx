@@ -37,6 +37,7 @@ export const CodeBlock = memo(({ language, code }: Props) => {
             code {
               counter-reset: step;
               counter-increment: step 0;
+              line-height: 1.4;
             }
 
             code .line::before {
@@ -50,10 +51,12 @@ export const CodeBlock = memo(({ language, code }: Props) => {
 
             pre.shiki {
               margin: 0;
+              padding: 8px 0;
             }
           `}
         </style>
       </root.div>
+      <div className={styles.footer} />
     </div>
   )
 })
