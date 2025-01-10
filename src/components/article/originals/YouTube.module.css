@@ -1,0 +1,15 @@
+@import url("/src/styles/post.css");
+
+.youTube {
+  @mixin article-section-margin;
+
+  &.Centered {
+    width: 100%;
+    text-align: center;
+  }
+
+  > .iframe {
+    border: none;
+    border-radius: 4px;
+  }
+}

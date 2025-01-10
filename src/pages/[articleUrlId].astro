@@ -13,6 +13,7 @@ import { isDefined } from "@/utils/isDefined"
 
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
+import { YouTube } from "@/components/article/originals/YouTube"
 import { ImageRow } from "@/components/article/originals/image/ImageRow"
 import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
 import { Blockquote } from "@/components/article/standards/Blockquote"
@@ -139,7 +140,8 @@ const articleDate = articleInfo.updatedAt
           ImageRow,
           ImageTextRow,
           Inserter: InseterWrapper,
-          DownloadButton
+          DownloadButton,
+          YouTube
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{
