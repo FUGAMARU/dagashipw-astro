@@ -12,7 +12,7 @@ import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { isDefined } from "@/utils/isDefined"
 
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
-import InseterWrapper from "@/components/article/originals/InseterWrapper.astro"
+import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
 import { YouTube } from "@/components/article/originals/YouTube"
 import { ImageRow } from "@/components/article/originals/image/ImageRow"
 import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
@@ -139,7 +139,7 @@ const articleDate = articleInfo.updatedAt
           blockquote: Blockquote,
           ImageRow,
           ImageTextRow,
-          Inserter: InseterWrapper,
+          Inserter: InserterWrapper,
           DownloadButton,
           YouTube
         }}
