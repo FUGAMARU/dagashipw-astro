@@ -18,9 +18,7 @@ export const YouTube = memo(({ videoId, isCentered = false }: Props) => {
       <iframe
         allowFullScreen
         className={styles.iframe}
-        height="315"
         src={`https://www.youtube.com/embed/${videoId}`}
-        width="560"
       />
     </div>
   )
