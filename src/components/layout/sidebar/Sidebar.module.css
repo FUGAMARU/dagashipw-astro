@@ -36,8 +36,8 @@
 
 @media (--pc) {
   .sidebarContainer {
-    position: sticky;
-    top: 48px;
+    height: 100%;
+    overflow: auto;
     border-radius: 16px;
 
     > .header {

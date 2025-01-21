@@ -1,16 +1,6 @@
 ---
 import { Markdown } from "astro-remote"
 
-import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
-import { Paragraph } from "@/components/article/standards/Paragraph"
-import { H2 } from "@/components/article/standards/heading/H2"
-import { H3 } from "@/components/article/standards/heading/H3"
-import Layout from "@/components/layout/Layout.astro"
-import { Hero } from "@/components/templates/hero/Hero"
-import styles from "@/pages/_[articleUrlId].module.css"
-import { getAllArticleUrlIds, getArticle } from "@/services/api"
-import { isDefined } from "@/utils/isDefined"
-
 import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.astro"
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
@@ -20,17 +10,26 @@ import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
 import { Blockquote } from "@/components/article/standards/Blockquote"
 import { Code } from "@/components/article/standards/Code"
 import { Iframe } from "@/components/article/standards/Iframe"
+import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
+import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
+import { H2 } from "@/components/article/standards/heading/H2"
+import { H3 } from "@/components/article/standards/heading/H3"
 import { H4 } from "@/components/article/standards/heading/H4"
 import { Li } from "@/components/article/standards/list/Li"
 import { Ul } from "@/components/article/standards/list/Ul"
 import { ArticleImage } from "@/components/article/standards/media/ArticleImage"
 import { Video } from "@/components/article/standards/media/Video"
+import Layout from "@/components/layout/Layout.astro"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
+import { Hero } from "@/components/templates/hero/Hero"
 import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
+import styles from "@/pages/_[articleUrlId].module.css"
+import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { getCurrentDateTime } from "@/utils/date"
 import { formatArticleInfo, insertTableOfContents } from "@/utils/formatter"
+import { isDefined } from "@/utils/isDefined"
 import { generateTableOfContentsFromMarkdown } from "@/utils/table-of-contents"
 
 /** 存在する記事のパス一覧をexportする */
@@ -110,7 +109,7 @@ const articleDate = articleInfo.updatedAt
   })
 </script>
 
-<Layout title={`${article?.title} | 麩菓子の雑記帳`}>
+<Layout title={`${article.title} | 麩菓子の雑記帳`}>
   <div class={styles.articlePageMain}>
     <div class={styles.heroSp}>
       <Hero device="sp" {...articleInfo} />

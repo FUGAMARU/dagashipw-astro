@@ -14,10 +14,12 @@
 
 @media (--pc) {
   .layoutContainer {
+    --padding-vertical: 48px;
+
     display: flex;
     gap: 48px;
     max-width: 1350px;
-    padding: 48px 24px 0;
+    padding: var(--padding-vertical) calc(var(--padding-vertical) / 2) 0;
     margin: 0 auto;
 
     > .header {
@@ -29,8 +31,11 @@
     }
 
     > .sidebar {
+      position: sticky;
+      top: var(--padding-vertical);
       flex: 2.8;
       min-width: 330px;
+      height: calc(100vh - calc(var(--padding-vertical) * 2));
       margin-top: 0;
     }
   }
