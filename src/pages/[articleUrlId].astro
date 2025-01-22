@@ -5,6 +5,7 @@ import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.as
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
 import { YouTube } from "@/components/article/originals/YouTube"
+import { HeightAdjustedImage } from "@/components/article/originals/image/HeightAdjustedImage"
 import { ImageRow } from "@/components/article/originals/image/ImageRow"
 import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
 import { Blockquote } from "@/components/article/standards/Blockquote"
@@ -142,7 +143,8 @@ const articleDate = articleInfo.updatedAt
           Inserter: InserterWrapper,
           DownloadButton,
           YouTube,
-          CodeBlock: CodeBlockWrapper
+          CodeBlock: CodeBlockWrapper,
+          HeightAdjustedImage
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{
