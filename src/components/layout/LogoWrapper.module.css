@@ -1,8 +1,17 @@
-.headerSP {
+@import url("/src/styles/post.css");
+
+.logoWrapper {
   padding: 8px 16px;
   background: linear-gradient(
     180deg,
     var(--color-gradient-header-start) 0%,
     var(--color-gradient-header-end) 100%
   );
+}
+
+@media (--pc) {
+  .logoWrapper {
+    padding: 8px 0;
+    text-align: center;
+  }
 }

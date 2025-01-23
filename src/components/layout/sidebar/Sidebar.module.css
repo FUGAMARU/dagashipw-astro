@@ -41,7 +41,7 @@
     border-radius: 16px;
 
     > .header {
-      display: inline;
+      display: block;
     }
 
     > .main {

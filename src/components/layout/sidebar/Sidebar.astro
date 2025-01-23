@@ -1,5 +1,5 @@
 ---
-import { HeaderPC } from "@/components/layout/sidebar/HeaderPC"
+import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import { Infobar } from "@/components/layout/sidebar/Infobar"
 import { ShareButtons } from "@/components/layout/sidebar/ShareButtons"
 import styles from "@/components/layout/sidebar/Sidebar.module.css"
@@ -41,7 +41,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 
 <div class={styles.sidebarContainer}>
   <header class={styles.header}>
-    <HeaderPC client:load />
+    <LogoWrapper isPC />
   </header>
 
   <div class={styles.main}>

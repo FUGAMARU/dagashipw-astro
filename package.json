@@ -15,13 +15,13 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
-    "@astrojs/react": "^3.6.2",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/react": "^4.1.6",
     "@types/animejs": "^3.1.12",
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
     "animejs": "^3.2.2",
-    "astro": "^4.15.8",
+    "astro": "^5.1.9",
     "astro-remote": "^0.3.3",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
@@ -70,7 +70,7 @@
     "stylelint-config-recess-order": "^5.1.1",
     "stylelint-config-standard": "^36.0.1",
     "typescript-eslint": "^8.1.0",
-    "vite-tsconfig-paths": "^5.0.1"
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "eslintConfig": {
     "extends": [
