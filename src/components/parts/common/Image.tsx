@@ -1,7 +1,7 @@
 import clsx from "clsx"
 
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
-import styles from "@/components/templates/Image.module.css"
+import styles from "@/components/parts/common/Image.module.css"
 import { isDefined } from "@/utils/isDefined"
 
 import type { ComponentProps } from "react"

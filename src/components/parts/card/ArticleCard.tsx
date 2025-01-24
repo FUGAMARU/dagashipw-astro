@@ -6,7 +6,7 @@ import styles from "@/components/parts/card/ArticleCard.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { Tag } from "@/components/parts/Tag"
 import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
-import { Image } from "@/components/templates/Image"
+import { Image } from "@/components/parts/common/Image"
 import { determineWhiteTextColor } from "@/utils/color"
 
 import type { ArticleInfo } from "@/types/article"

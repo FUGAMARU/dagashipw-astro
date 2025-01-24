@@ -1,7 +1,7 @@
 import { memo } from "react"
 
 import styles from "@/components/article/originals/image/HeightAdjustedImage.module.css"
-import { Image } from "@/components/templates/Image"
+import { Image } from "@/components/parts/common/Image"
 
 import type { ComponentProps } from "react"
 
