@@ -1,88 +1,38 @@
 import clsx from "clsx"
 
-import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import styles from "@/components/parts/common/Image.module.css"
+import { ImageCaption } from "@/components/parts/ImageCaption"
 import { isDefined } from "@/utils/isDefined"
 
 import type { ComponentProps } from "react"
 
 /** Props */
-type Props = Omit<ComponentProps<"img">, "className"> & {
-  /** object-fir: cover指定かどうか */
-  objectFitCover?: boolean
-  /** キャプション */
-  caption?: string
-  /** キャプション中リンクテキスト一覧 */
-  captionLinkTexts?: Array<string>
-  /** キャプション中リンク一覧 */
-  captionLinks?: Array<string>
-  /** figureタグに充てるclassName */
-  figureClassName?: string
-  /** imgタグに充てるclassName */
-  imgClassName?: string
-}
+type Props = Omit<ComponentProps<"img">, "className"> &
+  Partial<ComponentProps<typeof ImageCaption>> & {
+    /** object-fir: cover指定かどうか */
+    objectFitCover?: boolean
+    /** figureタグに充てるclassName */
+    figureClassName?: string
+    /** imgタグに充てるclassName */
+    imgClassName?: string
+    /** HeightAdjustedImageコンポーネントからの呼び出しかどうか */
+    isHeightAdjustedImage?: boolean
+  }
 
 /** 画像コンポーネント */
 export const Image = ({
   objectFitCover = false,
-  caption,
-  captionLinks,
-  captionLinkTexts,
   src,
   figureClassName,
   imgClassName,
+  caption,
+  captionLinkTexts,
+  captionLinks,
+  isHeightAdjustedImage = false,
   ...props
 }: Props) => {
   if (!isDefined(src)) {
     return <span>NoImage</span>
-  }
-
-  /** リンク付きキャプションを生成する */
-  const createLinkedCaption = () => {
-    if (!isDefined(captionLinkTexts) || !isDefined(captionLinks)) {
-      return caption
-    }
-
-    if (
-      isDefined(captionLinks) &&
-      isDefined(captionLinkTexts) &&
-      captionLinks.length !== captionLinkTexts.length
-    ) {
-      throw new Error("キャプションリンク情報が不正です")
-    }
-
-    if (!isDefined(caption)) {
-      return
-    }
-
-    const parts = []
-    let currentIndex = 0
-
-    captionLinkTexts.forEach((text, index) => {
-      const startIndex = caption.indexOf(text, currentIndex)
-
-      if (startIndex === -1) {
-        return
-      }
-
-      if (startIndex > currentIndex) {
-        parts.push(caption.substring(currentIndex, startIndex))
-      }
-
-      parts.push(
-        <LinkInArticle key={captionLinks[index]} href={captionLinks[index]}>
-          {text}
-        </LinkInArticle>
-      )
-
-      currentIndex = startIndex + text.length
-    })
-
-    if (currentIndex < caption.length) {
-      parts.push(caption.substring(currentIndex))
-    }
-
-    return parts
   }
 
   return (
@@ -93,13 +43,13 @@ export const Image = ({
         src={src}
         {...props}
       />
-      {isDefined(caption) && (
-        <figcaption className={styles.caption}>
-          {
-            /** captionの中に含まれるcaptionLinkTextをLinkコンポーネントでラップし、同一インデックスのcaptionLinkLinksのアイテムをhrefに設定する */
-            createLinkedCaption()
-          }
-        </figcaption>
+
+      {isDefined(caption) && !isHeightAdjustedImage && (
+        <ImageCaption
+          caption={caption}
+          captionLinks={captionLinks}
+          captionLinkTexts={captionLinkTexts}
+        />
       )}
     </figure>
   )

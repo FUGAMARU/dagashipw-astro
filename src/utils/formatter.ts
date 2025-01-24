@@ -171,3 +171,12 @@ export const generateHeadingId = (text: ReactNode | string): string => {
     .replace(/[^A-Za-z0-9\u3040-\u309F\u30A0-\u30FF\u3400-\u4DBF\u4E00-\u9FFFー_-]/g, "") // 英数字と日本語と一部記号以外を削除
     .replace(/\s/g, "") // 空白を削除
 }
+
+/**
+ * カンマ区切りのstringをstringの配列に変換する
+ *
+ * @param str - カンマ区切りのstring
+ * @returns stringの配列
+ */
+export const convertCommaSeparatedStringToArray = (str: string): Array<string> =>
+  str.replace(/\s+/g, "").split(",")

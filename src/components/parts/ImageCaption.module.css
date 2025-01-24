@@ -1,0 +1,14 @@
+@import url("/src/styles/post.css");
+
+.imageCaption {
+  margin-top: 10px;
+  font-size: 10px;
+  color: var(--color-text-gray);
+  text-align: center;
+}
+
+@media (--pc) {
+  .imageCaption {
+    font-size: 12px;
+  }
+}

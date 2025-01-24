@@ -23,6 +23,7 @@ import { Ul } from "@/components/article/standards/list/Ul"
 import { ArticleImage } from "@/components/article/standards/media/ArticleImage"
 import { Video } from "@/components/article/standards/media/Video"
 import Layout from "@/components/layout/Layout.astro"
+import { Image } from "@/components/parts/common/Image"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 import { Hero } from "@/components/templates/hero/Hero"
 import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
@@ -146,7 +147,8 @@ const articleDate = articleInfo.updatedAt
           YouTube,
           CodeBlock: CodeBlockWrapper,
           HeightAdjustedImage,
-          Spotify
+          Spotify,
+          Image
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{
