@@ -3,10 +3,10 @@ import { useMemo } from "react"
 
 import { BackNumber } from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
+import { Image } from "@/components/parts/common/Image"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { Tag } from "@/components/parts/Tag"
 import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
-import { Image } from "@/components/parts/common/Image"
 import { determineWhiteTextColor } from "@/utils/color"
 
 import type { ArticleInfo } from "@/types/article"
@@ -30,7 +30,7 @@ export const ArticleCard = ({
 
   return (
     <div className={styles.articleCard}>
-      <Image className={styles.thumbnailImage} objectFitCover src={thumbnailUrl} />
+      <Image imgClassName={styles.thumbnailImage} objectFitCover src={thumbnailUrl} />
 
       <div className={styles.index}>
         <BackNumber backNumber={backNumber} />

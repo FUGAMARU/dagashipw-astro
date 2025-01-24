@@ -6,6 +6,10 @@
 
   @mixin article-section-margin;
 
+  > .image {
+    text-align: center;
+  }
+
   > .text {
     @mixin article-paragraph;
     @mixin article-section-margin-half;
