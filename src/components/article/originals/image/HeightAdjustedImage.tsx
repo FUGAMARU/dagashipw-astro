@@ -12,7 +12,7 @@ type Props = ComponentProps<typeof Image>
 export const HeightAdjustedImage = memo((props: Props) => {
   return (
     <figure className={styles.heightAdjustedImage}>
-      <Image className={styles.image} {...props} />
+      <Image imgClassName={styles.image} {...props} />
     </figure>
   )
 })
