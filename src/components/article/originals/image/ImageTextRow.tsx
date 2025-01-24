@@ -15,7 +15,7 @@ type Props = {
 export const ImageTextRow = ({ imageUrl, imageHeight, text }: Props) => {
   return (
     <div className={styles.imageTextRow}>
-      <Image figureClassName={styles.image} height={imageHeight} src={imageUrl} />
+      <Image figureTagClassName={styles.image} height={imageHeight} src={imageUrl} />
       <p className={styles.text}>{text}</p>
     </div>
   )

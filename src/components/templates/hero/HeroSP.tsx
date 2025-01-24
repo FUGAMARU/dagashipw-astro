@@ -1,4 +1,5 @@
 import { BackNumber } from "@/components/parts/BackNumber"
+import { Image } from "@/components/parts/common/Image"
 import { Tag } from "@/components/parts/Tag"
 import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 import styles from "@/components/templates/hero/HeroSP.module.css"
@@ -18,7 +19,15 @@ export const HeroSP = ({
   return (
     <div className={styles.heroSP}>
       <div className={styles.imageContainer}>
-        <img alt={title} className={styles.thumbnail} src={thumbnailUrl} />
+        <Image
+          alt={title}
+          borderRadius="0"
+          cssHeight="auto"
+          cssWidth="full"
+          isWide
+          objectFitCover
+          src={thumbnailUrl}
+        />
         <div className={styles.overlay} />
         <div className={styles.number}>
           <BackNumber backNumber={backNumber} isShiftLeft />

@@ -6,13 +6,6 @@
   position: relative;
   overflow: hidden;
 
-  > .thumbnail {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
-
   > .overlay {
     position: absolute;
     right: 0;

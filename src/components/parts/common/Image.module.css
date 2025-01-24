@@ -8,5 +8,37 @@
     &.Covered {
       object-fit: cover;
     }
+
+    &.WidthFull {
+      width: 100%;
+    }
+
+    &.WidthAuto {
+      width: auto;
+    }
+
+    &.HeightFull {
+      height: 100%;
+    }
+
+    &.HeightAuto {
+      height: auto;
+    }
+
+    &.MaxHeight100 {
+      max-height: 100%;
+    }
+
+    &.Wide {
+      aspect-ratio: 16 / 9;
+    }
+
+    &.BorderRadius16 {
+      border-radius: 16px;
+    }
+
+    &.BorderRadius0 {
+      border-radius: 0;
+    }
   }
 }

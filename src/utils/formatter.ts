@@ -180,3 +180,12 @@ export const generateHeadingId = (text: ReactNode | string): string => {
  */
 export const convertCommaSeparatedStringToArray = (str: string): Array<string> =>
   str.replace(/\s+/g, "").split(",")
+
+/**
+ * 先頭1文字を大文字にする
+ *
+ * @param str - 文字列
+ * @returns 先頭1文字が大文字になった文字列
+ */
+export const capitalizeFirstLetter = (str: string): string =>
+  str.charAt(0).toUpperCase() + str.slice(1)

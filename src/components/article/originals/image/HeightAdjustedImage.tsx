@@ -15,9 +15,9 @@ type Props = Omit<ComponentProps<typeof Image>, "isHeightAdjustedImage" | "capti
 export const HeightAdjustedImage = memo(
   ({ caption, captionLinkTexts, captionLinks, ...imageProps }: Props) => {
     return (
-      <div>
+      <>
         <figure className={styles.heightAdjustedImage}>
-          <Image imgClassName={styles.image} isHeightAdjustedImage {...imageProps} />
+          <Image isHeightAdjustedImage isMaxHeight100 {...imageProps} />
         </figure>
 
         {isDefined(caption) && (
@@ -27,7 +27,7 @@ export const HeightAdjustedImage = memo(
             captionLinkTexts={captionLinkTexts}
           />
         )}
-      </div>
+      </>
     )
   }
 )

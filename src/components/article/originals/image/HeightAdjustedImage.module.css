@@ -12,9 +12,5 @@
     height: 100%;
     aspect-ratio: 16 / 9;
     text-align: center;
-
-    > .image {
-      max-height: 100%;
-    }
   }
 }

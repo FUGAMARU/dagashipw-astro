@@ -15,7 +15,7 @@ export const ImageRow = ({ images, gap = "16" }: Props) => {
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
       {convertCommaSeparatedStringToArray(images).map(imageUrl => (
-        <Image key={imageUrl} alt="" imgClassName={styles.image} src={imageUrl} />
+        <Image key={imageUrl} alt="" src={imageUrl} />
       ))}
     </div>
   )

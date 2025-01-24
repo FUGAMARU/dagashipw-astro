@@ -30,8 +30,9 @@ export const ArticleCard = ({
 
   return (
     <div className={styles.articleCard}>
-      <Image imgClassName={styles.thumbnailImage} objectFitCover src={thumbnailUrl} />
-
+      <div className={styles.thumbnailImage}>
+        <Image objectFitCover src={thumbnailUrl} />
+      </div>
       <div className={styles.index}>
         <BackNumber backNumber={backNumber} />
       </div>
