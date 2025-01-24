@@ -1,4 +1,4 @@
-import { YouTube } from "@/components/article/originals/YouTube"
+import { YouTube } from "@/components/article/originals/iframe/YouTube"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

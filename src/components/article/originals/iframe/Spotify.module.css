@@ -1,0 +1,7 @@
+@import url("/src/styles/post.css");
+
+.spotifyIframe {
+  @mixin article-section-margin;
+
+  border: none;
+}

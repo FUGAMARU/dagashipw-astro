@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import { memo } from "react"
 
-import styles from "@/components/article/originals/YouTube.module.css"
+import styles from "@/components/article/originals/iframe/YouTube.module.css"
 
 /** Props */
 type Props = {

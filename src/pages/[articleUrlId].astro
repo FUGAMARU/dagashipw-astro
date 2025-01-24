@@ -4,7 +4,8 @@ import { Markdown } from "astro-remote"
 import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.astro"
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
-import { YouTube } from "@/components/article/originals/YouTube"
+import { Spotify } from "@/components/article/originals/iframe/Spotify"
+import { YouTube } from "@/components/article/originals/iframe/YouTube"
 import { HeightAdjustedImage } from "@/components/article/originals/image/HeightAdjustedImage"
 import { ImageRow } from "@/components/article/originals/image/ImageRow"
 import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
@@ -144,7 +145,8 @@ const articleDate = articleInfo.updatedAt
           DownloadButton,
           YouTube,
           CodeBlock: CodeBlockWrapper,
-          HeightAdjustedImage
+          HeightAdjustedImage,
+          Spotify
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{
