@@ -22,6 +22,8 @@ type Props = Omit<ComponentProps<"img">, "className"> &
     isWide?: boolean
     /** border-radiusの値 */
     borderRadius?: "16" | "0"
+    /** align */
+    align?: "start" | "right" | "end"
     /** figureタグに充てるclassName */
     figureTagClassName?: string
     /** HeightAdjustedImageコンポーネントからの呼び出しかどうか */
@@ -40,6 +42,7 @@ export const Image = ({
   isMaxHeight100 = false,
   isWide = false,
   borderRadius,
+  align = "start",
   figureTagClassName,
   isHeightAdjustedImage = false,
   ...props
@@ -49,7 +52,13 @@ export const Image = ({
   }
 
   return (
-    <figure className={clsx(styles.imageTag, figureTagClassName)}>
+    <figure
+      className={clsx(
+        styles.imageTag,
+        isDefined(align) && styles[`Align${capitalizeFirstLetter(align)}`],
+        figureTagClassName
+      )}
+    >
       <img
         // TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討
         className={clsx(
