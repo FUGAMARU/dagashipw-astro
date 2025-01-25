@@ -12,6 +12,7 @@ import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
 import { Blockquote } from "@/components/article/standards/Blockquote"
 import { Code } from "@/components/article/standards/Code"
 import { Iframe } from "@/components/article/standards/Iframe"
+import { Kbd } from "@/components/article/standards/Kbd"
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
@@ -149,7 +150,8 @@ const articleDate = articleInfo.updatedAt
           CodeBlock: CodeBlockWrapper,
           HeightAdjustedImage,
           Spotify,
-          Image
+          Image,
+          kbd: Kbd
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{

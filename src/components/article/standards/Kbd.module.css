@@ -1,0 +1,24 @@
+@import url("/src/styles/post.css");
+
+.kbdTag {
+  /* 参考: https://developer.mozilla.org/ja/docs/Web/HTML/Element/kbd */
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  color: var(--color-text-dark);
+  white-space: nowrap;
+  background-color: var(--color-code-tag-background);
+  border: 1px solid var(--color-soft-gray);
+  border-radius: 4px;
+  box-shadow:
+    0 1px 1px var(--color-black-20),
+    0 2px 0 0 var(--color-white-70) inset;
+}
+
+@media (--pc) {
+  .kbdTag {
+    font-size: 14px;
+  }
+}
