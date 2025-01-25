@@ -7,6 +7,14 @@
   gap: 16px;
   overflow: hidden;
 
+  > .thumbnail {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
   > .index {
     position: absolute;
     top: -4px;
@@ -76,17 +84,18 @@
   }
 }
 
-.thumbnailImage {
-  width: 100%;
+.imageFigureTag {
   height: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 16px;
 }
 
 @media (--pc) {
   .articleCard {
     flex-direction: row;
+
+    > .thumbnail {
+      flex: 1;
+      width: 400px;
+    }
 
     > .main {
       flex: 1;
@@ -113,10 +122,5 @@
         }
       }
     }
-  }
-
-  .thumbnailImage {
-    flex: 1;
-    width: 400px;
   }
 }
