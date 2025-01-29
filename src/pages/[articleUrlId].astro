@@ -48,10 +48,6 @@ export const getStaticPaths = async () => {
 
 const { articleUrlId } = Astro.params
 
-if (typeof articleUrlId !== "string") {
-  throw new Error("記事のURL IDが不正です")
-}
-
 const article = await getArticle(articleUrlId)
 
 if (!isDefined(article)) {
