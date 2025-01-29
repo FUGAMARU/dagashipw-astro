@@ -24,7 +24,7 @@ export const getArticle = async (
   const response = await axiosInstance.get<
     paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
   >(`/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`)
-  return response.data?.data?.[0]?.attributes
+  return response.data.data?.[0].attributes
 }
 
 /**
@@ -81,7 +81,7 @@ export const getAllArticlesWithPagination = async (
   >(
     `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=id:desc&populate=*`
   )
-  return response.data?.data?.map(article => article.attributes)
+  return response.data.data?.map(article => article.attributes)
 }
 
 /**
