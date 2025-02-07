@@ -1,4 +1,6 @@
-import { useMemo, type ReactNode } from "react"
+import { useMemo } from "react"
+
+import type { ReactNode } from "react"
 
 /** Props */
 type Props = {

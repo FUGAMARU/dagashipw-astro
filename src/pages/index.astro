@@ -1,6 +1,8 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
-import { ArticleCardList } from "@/components/templates/ArticleCardList"
+import { ArticleCard } from "@/components/parts/card/ArticleCard"
+import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
+import { Link } from "@/components/parts/common/Link"
 import { Pagination } from "@/components/templates/Pagination"
 import { PAGE_NAME } from "@/constants/page"
 import { QUERY_PAGE } from "@/constants/query"
@@ -25,7 +27,21 @@ const articleInfoList = await Promise.all(articles.filter(isDefined).map(formatA
 
 <Layout title={PAGE_NAME.TOP}>
   <div class={styles.topPage}>
-    <ArticleCardList articleInfoList={articleInfoList} client:load />
+    <div class={styles.list}>
+      {
+        articleInfoList.map((articleInfo, index) => (
+          <>
+            <Link href={`/${articleInfo.articleUrlId}`}>
+              <article>
+                <ArticleCard {...articleInfo} />
+              </article>
+            </Link>
+
+            {index !== articleInfoList.length - 1 && <DividerHorizontal />}
+          </>
+        ))
+      }
+    </div>
 
     {
       // TODO: totalPageCountに実際の値を入れるようにする必要がある

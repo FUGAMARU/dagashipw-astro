@@ -4,6 +4,12 @@
   padding: 24px 16px;
   background-color: var(--color-white);
 
+  > .list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
   > .pagination {
     margin-top: 36px;
   }
@@ -12,6 +18,10 @@
 @media (--pc) {
   .topPage {
     border-radius: 16px;
+
+    > .list {
+      gap: 32px;
+    }
 
     > .pagination {
       margin-top: 48px;

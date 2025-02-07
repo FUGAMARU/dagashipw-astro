@@ -62,7 +62,10 @@ export const ArticleCard = ({
           <span className={styles.body}>{bodyBeginningParagraph}</span>
           <div className={styles.tags}>
             {tags.map(tagText => (
-              <Tag key={tagText} href={`/tags/${tagText}`} text={tagText} />
+              // TODO: Link Area Delegationが普及したらそれに合わせたい (https://blog.sakupi01.com/dev/articles/proposal-link-area-delegation)
+              <object key={tagText}>
+                <Tag href={`/tags/${tagText}`} text={tagText} />
+              </object>
             ))}
           </div>
         </div>
