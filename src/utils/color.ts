@@ -3,16 +3,6 @@
  */
 
 /**
- * RGBからHexに変換する
- *
- * @param rgb - RGBの配列
- * @returns Hex
- */
-export const convertRGBToHex = (rgb: [number, number, number]): string => {
-  return `#${rgb.map(color => color.toString(16).padStart(2, "0")).join("")}`
-}
-
-/**
  * HexからRGBに変換する
  *
  * @param hex - Hex

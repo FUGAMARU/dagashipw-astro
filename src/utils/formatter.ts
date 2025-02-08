@@ -2,16 +2,20 @@
  * @file データーをフォーマット(操作)するための関数群
  */
 
-import { getColorFromURL } from "color-thief-node"
-import { type ReactNode, isValidElement } from "react"
+import { Vibrant } from "node-vibrant/node"
+import { isValidElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
+import sharp from "sharp"
 
 import { EXTRACTED_PARAGRAPHS_LENGTH, STRAPI_BASE_URL } from "@/constants/value"
-import { convertRGBToHex } from "@/utils/color"
 import { isDefined } from "@/utils/isDefined"
 
 import type { ArticleInfo } from "@/types/article"
 import type { components } from "@/types/schema"
+import type { ReactNode } from "react"
+
+/** サムネイルからドミナントカラーを取得できなかった場合のフォールバック色 */
+const THUMBNAIL_DOMINANT_COLOR_FALLBACK = "#343434"
 
 /**
  * CMSから取得した記事情報を内部的に扱いやすいフォーマットに整形する
@@ -22,6 +26,39 @@ import type { components } from "@/types/schema"
 export const formatArticleInfo = async (
   articleInfo: components["schemas"]["Article"]
 ): Promise<ArticleInfo> => {
+  const thumbnailUrl = `${STRAPI_BASE_URL}${articleInfo.thumbnail.data?.attributes?.url}`
+
+  /**
+   * サムネイルのドミナントカラーを取得する
+   *
+   * @returns ドミナントカラー
+   */
+  const getThumbnailDominantColor = async (): Promise<string> => {
+    const isWebp = thumbnailUrl.endsWith(".webp")
+
+    if (isWebp) {
+      const response = await fetch(thumbnailUrl)
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image: ${response.statusText}`)
+      }
+
+      const responseBuffer = await response.arrayBuffer()
+      const webpBuffer = Buffer.from(responseBuffer)
+      const pngBuffer = await sharp(webpBuffer).toFormat("png").toBuffer()
+
+      return (
+        (await Vibrant.from(pngBuffer).getPalette()).Vibrant?.hex ??
+        THUMBNAIL_DOMINANT_COLOR_FALLBACK
+      )
+    }
+
+    return (
+      (await Vibrant.from(thumbnailUrl).getPalette()).Vibrant?.hex ??
+      THUMBNAIL_DOMINANT_COLOR_FALLBACK
+    )
+  }
+
   /**
    * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
    *
@@ -60,16 +97,12 @@ export const formatArticleInfo = async (
     return `${year}/${month}/${day}`
   }
 
-  const thumbnailUrl = `${STRAPI_BASE_URL}${articleInfo.thumbnail.data?.attributes?.url}`
-
-  const thumbnailDominantColorRGB = await getColorFromURL(thumbnailUrl)
-
   const baseData = {
     articleUrlId: articleInfo.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
     title: articleInfo.title,
     thumbnailUrl,
-    dominantColorCode: convertRGBToHex(thumbnailDominantColorRGB),
+    dominantColorCode: await getThumbnailDominantColor(), // TODO: 時間がかかってしまっている…。自動で取得するスクリプト組んでAPI経由で事前にStrapiで持っておいたほうが良いかも。
     tags: (articleInfo.tags as Array<string>) ?? [],
     bodyBeginningParagraph: extractBeginningParagraph(articleInfo.body),
     commentCount: 1 // TODO: 実際の値を反映させる必要がある
