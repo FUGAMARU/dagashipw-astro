@@ -233,7 +233,7 @@ export default [
     }
   },
   {
-    files: ["src/utils/**", "src/types/**", "src/constants/**", "src/services/**"],
+    files: ["src/utils/**", "src/types/**", "src/constants/**", "src/services/**", "scripts/**"],
     rules: {
       /** 関数の戻り値記述必須 */
       "@typescript-eslint/explicit-function-return-type": "error",
