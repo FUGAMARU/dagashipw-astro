@@ -1,5 +1,4 @@
 import clsx from "clsx"
-import { useMemo } from "react"
 
 import { BackNumber } from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
@@ -14,7 +13,7 @@ import type { ArticleInfo } from "@/types/article"
 /** 記事情報カード (トップページで使う) */
 export const ArticleCard = ({
   thumbnailUrl,
-  dominantColorCode,
+  themeColor,
   createdAt,
   updatedAt,
   commentCount,
@@ -23,10 +22,7 @@ export const ArticleCard = ({
   tags,
   backNumber
 }: ArticleInfo) => {
-  const isHeaderTextColorWhite = useMemo(
-    () => determineWhiteTextColor(dominantColorCode),
-    [dominantColorCode]
-  )
+  const isHeaderTextColorWhite = determineWhiteTextColor(themeColor)
 
   return (
     <div className={styles.articleCard}>
@@ -46,7 +42,7 @@ export const ArticleCard = ({
       <div className={styles.main}>
         <div
           className={clsx(styles.header, isHeaderTextColorWhite && styles.WhiteText)}
-          style={{ backgroundColor: dominantColorCode }}
+          style={{ backgroundColor: themeColor }}
         >
           <ArticleInfoBar
             commentCount={commentCount}

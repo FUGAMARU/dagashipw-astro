@@ -1313,6 +1313,7 @@ export interface components {
         /** Format: date */
         forceUpdatedAt?: string
         articleUrlId: string
+        themeColor?: string
       }
     }
     ArticleListResponseDataItem: {
@@ -1566,6 +1567,7 @@ export interface components {
       /** Format: date */
       forceUpdatedAt?: string
       articleUrlId: string
+      themeColor?: string
       /** Format: date-time */
       createdAt?: string
       /** Format: date-time */
