@@ -13,7 +13,7 @@
     "stylelint": "stylelint --fix \"**/*.css\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "auto-theme-color-picker": "tsc ./scripts/auto-theme-color-picker-worker.ts && tsx ./scripts/auto-theme-color-picker.ts"
+    "auto-theme-color-picker": "node ./scripts/auto-theme-color-picker.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -26,6 +26,7 @@
     "astro-remote": "^0.3.3",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-responsive-pagination": "^2.8.0",
@@ -71,7 +72,6 @@
     "stylelint": "^16.9.0",
     "stylelint-config-recess-order": "^5.1.1",
     "stylelint-config-standard": "^36.0.1",
-    "tsx": "^4.19.2",
     "typescript-eslint": "^8.1.0",
     "vite-tsconfig-paths": "^5.1.4"
   },

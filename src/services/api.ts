@@ -85,34 +85,6 @@ export const getAllArticlesWithPagination = async (
 }
 
 /**
- * 記事のテーマカラーを設定する
- *
- * @param articleUrlId - 記事のURL ID
- * @param themeColor - テーマカラー(Hex)
- */
-export const setArticleThemeColor = async (
-  articleUrlId: string,
-  themeColor: string
-): Promise<void> => {
-  const data = await axiosInstance.get<
-    paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
-  >(`/articles?filters[articleUrlId][$eq]=${articleUrlId}`)
-
-  // 記事IDを取得
-  const articleId = data.data.data?.[0].id
-
-  if (!isDefined(articleId)) {
-    return
-  }
-
-  axiosInstance.patch(`/articles/${articleId}`, {
-    data: {
-      themeColor
-    }
-  })
-}
-
-/**
  * IPv4回線を使用しているどうかをチェックする
  *
  * @returns IPv4回線を使用しているかどうか
