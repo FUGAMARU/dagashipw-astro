@@ -37,6 +37,8 @@
       min-width: 330px;
       height: calc(100vh - calc(var(--padding-vertical) * 2));
       margin-top: 0;
+      overflow: hidden;
+      border-radius: 16px;
     }
   }
 

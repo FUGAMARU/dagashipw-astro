@@ -37,15 +37,16 @@
 @media (--pc) {
   .sidebarContainer {
     height: 100%;
-    overflow: auto;
-    border-radius: 16px;
+    border-radius: 0;
 
     > .header {
       display: block;
     }
 
     > .main {
+      height: calc(100% - 76px); /* サイドバー全体の高さ - ロゴエリアの高さ */
       padding: 16px 12px;
+      overflow: auto;
     }
   }
 }
