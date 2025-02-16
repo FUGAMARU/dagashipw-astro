@@ -36,6 +36,7 @@
 
 @media (--pc) {
   .sidebarContainer {
+    position: relative;
     height: 100%;
     border-radius: 0;
 
@@ -47,6 +48,38 @@
       height: calc(100% - 76px); /* サイドバー全体の高さ - ロゴエリアの高さ */
       padding: 16px 12px;
       overflow: auto;
+    }
+  }
+
+  .scrollableOverlay {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 12px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--color-white-70) 20%,
+      var(--color-white) 100%
+    );
+
+    > .button {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      > .icon {
+        path {
+          stroke: var(--color-text-gray);
+        }
+      }
+
+      > .text {
+        font-size: 10px;
+      }
     }
   }
 }

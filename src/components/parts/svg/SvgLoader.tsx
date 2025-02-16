@@ -84,6 +84,11 @@ const SVG_COMPONENTS = {
     import("@/components/parts/svg/IconDownload").then(({ IconDownload }) => ({
       default: IconDownload
     }))
+  ),
+  arrowDown: lazy(() =>
+    import("@/components/parts/svg/IconArrowDown").then(({ IconArrowDown }) => ({
+      default: IconArrowDown
+    }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 

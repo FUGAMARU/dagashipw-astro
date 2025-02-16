@@ -31,3 +31,4 @@ export type SvgComponentName =
   | "inspiration"
   | "roundedTriangleDown"
   | "download"
+  | "arrowDown"
