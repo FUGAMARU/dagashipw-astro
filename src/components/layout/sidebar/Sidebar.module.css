@@ -48,7 +48,7 @@
 
     > .main {
       min-height: 0;
-      max-height: calc(100vh - 76px - var(--padding-vertical) * 2);
+      max-height: calc(100% - 76px); /* サイドバー全体の高さ - ロゴエリアの高さ */
       padding: 16px 12px;
       overflow: auto;
     }
