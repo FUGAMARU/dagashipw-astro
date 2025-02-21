@@ -37,6 +37,8 @@
 @media (--pc) {
   .sidebarContainer {
     position: relative;
+    display: flex;
+    flex-direction: column;
     max-height: 100%;
     border-radius: 16px;
 
@@ -45,7 +47,8 @@
     }
 
     > .main {
-      height: calc(100% - 76px); /* サイドバー全体の高さ - ロゴエリアの高さ */
+      min-height: 0;
+      max-height: calc(100vh - 76px - var(--padding-vertical) * 2);
       padding: 16px 12px;
       overflow: auto;
     }
@@ -56,7 +59,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    display: flex;
+    display: none;
     justify-content: center;
     padding: 20px 0 12px;
     background: linear-gradient(

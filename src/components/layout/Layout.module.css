@@ -35,9 +35,8 @@
       top: var(--padding-vertical);
       flex: 2.8;
       min-width: 330px;
-      height: calc(100vh - calc(var(--padding-vertical) * 2));
+      max-height: calc(100vh - var(--padding-vertical) * 2);
       margin-top: 0;
-      overflow: hidden;
     }
   }
 

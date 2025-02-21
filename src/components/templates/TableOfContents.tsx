@@ -4,7 +4,10 @@ import { useSessionStorage } from "usehooks-ts"
 import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import styles from "@/components/templates/TableOfContents.module.css"
 import { TableOfContentsItem } from "@/components/templates/TableOfContentsItem"
-import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
+import {
+  CUSTOM_EVENT_ACTIVE_HEADING_CHANGE,
+  CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE
+} from "@/constants/event"
 import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 
 import type { TableOfContentsData } from "@/types/table-of-contents"
@@ -21,6 +24,11 @@ export const TableOfContents = () => {
   const [activeHeadingHref, setActiveHeadingHref] = useState(tableOfContents[0].h2.href ?? "#")
 
   useEffect(() => {
+    const hydrationCompleteEvent = new CustomEvent(
+      CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE
+    )
+    window.dispatchEvent(hydrationCompleteEvent)
+
     /** アクティブな見出しアイテムが変わったときの処理 */
     const handleActiveHeadingChange = (event: CustomEvent<string>) => {
       setActiveHeadingHref(event.detail)

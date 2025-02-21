@@ -7,8 +7,13 @@ import { SidebarItemWithTitle } from "@/components/layout/sidebar/SidebarItemWit
 import { TableOfContentsWrapper } from "@/components/layout/sidebar/TableOfContentsWrapper"
 import { Input } from "@/components/parts/input/Input"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import {
+  PC_TABLE_OF_CONTENTS_CONTAINER_ID,
+  SIDEBAR_ID,
+  SIDEBAR_SCROLLABLE_OVERLAY_ID
+} from "@/constants/element"
+import { CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE } from "@/constants/event"
 import { PAGE_PATH } from "@/constants/page"
-import { PC_TABLE_OF_CONTENTS_CONTAINER_ID } from "@/constants/value"
 
 const currentArticleTitle = "記事のタイトル" // TODO: 仮当て
 const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
@@ -17,25 +22,57 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 <script
   define:vars={{
     PAGE_PATH,
-    PC_TABLE_OF_CONTENTS_CONTAINER_ID
+    PC_TABLE_OF_CONTENTS_CONTAINER_ID,
+    SIDEBAR_ID,
+    SIDEBAR_SCROLLABLE_OVERLAY_ID,
+    CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE
   }}
 >
-  /** ブログ記事ページ以外ではサイドバーの目次は非表示にする */
-  document.addEventListener("DOMContentLoaded", () => {
-    const { pathname } = location
+  // PC表示時ブログ記事ページ以外ではサイドバーの目次は非表示にする
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+      const { pathname } = location
 
-    if (!Object.values(PAGE_PATH).includes(pathname)) {
+      if (!Object.values(PAGE_PATH).includes(pathname)) {
+        return
+      }
+
+      const tableOfContentsPC = document.getElementById(PC_TABLE_OF_CONTENTS_CONTAINER_ID)
+
+      if (tableOfContentsPC === null) {
+        return
+      }
+
+      tableOfContentsPC.style.display = "none"
+    },
+    {
+      once: true
+    }
+  )
+
+  const switchSidebarScrollableOverlay = () => {
+    const sidebar = document.getElementById(SIDEBAR_ID)
+    const scrollableOverlay = document.getElementById(SIDEBAR_SCROLLABLE_OVERLAY_ID)
+
+    if (sidebar === null || scrollableOverlay === null) {
       return
     }
 
-    const tableOfContentsPC = document.getElementById(PC_TABLE_OF_CONTENTS_CONTAINER_ID)
+    const isSidebarScrollable = sidebar.scrollHeight > sidebar.clientHeight
+    scrollableOverlay.style.display = isSidebarScrollable ? "flex" : "none"
+  }
 
-    if (tableOfContentsPC === null) {
-      return
+  // PC表示時サイドバーがスクロール可能な状態であればオーバーレイを表示する
+  window.addEventListener(
+    CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE,
+    switchSidebarScrollableOverlay,
+    {
+      once: true
     }
+  )
 
-    tableOfContentsPC.style.display = "none"
-  })
+  window.addEventListener("resize", switchSidebarScrollableOverlay)
 </script>
 
 <div class={styles.sidebarContainer}>
@@ -43,7 +80,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     <LogoWrapper isPC />
   </header>
 
-  <div class={styles.main}>
+  <div class={styles.main} id={SIDEBAR_ID}>
     {/* ビルド時点の日付で止まってしまうのとIPv4かどうか判定する必要があるのでCSRさせる */}
     <Infobar client:load />
 
@@ -79,7 +116,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     </div>
   </div>
 
-  <div class={styles.scrollableOverlay}>
+  <div class={styles.scrollableOverlay} id={SIDEBAR_SCROLLABLE_OVERLAY_ID}>
     <button class={styles.button}>
       <SvgLoader name="arrowDown" className={styles.icon} width={24} height={24} />
       <span class={styles.text}> スクロールしてもっと表示</span>
