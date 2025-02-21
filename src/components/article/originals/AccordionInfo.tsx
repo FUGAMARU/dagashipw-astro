@@ -5,6 +5,7 @@ import { useCallback, useRef, useState, type MouseEvent } from "react"
 import styles from "@/components/article/originals/AccordionInfo.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { useIsSP } from "@/hooks/useIsSP"
+import { isDefined } from "@/utils/isDefined"
 
 /** 共通イージングスタイル */
 const EASING_STYLE = "cubicBezier(0.77,0,0.18,1)"
@@ -37,7 +38,12 @@ export const AccordionInfo = ({ title, body }: Props) => {
       const bodyText = bodyTextRef.current
       const triangleIcon = triangleIconRef.current
 
-      if (body === null || hiddenBody === null || bodyText === null || triangleIcon === null) {
+      if (
+        !isDefined(body) ||
+        !isDefined(hiddenBody) ||
+        !isDefined(bodyText) ||
+        !isDefined(triangleIcon)
+      ) {
         return
       }
 
