@@ -1,11 +1,13 @@
 import anime from "animejs"
 import clsx from "clsx"
-import { useCallback, useRef, useState, type MouseEvent } from "react"
+import { useCallback, useRef, useState } from "react"
 
 import styles from "@/components/article/originals/AccordionInfo.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isDefined } from "@/utils/isDefined"
+
+import type { MouseEvent } from "react"
 
 /** 共通イージングスタイル */
 const EASING_STYLE = "cubicBezier(0.77,0,0.18,1)"

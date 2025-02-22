@@ -1,6 +1,7 @@
 @import url("/src/styles/post.css");
 
 .accordionInfo {
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
