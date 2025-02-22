@@ -1,6 +1,7 @@
 ---
 import { Markdown } from "astro-remote"
 
+import AccordionInfoWrapper from "@/components/article/originals/AccordionInfoWrapper.astro"
 import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.astro"
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
@@ -145,7 +146,8 @@ const articleDate = articleInfo.updatedAt
           CodeBlock: CodeBlockWrapper,
           HeightAdjustedImage,
           Spotify,
-          kbd: Kbd
+          kbd: Kbd,
+          AccordionInfo: AccordionInfoWrapper
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{
