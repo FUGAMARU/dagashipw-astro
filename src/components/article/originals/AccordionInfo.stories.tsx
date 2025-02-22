@@ -5,8 +5,12 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof AccordionInfo> = {
   component: AccordionInfo,
   tags: ["autodocs"],
-  args: { title: undefined, body: undefined },
-  argTypes: { title: { control: "text" }, body: { control: "text" } }
+  args: { displayType: "tips", title: undefined, body: undefined },
+  argTypes: {
+    displayType: { control: "select", options: ["tips", "warning"] },
+    title: { control: "text" },
+    body: { control: "text" }
+  }
 }
 
 export default meta

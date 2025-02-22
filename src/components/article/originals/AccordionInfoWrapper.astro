@@ -1,7 +1,7 @@
 ---
 import { AccordionInfo } from "@/components/article/originals/AccordionInfo"
 
-const { title, body } = Astro.props
+const { displayType, title, body } = Astro.props
 ---
 
-<AccordionInfo body={body} client:load title={title} />
+<AccordionInfo body={body} client:load displayType={displayType} title={title} />

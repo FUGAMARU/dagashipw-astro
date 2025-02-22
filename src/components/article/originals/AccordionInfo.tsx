@@ -7,13 +7,47 @@ import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isDefined } from "@/utils/isDefined"
 
+import type { SvgComponentName } from "@/types/svg"
 import type { MouseEvent } from "react"
 
 /** 共通イージングスタイル */
 const EASING_STYLE = "cubicBezier(0.77,0,0.18,1)"
 
+/** 表示タイプ一覧 */
+type DisplayType = "tips" | "warning"
+
+/**
+ * 表示タイプごとのリソース定義
+ *
+ * @see アイコン色 https://developer.apple.com/design/human-interface-guidelines/color
+ */
+const RESOURCES_BY_DISPLAY_TYPE = {
+  tips: {
+    iconName: "inspiration",
+    iconColor: "#ffcc00",
+    label: "Tips"
+  },
+  warning: {
+    iconName: "warning",
+    iconColor: "#ff9500",
+    label: "Warning"
+  }
+} as const satisfies Record<
+  DisplayType,
+  {
+    /** アイコン名 */
+    iconName: SvgComponentName
+    /** アイコン色 */
+    iconColor: string
+    /** ラベル */
+    label: string
+  }
+>
+
 /** Props */
 type Props = {
+  /** 表示タイプ */
+  displayType: DisplayType
   /** タイトル */
   title: string
   /** 本文 */
@@ -21,7 +55,7 @@ type Props = {
 }
 
 /** アコーディオンで情報を表示するコンポーネント */
-export const AccordionInfo = ({ title, body }: Props) => {
+export const AccordionInfo = ({ displayType, title, body }: Props) => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
   const isSP = useIsSP()
 
@@ -129,9 +163,25 @@ export const AccordionInfo = ({ title, body }: Props) => {
     <div className={styles.accordionInfo}>
       <details className={styles.main} onClick={handleTitleClick} open={isAccordionOpen}>
         <summary className={styles.title}>
-          <div className={styles.left}>
-            <SvgLoader height={18} name="inspiration" width={18} />
-            <span className={styles.label}>Tips</span>
+          <div
+            className={styles.left}
+            style={{
+              fill: RESOURCES_BY_DISPLAY_TYPE[displayType].iconColor
+            }}
+          >
+            <SvgLoader
+              height={18}
+              name={RESOURCES_BY_DISPLAY_TYPE[displayType].iconName}
+              width={18}
+            />
+            <span
+              className={styles.label}
+              style={{
+                borderColor: RESOURCES_BY_DISPLAY_TYPE[displayType].iconColor
+              }}
+            >
+              {RESOURCES_BY_DISPLAY_TYPE[displayType].label}
+            </span>
             <span className={styles.title}>{title}</span>
           </div>
 
