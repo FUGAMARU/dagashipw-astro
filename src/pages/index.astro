@@ -1,22 +1,13 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
-import { ArticleCard } from "@/components/parts/card/ArticleCard"
-import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
-import { Link } from "@/components/parts/common/Link"
-import { Pagination } from "@/components/templates/Pagination"
+import ArticleList from "@/components/templates/ArticleList.astro"
 import { PAGE_NAME } from "@/constants/page"
-import { QUERY_PAGE } from "@/constants/query"
-import styles from "@/pages/_index.module.css"
-import { getAllArticlesWithPagination } from "@/services/api"
+import { getAllArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
 import { formatArticleInfo } from "@/utils/formatter"
 import { isDefined } from "@/utils/isDefined"
 
-export const prerender = false
-
-const currentPageParams = Astro.url.searchParams.get(QUERY_PAGE) ?? "1"
-const currentPage = Number(currentPageParams)
-
-const articles = await getAllArticlesWithPagination(currentPage)
+const totalArticlePageCount = await getTotalArticlePageCount()
+const articles = await getAllArticlesWithPagination(1)
 
 if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")
@@ -26,28 +17,9 @@ const articleInfoList = await Promise.all(articles.filter(isDefined).map(formatA
 ---
 
 <Layout title={PAGE_NAME.TOP}>
-  <div class={styles.topPage}>
-    <div class={styles.list}>
-      {
-        articleInfoList.map((articleInfo, index) => (
-          <>
-            <Link href={`/${articleInfo.articleUrlId}`}>
-              <article>
-                <ArticleCard {...articleInfo} />
-              </article>
-            </Link>
-
-            {index !== articleInfoList.length - 1 && <DividerHorizontal />}
-          </>
-        ))
-      }
-    </div>
-
-    {
-      // TODO: totalPageCountに実際の値を入れるようにする必要がある
-    }
-    <div class={styles.pagination}>
-      <Pagination client:load currentPage={currentPage} totalPageCount={10} />
-    </div>
-  </div>
+  <ArticleList
+    articleInfoList={articleInfoList}
+    pageNumber={1}
+    totalArticlePageCount={totalArticlePageCount}
+  />
 </Layout>

@@ -1,6 +1,6 @@
 @import url("/src/styles/post.css");
 
-.topPage {
+.articleList {
   padding: 24px 16px;
   background-color: var(--color-white);
 
@@ -16,7 +16,7 @@
 }
 
 @media (--pc) {
-  .topPage {
+  .articleList {
     border-radius: 16px;
 
     > .list {

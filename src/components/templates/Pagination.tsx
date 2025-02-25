@@ -1,6 +1,6 @@
 import ResponsivePagination from "react-responsive-pagination"
 
-import { QUERY_PAGE } from "@/constants/query"
+import { PAGE_PATH } from "@/constants/page"
 
 import "react-responsive-pagination/themes/classic.css"
 
@@ -16,7 +16,8 @@ type Props = {
 export const Pagination = ({ currentPage, totalPageCount }: Props) => {
   /** ページを変更したときの処理 */
   const handlePageChange = (page: number) => {
-    window.location.href = `?${QUERY_PAGE}=${page}`
+    // TODO: 共通関数化したい
+    window.location.href = PAGE_PATH.ARTICLE_LIST_WITH_PAGE.replace("[page]", String(page))
   }
 
   return (

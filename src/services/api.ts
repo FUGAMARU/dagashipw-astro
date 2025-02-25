@@ -93,3 +93,15 @@ export const checkIsIPv4 = async (): Promise<boolean> => {
   const response = await axios.get<boolean>("/api/is-ip-v4")
   return response.data
 }
+
+/**
+ * 記事一覧をページネーション付きで表示する場合に全部で何ページあるのか取得する
+ *
+ * @returns 記事一覧の合計ページ数
+ */
+export const getTotalArticlePageCount = async (): Promise<number> => {
+  const response = await axiosInstance.get<
+    paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
+  >(`/articles?pagination[pageSize]=${ARTICLES_PER_PAGE}`)
+  return response.data?.meta?.pagination?.pageCount ?? 0
+}

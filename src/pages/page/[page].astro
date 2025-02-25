@@ -1,0 +1,44 @@
+---
+import Layout from "@/components/layout/Layout.astro"
+import ArticleList from "@/components/templates/ArticleList.astro"
+import { PAGE_NAME, PAGE_PATH } from "@/constants/page"
+import { getAllArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
+import { formatArticleInfo } from "@/utils/formatter"
+import { isDefined } from "@/utils/isDefined"
+
+/** 記事一覧のページネーションで存在するページの一覧をexportする */
+export const getStaticPaths = async () => {
+  const totalArticlePageCount = await getTotalArticlePageCount()
+
+  return Array.from({ length: totalArticlePageCount }).map((_, index) => ({
+    params: {
+      page: String(index + 1)
+    }
+  }))
+}
+
+const { page } = Astro.params
+const pageNumber = Number(page)
+
+// ページ番号が1の場合はトップページにリダイレクトさせる
+if (pageNumber === 1) {
+  Astro.redirect(PAGE_PATH.TOP) // FIXME: URLが変化しない
+}
+
+const articles = await getAllArticlesWithPagination(pageNumber)
+
+if (!isDefined(articles)) {
+  throw new Error("ページ情報が存在しません")
+}
+
+const articleInfoList = await Promise.all(articles.filter(isDefined).map(formatArticleInfo))
+const totalArticlePageCount = await getTotalArticlePageCount() // getStaticPathsでも同じ変数を宣言しているが、getStaticPathsの外に出すとエラーになるのでここで再宣言
+---
+
+<Layout title={PAGE_NAME.ARTICLE_LIST_WITH_PAGE}>
+  <ArticleList
+    articleInfoList={articleInfoList}
+    pageNumber={pageNumber}
+    totalArticlePageCount={totalArticlePageCount}
+  />
+</Layout>

@@ -1,0 +1,43 @@
+---
+import { ArticleCard } from "@/components/parts/card/ArticleCard"
+import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
+import { Link } from "@/components/parts/common/Link"
+import styles from "@/components/templates/ArticleList.module.css"
+import { Pagination } from "@/components/templates/Pagination"
+
+import type { ArticleInfo } from "@/types/article"
+
+/** Props */
+type Props = {
+  /** 記事情報リスト */
+  articleInfoList: Array<ArticleInfo>
+  /** 現在のページ番号 */
+  pageNumber: number
+  /** ページネーションした際の合計ページ数 */
+  totalArticlePageCount: number
+}
+
+const { articleInfoList, pageNumber, totalArticlePageCount } = Astro.props
+---
+
+<div class={styles.articleList}>
+  <div class={styles.list}>
+    {
+      articleInfoList.map((articleInfo, index) => (
+        <>
+          <Link href={`/${articleInfo.articleUrlId}`}>
+            <article>
+              <ArticleCard {...articleInfo} />
+            </article>
+          </Link>
+
+          {index !== articleInfoList.length - 1 && <DividerHorizontal />}
+        </>
+      ))
+    }
+  </div>
+
+  <div class={styles.pagination}>
+    <Pagination client:load currentPage={pageNumber} totalPageCount={totalArticlePageCount} />
+  </div>
+</div>
