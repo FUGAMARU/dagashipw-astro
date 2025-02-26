@@ -25,7 +25,7 @@
       flex: 2;
       height: 100%;
       background: linear-gradient(
-        90deg,
+        to right,
         var(--color-gradient-green-start) 0%,
         var(--color-gradient-green-end) 100%
       );

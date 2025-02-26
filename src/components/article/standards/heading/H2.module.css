@@ -8,7 +8,7 @@
   > .line {
     width: 8px;
     background: linear-gradient(
-      180deg,
+      to bottom,
       var(--color-gradient-green-start) 0%,
       var(--color-gradient-green-end) 100%
     );

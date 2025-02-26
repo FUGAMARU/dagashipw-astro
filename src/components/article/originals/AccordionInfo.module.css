@@ -21,7 +21,7 @@
       padding: 8px 16px;
       color: var(--color-light-dark);
       background: linear-gradient(
-        180deg,
+        to bottom,
         var(--color-gradient-silver-start) 0%,
         var(--color-gradient-silver-end) 100%
       );

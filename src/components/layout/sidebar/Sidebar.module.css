@@ -63,7 +63,7 @@
     justify-content: center;
     padding: 20px 0 12px;
     background: linear-gradient(
-      180deg,
+      to bottom,
       transparent 0%,
       var(--color-white-70) 20%,
       var(--color-white) 100%

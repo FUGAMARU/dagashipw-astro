@@ -16,7 +16,7 @@
       font-weight: bold;
       color: var(--color-white);
       background: linear-gradient(
-        180deg,
+        to bottom,
         var(--color-gradient-header-start) 0%,
         var(--color-gradient-header-end) 100%
       );
