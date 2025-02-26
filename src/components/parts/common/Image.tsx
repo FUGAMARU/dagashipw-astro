@@ -12,6 +12,8 @@ type Props = Omit<ComponentProps<"img">, "className"> &
   Partial<ComponentProps<typeof ImageCaption>> & {
     /** object-fir: cover指定かどうか */
     objectFitCover?: boolean
+    /** 円形画像かどうか */
+    isCircle?: boolean
     /** CSSで指定するwidth */
     cssWidth?: "full" | "auto"
     /** CSSで指定するheight */
@@ -37,6 +39,7 @@ export const Image = ({
   captionLinkTexts,
   captionLinks,
   objectFitCover = false,
+  isCircle = false,
   cssWidth,
   cssHeight,
   isMaxHeight100 = false,
@@ -64,6 +67,7 @@ export const Image = ({
         className={clsx(
           styles.image,
           objectFitCover && styles.Covered,
+          isCircle && styles.Circle,
           isDefined(cssWidth) && styles[`Width${capitalizeFirstLetter(cssWidth)}`],
           isDefined(cssHeight) && styles[`Height${capitalizeFirstLetter(cssHeight)}`],
           isMaxHeight100 && styles.MaxHeight100,

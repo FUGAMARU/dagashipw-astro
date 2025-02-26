@@ -21,6 +21,10 @@
       object-fit: cover;
     }
 
+    &.Circle {
+      border-radius: 50%;
+    }
+
     &.WidthFull {
       width: 100%;
     }
