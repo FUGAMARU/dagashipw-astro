@@ -15,15 +15,24 @@ type Props = {
   name?: string
   /** テキスト */
   text: string
+  /** テキストを横いっぱいに広げるかどうか */
+  isFullWidth?: boolean
 }
 
 /** 吹き出し付きのチャット風メッセージコンポーネント */
-export const ChatMessage = ({ role, icon, name, text }: Props) => {
+export const ChatMessage = ({ role, icon, name, text, isFullWidth = false }: Props) => {
   return (
     <div className={clsx(styles.chatMessage, styles[capitalizeFirstLetter(role)])}>
-      <Image height={40} isCircle objectFitCover src={icon} width={40} />
+      <Image
+        figureTagClassName={styles.icon}
+        height={40}
+        isCircle
+        objectFitCover
+        src={icon}
+        width={40}
+      />
 
-      <div className={styles.message}>
+      <div className={clsx(styles.message, isFullWidth && styles.FullWidth)}>
         {isDefined(name) && (
           <span className={clsx(styles.name, styles[capitalizeFirstLetter(role)])}>{name}</span>
         )}

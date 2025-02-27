@@ -2,6 +2,7 @@
 import { Markdown } from "astro-remote"
 
 import AccordionInfoWrapper from "@/components/article/originals/AccordionInfoWrapper.astro"
+import { ChatMessage } from "@/components/article/originals/ChatMessage"
 import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.astro"
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
@@ -147,7 +148,8 @@ const articleDate = articleInfo.updatedAt
           HeightAdjustedImage,
           Spotify,
           kbd: Kbd,
-          AccordionInfo: AccordionInfoWrapper
+          AccordionInfo: AccordionInfoWrapper,
+          ChatMessage
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{

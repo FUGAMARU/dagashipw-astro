@@ -48,3 +48,13 @@ export const NoName: Story = {
     ...commonProps
   }
 }
+
+/** 横幅いっぱい */
+export const FullWidth: Story = {
+  args: {
+    role: "me",
+    name: "美川憲一",
+    isFullWidth: true,
+    ...commonProps
+  }
+}
