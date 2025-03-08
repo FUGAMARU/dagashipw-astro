@@ -1,8 +1,8 @@
 import clsx from "clsx"
+import { capitalize } from "es-toolkit"
 
 import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
-import { capitalizeFirstLetter } from "@/utils/formatter"
 import { isDefined } from "@/utils/isDefined"
 
 import type { ComponentProps } from "react"
@@ -58,7 +58,7 @@ export const Image = ({
     <figure
       className={clsx(
         styles.imageTag,
-        isDefined(align) && styles[`Align${capitalizeFirstLetter(align)}`],
+        isDefined(align) && styles[`Align${capitalize(align)}`],
         figureTagClassName
       )}
     >
@@ -68,8 +68,8 @@ export const Image = ({
           styles.image,
           objectFitCover && styles.Covered,
           isCircle && styles.Circle,
-          isDefined(cssWidth) && styles[`Width${capitalizeFirstLetter(cssWidth)}`],
-          isDefined(cssHeight) && styles[`Height${capitalizeFirstLetter(cssHeight)}`],
+          isDefined(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
+          isDefined(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
           isMaxHeight100 && styles.MaxHeight100,
           isWide && styles.Wide,
           isDefined(borderRadius) && styles[`BorderRadius${borderRadius}`]

@@ -1,8 +1,8 @@
 import clsx from "clsx"
+import { capitalize } from "es-toolkit"
 
 import styles from "@/components/article/originals/ChatMessage.module.css"
 import { Image } from "@/components/parts/common/Image"
-import { capitalizeFirstLetter } from "@/utils/formatter"
 import { isDefined } from "@/utils/isDefined"
 
 /** Props */
@@ -22,7 +22,7 @@ type Props = {
 /** 吹き出し付きのチャット風メッセージコンポーネント */
 export const ChatMessage = ({ role, icon, name, text, isFullWidth = false }: Props) => {
   return (
-    <div className={clsx(styles.chatMessage, styles[capitalizeFirstLetter(role)])}>
+    <div className={clsx(styles.chatMessage, styles[capitalize(role)])}>
       <Image
         figureTagClassName={styles.icon}
         height={40}
@@ -34,10 +34,10 @@ export const ChatMessage = ({ role, icon, name, text, isFullWidth = false }: Pro
 
       <div className={clsx(styles.message, isFullWidth && styles.FullWidth)}>
         {isDefined(name) && (
-          <span className={clsx(styles.name, styles[capitalizeFirstLetter(role)])}>{name}</span>
+          <span className={clsx(styles.name, styles[capitalize(role)])}>{name}</span>
         )}
 
-        <div className={clsx(styles.bubble, styles[capitalizeFirstLetter(role)])}>
+        <div className={clsx(styles.bubble, styles[capitalize(role)])}>
           <p className={styles.text}>{text}</p>
         </div>
       </div>
