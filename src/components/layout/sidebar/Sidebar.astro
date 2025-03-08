@@ -74,7 +74,14 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
   } from "@/constants/element"
   import { CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE } from "@/constants/event"
   import { PAGE_PATH } from "@/constants/page"
+  import anime from "animejs"
+  import { debounce } from "es-toolkit"
   import { isList } from "typescanner"
+
+  /** サイドバーをスクロールした際のdebounceの待機時間 (ms) */
+  const SIDEBAR_SCROLL_DEBOUNCE_WAIT = 100
+  /** scrollableOverlayのフェードアニメーションのDuration (ms) */
+  const SCROLLABLE_OVERLAY_FADE_DURATION = 200
 
   // PC表示時ブログ記事ページ以外ではサイドバーの目次は非表示にする
   document.addEventListener(
@@ -99,10 +106,11 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     }
   )
 
-  const switchSidebarScrollableOverlay = () => {
-    const sidebar = document.getElementById(SIDEBAR_ID)
-    const scrollableOverlay = document.getElementById(SIDEBAR_SCROLLABLE_OVERLAY_ID)
+  const sidebar = document.getElementById(SIDEBAR_ID)
+  const scrollableOverlay = document.getElementById(SIDEBAR_SCROLLABLE_OVERLAY_ID)
 
+  /** サイドバーがスクロール可能な状態であればオーバーレイを表示する / スクロール不可能な状態であれば非表示にする */
+  const switchSidebarScrollableOverlay = () => {
     if (sidebar === null || scrollableOverlay === null) {
       return
     }
@@ -118,6 +126,41 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     {
       once: true
     }
+  )
+
+  // サイドバーを一番下までスクロールしたらオーバーレイを非表示にする / 少し上に戻ったら再度表示する
+  sidebar?.addEventListener(
+    "scroll", // TODO: scrollendイベントをSafariがサポートするようになったら置き換えたい 参考: https://qiita.com/degudegu2510/items/586d2713c30a3ef9b312
+    debounce(() => {
+      if (sidebar === null || scrollableOverlay === null) {
+        return
+      }
+
+      const { scrollHeight, clientHeight, scrollTop } = sidebar
+      const isScrollBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1 // scrollTopに多少の誤差があるので1pxの誤差を許容する
+
+      const timeline = anime.timeline({
+        easing: "linear", // フェードアニメーションの場合に最も適切なイージングはlinearなので定数化しない
+        duration: SCROLLABLE_OVERLAY_FADE_DURATION
+      })
+
+      if (isScrollBottom) {
+        timeline.add({
+          targets: scrollableOverlay,
+          opacity: 0,
+          complete: () => {
+            scrollableOverlay.style.display = "none"
+          }
+        })
+        return
+      }
+
+      scrollableOverlay.style.display = "flex"
+      timeline.add({
+        targets: scrollableOverlay,
+        opacity: 1
+      })
+    }, SIDEBAR_SCROLL_DEBOUNCE_WAIT)
   )
 
   window.addEventListener("resize", switchSidebarScrollableOverlay)
