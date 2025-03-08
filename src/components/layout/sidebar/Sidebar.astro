@@ -10,6 +10,7 @@ import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import {
   PC_TABLE_OF_CONTENTS_CONTAINER_ID,
   SIDEBAR_ID,
+  SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID,
   SIDEBAR_SCROLLABLE_OVERLAY_ID
 } from "@/constants/element"
 
@@ -59,7 +60,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
   </div>
 
   <div class={styles.scrollableOverlay} id={SIDEBAR_SCROLLABLE_OVERLAY_ID}>
-    <button class={styles.button}>
+    <button class={styles.button} id={SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID}>
       <SvgLoader name="arrowDown" className={styles.icon} width={24} height={24} />
       <span class={styles.text}> スクロールしてもっと表示</span>
     </button>
@@ -70,10 +71,12 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
   import {
     PC_TABLE_OF_CONTENTS_CONTAINER_ID,
     SIDEBAR_ID,
-    SIDEBAR_SCROLLABLE_OVERLAY_ID
+    SIDEBAR_SCROLLABLE_OVERLAY_ID,
+    SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID
   } from "@/constants/element"
   import { CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE } from "@/constants/event"
   import { PAGE_PATH } from "@/constants/page"
+  import { isDefined } from "@/utils/isDefined"
   import anime from "animejs"
   import { debounce } from "es-toolkit"
   import { isList } from "typescanner"
@@ -95,7 +98,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 
       const tableOfContentsPC = document.getElementById(PC_TABLE_OF_CONTENTS_CONTAINER_ID)
 
-      if (tableOfContentsPC === null) {
+      if (!isDefined(tableOfContentsPC)) {
         return
       }
 
@@ -111,7 +114,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 
   /** サイドバーがスクロール可能な状態であればオーバーレイを表示する / スクロール不可能な状態であれば非表示にする */
   const switchSidebarScrollableOverlay = () => {
-    if (sidebar === null || scrollableOverlay === null) {
+    if (!isDefined(sidebar) || !isDefined(scrollableOverlay)) {
       return
     }
 
@@ -119,7 +122,7 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     scrollableOverlay.style.display = isSidebarScrollable ? "flex" : "none"
   }
 
-  // PC表示時サイドバーがスクロール可能な状態であればオーバーレイを表示する
+  // PC表示時サイドバーがスクロール可能な状態であればオーバーレイを表示する / スクロール不可能な状態であれば非表示にする
   window.addEventListener(
     CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE,
     switchSidebarScrollableOverlay,
@@ -128,11 +131,14 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     }
   )
 
+  // ウィンドウリサイズ時にサイドバーがスクロール可能な状態であればオーバーレイを表示する / スクロール不可能な状態であれば非表示にする
+  window.addEventListener("resize", switchSidebarScrollableOverlay)
+
   // サイドバーを一番下までスクロールしたらオーバーレイを非表示にする / 少し上に戻ったら再度表示する
   sidebar?.addEventListener(
     "scroll", // TODO: scrollendイベントをSafariがサポートするようになったら置き換えたい 参考: https://qiita.com/degudegu2510/items/586d2713c30a3ef9b312
     debounce(() => {
-      if (sidebar === null || scrollableOverlay === null) {
+      if (!isDefined(sidebar) || !isDefined(scrollableOverlay)) {
         return
       }
 
@@ -163,5 +169,16 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     }, SIDEBAR_SCROLL_DEBOUNCE_WAIT)
   )
 
-  window.addEventListener("resize", switchSidebarScrollableOverlay)
+  // scrollableOverlayのボタンをクリックしたらサイドバーを一番下までスクロールする
+  const sidebarScrollToBottomButton = document.getElementById(SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID)
+  sidebarScrollToBottomButton?.addEventListener("click", () => {
+    if (!isDefined(sidebar)) {
+      return
+    }
+
+    sidebar.scrollTo({
+      top: sidebar.scrollHeight,
+      behavior: "smooth"
+    })
+  })
 </script>
