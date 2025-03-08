@@ -28,8 +28,6 @@ import { Video } from "@/components/article/standards/media/Video"
 import Layout from "@/components/layout/Layout.astro"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 import { Hero } from "@/components/templates/hero/Hero"
-import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
-import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { getCurrentDateTime } from "@/utils/date"
@@ -63,52 +61,6 @@ const articleDate = articleInfo.updatedAt
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)
 ---
-
-<script
-  define:vars={{
-    tableOfContentsData,
-    SESSION_STORAGE_TABLE_OF_CONTENTS_KEY,
-    CUSTOM_EVENT_ACTIVE_HEADING_CHANGE
-  }}
->
-  /** 目次コンポーネントがレンダリングされるのがscriptタグの実行後なためカスタムイベントを用いた目次データーの送信ができないのでsessionStorageを利用する */
-  sessionStorage.setItem(SESSION_STORAGE_TABLE_OF_CONTENTS_KEY, JSON.stringify(tableOfContentsData))
-
-  /**
-   * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する
-   * 参考: https://qiita.com/iwmy/items/7e557c7777c927d1bfaa
-   */
-  document.addEventListener("DOMContentLoaded", () => {
-    const relatedHeadingElements = document.querySelectorAll(
-      "h1, h1 ~ *, h2, h2 ~ *, h3, h3 ~ *, h4, h4 ~ *"
-    )
-
-    const observer = new IntersectionObserver(
-      entries => {
-        const intersectingHeading = entries.find(heading => heading.isIntersecting)
-        if (!intersectingHeading) return
-
-        const activeHeadingId = intersectingHeading.target.id // #は含まれない
-
-        if (activeHeadingId === "") {
-          return
-        }
-
-        const event = new CustomEvent(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, {
-          detail: `#${activeHeadingId}`
-        })
-        window.dispatchEvent(event)
-      },
-      {
-        rootMargin: "-10% 0px -90%"
-      }
-    )
-
-    relatedHeadingElements.forEach(element => {
-      observer.observe(element)
-    })
-  })
-</script>
 
 <Layout title={`${article.title} | 麩菓子の雑記帳`}>
   <div class={styles.articlePageMain}>
@@ -161,4 +113,68 @@ const articleDate = articleInfo.updatedAt
     </div>
     {/* TODO: コメントエリア */}
   </div>
+
+  <toc-variable-bridge data-value={JSON.stringify(tableOfContentsData)}></toc-variable-bridge>
+
+  <script>
+    import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
+    import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
+    import { isDefined } from "@/utils/isDefined"
+
+    /**
+     * コンポーネントスクリプト内の変数をscriptタグから参照するためにカスタム要素を定義して値を橋渡しする (define:varsを利用するよりパフォーマンス的に有利)
+     * @see: https://docs.astro.build/ja/guides/client-side-scripts/#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%83%9E%E3%82%BF%E3%83%BC%E5%A4%89%E6%95%B0%E3%82%92%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%AB%E6%B8%A1%E3%81%99
+     */
+    class TocVariableBridge extends HTMLElement {
+      constructor() {
+        super()
+
+        const { value: tableOfContentsData } = this.dataset
+
+        if (!isDefined(tableOfContentsData)) {
+          return
+        }
+
+        /** 目次コンポーネントがレンダリングされるのがscriptタグの実行後なためカスタムイベントを用いた目次データーの送信ができないのでsessionStorageを利用する */
+        sessionStorage.setItem(SESSION_STORAGE_TABLE_OF_CONTENTS_KEY, tableOfContentsData)
+
+        /**
+         * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する
+         * 参考: https://qiita.com/iwmy/items/7e557c7777c927d1bfaa
+         */
+        document.addEventListener("DOMContentLoaded", () => {
+          const relatedHeadingElements = document.querySelectorAll(
+            "h1, h1 ~ *, h2, h2 ~ *, h3, h3 ~ *, h4, h4 ~ *"
+          )
+
+          const observer = new IntersectionObserver(
+            entries => {
+              const intersectingHeading = entries.find(heading => heading.isIntersecting)
+              if (!intersectingHeading) return
+
+              const activeHeadingId = intersectingHeading.target.id // #は含まれない
+
+              if (activeHeadingId === "") {
+                return
+              }
+
+              const event = new CustomEvent(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, {
+                detail: `#${activeHeadingId}`
+              })
+              window.dispatchEvent(event)
+            },
+            {
+              rootMargin: "-10% 0px -90%"
+            }
+          )
+
+          relatedHeadingElements.forEach(element => {
+            observer.observe(element)
+          })
+        })
+      }
+    }
+
+    customElements.define("toc-variable-bridge", TocVariableBridge)
+  </script>
 </Layout>

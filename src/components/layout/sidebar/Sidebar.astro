@@ -12,68 +12,10 @@ import {
   SIDEBAR_ID,
   SIDEBAR_SCROLLABLE_OVERLAY_ID
 } from "@/constants/element"
-import { CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE } from "@/constants/event"
-import { PAGE_PATH } from "@/constants/page"
 
 const currentArticleTitle = "記事のタイトル" // TODO: 仮当て
 const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 ---
-
-<script
-  define:vars={{
-    PAGE_PATH,
-    PC_TABLE_OF_CONTENTS_CONTAINER_ID,
-    SIDEBAR_ID,
-    SIDEBAR_SCROLLABLE_OVERLAY_ID,
-    CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE
-  }}
->
-  // PC表示時ブログ記事ページ以外ではサイドバーの目次は非表示にする
-  document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-      const { pathname } = location
-
-      if (!Object.values(PAGE_PATH).includes(pathname)) {
-        return
-      }
-
-      const tableOfContentsPC = document.getElementById(PC_TABLE_OF_CONTENTS_CONTAINER_ID)
-
-      if (tableOfContentsPC === null) {
-        return
-      }
-
-      tableOfContentsPC.style.display = "none"
-    },
-    {
-      once: true
-    }
-  )
-
-  const switchSidebarScrollableOverlay = () => {
-    const sidebar = document.getElementById(SIDEBAR_ID)
-    const scrollableOverlay = document.getElementById(SIDEBAR_SCROLLABLE_OVERLAY_ID)
-
-    if (sidebar === null || scrollableOverlay === null) {
-      return
-    }
-
-    const isSidebarScrollable = sidebar.scrollHeight > sidebar.clientHeight
-    scrollableOverlay.style.display = isSidebarScrollable ? "flex" : "none"
-  }
-
-  // PC表示時サイドバーがスクロール可能な状態であればオーバーレイを表示する
-  window.addEventListener(
-    CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE,
-    switchSidebarScrollableOverlay,
-    {
-      once: true
-    }
-  )
-
-  window.addEventListener("resize", switchSidebarScrollableOverlay)
-</script>
 
 <div class={styles.sidebarContainer}>
   <header class={styles.header}>
@@ -123,3 +65,60 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
     </button>
   </div>
 </div>
+
+<script>
+  import {
+    PC_TABLE_OF_CONTENTS_CONTAINER_ID,
+    SIDEBAR_ID,
+    SIDEBAR_SCROLLABLE_OVERLAY_ID
+  } from "@/constants/element"
+  import { CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE } from "@/constants/event"
+  import { PAGE_PATH } from "@/constants/page"
+  import { isList } from "typescanner"
+
+  // PC表示時ブログ記事ページ以外ではサイドバーの目次は非表示にする
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+      const { pathname } = location
+
+      if (!isList(pathname, Object.values(PAGE_PATH))) {
+        return
+      }
+
+      const tableOfContentsPC = document.getElementById(PC_TABLE_OF_CONTENTS_CONTAINER_ID)
+
+      if (tableOfContentsPC === null) {
+        return
+      }
+
+      tableOfContentsPC.style.display = "none"
+    },
+    {
+      once: true
+    }
+  )
+
+  const switchSidebarScrollableOverlay = () => {
+    const sidebar = document.getElementById(SIDEBAR_ID)
+    const scrollableOverlay = document.getElementById(SIDEBAR_SCROLLABLE_OVERLAY_ID)
+
+    if (sidebar === null || scrollableOverlay === null) {
+      return
+    }
+
+    const isSidebarScrollable = sidebar.scrollHeight > sidebar.clientHeight
+    scrollableOverlay.style.display = isSidebarScrollable ? "flex" : "none"
+  }
+
+  // PC表示時サイドバーがスクロール可能な状態であればオーバーレイを表示する
+  window.addEventListener(
+    CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE,
+    switchSidebarScrollableOverlay,
+    {
+      once: true
+    }
+  )
+
+  window.addEventListener("resize", switchSidebarScrollableOverlay)
+</script>

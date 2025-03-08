@@ -23,6 +23,7 @@
     "animejs",
     "gabarito",
     "monokai",
-    "shiki"
+    "shiki",
+    "typescanner"
   ]
 }
