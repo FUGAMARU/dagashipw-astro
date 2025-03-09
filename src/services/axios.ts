@@ -4,11 +4,14 @@
 
 import axios from "axios"
 
-import { API_BASE_URL } from "@/constants/value"
+import { API_ORIGIN, API_TOKEN } from "@/constants/env"
 
 /** API接続する時に使用するAxiosのインスタンス */
 export const axiosInstance = axios.create({
-  baseURL: API_BASE_URL
+  baseURL: `${API_ORIGIN}/api`,
+  headers: {
+    Authorization: `Bearer ${API_TOKEN}`
+  }
 })
 
 /** リクエストインターセプター */

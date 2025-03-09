@@ -5,8 +5,9 @@
 import { isValidElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
-import { EXTRACTED_PARAGRAPHS_LENGTH, STRAPI_BASE_URL } from "@/constants/value"
+import { EXTRACTED_PARAGRAPHS_LENGTH } from "@/constants/value"
 import { isDefined } from "@/utils/isDefined"
+import { API_ORIGIN } from "scripts/utils"
 
 import type { ArticleInfo } from "@/types/article"
 import type { components } from "@/types/schema"
@@ -24,7 +25,7 @@ const FALLBACK_THEME_COLOR = "#343434"
 export const formatArticleInfo = async (
   articleInfo: components["schemas"]["Article"]
 ): Promise<ArticleInfo> => {
-  const thumbnailUrl = `${STRAPI_BASE_URL}${articleInfo.thumbnail.data?.attributes?.url}`
+  const thumbnailUrl = `${API_ORIGIN}${articleInfo.thumbnail.data?.attributes?.url}`
 
   /**
    * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る

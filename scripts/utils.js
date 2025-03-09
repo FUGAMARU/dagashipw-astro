@@ -6,8 +6,9 @@ import axios from "axios"
 import * as dotenv from "dotenv"
 dotenv.config({ path: ".env.local" })
 
-/** APIのベースURL */
-export const STRAPI_BASE_URL = "https://strapi.dagashi.pw"
+/** APIオリジン */
+export const API_ORIGIN = process.env.API_ORIGIN
+/** APIトークン */
 const API_TOKEN = process.env.API_TOKEN
 
 /**
@@ -18,13 +19,20 @@ const API_TOKEN = process.env.API_TOKEN
  */
 export const isDefined = value => value !== undefined && value !== null
 
-if (!isDefined(API_TOKEN)) {
-  throw new Error("APIトークンが環境変数に設定されていません")
+if ([API_ORIGIN, API_TOKEN].some(value => !isDefined(value))) {
+  const missingEnvironmentVariables = [
+    !isDefined(API_ORIGIN) && "API_ORIGINが環境変数に設定されていません",
+    !isDefined(API_TOKEN) && "API_TOKENが環境変数に設定されていません"
+  ]
+    .filter(isDefined)
+    .join("\n")
+
+  throw new Error(missingEnvironmentVariables)
 }
 
 /** API接続する時に使用するAxiosのインスタンス */
 export const axiosInstance = axios.create({
-  baseURL: `${STRAPI_BASE_URL}/api`,
+  baseURL: `${API_ORIGIN}/api`,
   headers: {
     Authorization: `Bearer ${API_TOKEN}`
   }

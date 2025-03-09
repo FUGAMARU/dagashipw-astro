@@ -7,7 +7,7 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { Worker } from "node:worker_threads"
 
-import { isDefined, getAllArticleUrlIds, getArticle, STRAPI_BASE_URL } from "./utils.js"
+import { isDefined, getAllArticleUrlIds, getArticle, API_ORIGIN } from "./utils.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -25,7 +25,7 @@ const main = async () => {
     })
     .map(article => ({
       articleUrlId: article.articleUrlId,
-      thumbnailUrl: `${STRAPI_BASE_URL}${article.thumbnail.data?.attributes?.url}`
+      thumbnailUrl: `${API_ORIGIN}${article.thumbnail.data?.attributes?.url}`
     }))
 
   let completedWorkers = 0
