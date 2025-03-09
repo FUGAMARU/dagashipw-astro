@@ -1,14 +1,15 @@
 import anime from "animejs"
 import clsx from "clsx"
-import { useCallback, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 import styles from "@/components/article/originals/AccordionInfo.module.css"
+import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isDefined } from "@/utils/isDefined"
 
 import type { SvgComponentName } from "@/types/svg"
-import type { MouseEvent } from "react"
+import type { MouseEvent, ReactNode } from "react"
 
 /** 共通イージングスタイル */
 const EASING_STYLE = "cubicBezier(0.77,0,0.18,1)"
@@ -65,104 +66,123 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
   const triangleIconRef = useRef<HTMLSpanElement>(null)
 
   /** タイトルをクリックした時の処理 */
-  const handleTitleClick = useCallback(
-    (e: MouseEvent) => {
-      e.preventDefault() // detailsタグのデフォルトの動作があるのでpreventDefaultしないとアニメーションが効かない
+  const handleTitleClick = (e: MouseEvent) => {
+    e.preventDefault() // detailsタグのデフォルトの動作があるのでpreventDefaultしないとアニメーションが効かない
 
-      const body = bodyRef.current
-      const hiddenBody = hiddenBodyRef.current
-      const bodyText = bodyTextRef.current
-      const triangleIcon = triangleIconRef.current
+    const body = bodyRef.current
+    const hiddenBody = hiddenBodyRef.current
+    const bodyText = bodyTextRef.current
+    const triangleIcon = triangleIconRef.current
 
-      if (
-        !isDefined(body) ||
-        !isDefined(hiddenBody) ||
-        !isDefined(bodyText) ||
-        !isDefined(triangleIcon)
-      ) {
-        return
-      }
+    if (
+      !isDefined(body) ||
+      !isDefined(hiddenBody) ||
+      !isDefined(bodyText) ||
+      !isDefined(triangleIcon)
+    ) {
+      return
+    }
 
-      const paddingSize = isSP ? 16 : 32
+    const paddingSize = isSP ? 16 : 32
 
-      if (isAccordionOpen) {
-        anime({
-          targets: bodyText,
-          opacity: 0,
-          duration: 400,
-          easing: "linear"
-        })
+    if (isAccordionOpen) {
+      anime({
+        targets: bodyText,
+        opacity: 0,
+        duration: 400,
+        easing: "linear"
+      })
 
-        anime({
-          targets: body,
-          opacity: 0,
-          duration: 400,
-          delay: 300,
-          easing: "linear"
-        })
+      anime({
+        targets: body,
+        opacity: 0,
+        duration: 400,
+        delay: 300,
+        easing: "linear"
+      })
 
-        anime({
-          targets: body,
-          height: 0,
-          duration: 700,
-          delay: 300,
-          easing: EASING_STYLE
-        })
-
-        anime({
-          targets: triangleIcon,
-          rotate: 0,
-          delay: 300,
-          duration: 700,
-          easing: EASING_STYLE,
-          /** アニメーションが完了した時に発火するコールバック */
-          complete: () => {
-            setIsAccordionOpen(false)
-          }
-        })
-
-        return
-      }
+      anime({
+        targets: body,
+        height: 0,
+        duration: 700,
+        delay: 300,
+        easing: EASING_STYLE
+      })
 
       anime({
         targets: triangleIcon,
-        rotate: 180,
+        rotate: 0,
+        delay: 300,
         duration: 700,
-        easing: EASING_STYLE
+        easing: EASING_STYLE,
+        /** アニメーションが完了した時に発火するコールバック */
+        complete: () => {
+          setIsAccordionOpen(false)
+        }
       })
 
-      anime({
-        targets: body,
-        height: hiddenBody.scrollHeight + paddingSize * 2, // 垂直方向のpaddingの分をプラスしている
-        duration: 700,
-        easing: EASING_STYLE
-      })
+      return
+    }
 
-      anime({
-        targets: body,
-        opacity: 1,
-        duration: 400,
-        delay: 100,
-        easing: "linear"
-      })
+    anime({
+      targets: triangleIcon,
+      rotate: 180,
+      duration: 700,
+      easing: EASING_STYLE
+    })
 
-      anime({
-        targets: bodyText,
-        opacity: 1,
-        duration: 400,
-        delay: 600,
-        easing: "linear"
-      })
+    anime({
+      targets: body,
+      height: hiddenBody.scrollHeight + paddingSize * 2, // 垂直方向のpaddingの分をプラスしている
+      duration: 700,
+      easing: EASING_STYLE
+    })
 
-      setIsAccordionOpen(true)
-    },
-    [isAccordionOpen, isSP]
-  )
+    anime({
+      targets: body,
+      opacity: 1,
+      duration: 400,
+      delay: 100,
+      easing: "linear"
+    })
+
+    anime({
+      targets: bodyText,
+      opacity: 1,
+      duration: 400,
+      delay: 600,
+      easing: "linear"
+    })
+
+    setIsAccordionOpen(true)
+  }
+
+  /** 改行コードを含めるとStrapiがエスケープした状態で渡してくるのでデコードしたもの */
+  const normalizedBody = JSON.parse(`"${body}"`)
+
+  /** bodyをパースしてMarkdownのリンク記法のstringがあれば実際にLinkInArticleコンポーネントに置き換える */
+  const parseMarkdownLinks = (text: string) => {
+    const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g
+
+    return text.split(regex).reduce<Array<string | ReactNode>>((acc, part, index, arr) => {
+      // 0: テキスト部分, 1: リンクテキスト, 2: リンクURL
+      if (index % 3 === 0) {
+        acc.push(part)
+      } else if (index % 3 === 1) {
+        acc.push(
+          <LinkInArticle key={index} href={arr[index + 1]}>
+            {part}
+          </LinkInArticle>
+        )
+      }
+      return acc
+    }, [])
+  }
 
   return (
     <div className={styles.accordionInfo}>
-      <details className={styles.main} onClick={handleTitleClick} open={isAccordionOpen}>
-        <summary className={styles.title}>
+      <details className={styles.main} open={isAccordionOpen}>
+        <summary className={styles.title} onClick={handleTitleClick}>
           <div
             className={styles.left}
             style={{
@@ -192,7 +212,7 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
 
         <div ref={bodyRef} className={styles.sectionBody}>
           <p ref={bodyTextRef} className={styles.text}>
-            {body}
+            {parseMarkdownLinks(normalizedBody)}
           </p>
         </div>
       </details>
