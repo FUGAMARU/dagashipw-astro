@@ -13,7 +13,8 @@
     "stylelint": "stylelint --fix \"**/*.css\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "auto-theme-color-picker": "node ./scripts/auto-theme-color-picker.js"
+    "auto-theme-color-picker": "node ./scripts/auto-theme-color-picker.js",
+    "searcher": "node ./scripts/searcher.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

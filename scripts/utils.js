@@ -104,3 +104,13 @@ export const setArticleThemeColor = async (articleUrlId, themeColor) => {
     }
   })
 }
+
+/** 全ての記事の本文を取得する */
+export const getAllArticlesBody = async () => {
+  const allArticleUrlIdList = await getAllArticleUrlIds()
+  const articles = await Promise.all(allArticleUrlIdList.map(getArticle))
+  return articles.map(article => ({
+    title: article.title,
+    body: article.body
+  }))
+}
