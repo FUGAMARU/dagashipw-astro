@@ -2,7 +2,10 @@
  * @file 環境変数を利用するための中間定数群
  */
 
+import * as dotenv from "dotenv"
+
 import { isDefined } from "@/utils/isDefined"
+dotenv.config({ path: ".env.local" })
 
 /** APIオリジン */
 export const API_ORIGIN = process.env.API_ORIGIN
