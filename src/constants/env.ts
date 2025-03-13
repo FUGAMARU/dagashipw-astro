@@ -2,15 +2,12 @@
  * @file 環境変数を利用するための中間定数群
  */
 
-import * as dotenv from "dotenv"
-
 import { isDefined } from "@/utils/isDefined"
-dotenv.config({ path: ".env.local" })
 
 /** APIオリジン */
-export const API_ORIGIN = process.env.API_ORIGIN
+export const API_ORIGIN = import.meta.env.API_ORIGIN
 /** APIトークン */
-export const API_TOKEN = process.env.API_TOKEN
+export const API_TOKEN = import.meta.env.API_TOKEN
 
 if ([API_ORIGIN, API_TOKEN].some(value => !isDefined(value))) {
   const missingEnvironmentVariables = [
