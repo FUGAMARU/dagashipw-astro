@@ -21,7 +21,7 @@ export const StaleContentWarning = ({ articleDate }: Props) => {
   return (
     <div className={styles.staleContentWarning}>
       <div className={styles.main}>
-        <SvgLoader height={18} name="warning" width={18} />
+        <SvgLoader className={styles.icon} height={18} name="warning" width={18} />
 
         <span className={styles.text}>
           この記事は最終更新から<span className={styles.years}>{elapsedYears}</span>

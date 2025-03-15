@@ -19,7 +19,11 @@
     background-color: var(--color-pale-yellow);
     border: solid 1px var(--color-yellow);
     border-radius: 8px;
-    fill: var(--color-brown);
+
+    > .icon {
+      flex-shrink: 0;
+      fill: var(--color-brown);
+    }
 
     > .text {
       font-size: 12px;
