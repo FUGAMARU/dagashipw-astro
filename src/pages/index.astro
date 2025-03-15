@@ -2,12 +2,12 @@
 import Layout from "@/components/layout/Layout.astro"
 import ArticleList from "@/components/templates/ArticleList.astro"
 import { PAGE_NAME } from "@/constants/page"
-import { getAllArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
+import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
 import { formatArticleInfo } from "@/utils/formatter"
 import { isDefined } from "@/utils/isDefined"
 
 const totalArticlePageCount = await getTotalArticlePageCount()
-const articles = await getAllArticlesWithPagination(1)
+const articles = await getArticlesWithPagination(1)
 
 if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")

@@ -68,12 +68,12 @@ export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
 }
 
 /**
- * 記事一覧を取得する (ページネーションあり)
+ * ページネーションありで指定したページの記事を取得する
  *
  * @param pageNumber - ページ番号
  * @returns 記事一覧
  */
-export const getAllArticlesWithPagination = async (
+export const getArticlesWithPagination = async (
   pageNumber: number
 ): Promise<Array<components["schemas"]["Article"] | undefined> | undefined> => {
   const response = await axiosInstance.get<

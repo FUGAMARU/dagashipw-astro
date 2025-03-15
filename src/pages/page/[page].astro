@@ -2,7 +2,7 @@
 import Layout from "@/components/layout/Layout.astro"
 import ArticleList from "@/components/templates/ArticleList.astro"
 import { PAGE_NAME, PAGE_PATH } from "@/constants/page"
-import { getAllArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
+import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
 import { formatArticleInfo } from "@/utils/formatter"
 import { isDefined } from "@/utils/isDefined"
 
@@ -25,7 +25,7 @@ if (pageNumber === 1) {
   Astro.redirect(PAGE_PATH.TOP) // FIXME: URLが変化しない
 }
 
-const articles = await getAllArticlesWithPagination(pageNumber)
+const articles = await getArticlesWithPagination(pageNumber)
 
 if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")
