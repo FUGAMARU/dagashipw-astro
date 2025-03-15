@@ -13,9 +13,19 @@ import {
   SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID,
   SIDEBAR_SCROLLABLE_OVERLAY_ID
 } from "@/constants/element"
+import { PAGE_PATH } from "@/constants/page"
+import clsx from "clsx"
+import { isList } from "typescanner"
 
 const currentArticleTitle = "記事のタイトル" // TODO: 仮当て
 const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
+
+const { pathname } = Astro.url
+
+/** 目次を表示するべきか (記事ページ以外では非表示) */
+const shouldShowTableOfContents =
+  !isList(pathname, Object.values(PAGE_PATH)) &&
+  !pathname.startsWith(PAGE_PATH.ARTICLE_LIST_WITH_PAGE.replace("[page]", ""))
 ---
 
 <div class={styles.sidebarContainer}>
@@ -31,7 +41,10 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
       <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
-    <div id={PC_TABLE_OF_CONTENTS_CONTAINER_ID}>
+    <div
+      class={clsx(styles.toc, !shouldShowTableOfContents && styles.Hidden)}
+      id={PC_TABLE_OF_CONTENTS_CONTAINER_ID}
+    >
       <TableOfContentsWrapper client:only="react" />
     </div>
 
@@ -69,45 +82,19 @@ const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 
 <script>
   import {
-    PC_TABLE_OF_CONTENTS_CONTAINER_ID,
     SIDEBAR_ID,
     SIDEBAR_SCROLLABLE_OVERLAY_ID,
     SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID
   } from "@/constants/element"
   import { CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE } from "@/constants/event"
-  import { PAGE_PATH } from "@/constants/page"
   import { isDefined } from "@/utils/isDefined"
   import anime from "animejs"
   import { debounce } from "es-toolkit"
-  import { isList } from "typescanner"
 
   /** サイドバーをスクロールした際のdebounceの待機時間 (ms) */
   const SIDEBAR_SCROLL_DEBOUNCE_WAIT = 100
   /** scrollableOverlayのフェードアニメーションのDuration (ms) */
   const SCROLLABLE_OVERLAY_FADE_DURATION = 200
-
-  // PC表示時ブログ記事ページ以外ではサイドバーの目次は非表示にする
-  document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-      const { pathname } = location
-
-      if (!isList(pathname, Object.values(PAGE_PATH))) {
-        return
-      }
-
-      const tableOfContentsPC = document.getElementById(PC_TABLE_OF_CONTENTS_CONTAINER_ID)
-
-      if (!isDefined(tableOfContentsPC)) {
-        return
-      }
-
-      tableOfContentsPC.style.display = "none"
-    },
-    {
-      once: true
-    }
-  )
 
   const sidebar = document.getElementById(SIDEBAR_ID)
   const scrollableOverlay = document.getElementById(SIDEBAR_SCROLLABLE_OVERLAY_ID)
