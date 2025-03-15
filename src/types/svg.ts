@@ -32,3 +32,4 @@ export type SvgComponentName =
   | "roundedTriangleDown"
   | "download"
   | "arrowDown"
+  | "clock"

@@ -33,7 +33,10 @@ import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { getCurrentDateTime } from "@/utils/date"
 import { formatArticleInfo, insertTableOfContents } from "@/utils/formatter"
 import { isDefined } from "@/utils/isDefined"
-import { generateTableOfContentsFromMarkdown } from "@/utils/table-of-contents"
+import {
+  calculateReadingTime,
+  generateTableOfContentsFromMarkdown
+} from "@/utils/table-of-contents"
 
 /** 存在する記事のパス一覧をexportする */
 export const getStaticPaths = async () => {
@@ -57,6 +60,7 @@ if (!isDefined(article)) {
 const articleInfo = await formatArticleInfo(article)
 const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
 const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
+const minutesToRead = calculateReadingTime(article.body)
 const articleDate = articleInfo.updatedAt
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)
@@ -114,12 +118,51 @@ const articleDate = articleInfo.updatedAt
     {/* TODO: コメントエリア */}
   </div>
 
+  <toc-variable-bridge data-minutestoread={minutesToRead}></toc-variable-bridge>
   <toc-variable-bridge data-value={JSON.stringify(tableOfContentsData)}></toc-variable-bridge>
 
   <script>
-    import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
+    import {
+      SESSION_STORAGE_MINUTES_TO_READ_KEY,
+      SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
+    } from "@/constants/value"
     import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
     import { isDefined } from "@/utils/isDefined"
+
+    /**
+     * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する
+     * 参考: https://qiita.com/iwmy/items/7e557c7777c927d1bfaa
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+      const relatedHeadingElements = document.querySelectorAll(
+        "h1, h1 ~ *, h2, h2 ~ *, h3, h3 ~ *, h4, h4 ~ *"
+      )
+
+      const observer = new IntersectionObserver(
+        entries => {
+          const intersectingHeading = entries.find(heading => heading.isIntersecting)
+          if (!intersectingHeading) return
+
+          const activeHeadingId = intersectingHeading.target.id // #は含まれない
+
+          if (activeHeadingId === "") {
+            return
+          }
+
+          const event = new CustomEvent(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, {
+            detail: `#${activeHeadingId}`
+          })
+          window.dispatchEvent(event)
+        },
+        {
+          rootMargin: "-10% 0px -90%"
+        }
+      )
+
+      relatedHeadingElements.forEach(element => {
+        observer.observe(element)
+      })
+    })
 
     /**
      * コンポーネントスクリプト内の変数をscriptタグから参照するためにカスタム要素を定義して値を橋渡しする (define:varsを利用するよりパフォーマンス的に有利)
@@ -129,49 +172,17 @@ const articleDate = articleInfo.updatedAt
       constructor() {
         super()
 
-        const { value: tableOfContentsData } = this.dataset
+        const { value: tableOfContentsData, minutestoread } = this.dataset
 
-        if (!isDefined(tableOfContentsData)) {
-          return
+        // コンポーネントの階層の都合上TableOfContentsコンポーネントに直接データーを渡すのが難しいのでsessionStorageを利用している (カスタムイベントを用いたコンポーネントへのデータ〜の送信手法はイベント発火タイミングの都合上不可能であった)
+
+        if (isDefined(minutestoread)) {
+          sessionStorage.setItem(SESSION_STORAGE_MINUTES_TO_READ_KEY, minutestoread)
         }
 
-        /** 目次コンポーネントがレンダリングされるのがscriptタグの実行後なためカスタムイベントを用いた目次データーの送信ができないのでsessionStorageを利用する */
-        sessionStorage.setItem(SESSION_STORAGE_TABLE_OF_CONTENTS_KEY, tableOfContentsData)
-
-        /**
-         * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する
-         * 参考: https://qiita.com/iwmy/items/7e557c7777c927d1bfaa
-         */
-        document.addEventListener("DOMContentLoaded", () => {
-          const relatedHeadingElements = document.querySelectorAll(
-            "h1, h1 ~ *, h2, h2 ~ *, h3, h3 ~ *, h4, h4 ~ *"
-          )
-
-          const observer = new IntersectionObserver(
-            entries => {
-              const intersectingHeading = entries.find(heading => heading.isIntersecting)
-              if (!intersectingHeading) return
-
-              const activeHeadingId = intersectingHeading.target.id // #は含まれない
-
-              if (activeHeadingId === "") {
-                return
-              }
-
-              const event = new CustomEvent(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, {
-                detail: `#${activeHeadingId}`
-              })
-              window.dispatchEvent(event)
-            },
-            {
-              rootMargin: "-10% 0px -90%"
-            }
-          )
-
-          relatedHeadingElements.forEach(element => {
-            observer.observe(element)
-          })
-        })
+        if (isDefined(tableOfContentsData)) {
+          sessionStorage.setItem(SESSION_STORAGE_TABLE_OF_CONTENTS_KEY, tableOfContentsData)
+        }
       }
     }
 

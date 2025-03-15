@@ -1,23 +1,31 @@
 @import url("/src/styles/post.css");
 
+:root {
+  --table-of-contents-section-top-height: 21px;
+}
+
 .tableOfContents {
   position: relative;
-  padding: 4px;
+  padding: var(--table-of-contents-section-top-height) 12px 10px;
+  overflow: hidden;
   line-height: 1.2;
   background: linear-gradient(
-    135deg,
-    var(--color-gradient-green-start) 0%,
-    var(--color-gradient-green-end) 100%
+    to bottom,
+    var(--color-gradient-silver-start) 0%,
+    var(--color-gradient-silver-end) 100%
   );
+  border: solid 1px var(--color-border-gray);
   border-radius: 16px;
 
   > .main {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 32px 16px 16px;
+    padding: 14px 12px;
     background-color: var(--color-white);
-    border-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
   }
 }
 
@@ -29,40 +37,58 @@
   padding-left: 40px;
 }
 
-.headingWrapper {
+.sectionTop {
   position: absolute;
   top: 0;
-  left: 5.5px;
-  width: 105px;
-  height: 24px;
-  padding: 5px 18px;
-  background: linear-gradient(
-    to right,
-    var(--color-gradient-green-start) 0%,
-    var(--color-gradient-green-passing-point) 100%
-  );
-  border-radius: 4px;
-  transform: skew(-28deg);
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 16px;
 
   > .heading {
-    position: relative;
+    width: 105px;
+    height: var(--table-of-contents-section-top-height);
+    padding: 5px 18px;
+    background: linear-gradient(
+      to right,
+      var(--color-gradient-green-start) 0%,
+      var(--color-gradient-green-passing-point) 100%
+    );
+    border-radius: 4px;
+    transform: skew(-28deg);
 
-    &::after {
-      position: absolute;
-      font-family: Gabarito, sans-serif;
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--color-black);
-      content: "Contents";
-      transform: skew(28deg);
+    > .inner {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        top: -4px;
+        font-family: Gabarito, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--color-black);
+        content: "Contents";
+        transform: skew(28deg);
+      }
     }
   }
-}
 
-@media (--pc) {
-  .tableOfContents {
-    > .main {
-      overflow-y: auto;
+  > .minutes {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+
+    > .icon {
+      fill: var(--color-text-gray);
+    }
+
+    > .text {
+      @mixin noto-sans-text-adjust;
+
+      font-size: 10px;
+      color: var(--color-text-gray);
     }
   }
 }

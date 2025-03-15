@@ -36,3 +36,8 @@
     font-size: 16px;
   }
 }
+
+/* Noto Sans特有の文字が若干下にずれる問題の対処 */
+@define-mixin noto-sans-text-adjust {
+  padding-bottom: 1.5px;
+}

@@ -41,7 +41,8 @@
         }
 
         > .title {
-          padding-bottom: 1.5px; /* Noto Sans特有の文字が若干下にずれる問題の対処 */
+          @mixin noto-sans-text-adjust;
+
           font-size: 14px;
         }
       }

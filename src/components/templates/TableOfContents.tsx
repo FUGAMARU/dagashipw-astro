@@ -2,18 +2,25 @@ import { Fragment, useEffect, useState } from "react"
 import { useSessionStorage } from "usehooks-ts"
 
 import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/TableOfContents.module.css"
 import { TableOfContentsItem } from "@/components/templates/TableOfContentsItem"
 import {
   CUSTOM_EVENT_ACTIVE_HEADING_CHANGE,
   CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE
 } from "@/constants/event"
-import { SESSION_STORAGE_TABLE_OF_CONTENTS_KEY } from "@/constants/value"
+import {
+  SESSION_STORAGE_MINUTES_TO_READ_KEY,
+  SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
+} from "@/constants/value"
 
 import type { TableOfContentsData } from "@/types/table-of-contents"
 
 /** 目次 */
 export const TableOfContents = () => {
+  /** 記事の読了目安時間 (分) */
+  const [minutesToRead] = useSessionStorage<number>(SESSION_STORAGE_MINUTES_TO_READ_KEY, 0)
+
   /** 見出し一覧 (Inserter(SP)とSidebar(PC)でそれぞれ取得ロジックを書くのが無駄なのでここでsessionStorageから取得してしまう) */
   const [tableOfContents] = useSessionStorage<TableOfContentsData>(
     SESSION_STORAGE_TABLE_OF_CONTENTS_KEY,
@@ -85,8 +92,15 @@ export const TableOfContents = () => {
         ))}
       </div>
 
-      <div className={styles.headingWrapper}>
-        <div className={styles.heading} />
+      <div className={styles.sectionTop}>
+        <div className={styles.heading}>
+          <div className={styles.inner} />
+        </div>
+
+        <div className={styles.minutes}>
+          <SvgLoader className={styles.icon} height={10} name="clock" width={10} />
+          <span className={styles.text}>この記事は{minutesToRead}分くらいで読めます</span>
+        </div>
       </div>
     </div>
   )
