@@ -13,6 +13,7 @@ import {
   SESSION_STORAGE_MINUTES_TO_READ_KEY,
   SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
 } from "@/constants/value"
+import { useIsSP } from "@/hooks/useIsSP"
 
 import type { TableOfContentsData } from "@/types/table-of-contents"
 
@@ -28,9 +29,17 @@ export const TableOfContents = () => {
   )
 
   /** アクティブな見出しのID (sessionStorageからの取得ロジックを複数回用意するのが無駄なのでここでフックを呼んでしまう) */
-  const [activeHeadingHref, setActiveHeadingHref] = useState(tableOfContents[0].h2.href ?? "#")
+  const [activeHeadingHref, setActiveHeadingHref] = useState("")
+
+  const isSP = useIsSP()
 
   useEffect(() => {
+    if (isSP) {
+      return // SP表示の場合目次は記事冒頭固定なので何もしなくて良い
+    }
+
+    setActiveHeadingHref(tableOfContents[0].h2.href) // SPの場合は目次を太字にしたくないので早期returnした後のこのタイミングでsetActiveHeadingHrefする
+
     const hydrationCompleteEvent = new CustomEvent(
       CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE
     )
@@ -38,6 +47,7 @@ export const TableOfContents = () => {
 
     /** アクティブな見出しアイテムが変わったときの処理 */
     const handleActiveHeadingChange = (event: CustomEvent<string>) => {
+      console.log("処理")
       setActiveHeadingHref(event.detail)
     }
 
@@ -52,7 +62,7 @@ export const TableOfContents = () => {
         handleActiveHeadingChange as EventListener
       )
     }
-  }, [])
+  }, [isSP, tableOfContents])
 
   return (
     <div className={styles.tableOfContents}>
