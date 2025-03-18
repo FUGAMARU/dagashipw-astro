@@ -23,6 +23,7 @@
     "gabarito",
     "monokai",
     "shiki",
-    "typescanner"
+    "typescanner",
+    "nanostores"
   ]
 }

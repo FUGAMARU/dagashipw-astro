@@ -122,12 +122,10 @@ const articleDate = articleInfo.updatedAt
   <toc-variable-bridge data-value={JSON.stringify(tableOfContentsData)}></toc-variable-bridge>
 
   <script>
-    import {
-      SESSION_STORAGE_MINUTES_TO_READ_KEY,
-      SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
-    } from "@/constants/value"
     import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
     import { isDefined } from "@/utils/isDefined"
+    import { minutesToReadAtom } from "@/stores/minutes-to-read"
+    import { tableOfContentsAtom } from "@/stores/table-of-contents"
 
     /**
      * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する
@@ -174,14 +172,12 @@ const articleDate = articleInfo.updatedAt
 
         const { value: tableOfContentsData, minutestoread } = this.dataset
 
-        // コンポーネントの階層の都合上TableOfContentsコンポーネントに直接データーを渡すのが難しいのでsessionStorageを利用している (カスタムイベントを用いたコンポーネントへのデータ〜の送信手法はイベント発火タイミングの都合上不可能であった)
-
         if (isDefined(minutestoread)) {
-          sessionStorage.setItem(SESSION_STORAGE_MINUTES_TO_READ_KEY, minutestoread)
+          minutesToReadAtom.set(Number(minutestoread))
         }
 
         if (isDefined(tableOfContentsData)) {
-          sessionStorage.setItem(SESSION_STORAGE_TABLE_OF_CONTENTS_KEY, tableOfContentsData)
+          tableOfContentsAtom.set(JSON.parse(tableOfContentsData))
         }
       }
     }

@@ -1,5 +1,5 @@
+import { useStore } from "@nanostores/react"
 import { Fragment, useEffect, useState } from "react"
-import { useSessionStorage } from "usehooks-ts"
 
 import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
@@ -9,26 +9,19 @@ import {
   CUSTOM_EVENT_ACTIVE_HEADING_CHANGE,
   CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE
 } from "@/constants/event"
-import {
-  SESSION_STORAGE_MINUTES_TO_READ_KEY,
-  SESSION_STORAGE_TABLE_OF_CONTENTS_KEY
-} from "@/constants/value"
 import { useIsSP } from "@/hooks/useIsSP"
-
-import type { TableOfContentsData } from "@/types/table-of-contents"
+import { minutesToReadAtom } from "@/stores/minutes-to-read"
+import { tableOfContentsAtom } from "@/stores/table-of-contents"
 
 /** 目次 */
 export const TableOfContents = () => {
   /** 記事の読了目安時間 (分) */
-  const [minutesToRead] = useSessionStorage<number>(SESSION_STORAGE_MINUTES_TO_READ_KEY, 0)
+  const minutesToRead = useStore(minutesToReadAtom)
 
-  /** 見出し一覧 (Inserter(SP)とSidebar(PC)でそれぞれ取得ロジックを書くのが無駄なのでここでsessionStorageから取得してしまう) */
-  const [tableOfContents] = useSessionStorage<TableOfContentsData>(
-    SESSION_STORAGE_TABLE_OF_CONTENTS_KEY,
-    []
-  )
+  /** 見出し一覧 */
+  const tableOfContents = useStore(tableOfContentsAtom)
 
-  /** アクティブな見出しのID (sessionStorageからの取得ロジックを複数回用意するのが無駄なのでここでフックを呼んでしまう) */
+  /** アクティブな見出しのID  */
   const [activeHeadingHref, setActiveHeadingHref] = useState("")
 
   const isSP = useIsSP()
