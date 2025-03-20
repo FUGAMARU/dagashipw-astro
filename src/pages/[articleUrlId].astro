@@ -22,12 +22,13 @@ import { H2 } from "@/components/article/standards/heading/H2"
 import { H3 } from "@/components/article/standards/heading/H3"
 import { H4 } from "@/components/article/standards/heading/H4"
 import { Li } from "@/components/article/standards/list/Li"
-import { Ul } from "@/components/article/standards/list/Ul"
+import UlWrapper from "@/components/article/standards/list/UlWrapper.astro"
 import { ArticleImage } from "@/components/article/standards/media/ArticleImage"
 import { Video } from "@/components/article/standards/media/Video"
 import Layout from "@/components/layout/Layout.astro"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 import { Hero } from "@/components/templates/hero/Hero"
+import { NESTED_UL_TAG_RECURSIVE_SEARCH_TERMINATION_POINT } from "@/constants/element"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIds, getArticle } from "@/services/api"
 import { getCurrentDateTime } from "@/utils/date"
@@ -76,7 +77,7 @@ const articleDate = articleInfo.updatedAt
       <Hero device="pc" {...articleInfo} />
     </div>
 
-    <div class={styles.body}>
+    <div class={styles.body} id={NESTED_UL_TAG_RECURSIVE_SEARCH_TERMINATION_POINT}>
       <StaleContentWarning articleDate={articleDate} client:load />
 
       <Markdown
@@ -90,7 +91,7 @@ const articleDate = articleInfo.updatedAt
           ArticleImage,
           code: Code,
           video: Video,
-          ul: Ul,
+          ul: UlWrapper,
           li: Li,
           iframe: Iframe,
           table: Table,

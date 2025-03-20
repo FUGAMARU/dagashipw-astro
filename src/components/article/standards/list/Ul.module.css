@@ -1,9 +1,14 @@
 @import url("/src/styles/post.css");
 
 .ulTag {
+  @mixin article-section-margin-half;
+
   display: flex;
   flex-direction: column;
   gap: 16px;
 
-  @mixin article-section-margin;
+  &.Nested {
+    gap: 8px;
+    margin-top: 0;
+  }
 }
