@@ -122,10 +122,10 @@ const articleDate = articleInfo.updatedAt
   <toc-variable-bridge data-value={JSON.stringify(tableOfContentsData)}></toc-variable-bridge>
 
   <script>
-    import { CUSTOM_EVENT_ACTIVE_HEADING_CHANGE } from "@/constants/event"
     import { isDefined } from "@/utils/isDefined"
     import { minutesToReadAtom } from "@/stores/minutes-to-read"
     import { tableOfContentsAtom } from "@/stores/table-of-contents"
+    import { activeHeadingAnchorLinkAtom } from "@/stores/active-heading-anchor-link"
 
     /**
      * IntersectionObserverを利用して、スクロール位置に応じてアクティブな見出しを取得する
@@ -147,10 +147,7 @@ const articleDate = articleInfo.updatedAt
             return
           }
 
-          const event = new CustomEvent(CUSTOM_EVENT_ACTIVE_HEADING_CHANGE, {
-            detail: `#${activeHeadingId}`
-          })
-          window.dispatchEvent(event)
+          activeHeadingAnchorLinkAtom.set(`#${activeHeadingId}`)
         },
         {
           rootMargin: "-10% 0px -90%"
