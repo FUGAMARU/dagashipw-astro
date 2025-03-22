@@ -86,7 +86,7 @@ const shouldShowTableOfContents =
     SIDEBAR_SCROLLABLE_OVERLAY_ID,
     SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID
   } from "@/constants/element"
-  import { CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE } from "@/constants/event"
+  import { isTocHydrationCompleteAtom } from "@/stores/is-toc-hydration-complete"
   import { isDefined } from "@/utils/isDefined"
   import anime from "animejs"
   import { debounce } from "es-toolkit"
@@ -110,13 +110,13 @@ const shouldShowTableOfContents =
   }
 
   // PC表示時サイドバーがスクロール可能な状態であればオーバーレイを表示する / スクロール不可能な状態であれば非表示にする
-  window.addEventListener(
-    CUSTOM_EVENT_TABLE_OF_CONTENTS_HYDRATION_COMPLETE,
-    switchSidebarScrollableOverlay,
-    {
-      once: true
+  isTocHydrationCompleteAtom.subscribe(isTocHydrationComplete => {
+    if (!isTocHydrationComplete) {
+      return
     }
-  )
+
+    switchSidebarScrollableOverlay()
+  })
 
   // ウィンドウリサイズ時にサイドバーがスクロール可能な状態であればオーバーレイを表示する / スクロール不可能な状態であれば非表示にする
   window.addEventListener("resize", switchSidebarScrollableOverlay)

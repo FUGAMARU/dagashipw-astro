@@ -1,11 +1,12 @@
 import { useStore } from "@nanostores/react"
-import { Fragment } from "react"
+import { Fragment, useEffect } from "react"
 
 import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/TableOfContents.module.css"
 import { TableOfContentsItem } from "@/components/templates/TableOfContentsItem"
 import { activeHeadingAnchorLinkWithInitialValueAtom } from "@/stores/active-heading-anchor-link"
+import { isTocHydrationCompleteAtom } from "@/stores/is-toc-hydration-complete"
 import { minutesToReadAtom } from "@/stores/minutes-to-read"
 import { tableOfContentsAtom } from "@/stores/table-of-contents"
 
@@ -21,6 +22,10 @@ export const TableOfContents = () => {
   const activeHeadingAnchorLinkWithInitialValue = useStore(
     activeHeadingAnchorLinkWithInitialValueAtom
   )
+
+  useEffect(() => {
+    isTocHydrationCompleteAtom.set(true)
+  })
 
   return (
     <div className={styles.tableOfContents}>
