@@ -5,7 +5,7 @@
 import axios from "axios"
 
 import { axiosInstance } from "@/services/axios"
-import { isDefined } from "@/utils/isDefined"
+import { isDefined } from "@/utils"
 
 import type { components, paths } from "@/types/schema"
 

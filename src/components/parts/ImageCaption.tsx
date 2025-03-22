@@ -1,7 +1,7 @@
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import styles from "@/components/parts/ImageCaption.module.css"
+import { isDefined } from "@/utils"
 import { convertCommaSeparatedStringToArray } from "@/utils/formatter"
-import { isDefined } from "@/utils/isDefined"
 
 /** Props */
 type Props = {

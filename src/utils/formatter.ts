@@ -6,7 +6,7 @@ import { isValidElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
 import { EXTRACTED_PARAGRAPHS_LENGTH } from "@/constants/value"
-import { isDefined } from "@/utils/isDefined"
+import { isDefined } from "@/utils"
 import { API_ORIGIN } from "scripts/utils"
 
 import type { ArticleInfo } from "@/types/article"

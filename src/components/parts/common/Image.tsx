@@ -3,7 +3,7 @@ import { capitalize } from "es-toolkit"
 
 import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
-import { isDefined } from "@/utils/isDefined"
+import { isDefined } from "@/utils"
 
 import type { ComponentProps } from "react"
 

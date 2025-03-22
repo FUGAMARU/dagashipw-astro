@@ -3,8 +3,8 @@ import Layout from "@/components/layout/Layout.astro"
 import ArticleList from "@/components/templates/ArticleList.astro"
 import { PAGE_NAME } from "@/constants/page"
 import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
+import { isDefined } from "@/utils"
 import { formatArticleInfo } from "@/utils/formatter"
-import { isDefined } from "@/utils/isDefined"
 
 const totalArticlePageCount = await getTotalArticlePageCount()
 const articles = await getArticlesWithPagination(1)

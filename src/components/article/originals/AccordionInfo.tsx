@@ -6,7 +6,7 @@ import styles from "@/components/article/originals/AccordionInfo.module.css"
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { useIsSP } from "@/hooks/useIsSP"
-import { isDefined } from "@/utils/isDefined"
+import { isDefined } from "@/utils"
 
 import type { SvgComponentName } from "@/types/svg"
 import type { MouseEvent, ReactNode } from "react"

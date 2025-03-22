@@ -2,8 +2,8 @@
  * @file 目次関連の関数群
  */
 
+import { isDefined } from "@/utils"
 import { generateHeadingId } from "@/utils/formatter"
-import { isDefined } from "@/utils/isDefined"
 
 import type { NestedHeading, TableOfContentsData } from "@/types/table-of-contents"
 

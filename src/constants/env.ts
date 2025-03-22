@@ -2,7 +2,7 @@
  * @file 環境変数を利用するための中間定数群
  */
 
-import { isDefined } from "@/utils/isDefined"
+import { isDefined } from "@/utils"
 
 /** APIオリジン */
 export const API_ORIGIN = import.meta.env.API_ORIGIN
