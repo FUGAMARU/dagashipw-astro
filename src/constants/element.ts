@@ -13,7 +13,3 @@ export const SIDEBAR_SCROLLABLE_OVERLAY_ID = "sidebar-scrollable-overlay"
 
 /** サイドバーを一番下までスクロールするボタンのID */
 export const SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID = "sidebar-scroll-to-bottom-button"
-
-/** 自身がネストされたUlタグか判定するために親要素を再帰的に探索する時の最終到達点 */
-export const NESTED_UL_TAG_RECURSIVE_SEARCH_TERMINATION_POINT =
-  "nested-ul-tag-recursive-search-termination-point"
