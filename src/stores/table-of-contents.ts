@@ -7,4 +7,4 @@ import { atom } from "nanostores"
 import type { TableOfContentsData } from "@/types/table-of-contents"
 
 /** 目次データー */
-export const tableOfContentsAtom = atom<TableOfContentsData>([])
+export const tableOfContentsAtom = atom<TableOfContentsData | undefined>()

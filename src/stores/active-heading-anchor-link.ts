@@ -13,5 +13,5 @@ export const activeHeadingAnchorLinkAtom = atom<string | undefined>()
 export const activeHeadingAnchorLinkWithInitialValueAtom = computed(
   [tableOfContentsAtom, activeHeadingAnchorLinkAtom],
   (tableOfContents, activeHeadingAnchorLink) =>
-    activeHeadingAnchorLink ?? tableOfContents[0]?.h2?.href
+    activeHeadingAnchorLink ?? tableOfContents?.[0].h2.href
 )

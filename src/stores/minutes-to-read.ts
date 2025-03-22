@@ -5,4 +5,4 @@
 import { atom } from "nanostores"
 
 /** 読了目安時間 (分) */
-export const minutesToReadAtom = atom(0)
+export const minutesToReadAtom = atom<number | undefined>()

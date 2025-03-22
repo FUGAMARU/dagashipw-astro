@@ -30,7 +30,7 @@ export const TableOfContents = () => {
   return (
     <div className={styles.tableOfContents}>
       <div className={styles.main}>
-        {tableOfContents.map((content, h2Index) => (
+        {tableOfContents?.map((content, h2Index) => (
           <Fragment key={content.h2.title}>
             <TableOfContentsItem
               href={content.h2.href}
