@@ -8,7 +8,6 @@ import { TableOfContentsWrapper } from "@/components/layout/sidebar/TableOfConte
 import { Input } from "@/components/parts/input/Input"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import {
-  PC_TABLE_OF_CONTENTS_CONTAINER_ID,
   SIDEBAR_ID,
   SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID,
   SIDEBAR_SCROLLABLE_OVERLAY_ID
@@ -41,10 +40,7 @@ const shouldShowTableOfContents =
       <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
-    <div
-      class={clsx(styles.toc, !shouldShowTableOfContents && styles.Hidden)}
-      id={PC_TABLE_OF_CONTENTS_CONTAINER_ID}
-    >
+    <div class={clsx(styles.toc, !shouldShowTableOfContents && styles.Hidden)}>
       <TableOfContentsWrapper client:only="react" />
     </div>
 
