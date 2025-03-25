@@ -1,11 +1,47 @@
+import { createHmac } from "node:crypto"
+
 import clsx from "clsx"
 import { capitalize } from "es-toolkit"
 
 import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
+import {
+  API_ORIGIN,
+  CMS_STATIC_CONTENTS_DIRECTORY,
+  IMGPROXY_ORIGIN,
+  IMGPROXY_SIGNING_KEY,
+  IMGPROXY_SIGNING_SALT
+} from "@/constants/env"
 import { isDefined } from "@/utils"
 
 import type { ComponentProps } from "react"
+
+/**
+ * CMSのオリジナル画像URLから軽量化された画像URLを取得する
+ * TODO: node:cryptoのcreateHmacを使っているため、CSRするコンポーネントでImageコンポーネントを使おうとすると詰むので対応する必要がある。対応する場合はAstroに画像URL取得用のAPIを設ける必要がありそう。
+ *
+ * @param originalImageUrl - オリジナル画像のURL
+ * @returns 軽量化された画像のURL
+ */
+export const getLightweightImageUrl = (originalImageUrl: string): string => {
+  // 拡張子がwebpの場合は既に軽量化されている画像なのでそのまま返す
+  if (originalImageUrl.endsWith(".webp")) {
+    return originalImageUrl
+  }
+
+  const filename = originalImageUrl.replace(`${API_ORIGIN}${CMS_STATIC_CONTENTS_DIRECTORY}/`, "")
+  const path = `/default/plain/local:///${filename}`
+
+  /** HexをBufferにデコードする */
+  const decodeHexToBuffer = (hex: string) => new Uint8Array(Buffer.from(hex, "hex"))
+
+  const hmac = createHmac("sha256", decodeHexToBuffer(IMGPROXY_SIGNING_KEY))
+  hmac.update(decodeHexToBuffer(IMGPROXY_SIGNING_SALT))
+  hmac.update(path)
+  const signature = hmac.digest("base64url")
+
+  return `${IMGPROXY_ORIGIN}/${signature}${path}`
+}
 
 /** Props */
 type Props = Omit<ComponentProps<"img">, "className"> &
@@ -74,7 +110,7 @@ export const Image = ({
           isWide && styles.Wide,
           isDefined(borderRadius) && styles[`BorderRadius${borderRadius}`]
         )}
-        src={src}
+        src={getLightweightImageUrl(src)}
         {...props}
       />
 
