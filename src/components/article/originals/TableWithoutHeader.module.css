@@ -1,0 +1,23 @@
+@import url("/src/styles/post.css");
+
+.tableWithoutHeader {
+  @mixin article-section-margin;
+
+  > .main {
+    > tbody {
+      @mixin tbody-common;
+
+      > tr {
+        &:not(:last-child) {
+          border-bottom: solid 1px var(--color-light-gray);
+        }
+
+        > td {
+          &:not(:last-child) {
+            border-right: solid 1px var(--color-light-gray);
+          }
+        }
+      }
+    }
+  }
+}

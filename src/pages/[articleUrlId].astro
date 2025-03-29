@@ -6,6 +6,7 @@ import { ChatMessage } from "@/components/article/originals/ChatMessage"
 import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.astro"
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
+import { TableWithoutHeader } from "@/components/article/originals/TableWithoutHeader"
 import { Spotify } from "@/components/article/originals/iframe/Spotify"
 import { YouTube } from "@/components/article/originals/iframe/YouTube"
 import { HeightAdjustedImage } from "@/components/article/originals/image/HeightAdjustedImage"
@@ -105,7 +106,8 @@ const articleDate = articleInfo.updatedAt
           Spotify,
           kbd: Kbd,
           AccordionInfo: AccordionInfoWrapper,
-          ChatMessage
+          ChatMessage,
+          TableWithoutHeader
         }}
         content={tableOfContentsInsertedArticleBody}
         sanitize={{
