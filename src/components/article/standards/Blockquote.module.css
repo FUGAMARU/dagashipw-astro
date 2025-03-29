@@ -19,7 +19,6 @@
   > p {
     /* なぜかastro-remoteがchildrenをpタグでラップして渡してくるので仕方なくタグ直指定 */
     padding: 4px 0 4px 22px;
-    margin-top: 0; /* pタグは勝手にParagraphコンポーネントに変換され、そのParagraphコンポーネントにはmargin-topが付与されているのでここで打ち消す */
     color: var(--color-light-dark);
   }
 }

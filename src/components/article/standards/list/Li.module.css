@@ -6,10 +6,6 @@
   margin-left: 30px;
   list-style-type: circle;
 
-  > p {
-    margin-top: 0; /* liタグの中身がpタグでラップされてしまうのでpタグ標準のマージンを削除 */
-  }
-
   /* ネストされたulのスタイル */
   > ul {
     gap: 8px;
