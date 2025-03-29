@@ -6,7 +6,7 @@
   justify-content: center;
   width: 100%;
 
-  @mixin article-section-margin;
+  @mixin section-article-common-spacing;
 
   > .main {
     width: 100%;

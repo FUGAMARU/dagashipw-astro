@@ -5,8 +5,7 @@
   flex-direction: column;
   gap: 8px;
   width: fit-content;
-
-  @mixin article-section-margin;
+  margin: var(--spacing-article-heading-sp);
 
   > .text {
     font-size: 18px;
@@ -42,6 +41,7 @@
 @media (--pc) {
   .h3Tag {
     gap: 10px;
+    margin: var(--spacing-article-heading-h3-pc);
 
     > .text {
       font-size: 21px;

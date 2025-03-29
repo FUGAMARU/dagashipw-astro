@@ -1,7 +1,7 @@
 @import url("/src/styles/post.css");
 
 .chatMessage {
-  @mixin article-section-margin;
+  @mixin section-article-common-spacing;
 
   display: flex;
   gap: 10px;

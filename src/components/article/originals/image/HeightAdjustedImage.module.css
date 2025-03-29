@@ -1,7 +1,7 @@
 @import url("/src/styles/post.css");
 
 .heightAdjustedImage {
-  @mixin article-section-margin;
+  @mixin section-article-common-spacing;
 }
 
 @media (--pc) {

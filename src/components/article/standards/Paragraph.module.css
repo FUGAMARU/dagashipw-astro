@@ -2,5 +2,26 @@
 
 .paragraphTag {
   @mixin article-paragraph;
-  @mixin article-section-margin-half;
+}
+
+h2 + .paragraphTag,
+h3 + .paragraphTag,
+h4 + .paragraphTag {
+  margin-top: var(--spacing-article-heading-to-paragraph-sp);
+}
+
+.paragraphTag + .paragraphTag {
+  margin-top: var(--spacing-article-consecutive-paragraph-sp);
+}
+
+@media (--pc) {
+  h2 + .paragraphTag,
+  h3 + .paragraphTag,
+  h4 + .paragraphTag {
+    margin-top: var(--spacing-article-heading-to-paragraph-pc);
+  }
+
+  .paragraphTag + .paragraphTag {
+    margin-top: var(--spacing-article-consecutive-paragraph-pc);
+  }
 }

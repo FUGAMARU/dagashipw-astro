@@ -4,5 +4,5 @@
   display: flex;
   align-items: flex-start;
 
-  @mixin article-section-margin;
+  @mixin section-article-common-spacing;
 }

@@ -3,7 +3,7 @@
 .blockquoteTag {
   position: relative;
 
-  @mixin article-section-margin-half;
+  @mixin section-article-common-spacing;
 
   > .bar {
     position: absolute;

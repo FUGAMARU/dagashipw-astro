@@ -1,7 +1,7 @@
 @import url("/src/styles/post.css");
 
 .ulTag {
-  @mixin article-section-margin-half;
+  @mixin section-article-common-spacing;
 
   display: flex;
   flex-direction: column;

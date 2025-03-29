@@ -6,8 +6,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-
-  @mixin article-section-margin-half;
+  padding-bottom: 12px;
 
   > .main {
     display: flex;
@@ -33,5 +32,11 @@
         font-weight: bold;
       }
     }
+  }
+}
+
+@media (--pc) {
+  .staleContentWarning {
+    padding-bottom: 16px;
   }
 }

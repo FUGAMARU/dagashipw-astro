@@ -1,4 +1,5 @@
 :root {
+  /* Color */
   --color-white: #fff;
   --color-white-50: rgb(255 255 255 / 50%);
   --color-white-70: rgb(255 255 255 / 70%);
@@ -35,8 +36,17 @@
   --color-brown: #6c3038;
   --color-vivid-red: #fb2b50;
   --color-border-gray: #ececec;
-  --margin-top-article-section-sp: 25px;
-  --margin-top-article-section-pc: 40px;
+
+  /* Article Parts Spacing */
+  --spacing-article-parts-common-sp: 12px;
+  --spacing-article-parts-common-pc: 20px;
+  --spacing-article-consecutive-paragraph-sp: 8px;
+  --spacing-article-consecutive-paragraph-pc: 12px;
+  --spacing-article-heading-to-paragraph-sp: 10px;
+  --spacing-article-heading-to-paragraph-pc: 12px;
+  --spacing-article-heading-sp: 24px 0 12px;
+  --spacing-article-heading-h2-pc: 36px 0 12px;
+  --spacing-article-heading-h3-pc: 30px 0 12px;
 
   /* react-responsive-pagination関連 */
   --pagination-color: #67a700;

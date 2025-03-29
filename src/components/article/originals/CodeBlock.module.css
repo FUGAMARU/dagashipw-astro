@@ -1,7 +1,7 @@
 @import url("/src/styles/post.css");
 
 .codeBlock {
-  @mixin article-section-margin-half;
+  @mixin section-article-common-spacing;
 
   overflow: hidden;
   border-radius: 4px;

@@ -2,8 +2,7 @@
 
 .h2Tag {
   display: flex;
-
-  @mixin article-section-margin;
+  margin: var(--spacing-article-heading-sp);
 
   > .line {
     width: 8px;
@@ -29,6 +28,8 @@
 
 @media (--pc) {
   .h2Tag {
+    margin: var(--spacing-article-heading-h2-pc);
+
     > .text {
       font-size: 26px;
     }

@@ -5,7 +5,7 @@
   overflow-x: auto;
   border-radius: 4px;
 
-  @mixin article-section-margin;
+  @mixin section-article-common-spacing;
 
   > .main {
     width: 100%;

@@ -1,7 +1,7 @@
 @import url("/src/styles/post.css");
 
 .youTube {
-  @mixin article-section-margin;
+  @mixin section-article-common-spacing;
 
   &.Centered {
     width: 100%;
