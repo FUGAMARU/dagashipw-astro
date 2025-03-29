@@ -6,12 +6,13 @@ import type { ComponentProps } from "react"
 const meta: Meta<typeof ChatMessage> = {
   component: ChatMessage,
   tags: ["autodocs"],
-  args: { role: "me", icon: undefined, name: undefined, text: undefined },
+  args: { role: "me", icon: undefined, name: undefined, text: undefined, isFullWidth: undefined },
   argTypes: {
     role: { control: "select", options: ["me", "opponent"] },
     icon: { control: "text" },
     name: { control: "text" },
-    text: { control: "text" }
+    text: { control: "text" },
+    isFullWidth: { control: "boolean" }
   }
 }
 

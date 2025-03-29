@@ -44,10 +44,12 @@ export const getLightweightImageUrl = (originalImageUrl: string): string => {
 }
 
 /** Props */
-type Props = Omit<ComponentProps<"img">, "className"> &
+type Props = Omit<ComponentProps<"img">, "className" | "loading"> &
   Partial<ComponentProps<typeof ImageCaption>> & {
+    /** 画像を即時読み込みするかどうか */
+    isEager?: boolean
     /** object-fir: cover指定かどうか */
-    objectFitCover?: boolean
+    isObjectFitCover?: boolean
     /** 円形画像かどうか */
     isCircle?: boolean
     /** CSSで指定するwidth */
@@ -74,7 +76,8 @@ export const Image = ({
   caption,
   captionLinkTexts,
   captionLinks,
-  objectFitCover = false,
+  isEager = false,
+  isObjectFitCover = false,
   isCircle = false,
   cssWidth,
   cssHeight,
@@ -102,7 +105,7 @@ export const Image = ({
         // TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討
         className={clsx(
           styles.image,
-          objectFitCover && styles.Covered,
+          isObjectFitCover && styles.Covered,
           isCircle && styles.Circle,
           isDefined(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
           isDefined(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
@@ -110,6 +113,7 @@ export const Image = ({
           isWide && styles.Wide,
           isDefined(borderRadius) && styles[`BorderRadius${borderRadius}`]
         )}
+        loading={isEager ? "eager" : "lazy"}
         src={getLightweightImageUrl(src)}
         {...props}
       />

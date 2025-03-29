@@ -23,8 +23,9 @@ export const HeroPC = ({
           alt={title}
           cssHeight="auto"
           cssWidth="full"
+          isEager
+          isObjectFitCover
           isWide
-          objectFitCover
           src={thumbnailUrl}
         />
       </div>

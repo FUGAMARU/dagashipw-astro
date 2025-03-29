@@ -9,9 +9,17 @@ import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 import { determineWhiteTextColor } from "@/utils/color"
 
 import type { ArticleInfo } from "@/types/article"
+import type { ComponentProps } from "react"
 
-/** 記事情報カード (トップページで使う) */
+/** Props */
+type Props = {
+  /** サムネイルを即時読込するかどうか */
+  isThumbnailEager?: ComponentProps<typeof Image>["isEager"]
+} & ArticleInfo
+
+/** 記事情報カード */
 export const ArticleCard = ({
+  isThumbnailEager = false,
   thumbnailUrl,
   themeColor,
   createdAt,
@@ -21,7 +29,7 @@ export const ArticleCard = ({
   bodyBeginningParagraph,
   tags,
   backNumber
-}: ArticleInfo) => {
+}: Props) => {
   const isHeaderTextColorWhite = determineWhiteTextColor(themeColor)
 
   return (
@@ -31,7 +39,8 @@ export const ArticleCard = ({
           cssHeight="full"
           cssWidth="full"
           figureTagClassName={styles.imageFigureTag}
-          objectFitCover
+          isEager={isThumbnailEager}
+          isObjectFitCover
           src={thumbnailUrl}
         />
       </div>

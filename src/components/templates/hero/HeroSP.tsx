@@ -24,8 +24,9 @@ export const HeroSP = ({
           borderRadius="0"
           cssHeight="auto"
           cssWidth="full"
+          isEager
+          isObjectFitCover
           isWide
-          objectFitCover
           src={thumbnailUrl}
         />
         <div className={styles.overlay} />

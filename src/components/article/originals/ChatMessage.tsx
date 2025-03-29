@@ -27,7 +27,7 @@ export const ChatMessage = ({ role, icon, name, text, isFullWidth = false }: Pro
         figureTagClassName={styles.icon}
         height={40}
         isCircle
-        objectFitCover
+        isObjectFitCover
         src={icon}
         width={40}
       />

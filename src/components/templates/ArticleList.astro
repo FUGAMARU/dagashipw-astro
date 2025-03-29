@@ -27,7 +27,7 @@ const { articleInfoList, pageNumber, totalArticlePageCount } = Astro.props
         <>
           <Link href={`/${articleInfo.articleUrlId}`}>
             <article>
-              <ArticleCard {...articleInfo} />
+              <ArticleCard isThumbnailEager={index < 3} {...articleInfo} />
             </article>
           </Link>
 
