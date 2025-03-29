@@ -25,6 +25,7 @@
     "shiki",
     "typescanner",
     "nanostores",
-    "imgproxy"
+    "imgproxy",
+    "axios"
   ]
 }
