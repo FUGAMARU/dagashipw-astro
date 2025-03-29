@@ -1,4 +1,6 @@
+import { useRef } from "react"
 import ResponsivePagination from "react-responsive-pagination"
+import { useResizeObserver } from "usehooks-ts"
 
 import { PAGE_PATH } from "@/constants/page"
 
@@ -14,6 +16,13 @@ type Props = {
 
 /** ページネーション用コンポーネント */
 export const Pagination = ({ currentPage, totalPageCount }: Props) => {
+  const paginationRef = useRef<HTMLDivElement>(null)
+
+  const { width = paginationRef.current?.clientWidth } = useResizeObserver({
+    ref: paginationRef,
+    box: "border-box"
+  })
+
   /** ページを変更したときの処理 */
   const handlePageChange = (page: number) => {
     // TODO: 共通関数化したい
@@ -21,10 +30,13 @@ export const Pagination = ({ currentPage, totalPageCount }: Props) => {
   }
 
   return (
-    <ResponsivePagination
-      current={currentPage}
-      onPageChange={handlePageChange}
-      total={totalPageCount}
-    />
+    <div ref={paginationRef}>
+      <ResponsivePagination
+        current={currentPage}
+        maxWidth={width}
+        onPageChange={handlePageChange}
+        total={totalPageCount}
+      />
+    </div>
   )
 }
