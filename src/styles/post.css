@@ -30,7 +30,9 @@
 
 /* Noto Sans特有の文字が若干下にずれる問題の対処 */
 @define-mixin noto-sans-text-adjust {
-  padding-bottom: 1.5px;
+  /* TODO: stylelintがtext-boxを認識するようになったら削除する */
+  /* stylelint-disable-next-line property-no-unknown */
+  text-box: trim-both cap alphabetic;
 }
 
 /* tbody共通スタイル */
