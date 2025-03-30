@@ -37,8 +37,7 @@ export const getLightweightImageUrl = (originalImageUrl: string): string => {
    * @param hex - Hex文字列
    * @returns Buffer
    */
-  const decodeHexToBuffer = (hex: string): Uint8Array<ArrayBuffer> =>
-    new Uint8Array(Buffer.from(hex, "hex"))
+  const decodeHexToBuffer = (hex: string): Uint8Array => new Uint8Array(Buffer.from(hex, "hex"))
 
   const hmac = createHmac("sha256", decodeHexToBuffer(IMGPROXY_SIGNING_KEY))
   hmac.update(decodeHexToBuffer(IMGPROXY_SIGNING_SALT))
