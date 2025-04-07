@@ -23,8 +23,8 @@ import {
  * @returns 軽量化された画像のURL
  */
 export const getLightweightImageUrl = (originalImageUrl: string): string => {
-  // 拡張子がwebpの場合は既に軽量化されている画像なのでそのまま返す
-  if (originalImageUrl.endsWith(".webp")) {
+  // CMSで管理していないリモート画像や既に軽量化されているwebpの場合はそのまま返す
+  if (!originalImageUrl.startsWith(API_ORIGIN) || originalImageUrl.endsWith(".webp")) {
     return originalImageUrl
   }
 
