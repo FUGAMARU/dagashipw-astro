@@ -1,6 +1,6 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
-import ArticleList from "@/components/templates/ArticleList.astro"
+import ArticleListView from "@/components/views/ArticleListView.astro"
 import { PAGE_NAME, PAGE_PATH } from "@/constants/page"
 import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
 import { isDefined } from "@/utils"
@@ -36,7 +36,7 @@ const totalArticlePageCount = await getTotalArticlePageCount() // getStaticPaths
 ---
 
 <Layout title={PAGE_NAME.ARTICLE_LIST_WITH_PAGE}>
-  <ArticleList
+  <ArticleListView
     articleInfoList={articleInfoList}
     pageNumber={pageNumber}
     totalArticlePageCount={totalArticlePageCount}

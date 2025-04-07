@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev --host",
+    "start:prod": "node ./dist/server/entry.mjs",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",

@@ -1,6 +1,6 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
-import ArticleList from "@/components/templates/ArticleList.astro"
+import ArticleListView from "@/components/views/ArticleListView.astro"
 import { PAGE_NAME } from "@/constants/page"
 import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
 import { isDefined } from "@/utils"
@@ -17,7 +17,7 @@ const articleInfoList = await Promise.all(articles.filter(isDefined).map(formatA
 ---
 
 <Layout title={PAGE_NAME.TOP}>
-  <ArticleList
+  <ArticleListView
     articleInfoList={articleInfoList}
     pageNumber={1}
     totalArticlePageCount={totalArticlePageCount}

@@ -1,0 +1,18 @@
+---
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { CommentPostButton } from "@/components/templates/CommentPostButton"
+import styles from "@/components/views/CommentView.module.css"
+// TODO: コメントの取得処理
+---
+
+<div class={styles.commentView}>
+  <div class={styles.header}>
+    <div class={styles.left}>
+      <SvgLoader height={20} name="commentWithPen" width={20} />
+      <span class={styles.text}>この記事に寄せられたコメント (10)</span>
+    </div>
+    <CommentPostButton client:load />
+  </div>
+
+  コメント表示エリア
+</div>

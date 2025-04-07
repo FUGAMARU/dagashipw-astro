@@ -4,13 +4,12 @@
 
 import axios from "axios"
 
+import { ARTICLES_PER_PAGE } from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
 import { isDefined } from "@/utils"
 
-import type { components, paths } from "@/types/schema"
-
-/** 1ページあたりの記事表示数 */
-const ARTICLES_PER_PAGE = 10
+import type { Article } from "@/types/article"
+import type { paths } from "@/types/schema"
 
 /**
  * 記事を取得する
@@ -18,9 +17,7 @@ const ARTICLES_PER_PAGE = 10
  * @param articleUrlId - 記事のURL ID
  * @returns 記事データ
  */
-export const getArticle = async (
-  articleUrlId: string
-): Promise<components["schemas"]["Article"] | undefined> => {
+export const getArticle = async (articleUrlId: string): Promise<Article | undefined> => {
   const response = await axiosInstance.get<
     paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
   >(`/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`)
@@ -75,7 +72,7 @@ export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
  */
 export const getArticlesWithPagination = async (
   pageNumber: number
-): Promise<Array<components["schemas"]["Article"] | undefined> | undefined> => {
+): Promise<Array<Article | undefined> | undefined> => {
   const response = await axiosInstance.get<
     paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
   >(

@@ -1,0 +1,51 @@
+@import url("/src/styles/post.css");
+
+.articleView {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+
+  > .heroPc {
+    display: none;
+  }
+
+  > .body {
+    padding: 10px 16px 16px;
+
+    > :first-child {
+      padding-top: 0;
+    }
+
+    > .built {
+      padding: 8px 0;
+      font-size: 10px;
+      color: var(--color-text-gray);
+      text-align: center;
+    }
+  }
+}
+
+@media (--pc) {
+  .articleView {
+    border-radius: 16px;
+
+    > .heroSp {
+      display: none;
+    }
+
+    > .heroPc {
+      display: block;
+    }
+
+    > .body {
+      padding: 16px 32px;
+
+      > .built {
+        padding: 12px 0;
+        font-size: 12px;
+      }
+    }
+  }
+}

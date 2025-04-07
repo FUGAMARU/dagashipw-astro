@@ -9,8 +9,7 @@ import { EXTRACTED_PARAGRAPHS_LENGTH } from "@/constants/value"
 import { isDefined } from "@/utils"
 import { API_ORIGIN } from "scripts/utils"
 
-import type { ArticleInfo } from "@/types/article"
-import type { components } from "@/types/schema"
+import type { Article, ArticleInfo } from "@/types/article"
 import type { ReactNode } from "react"
 
 /** サムネイルからテーマカラーを取得できなかった場合のフォールバック色 */
@@ -19,13 +18,11 @@ const FALLBACK_THEME_COLOR = "#343434"
 /**
  * CMSから取得した記事情報を内部的に扱いやすいフォーマットに整形する
  *
- * @param articleInfo - 記事情報
+ * @param article - 記事情報
  * @returns 整形された記事情報
  */
-export const formatArticleInfo = async (
-  articleInfo: components["schemas"]["Article"]
-): Promise<ArticleInfo> => {
-  const thumbnailUrl = `${API_ORIGIN}${articleInfo.thumbnail.url}`
+export const formatArticleInfo = async (article: Article): Promise<ArticleInfo> => {
+  const thumbnailUrl = `${API_ORIGIN}${article.thumbnail.url}`
 
   /**
    * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
@@ -66,18 +63,18 @@ export const formatArticleInfo = async (
   }
 
   const baseData = {
-    articleUrlId: articleInfo.articleUrlId,
+    articleUrlId: article.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
-    title: articleInfo.title,
+    title: article.title,
     thumbnailUrl,
-    themeColor: articleInfo.themeColor ?? FALLBACK_THEME_COLOR,
-    tags: (articleInfo.tags as Array<string>) ?? [],
-    bodyBeginningParagraph: extractBeginningParagraph(articleInfo.body),
+    themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
+    tags: (article.tags as Array<string>) ?? [],
+    bodyBeginningParagraph: extractBeginningParagraph(article.body),
     commentCount: 1 // TODO: 実際の値を反映させる必要がある
   } as const satisfies Partial<ArticleInfo>
 
   // 記事作成日はforceCreatedAtが指定されていればその値を優先して使用する
-  const createdAtData = articleInfo.forceCreatedAt ?? articleInfo.createdAt
+  const createdAtData = article.forceCreatedAt ?? article.createdAt
 
   if (!isDefined(createdAtData)) {
     throw new Error("記事作成日のデーターが存在しません")
@@ -86,7 +83,7 @@ export const formatArticleInfo = async (
   const createdAt = formatDateString(createdAtData)
 
   // 記事更新日はforceUpdatedAtだけを使用する
-  const updatedAt = articleInfo.forceUpdatedAt
+  const updatedAt = article.forceUpdatedAt
 
   return {
     ...baseData,

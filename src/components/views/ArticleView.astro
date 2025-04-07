@@ -1,0 +1,102 @@
+---
+import { Markdown } from "astro-remote"
+
+import AccordionInfoWrapper from "@/components/article/originals/AccordionInfoWrapper.astro"
+import { ChatMessage } from "@/components/article/originals/ChatMessage"
+import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.astro"
+import { DownloadButton } from "@/components/article/originals/DownloadButton"
+import { Spotify } from "@/components/article/originals/iframe/Spotify"
+import { YouTube } from "@/components/article/originals/iframe/YouTube"
+import { HeightAdjustedImage } from "@/components/article/originals/image/HeightAdjustedImage"
+import { ImageRow } from "@/components/article/originals/image/ImageRow"
+import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
+import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
+import { TableWithoutHeader } from "@/components/article/originals/TableWithoutHeader"
+import { Blockquote } from "@/components/article/standards/Blockquote"
+import { Code } from "@/components/article/standards/Code"
+import { H2 } from "@/components/article/standards/heading/H2"
+import { H3 } from "@/components/article/standards/heading/H3"
+import { H4 } from "@/components/article/standards/heading/H4"
+import { Iframe } from "@/components/article/standards/Iframe"
+import { Kbd } from "@/components/article/standards/Kbd"
+import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
+import { Li } from "@/components/article/standards/list/Li"
+import { Ul } from "@/components/article/standards/list/Ul"
+import ArticleImage from "@/components/article/standards/media/ArticleImage.astro"
+import { Video } from "@/components/article/standards/media/Video"
+import { Paragraph } from "@/components/article/standards/Paragraph"
+import { Table } from "@/components/article/standards/Table"
+import { Hero } from "@/components/templates/hero/Hero"
+import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
+import styles from "@/components/views/ArticleView.module.css"
+import { isDefined } from "@/utils"
+import { getCurrentDateTime } from "@/utils/date"
+import { formatArticleInfo, insertTableOfContents } from "@/utils/formatter"
+
+import type { Article } from "@/types/article"
+
+/** Props */
+type Props = {
+  /** 記事情報 */
+  article: Article
+}
+
+const { article } = Astro.props
+
+const articleInfo = await formatArticleInfo(article)
+const articleDate = isDefined(articleInfo.updatedAt)
+  ? new Date(articleInfo.updatedAt)
+  : new Date(articleInfo.createdAt)
+const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
+---
+
+<div class={styles.articleView}>
+  <div class={styles.heroSp}>
+    <Hero device="sp" {...articleInfo} />
+  </div>
+
+  <div class={styles.heroPc}>
+    <Hero device="pc" {...articleInfo} />
+  </div>
+
+  <div class={styles.body}>
+    <StaleContentWarning articleDate={articleDate} client:load />
+
+    <Markdown
+      components={{
+        h2: H2,
+        h3: H3,
+        h4: H4,
+        p: Paragraph,
+        a: LinkInArticle,
+        img: ArticleImage,
+        ArticleImage,
+        code: Code,
+        video: Video,
+        ul: Ul,
+        li: Li,
+        iframe: Iframe,
+        table: Table,
+        blockquote: Blockquote,
+        ImageRow,
+        ImageTextRow,
+        Inserter: InserterWrapper,
+        DownloadButton,
+        YouTube,
+        CodeBlock: CodeBlockWrapper,
+        HeightAdjustedImage,
+        Spotify,
+        kbd: Kbd,
+        AccordionInfo: AccordionInfoWrapper,
+        ChatMessage,
+        TableWithoutHeader
+      }}
+      content={tableOfContentsInsertedArticleBody}
+      sanitize={{
+        allowComponents: true
+      }}
+    />
+
+    <p class={styles.built}>{`この記事は ${getCurrentDateTime()} にビルドされました`}</p>
+  </div>
+</div>
