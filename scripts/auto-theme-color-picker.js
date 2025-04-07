@@ -20,12 +20,12 @@ const main = async () => {
 
   const articleThumbnails = articles
     .filter(article => {
-      const thumbnail = article.thumbnail.data?.attributes?.url
+      const thumbnail = article.thumbnail.url
       return isDefined(article) && isDefined(thumbnail)
     })
     .map(article => ({
       articleUrlId: article.articleUrlId,
-      thumbnailUrl: `${API_ORIGIN}${article.thumbnail.data?.attributes?.url}`
+      thumbnailUrl: `${API_ORIGIN}${article.thumbnail.url}`
     }))
 
   let completedWorkers = 0

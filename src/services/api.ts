@@ -24,7 +24,7 @@ export const getArticle = async (
   const response = await axiosInstance.get<
     paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
   >(`/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`)
-  return response.data.data?.[0].attributes
+  return response.data.data?.[0]
 }
 
 /**
@@ -53,7 +53,7 @@ export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
     totalArticleCount = totalArticleCountResponse
 
     response.data.data?.forEach(article => {
-      const articleUrlId = article.attributes?.articleUrlId
+      const articleUrlId = article.articleUrlId
 
       if (isDefined(articleUrlId)) {
         articleUrlIds.push(articleUrlId)
@@ -81,7 +81,7 @@ export const getArticlesWithPagination = async (
   >(
     `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=id:desc&populate=*`
   )
-  return response.data.data?.map(article => article.attributes)
+  return response.data.data
 }
 
 /**

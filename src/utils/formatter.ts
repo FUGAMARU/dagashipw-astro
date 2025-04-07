@@ -25,7 +25,7 @@ const FALLBACK_THEME_COLOR = "#343434"
 export const formatArticleInfo = async (
   articleInfo: components["schemas"]["Article"]
 ): Promise<ArticleInfo> => {
-  const thumbnailUrl = `${API_ORIGIN}${articleInfo.thumbnail.data?.attributes?.url}`
+  const thumbnailUrl = `${API_ORIGIN}${articleInfo.thumbnail.url}`
 
   /**
    * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る

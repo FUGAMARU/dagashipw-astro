@@ -48,7 +48,7 @@ export const getArticle = async articleUrlId => {
   const response = await axiosInstance.get(
     `/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`
   )
-  return response.data.data?.[0].attributes
+  return response.data.data?.[0]
 }
 
 /**
@@ -77,7 +77,7 @@ export const getAllArticleUrlIds = async () => {
     totalArticleCount = totalArticleCountResponse
 
     response.data.data?.forEach(article => {
-      const articleUrlId = article.attributes?.articleUrlId
+      const articleUrlId = article.articleUrlId
 
       if (isDefined(articleUrlId)) {
         articleUrlIds.push(articleUrlId)
@@ -100,7 +100,7 @@ export const getAllArticleUrlIds = async () => {
 export const setArticleThemeColor = async (articleUrlId, themeColor) => {
   const data = await axiosInstance.get(`/articles?filters[articleUrlId][$eq]=${articleUrlId}`)
 
-  const articleId = data.data.data?.[0].id
+  const articleId = data.data.data?.[0].documentId
 
   if (!isDefined(articleId)) {
     return
