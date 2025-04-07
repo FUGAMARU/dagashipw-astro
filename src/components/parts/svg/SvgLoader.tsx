@@ -92,6 +92,11 @@ const SVG_COMPONENTS = {
   ),
   clock: lazy(() =>
     import("@/components/parts/svg/IconClock").then(({ IconClock }) => ({ default: IconClock }))
+  ),
+  penPlus: lazy(() =>
+    import("@/components/parts/svg/IconPenPlus").then(({ IconPenPlus }) => ({
+      default: IconPenPlus
+    }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 

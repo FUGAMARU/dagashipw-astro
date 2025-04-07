@@ -1,0 +1,35 @@
+@import url("/src/styles/post.css");
+
+/* TODO: ホバーした時のスタイルを付ける */
+
+.commentPostButton {
+  position: relative;
+
+  > .pc {
+    display: none;
+  }
+}
+
+@media (--pc) {
+  .commentPostButton {
+    > .sp {
+      display: none;
+    }
+
+    > .pc {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 2px 8px;
+      border: solid 1px var(--color-text-dark);
+      border-radius: 4px;
+
+      > .text {
+        @mixin noto-sans-text-adjust;
+
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+  }
+}

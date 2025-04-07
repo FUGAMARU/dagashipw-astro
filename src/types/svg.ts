@@ -33,3 +33,4 @@ export type SvgComponentName =
   | "download"
   | "arrowDown"
   | "clock"
+  | "penPlus"

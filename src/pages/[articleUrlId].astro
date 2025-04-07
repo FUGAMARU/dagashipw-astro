@@ -27,6 +27,8 @@ import { Ul } from "@/components/article/standards/list/Ul"
 import ArticleImage from "@/components/article/standards/media/ArticleImage.astro"
 import { Video } from "@/components/article/standards/media/Video"
 import Layout from "@/components/layout/Layout.astro"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 import { Hero } from "@/components/templates/hero/Hero"
 import styles from "@/pages/_[articleUrlId].module.css"
@@ -117,7 +119,18 @@ const articleDate = articleInfo.updatedAt
 
       <p class={styles.built}>{`この記事は ${getCurrentDateTime()} にビルドされました`}</p>
     </div>
-    {/* TODO: コメントエリア */}
+  </div>
+
+  <div class={styles.commentArea}>
+    <div class={styles.header}>
+      <div class={styles.left}>
+        <SvgLoader width={20} height={20} name="commentWithPen" />
+        <span class={styles.text}>この記事に寄せられたコメント (10)</span>
+      </div>
+      <CommentPostButton client:load />
+    </div>
+
+    コメント表示エリア
   </div>
 
   <toc-variable-bridge data-minutestoread={minutesToRead}></toc-variable-bridge>
