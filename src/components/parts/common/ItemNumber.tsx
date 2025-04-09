@@ -1,5 +1,4 @@
 import clsx from "clsx"
-import { useMemo } from "react"
 
 import styles from "@/components/parts/common/ItemNumber.module.css"
 
@@ -14,28 +13,25 @@ type Props = {
 /** 項番 */
 export const ItemNumber = ({ itemNumber, isFilled = false }: Props) => {
   /** ハイフンを含むかどうか */
-  const includesHyphen = useMemo(() => itemNumber.includes("-"), [itemNumber])
+  const isHyphenIncluded = itemNumber.includes("-")
 
   /** 1文字かどうか */
-  const isOneCharacter = useMemo(() => itemNumber.length === 1, [itemNumber])
+  const isOneCharacter = itemNumber.length === 1
 
   /** 2文字かどうか */
-  // eslint-disable-next-line no-magic-numbers
-  const isTwoCharacters = useMemo(() => itemNumber.length === 2, [itemNumber])
+  const isTwoCharacters = itemNumber.length === 2
 
   /** 3文字かどうか */
-  // eslint-disable-next-line no-magic-numbers
-  const isThreeCharacters = useMemo(() => itemNumber.length === 3, [itemNumber])
+  const isThreeCharacters = itemNumber.length === 3
 
   return (
     <div
-      className={clsx(
-        styles.itemNumber,
-        isOneCharacter && styles.OneCharacter,
-        isTwoCharacters && styles.TwoCharacters,
-        isThreeCharacters && !includesHyphen && styles.ThreeCharacters,
-        isFilled && styles.Filled
-      )}
+      className={clsx(styles.itemNumber, {
+        [styles.OneCharacter]: isOneCharacter,
+        [styles.TwoCharacters]: isTwoCharacters,
+        [styles.ThreeCharacters]: isThreeCharacters && !isHyphenIncluded,
+        [styles.Filled]: isFilled
+      })}
     >
       {itemNumber}
     </div>
