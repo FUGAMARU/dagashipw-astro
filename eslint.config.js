@@ -1,5 +1,6 @@
 import eslintJS from "@eslint/js"
 import tsEslintPlugin from "@typescript-eslint/eslint-plugin"
+import typescriptEslintParser from "@typescript-eslint/parser"
 import eslintConfigPrettier from "eslint-config-prettier"
 import eslintPluginAstro from "eslint-plugin-astro"
 import eslintPluginImport from "eslint-plugin-import"
@@ -24,8 +25,9 @@ export default [
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
+      parser: typescriptEslintParser,
       parserOptions: {
-        project: true,
+        project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname
       }
     }
@@ -217,7 +219,19 @@ export default [
       /** AstroファイルではclassName属性は使えないのでoff */
       "react/no-unknown-property": "off",
       /** Astroにkeyの概念は無いのでoff */
-      "react/jsx-key": "off"
+      "react/jsx-key": "off",
+      /** ルールが競合するのでself-closingしなくても良い */
+      "react/self-closing-comp": "off"
+    }
+  },
+  {
+    files: ["**/*.astro/*.ts", "*.astro/*.ts"],
+    languageOptions: {
+      parser: typescriptEslintParser,
+      parserOptions: {
+        parser: "@typescript-eslint/parser",
+        project: "./tsconfig.json"
+      }
     }
   },
   {

@@ -10,7 +10,7 @@ import { isDefined } from "@/utils"
 import { API_ORIGIN } from "scripts/utils"
 
 import type { Article, ArticleInfo } from "@/types/article"
-import type { ReactNode } from "react"
+import type { ReactElement, ReactNode } from "react"
 
 /** サムネイルからテーマカラーを取得できなかった場合のフォールバック色 */
 const FALLBACK_THEME_COLOR = "#343434"
@@ -109,6 +109,22 @@ export const insertTableOfContents = (markdown: string): string => {
 }
 
 /**
+ * ReactNodeがオブジェクトであり、特定のプロパティを持つかチェックする
+ *
+ * @param node - ReactNode
+ * @returns - nodeがReactElementであり、propsプロパティを持つ場合はtrue、それ以外はfalse
+ */
+const checkHasProps = (
+  node: ReactNode
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): node is ReactElement<any> & {
+  /** props */
+  props: object
+} => {
+  return isValidElement(node) && typeof node.props === "object" && node.props !== null
+}
+
+/**
  * 見出し用のIDを生成する関数
  *
  * @param text - ReactNode | string
@@ -142,7 +158,7 @@ export const generateHeadingId = (text: ReactNode | string): string => {
       return node.map(extractTextFromChildren).join("")
     }
 
-    if (isValidElement(node)) {
+    if (checkHasProps(node)) {
       if (
         isDefined(node.props) &&
         isDefined(node.props.value) &&

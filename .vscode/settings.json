@@ -1,6 +1,5 @@
 {
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "eslint.experimental.useFlatConfig": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "css.validate": false,
   "less.validate": false,

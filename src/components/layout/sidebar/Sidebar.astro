@@ -1,4 +1,7 @@
 ---
+import clsx from "clsx"
+import { isList } from "typescanner"
+
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import { Infobar } from "@/components/layout/sidebar/Infobar"
 import { ShareButtons } from "@/components/layout/sidebar/ShareButtons"
@@ -13,8 +16,6 @@ import {
   SIDEBAR_SCROLLABLE_OVERLAY_ID
 } from "@/constants/element"
 import { PAGE_PATH } from "@/constants/page"
-import clsx from "clsx"
-import { isList } from "typescanner"
 
 const currentArticleTitle = "記事のタイトル" // TODO: 仮当て
 const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
@@ -55,22 +56,22 @@ const shouldShowTableOfContents =
     <SidebarItemWithTitle title="ミニゲーム - Color Junction">
       <div class={styles.colorJunction}>
         <iframe
-          src="https://fugamaru.com/projects/ColorJunction/"
+          frameborder="0"
           height="264"
-          width="244"
-          frameborder="0"></iframe>
+          src="https://fugamaru.com/projects/ColorJunction/"
+          width="244"></iframe>
       </div>
     </SidebarItemWithTitle>
 
     <div class={styles.notbyai}>
-      <SvgLoader name="notByAi" width={131} height={42} />
+      <SvgLoader height={42} name="notByAi" width={131} />
       <span class={styles.slogan}>このブログは人間が丹精込めて書いていますᕕ( ᐛ )ᕗ</span>
     </div>
   </div>
 
   <div class={styles.scrollableOverlay} id={SIDEBAR_SCROLLABLE_OVERLAY_ID}>
     <button class={styles.button} id={SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID}>
-      <SvgLoader name="arrowDown" className={styles.icon} width={24} height={24} />
+      <SvgLoader className={styles.icon} height={24} name="arrowDown" width={24} />
       <span class={styles.text}> スクロールしてもっと表示</span>
     </button>
   </div>
@@ -84,7 +85,7 @@ const shouldShowTableOfContents =
   } from "@/constants/element"
   import { isTocHydrationCompleteAtom } from "@/stores/is-toc-hydration-complete"
   import { isDefined } from "@/utils"
-  import anime from "animejs"
+  import { createTimeline } from "animejs"
   import { debounce } from "es-toolkit"
 
   /** サイドバーをスクロールした際のdebounceの待機時間 (ms) */
@@ -128,16 +129,17 @@ const shouldShowTableOfContents =
       const { scrollHeight, clientHeight, scrollTop } = sidebar
       const isScrollBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1 // scrollTopに多少の誤差があるので1pxの誤差を許容する
 
-      const timeline = anime.timeline({
-        easing: "linear", // フェードアニメーションの場合に最も適切なイージングはlinearなので定数化しない
-        duration: SCROLLABLE_OVERLAY_FADE_DURATION
+      const timeline = createTimeline({
+        defaults: {
+          ease: "linear", // フェードアニメーションの場合に最も適切なイージングはlinearなので定数化しない
+          duration: SCROLLABLE_OVERLAY_FADE_DURATION
+        }
       })
 
       if (isScrollBottom) {
-        timeline.add({
-          targets: scrollableOverlay,
+        timeline.add(scrollableOverlay, {
           opacity: 0,
-          complete: () => {
+          onComplete: () => {
             scrollableOverlay.style.display = "none"
           }
         })
@@ -145,8 +147,7 @@ const shouldShowTableOfContents =
       }
 
       scrollableOverlay.style.display = "flex"
-      timeline.add({
-        targets: scrollableOverlay,
+      timeline.add(scrollableOverlay, {
         opacity: 1
       })
     }, SIDEBAR_SCROLL_DEBOUNCE_WAIT)

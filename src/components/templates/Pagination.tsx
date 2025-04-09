@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, type RefObject } from "react"
 import ResponsivePagination from "react-responsive-pagination"
 import { useResizeObserver } from "usehooks-ts"
 
@@ -19,7 +19,7 @@ export const Pagination = ({ currentPage, totalPageCount }: Props) => {
   const paginationRef = useRef<HTMLDivElement>(null)
 
   const { width = paginationRef.current?.clientWidth } = useResizeObserver({
-    ref: paginationRef,
+    ref: paginationRef as RefObject<HTMLElement>,
     box: "border-box"
   })
 

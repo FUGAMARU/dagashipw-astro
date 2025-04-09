@@ -1,4 +1,4 @@
-import anime from "animejs"
+import { animate } from "animejs"
 import clsx from "clsx"
 import { useRef, useState } from "react"
 
@@ -86,37 +86,33 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
     const paddingSize = isSP ? 16 : 32
 
     if (isAccordionOpen) {
-      anime({
-        targets: bodyText,
+      animate(bodyText, {
         opacity: 0,
         duration: 400,
-        easing: "linear"
+        ease: "linear"
       })
 
-      anime({
-        targets: body,
+      animate(body, {
         opacity: 0,
         duration: 400,
         delay: 300,
-        easing: "linear"
+        ease: "linear"
       })
 
-      anime({
-        targets: body,
+      animate(body, {
         height: 0,
         duration: 700,
         delay: 300,
-        easing: EASING_STYLE
+        ease: EASING_STYLE
       })
 
-      anime({
-        targets: triangleIcon,
+      animate(triangleIcon, {
         rotate: 0,
         delay: 300,
         duration: 700,
-        easing: EASING_STYLE,
+        ease: EASING_STYLE,
         /** アニメーションが完了した時に発火するコールバック */
-        complete: () => {
+        onComplete: () => {
           setIsAccordionOpen(false)
         }
       })
@@ -124,34 +120,30 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
       return
     }
 
-    anime({
-      targets: triangleIcon,
+    animate(triangleIcon, {
       rotate: 180,
       duration: 700,
-      easing: EASING_STYLE
+      ease: EASING_STYLE
     })
 
-    anime({
-      targets: body,
+    animate(body, {
       height: hiddenBody.scrollHeight + paddingSize * 2, // 垂直方向のpaddingの分をプラスしている
       duration: 700,
-      easing: EASING_STYLE
+      ease: EASING_STYLE
     })
 
-    anime({
-      targets: body,
+    animate(body, {
       opacity: 1,
       duration: 400,
       delay: 100,
-      easing: "linear"
+      ease: "linear"
     })
 
-    anime({
-      targets: bodyText,
+    animate(bodyText, {
       opacity: 1,
       duration: 400,
       delay: 600,
-      easing: "linear"
+      ease: "linear"
     })
 
     setIsAccordionOpen(true)
