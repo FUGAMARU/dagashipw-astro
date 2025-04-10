@@ -36,6 +36,8 @@
   --color-brown: #6c3038;
   --color-vivid-red: #fb2b50;
   --color-border-gray: #ececec;
+  --color-codeblock-background: #2c2a2e;
+  --color-codeblock-border: #403e41;
 
   /* Article Parts Spacing */
   --spacing-article-parts-common-sp: 12px;

@@ -97,6 +97,14 @@ const SVG_COMPONENTS = {
     import("@/components/parts/svg/IconPenPlus").then(({ IconPenPlus }) => ({
       default: IconPenPlus
     }))
+  ),
+  copy: lazy(() =>
+    import("@/components/parts/svg/IconCopy").then(({ IconCopy }) => ({ default: IconCopy }))
+  ),
+  checkCircle: lazy(() =>
+    import("@/components/parts/svg/IconCheckCircle").then(({ IconCheckCircle }) => ({
+      default: IconCheckCircle
+    }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 

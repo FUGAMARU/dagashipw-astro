@@ -247,7 +247,14 @@ export default [
     }
   },
   {
-    files: ["src/utils/**", "src/types/**", "src/constants/**", "src/services/**", "src/stores/**"],
+    files: [
+      "src/utils/**",
+      "src/types/**",
+      "src/constants/**",
+      "src/services/**",
+      "src/stores/**",
+      "src/components/**/*.helpers.ts"
+    ],
     rules: {
       /** 関数の戻り値記述必須 */
       "@typescript-eslint/explicit-function-return-type": "error",
@@ -262,6 +269,13 @@ export default [
       ],
       /** JSDocにおけるそのファイルに関する説明の記述必須 */
       "jsdoc/require-file-overview": ["error"]
+    }
+  },
+  {
+    files: ["src/components/**/*.helpers.ts"],
+    rules: {
+      /** JSDocにおけるそのファイルに関する説明の記述を不要に */
+      "jsdoc/require-file-overview": ["off"]
     }
   },
   {

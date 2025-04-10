@@ -34,3 +34,5 @@ export type SvgComponentName =
   | "arrowDown"
   | "clock"
   | "penPlus"
+  | "copy"
+  | "checkCircle"

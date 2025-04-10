@@ -4,16 +4,48 @@
   @mixin section-article-common-spacing;
 
   overflow: hidden;
+  background-color: var(--color-codeblock-background);
   border-radius: 4px;
 
-  > .language {
-    padding: 8px 16px;
-    font-size: 12px;
-    color: var(--color-white);
-    background: linear-gradient(
-      to bottom,
-      var(--color-gradient-header-start) 0%,
-      var(--color-gradient-header-end) 100%
-    );
+  /* デフォルトだとFigmaより文字が太くなるので調整 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  > .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-right: 12px;
+
+    > .language {
+      --padding-side: 12px;
+      --left-minus-margin: -4.5px;
+
+      display: grid;
+      place-items: center;
+      width: fit-content;
+      padding: 6px var(--padding-side) 6px
+        calc(var(--padding-side) + calc(var(--left-minus-margin) * -1));
+      margin-left: var(--left-minus-margin);
+      border-bottom-right-radius: 4px;
+      transform: skew(-28deg);
+
+      > .text {
+        @mixin noto-sans-text-adjust;
+
+        display: inline-block;
+        font-family: Gabarito, sans-serif;
+        font-size: 14px;
+        transform: skew(28deg);
+
+        &.White {
+          color: var(--color-white);
+        }
+      }
+    }
   }
+}
+
+.checkCircleIcon {
+  fill: var(--color-white);
 }
