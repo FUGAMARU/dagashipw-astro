@@ -76,7 +76,7 @@ export const getArticlesWithPagination = async (
   const response = await axiosInstance.get<
     paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
   >(
-    `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=id:desc&populate=*`
+    `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
   return response.data.data
 }

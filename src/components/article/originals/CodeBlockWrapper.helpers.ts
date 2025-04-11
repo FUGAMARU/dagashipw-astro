@@ -1,4 +1,4 @@
-import { isDefined } from "@/utils"
+import { isDefined, isValidString } from "@/utils"
 import { determineWhiteTextColor } from "@/utils/color"
 
 /** コピーアイコンのフェードアニメーションのDuration (ms) */
@@ -1146,17 +1146,16 @@ export const getLanguageInfo = (
   /** 言語の文字色を白にするかどうか */
   isLabelWhite: boolean
 } => {
+  if (!isValidString(keyword)) {
+    throw new Error("CodeBlockの言語が指定されていません")
+  }
+
   const applicableLanguageInfo = LANGUAGE_INFO_DEFINITIONS.find(info =>
     info.keyword.some(k => k.toLowerCase() === keyword.toLowerCase())
   )
 
   if (!isDefined(applicableLanguageInfo)) {
-    // throw new Error(`パース不可能な言語が指定されました: ${keyword}`)
-    return {
-      label: "プレーンテキスト",
-      themeColor: "#ffd866",
-      isLabelWhite: false
-    }
+    throw new Error(`パース不可能な言語が指定されました: ${keyword}`)
   }
 
   const isLabelWhite = determineWhiteTextColor(applicableLanguageInfo.themeColor)
