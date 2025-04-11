@@ -4,33 +4,39 @@ import { useEffect, useRef, useState } from "react"
 import root from "react-shadow"
 import { codeToHtml } from "shiki"
 
-import {
-  CHECK_ICON_DISPLAY_DURATION,
-  COPY_ICON_FADE_ANIMATION_DURATION,
-  getLanguageInfo
-} from "@/components/article/originals/CodeBlock.helpers"
 import styles from "@/components/article/originals/CodeBlock.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { isDefined } from "@/utils"
 
+import type { CodeBlockLanguageInfo } from "@/components/article/originals/CodeBlockWrapper.helpers"
 import type { SvgComponentName } from "@/types/svg"
 
 /** Props */
 type Props = {
-  /** 言語 */
-  language: string
+  /** 言語情報 */
+  languageInfo: Omit<CodeBlockLanguageInfo, "keyword"> & {
+    /** キーワード */
+    keyword: string
+    /** ラベルの文字色を白にするか */
+    isLabelWhite: boolean
+  }
+  /** アニメーション情報 */
+  animationInfo: {
+    /** コピーアイコンのフェードアニメーションのDuration (ms) */
+    copyIconFadeAnimationDuration: number
+    /** コピーアイコン押下後チェックマークを表示している時間 (ms) */
+    checkIconDisplayDuration: number
+  }
   /** コード */
   code: string
 }
 
 /** コードをシンタックスハイライト付きで表示するコンポーネント */
-export const CodeBlock = ({ language, code }: Props) => {
+export const CodeBlock = ({ languageInfo, animationInfo, code }: Props) => {
   const [html, setHtml] = useState("")
   const [copyButtonIconName, setCopyButtonIconName] =
     useState<Extract<SvgComponentName, "copy" | "checkCircle">>("copy")
   const copyIconRef = useRef<HTMLSpanElement>(null)
-
-  const { label, isLabelWhite, backgroundColor } = getLanguageInfo(language)
 
   /** コピーするボタンを押下した時の処理 */
   const handleCopyButtonClick = async () => {
@@ -39,7 +45,7 @@ export const CodeBlock = ({ language, code }: Props) => {
     const timeline = createTimeline({
       defaults: {
         ease: "linear", // フェードアニメーションの場合に最も適切なイージングはlinearなので定数化しない
-        duration: COPY_ICON_FADE_ANIMATION_DURATION
+        duration: animationInfo.copyIconFadeAnimationDuration
       }
     })
 
@@ -62,7 +68,7 @@ export const CodeBlock = ({ language, code }: Props) => {
       })
       .add(copyIcon, {
         opacity: 0,
-        delay: CHECK_ICON_DISPLAY_DURATION,
+        delay: animationInfo.checkIconDisplayDuration,
         /** アニメーションが完了した時の処理 */
         onComplete: () => {
           setCopyButtonIconName("copy")
@@ -76,7 +82,7 @@ export const CodeBlock = ({ language, code }: Props) => {
   useEffect(() => {
     ;(async () => {
       const htmlFromCode = await codeToHtml(code, {
-        lang: language,
+        lang: languageInfo.keyword,
         theme: "monokai"
       })
 
@@ -87,8 +93,10 @@ export const CodeBlock = ({ language, code }: Props) => {
   return (
     <div className={styles.codeBlock}>
       <div className={styles.header}>
-        <div className={styles.language} style={{ backgroundColor }}>
-          <span className={clsx(styles.text, isLabelWhite && styles.White)}>{label}</span>
+        <div className={styles.language} style={{ backgroundColor: languageInfo.themeColor }}>
+          <span className={clsx(styles.text, languageInfo.isLabelWhite && styles.White)}>
+            {languageInfo.label}
+          </span>
         </div>
 
         <button onClick={handleCopyButtonClick} type="button">

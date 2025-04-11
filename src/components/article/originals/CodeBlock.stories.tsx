@@ -1,20 +1,34 @@
 import { CodeBlock } from "@/components/article/originals/CodeBlock"
+import {
+  COPY_ICON_FADE_ANIMATION_DURATION,
+  CHECK_ICON_DISPLAY_DURATION,
+  getLanguageInfo
+} from "@/components/article/originals/CodeBlockWrapper.helpers"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
 const meta: Meta<typeof CodeBlock> = {
   component: CodeBlock,
   tags: ["autodocs"],
-  args: { language: undefined, code: undefined },
-  argTypes: { language: { control: "text" }, code: { control: "text" } }
+  args: { languageInfo: undefined, animationInfo: undefined, code: undefined },
+  argTypes: { code: { control: "text" } }
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
+const commonAnimationProps = {
+  copyIconFadeAnimationDuration: COPY_ICON_FADE_ANIMATION_DURATION,
+  checkIconDisplayDuration: CHECK_ICON_DISPLAY_DURATION
+}
+
 export const Primary: Story = {
   args: {
-    language: "typescript",
+    languageInfo: {
+      keyword: "typescript",
+      ...getLanguageInfo("typescript")
+    },
+    animationInfo: commonAnimationProps,
     code: `const arr = Array.from({length: 10}, (_, i) => i + 1);
 const sum = arr.reduce((acc, elm) => acc + elm);
 console.log(sum) // 55`
@@ -23,7 +37,11 @@ console.log(sum) // 55`
 
 export const Python: Story = {
   args: {
-    language: "python",
+    languageInfo: {
+      keyword: "python",
+      ...getLanguageInfo("python")
+    },
+    animationInfo: commonAnimationProps,
     code: `def greet(name):
     print(f"Hello, {name}!")
 
@@ -33,7 +51,11 @@ greet("World")  # Hello, World!`
 
 export const Java: Story = {
   args: {
-    language: "java",
+    languageInfo: {
+      keyword: "java",
+      ...getLanguageInfo("java")
+    },
+    animationInfo: commonAnimationProps,
     code: `public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -44,7 +66,11 @@ export const Java: Story = {
 
 export const Cpp: Story = {
   args: {
-    language: "cpp",
+    languageInfo: {
+      keyword: "cpp",
+      ...getLanguageInfo("cpp")
+    },
+    animationInfo: commonAnimationProps,
     code: `#include <iostream>
 using namespace std;
 
@@ -57,7 +83,11 @@ int main() {
 
 export const Ruby: Story = {
   args: {
-    language: "ruby",
+    languageInfo: {
+      keyword: "ruby",
+      ...getLanguageInfo("ruby")
+    },
+    animationInfo: commonAnimationProps,
     code: `def greet(name)
   puts "Hello, #{name}!"
 end
@@ -68,7 +98,11 @@ greet("World") # Hello, World!`
 
 export const Kotlin: Story = {
   args: {
-    language: "kotlin",
+    languageInfo: {
+      keyword: "kotlin",
+      ...getLanguageInfo("kotlin")
+    },
+    animationInfo: commonAnimationProps,
     code: `fun greet(name: String) {
     println("Hello, $name!")
 }
@@ -79,7 +113,11 @@ greet("World") // Hello, World!`
 
 export const Svelte: Story = {
   args: {
-    language: "svelte",
+    languageInfo: {
+      keyword: "svelte",
+      ...getLanguageInfo("svelte")
+    },
+    animationInfo: commonAnimationProps,
     code: `<script>
   let name = "World";
 </script>
@@ -90,7 +128,11 @@ export const Svelte: Story = {
 
 export const Go: Story = {
   args: {
-    language: "go",
+    languageInfo: {
+      keyword: "go",
+      ...getLanguageInfo("go")
+    },
+    animationInfo: commonAnimationProps,
     code: `package main
 
 import "fmt"

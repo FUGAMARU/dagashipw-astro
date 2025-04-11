@@ -1,7 +1,23 @@
 ---
 import { CodeBlock } from "@/components/article/originals/CodeBlock"
+import {
+  CHECK_ICON_DISPLAY_DURATION,
+  COPY_ICON_FADE_ANIMATION_DURATION,
+  getLanguageInfo
+} from "@/components/article/originals/CodeBlockWrapper.helpers"
 
 const { lang, code } = Astro.props // Props名はastro-remoteにより固定 https://github.com/natemoo-re/astro-remote#codeblock-
 ---
 
-<CodeBlock client:only="react" code={code} language={lang} />
+<CodeBlock
+  animationInfo={{
+    copyIconFadeAnimationDuration: COPY_ICON_FADE_ANIMATION_DURATION,
+    checkIconDisplayDuration: CHECK_ICON_DISPLAY_DURATION
+  }}
+  client:only="react"
+  code={code}
+  languageInfo={{
+    keyword: lang,
+    ...getLanguageInfo(lang)
+  }}
+/>

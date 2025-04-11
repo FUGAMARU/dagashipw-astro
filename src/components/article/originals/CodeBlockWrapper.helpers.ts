@@ -8,7 +8,7 @@ export const COPY_ICON_FADE_ANIMATION_DURATION = 300
 export const CHECK_ICON_DISPLAY_DURATION = 3000
 
 /** 言語情報 */
-type LanguageInfo = {
+export type CodeBlockLanguageInfo = {
   /** ラベル */
   label: string
   /** キーワード */
@@ -1128,7 +1128,7 @@ const LANGUAGE_INFO_DEFINITIONS = [
     keyword: ["plaintext", "text"],
     themeColor: "#ffd866"
   }
-] as const satisfies Array<LanguageInfo>
+] as const satisfies Array<CodeBlockLanguageInfo>
 
 /**
  * キーワードから言語に関する情報を取得する
@@ -1141,24 +1141,29 @@ export const getLanguageInfo = (
 ): {
   /** 言語の表示用ラベル */
   label: string
+  /** 言語のテーマカラー */
+  themeColor: string
   /** 言語の文字色を白にするかどうか */
   isLabelWhite: boolean
-  /** 言語の背景色 */
-  backgroundColor: string
 } => {
   const applicableLanguageInfo = LANGUAGE_INFO_DEFINITIONS.find(info =>
     info.keyword.some(k => k.toLowerCase() === keyword.toLowerCase())
   )
 
   if (!isDefined(applicableLanguageInfo)) {
-    throw new Error("パース不可能な言語が指定されました")
+    // throw new Error(`パース不可能な言語が指定されました: ${keyword}`)
+    return {
+      label: "プレーンテキスト",
+      themeColor: "#ffd866",
+      isLabelWhite: false
+    }
   }
 
   const isLabelWhite = determineWhiteTextColor(applicableLanguageInfo.themeColor)
 
   return {
     label: applicableLanguageInfo.label,
-    isLabelWhite,
-    backgroundColor: applicableLanguageInfo.themeColor
+    themeColor: applicableLanguageInfo.themeColor,
+    isLabelWhite
   }
 }
