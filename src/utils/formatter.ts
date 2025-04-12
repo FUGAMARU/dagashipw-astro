@@ -93,38 +93,6 @@ export const formatArticleInfo = async (article: Article): Promise<ArticleInfo> 
 }
 
 /**
- * マークダウンに目次挿入用のコンポーネントを挿入する
- *
- * @param markdown - マークダウン
- * @returns 目次挿入後のマークダウン (h2が見つからない場合はそのまま返す)
- */
-export const insertTableOfContents = (markdown: string): string => {
-  const headingRegex = /##\s/
-
-  const parts = markdown.split(headingRegex)
-
-  return parts.length > 1
-    ? `${parts[0]}<Inserter type="tableOfContents" />\n\n## ${parts.slice(1).join("## ")}`
-    : markdown
-}
-
-/**
- * ReactNodeがオブジェクトであり、特定のプロパティを持つかチェックする
- *
- * @param node - ReactNode
- * @returns - nodeがReactElementであり、propsプロパティを持つ場合はtrue、それ以外はfalse
- */
-const checkHasProps = (
-  node: ReactNode
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): node is ReactElement<any> & {
-  /** props */
-  props: object
-} => {
-  return isValidElement(node) && typeof node.props === "object" && node.props !== null
-}
-
-/**
  * 見出し用のIDを生成する関数
  *
  * @param text - ReactNode | string
@@ -141,6 +109,22 @@ export const generateHeadingId = (text: ReactNode | string): string => {
     const regex = /<[^>]*>([^<]*)<\/[^>]*>/
     const match = html.match(regex)
     return isDefined(match) ? match[1] : ""
+  }
+
+  /**
+   * ReactNodeがオブジェクトであり、特定のプロパティを持つかチェックする
+   *
+   * @param node - ReactNode
+   * @returns - nodeがReactElementであり、propsプロパティを持つ場合はtrue、それ以外はfalse
+   */
+  const checkHasProps = (
+    node: ReactNode
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): node is ReactElement<any> & {
+    /** props */
+    props: object
+  } => {
+    return isValidElement(node) && typeof node.props === "object" && node.props !== null
   }
 
   /**

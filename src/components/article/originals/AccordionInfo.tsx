@@ -2,53 +2,23 @@ import { animate } from "animejs"
 import clsx from "clsx"
 import { useRef, useState } from "react"
 
+import {
+  ACCORDION_INFO_COMMON_EASING_STYLE,
+  ACCORDION_INFO_RESOURCES_BY_DISPLAY_TYPE
+} from "@/components/article/originals/AccordionInfo.helpers"
 import styles from "@/components/article/originals/AccordionInfo.module.css"
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isDefined } from "@/utils"
 
-import type { SvgComponentName } from "@/types/svg"
+import type { AccordionInfoDisplayType } from "@/components/article/originals/AccordionInfo.helpers"
 import type { MouseEvent, ReactNode } from "react"
-
-/** 共通イージングスタイル */
-const EASING_STYLE = "cubicBezier(0.77,0,0.18,1)"
-
-/** 表示タイプ一覧 */
-type DisplayType = "tips" | "warning"
-
-/**
- * 表示タイプごとのリソース定義
- *
- * @see アイコン色 https://developer.apple.com/design/human-interface-guidelines/color
- */
-const RESOURCES_BY_DISPLAY_TYPE = {
-  tips: {
-    iconName: "inspiration",
-    iconColor: "#ffcc00",
-    label: "Tips"
-  },
-  warning: {
-    iconName: "warning",
-    iconColor: "#ff9500",
-    label: "Warning"
-  }
-} as const satisfies Record<
-  DisplayType,
-  {
-    /** アイコン名 */
-    iconName: SvgComponentName
-    /** アイコン色 */
-    iconColor: string
-    /** ラベル */
-    label: string
-  }
->
 
 /** Props */
 type Props = {
   /** 表示タイプ */
-  displayType: DisplayType
+  displayType: AccordionInfoDisplayType
   /** タイトル */
   title: string
   /** 本文 */
@@ -103,14 +73,14 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
         height: 0,
         duration: 700,
         delay: 300,
-        ease: EASING_STYLE
+        ease: ACCORDION_INFO_COMMON_EASING_STYLE
       })
 
       animate(triangleIcon, {
         rotate: 0,
         delay: 300,
         duration: 700,
-        ease: EASING_STYLE,
+        ease: ACCORDION_INFO_COMMON_EASING_STYLE,
         /** アニメーションが完了した時に発火するコールバック */
         onComplete: () => {
           setIsAccordionOpen(false)
@@ -123,13 +93,13 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
     animate(triangleIcon, {
       rotate: 180,
       duration: 700,
-      ease: EASING_STYLE
+      ease: ACCORDION_INFO_COMMON_EASING_STYLE
     })
 
     animate(body, {
       height: hiddenBody.scrollHeight + paddingSize * 2, // 垂直方向のpaddingの分をプラスしている
       duration: 700,
-      ease: EASING_STYLE
+      ease: ACCORDION_INFO_COMMON_EASING_STYLE
     })
 
     animate(body, {
@@ -178,21 +148,21 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
           <div
             className={styles.left}
             style={{
-              fill: RESOURCES_BY_DISPLAY_TYPE[displayType].iconColor
+              fill: ACCORDION_INFO_RESOURCES_BY_DISPLAY_TYPE[displayType].iconColor
             }}
           >
             <SvgLoader
               height={18}
-              name={RESOURCES_BY_DISPLAY_TYPE[displayType].iconName}
+              name={ACCORDION_INFO_RESOURCES_BY_DISPLAY_TYPE[displayType].iconName}
               width={18}
             />
             <span
               className={styles.label}
               style={{
-                borderColor: RESOURCES_BY_DISPLAY_TYPE[displayType].iconColor
+                borderColor: ACCORDION_INFO_RESOURCES_BY_DISPLAY_TYPE[displayType].iconColor
               }}
             >
-              {RESOURCES_BY_DISPLAY_TYPE[displayType].label}
+              {ACCORDION_INFO_RESOURCES_BY_DISPLAY_TYPE[displayType].label}
             </span>
             <span className={styles.title}>{title}</span>
           </div>

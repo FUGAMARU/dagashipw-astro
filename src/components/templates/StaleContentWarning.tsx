@@ -1,8 +1,6 @@
-import { useMemo } from "react"
-
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { getElapsedYearsSincePublication } from "@/components/templates/StaleContentWarning.helpers"
 import styles from "@/components/templates/StaleContentWarning.module.css"
-import { getElapsedYears } from "@/utils/date"
 
 /** Props */
 type Props = {
@@ -12,7 +10,7 @@ type Props = {
 
 /** 古い記事に警告を表示するためのコンポーネント */
 export const StaleContentWarning = ({ articleDate }: Props) => {
-  const elapsedYears = useMemo(() => getElapsedYears(articleDate), [articleDate])
+  const elapsedYears = getElapsedYearsSincePublication(articleDate)
 
   if (elapsedYears < 1) {
     return null

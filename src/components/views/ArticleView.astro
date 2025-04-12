@@ -28,10 +28,13 @@ import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
 import { Hero } from "@/components/templates/hero/Hero"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
+import {
+  getCurrentDateTime,
+  insertTableOfContentsToMarkdown
+} from "@/components/views/ArticleView.helpers"
 import styles from "@/components/views/ArticleView.module.css"
 import { isDefined } from "@/utils"
-import { getCurrentDateTime } from "@/utils/date"
-import { formatArticleInfo, insertTableOfContents } from "@/utils/formatter"
+import { formatArticleInfo } from "@/utils/formatter"
 
 import type { Article } from "@/types/article"
 
@@ -47,7 +50,7 @@ const articleInfo = await formatArticleInfo(article)
 const articleDate = isDefined(articleInfo.updatedAt)
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)
-const tableOfContentsInsertedArticleBody = insertTableOfContents(article.body)
+const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(article.body)
 ---
 
 <div class={styles.articleView}>

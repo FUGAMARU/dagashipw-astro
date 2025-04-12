@@ -1,10 +1,10 @@
 import clsx from "clsx"
 import { capitalize } from "es-toolkit"
 
+import { getLightweightImageUrl } from "@/components/parts/common/Image.helpers"
 import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
 import { isDefined } from "@/utils"
-import { getLightweightImageUrl } from "@/utils/media"
 
 import type { ComponentProps } from "react"
 

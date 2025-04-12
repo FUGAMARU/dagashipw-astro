@@ -1,27 +1,13 @@
 import clsx from "clsx"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 
+import { getInfoBarDateInfo } from "@/components/layout/sidebar/Infobar.helpers"
 import styles from "@/components/layout/sidebar/Infobar.module.css"
 import { checkIsIPv4 } from "@/services/api"
 
 /** 日付やIPv6 / IPv4の接続情報などを表示するコンポーネント */
 export const Infobar = () => {
-  const { year, month, day, dayOfWeek } = useMemo(() => {
-    const date = new Date()
-    const year = date.getFullYear()
-    const month = String(date.getMonth() + 1).padStart(2, "0")
-    const day = String(date.getDate()).padStart(2, "0")
-    const dayOfWeek = date.getDay()
-
-    const weekday = ["日", "月", "火", "水", "木", "金", "土"]
-
-    return {
-      year,
-      month,
-      day,
-      dayOfWeek: weekday[dayOfWeek]
-    }
-  }, [])
+  const { year, month, day, dayOfWeek } = getInfoBarDateInfo(new Date())
 
   const [isIPv4, setIsIPv4] = useState(false)
 
