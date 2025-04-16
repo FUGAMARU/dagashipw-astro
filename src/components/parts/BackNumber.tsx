@@ -2,7 +2,7 @@ import clsx from "clsx"
 
 import styles from "@/components/parts/BackNumber.module.css"
 
-import type { ArticleInfo } from "@/types/article"
+import type { ArticleInfo } from "@/types/models"
 
 /** Props */
 type Props = {

@@ -8,7 +8,7 @@ import { Tag } from "@/components/parts/Tag"
 import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 import { determineWhiteTextColor } from "@/utils/color"
 
-import type { ArticleInfo } from "@/types/article"
+import type { ArticleInfo } from "@/types/models"
 import type { ComponentProps } from "react"
 
 /** Props */

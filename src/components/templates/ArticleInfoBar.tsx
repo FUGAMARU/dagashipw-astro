@@ -5,7 +5,7 @@ import styles from "@/components/templates/ArticleInfoBar.module.css"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isDefined } from "@/utils"
 
-import type { ArticleInfo } from "@/types/article"
+import type { ArticleInfo } from "@/types/models"
 
 /** Props */
 type Props = {

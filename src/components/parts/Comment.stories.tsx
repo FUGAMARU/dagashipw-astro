@@ -16,6 +16,7 @@ export const ParentComment: Story = {
   args: {
     displayType: "parent",
     commentInfo: {
+      commentId: "1",
       commentNumber: "1",
       userName: "ユーザー名",
       submittedAt: "2023-10-01 12:00",
@@ -29,6 +30,7 @@ export const ParentCommentWithReply: Story = {
     displayType: "parent",
     hasReply: true,
     commentInfo: {
+      commentId: "2",
       commentNumber: "2",
       userName: "ユーザー名",
       submittedAt: "2023-10-01 12:00",
@@ -41,6 +43,7 @@ export const ChildComment: Story = {
   args: {
     displayType: "child",
     commentInfo: {
+      commentId: "3",
       commentNumber: "3",
       userName: "ユーザー名",
       submittedAt: "2023-10-01 12:00",
