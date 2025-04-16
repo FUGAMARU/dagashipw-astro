@@ -12,6 +12,7 @@ import {
 } from "@/constants/value"
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
+import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
 
 import type {
   Article,
@@ -54,20 +55,6 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
     return paragraphs.substring(0, EXTRACTED_PARAGRAPHS_LENGTH)
   }
 
-  /**
-   * 日付文字列をyyyy/MM/dd形式に整形する
-   *
-   * @param dateString - 日付文字列
-   * @returns yyyy/MM/dd
-   */
-  const formatDateString = (dateString: string): string => {
-    const date = new Date(dateString)
-    const year = date.getFullYear()
-    const month = `0${date.getMonth() + 1}`.slice(-2)
-    const day = `0${date.getDate()}`.slice(-2)
-    return `${year}/${month}/${day}`
-  }
-
   const baseData = {
     articleUrlId: article.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
@@ -86,7 +73,7 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
     throw new Error("記事作成日のデーターが存在しません")
   }
 
-  const createdAt = formatDateString(createdAtData)
+  const createdAt = formatDateToString(new Date(createdAtData), "yyyy/MM/dd")
 
   // 記事更新日はforceUpdatedAtだけを使用する
   const updatedAt = article.forceUpdatedAt
@@ -94,7 +81,9 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
   return {
     ...baseData,
     createdAt,
-    updatedAt: isDefined(updatedAt) ? formatDateString(updatedAt) : undefined
+    updatedAt: isDefined(updatedAt)
+      ? formatDateToString(new Date(updatedAt), "yyyy/MM/dd")
+      : undefined
   }
 }
 
@@ -127,9 +116,9 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
     }
 
     // forceCreatedAtが指定されていればその値を優先して使用する
-    const submittedAt = comment.forceCreatedAt ?? comment.createdAt
+    const trulySubmittedAt = comment.forceCreatedAt ?? comment.createdAt
 
-    if (!isDefined(submittedAt)) {
+    if (!isDefined(trulySubmittedAt)) {
       throw new Error("コメントの投稿日が存在しません")
     }
 
@@ -138,7 +127,10 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
       userName: isValidString(comment.userName) ? comment.userName : FALLBACK_COMMENT_USER_NAME,
       parentCommentDocumentId: comment.parentCommentDocumentId,
       body: comment.body,
-      submittedAt
+      submittedAt: formatDateToString(
+        convertUTCToJST(new Date(trulySubmittedAt)),
+        "yyyy/MM/dd HH:mm:ss"
+      )
     } satisfies Omit<IntermediateCommentInfo, "replies">
   })
 

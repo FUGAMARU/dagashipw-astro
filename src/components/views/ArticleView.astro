@@ -28,15 +28,13 @@ import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
 import { Hero } from "@/components/templates/hero/Hero"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
-import {
-  getCurrentDateTime,
-  insertTableOfContentsToMarkdown
-} from "@/components/views/ArticleView.helpers"
+import { insertTableOfContentsToMarkdown } from "@/components/views/ArticleView.helpers"
 import styles from "@/components/views/ArticleView.module.css"
 import { isDefined } from "@/utils"
+import { formatDateToString } from "@/utils/datetime"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
-import type { Article } from "@/types/article"
+import type { Article } from "@/types/models"
 
 /** Props */
 type Props = {
@@ -100,6 +98,8 @@ const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(artic
       }}
     />
 
-    <p class={styles.built}>{`この記事は ${getCurrentDateTime()} にビルドされました`}</p>
+    <p class={styles.built}>
+      {`この記事は ${formatDateToString(new Date(), "yyyy/MM/dd HH:mm:ss")} にビルドされました`}
+    </p>
   </div>
 </div>
