@@ -105,6 +105,11 @@ const SVG_COMPONENTS = {
     import("@/components/parts/svg/IconCheckCircle").then(({ IconCheckCircle }) => ({
       default: IconCheckCircle
     }))
+  ),
+  turnBackArrow: lazy(() =>
+    import("@/components/parts/svg/IconTurnBackArrow").then(({ IconTurnBackArrow }) => ({
+      default: IconTurnBackArrow
+    }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 

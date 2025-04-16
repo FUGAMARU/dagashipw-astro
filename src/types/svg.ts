@@ -36,3 +36,4 @@ export type SvgComponentName =
   | "penPlus"
   | "copy"
   | "checkCircle"
+  | "turnBackArrow"

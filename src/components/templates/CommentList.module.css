@@ -1,0 +1,26 @@
+@import url("/src/styles/post.css");
+
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.replyList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 16px;
+  margin-top: 12px;
+}
+
+@media (--pc) {
+  .commentList {
+    gap: 24px;
+  }
+
+  .replyList {
+    gap: 16px;
+    margin-top: 16px;
+  }
+}
