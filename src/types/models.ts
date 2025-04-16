@@ -51,3 +51,18 @@ export type CommentInfo = MainCommentInfo & {
   /** 返信一覧 */
   replies: Array<MainCommentInfo>
 }
+
+/** CMSのコメントデーターをフロントエンド向けに変換する時の中間データーのフォーマット */
+export type IntermediateCommentInfo = Omit<CommentInfo, "commentId" | "replies"> & {
+  /** コメントID */
+  documentId: string
+  /** 親コメントID */
+  parentCommentDocumentId?: string
+  /** 返信一覧 */
+  replies: Array<
+    Omit<MainCommentInfo, "commentId"> & {
+      /** コメントID */
+      documentId: string
+    }
+  >
+}

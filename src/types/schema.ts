@@ -1690,12 +1690,12 @@ export interface components {
         CommentRequest: {
             data: {
                 userName?: string;
-                parentCommentId?: string;
                 body: string;
                 /** Format: date-time */
                 forceCreatedAt?: string;
                 articleUrlId: string;
                 isAdministratorComment: boolean;
+                parentCommentDocumentId?: string;
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1715,12 +1715,12 @@ export interface components {
             id?: number;
             documentId?: string;
             userName?: string;
-            parentCommentId?: string;
             body: string;
             /** Format: date-time */
             forceCreatedAt?: string;
             articleUrlId: string;
             isAdministratorComment: boolean;
+            parentCommentDocumentId?: string;
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1831,12 +1831,12 @@ export interface components {
                 id?: number;
                 documentId?: string;
                 userName?: string;
-                parentCommentId?: string;
                 body?: string;
                 /** Format: date-time */
                 forceCreatedAt?: string;
                 articleUrlId?: string;
                 isAdministratorComment?: boolean;
+                parentCommentDocumentId?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */

@@ -21,34 +21,42 @@ type Props = {
 /** コメント一覧表示用コンポーネント */
 export const CommentList = ({ commentList }: Props) => {
   return (
-    <div className={styles.commentList}>
-      {commentList.map((comment, commentIndex) => (
-        <div key={comment.commentId}>
-          <Comment
-            commentInfo={{
-              ...comment,
-              commentNumber: String(commentList.length - commentIndex)
-            }}
-            displayType="parent"
-            hasReply={isValidArray(comment.replies)}
-          />
+    <div>
+      <div className={styles.commentList}>
+        {commentList.map((comment, commentIndex) => (
+          <div key={comment.commentId}>
+            <Comment
+              commentInfo={{
+                ...comment,
+                commentNumber: String(commentList.length - commentIndex)
+              }}
+              displayType="parent"
+              hasReply={isValidArray(comment.replies)}
+            />
 
-          {isValidArray(comment.replies) && (
-            <div className={styles.replyList}>
-              {comment.replies.map((reply, replyIndex) => (
-                <Comment
-                  key={reply.commentId}
-                  commentInfo={{
-                    ...reply,
-                    commentNumber: `${commentList.length - commentIndex}-${replyIndex + 1}`
-                  }}
-                  displayType="child"
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+            {isValidArray(comment.replies) && (
+              <div className={styles.replyList}>
+                {comment.replies.map((reply, replyIndex) => (
+                  <Comment
+                    key={reply.commentId}
+                    commentInfo={{
+                      ...reply,
+                      commentNumber: `${commentList.length - commentIndex}-${replyIndex + 1}`
+                    }}
+                    displayType="child"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {commentList.length >= 5 && (
+        <button className={styles.showMore} type="button">
+          TODO: コメントをもっと表示するボタン
+        </button>
+      )}
     </div>
   )
 }

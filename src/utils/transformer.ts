@@ -2,6 +2,8 @@
  * @file APIレスポンスをフロントエンドで利用する形式に変換する関数群
  */
 
+import { orderBy } from "es-toolkit"
+
 import { API_ORIGIN } from "@/constants/env"
 import {
   EXTRACTED_PARAGRAPHS_LENGTH,
@@ -11,7 +13,13 @@ import {
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 
-import type { Article, ArticleInfo, Comment, CommentInfo } from "@/types/models"
+import type {
+  Article,
+  ArticleInfo,
+  Comment,
+  CommentInfo,
+  IntermediateCommentInfo
+} from "@/types/models"
 
 /**
  * CMSから取得した記事情報をフロントエンドで利用する形式に変換する
@@ -90,7 +98,7 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
   }
 }
 
-// TODO: isAnimatedCommentへの対応が必要 (コンポ側も)
+// TODO: isAdministratorCommentへの対応が必要 (コンポ側も)
 
 /**
  * CMSから取得したコメントデーターをフロントエンドで利用する形式に変換する
@@ -99,16 +107,26 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
  * @returns 整形されたコメントデーター
  */
 export const transformDataToCommentInfo = (comments: Array<Comment>): Array<CommentInfo> => {
-  const dataPicked = comments.map(comment => ({
-    id: comment.id,
-    userName: comment.userName,
-    parentCommentId: comment.parentCommentId,
-    body: comment.body,
-    forceCreatedAt: comment.forceCreatedAt,
-    createdAt: comment.createdAt
-  }))
+  /** CMSからレスポンスされたデーターのうち使用するプロパティーだけピックアップしたもの */
+  const propertyPickedData = comments.map(
+    comment =>
+      ({
+        documentId: comment.documentId,
+        userName: comment.userName,
+        parentCommentDocumentId: comment.parentCommentDocumentId,
+        body: comment.body,
+        forceCreatedAt: comment.forceCreatedAt,
+        createdAt: comment.createdAt
+      }) satisfies Partial<Comment>
+  )
 
-  const dataFilled = dataPicked.map(comment => {
+  /** データを変換したもの */
+  const transformedData = propertyPickedData.map(comment => {
+    if (!isDefined(comment.documentId)) {
+      throw new Error("コメントIDが存在しません")
+    }
+
+    // forceCreatedAtが指定されていればその値を優先して使用する
     const submittedAt = comment.forceCreatedAt ?? comment.createdAt
 
     if (!isDefined(submittedAt)) {
@@ -116,30 +134,41 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
     }
 
     return {
-      id: String(comment.id), // TODO: comment.idがoptionalなので例外吐くなど対応が必要
+      documentId: String(comment.documentId),
       userName: isValidString(comment.userName) ? comment.userName : FALLBACK_COMMENT_USER_NAME,
-      parentCommentId: comment.parentCommentId,
+      parentCommentDocumentId: comment.parentCommentDocumentId,
       body: comment.body,
       submittedAt
-    }
+    } satisfies Omit<IntermediateCommentInfo, "replies">
   })
 
-  const replyAdded = dataFilled
+  /** 子コメントのデーターを付与したもの */
+  const replyAddedData: Array<IntermediateCommentInfo> = transformedData
     .map(comment => ({
       ...comment,
-      replies: dataFilled.filter(
-        reply => reply.parentCommentId === comment.id && reply.id !== comment.id
+      replies: transformedData.filter(
+        reply =>
+          reply.parentCommentDocumentId === comment.documentId &&
+          reply.documentId !== comment.documentId
       )
     }))
-    .filter(comment => !isDefined(comment.parentCommentId))
+    .filter(comment => !isDefined(comment.parentCommentDocumentId))
 
-  return replyAdded.map(comment => ({
-    commentId: comment.id,
+  /** 親コメントを投稿日時の降順・子コメントを投稿日時の昇順に並べ替えたもの */
+  const sortedData = orderBy(replyAddedData, ["submittedAt"], ["desc"]).map(
+    (comment: IntermediateCommentInfo) => ({
+      ...comment,
+      replies: orderBy(comment.replies, ["submittedAt"], ["asc"])
+    })
+  )
+
+  return sortedData.map((comment: IntermediateCommentInfo) => ({
+    commentId: comment.documentId,
     userName: comment.userName,
     submittedAt: comment.submittedAt,
     body: comment.body,
     replies: comment.replies.map(reply => ({
-      commentId: reply.id,
+      commentId: reply.documentId,
       userName: reply.userName,
       submittedAt: reply.submittedAt,
       body: reply.body

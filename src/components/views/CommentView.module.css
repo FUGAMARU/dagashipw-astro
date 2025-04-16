@@ -1,7 +1,10 @@
 @import url("/src/styles/post.css");
 
 .commentView {
-  padding: 16px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 24px 32px;
   margin-top: 32px;
   background-color: var(--color-white);
   border-radius: 24px;
@@ -23,5 +26,17 @@
         font-weight: bold;
       }
     }
+  }
+
+  > .empty {
+    font-size: 12px;
+    color: var(--color-text-gray);
+    text-align: center;
+  }
+}
+
+@media (--pc) {
+  .commentView {
+    padding: 24px 32px 32px;
   }
 }

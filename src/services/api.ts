@@ -45,7 +45,7 @@ export const fetchAllPaginated = async <T>(endpoint: string): Promise<Array<T>> 
       axiosInstance
         .get<
           PaginatedResponse<T>
-        >(`${endpoint}?pagination[page]=${page}&pagination[pageSize]=${dataCountPerRequest}&pagination[withCount]=false`)
+        >(`${endpoint}pagination[page]=${page}&pagination[pageSize]=${dataCountPerRequest}&pagination[withCount]=false`)
         .then(res => res.data.data ?? [])
     )
   )
