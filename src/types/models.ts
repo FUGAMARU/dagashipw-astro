@@ -1,5 +1,5 @@
 /**
- * @file 記事に関連する型定義
+ * @file モデルに関連する型定義
  */
 
 import type { components } from "@/types/schema"
@@ -29,4 +29,25 @@ export type ArticleInfo = {
   updatedAt?: string
   /** コメント数 */
   commentCount: number
+}
+
+/** コメント情報 (CMSで保持しているフォーマット) */
+export type Comment = components["schemas"]["Comment"]
+
+/** 子コメントのフォーマット */
+type MainCommentInfo = {
+  /** コメントID */
+  commentId: string
+  /** ユーザー名 */
+  userName: string
+  /** 投稿日時 */
+  submittedAt: string
+  /** 本文 */
+  body: string
+}
+
+/** コメント情報 (CMSで保持しているフォーマットではなく内部的にコメント情報を扱う場合に用いるフォーマット) */
+export type CommentInfo = MainCommentInfo & {
+  /** 返信一覧 */
+  replies: Array<MainCommentInfo>
 }

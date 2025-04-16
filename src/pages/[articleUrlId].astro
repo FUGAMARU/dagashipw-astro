@@ -3,7 +3,7 @@ import Layout from "@/components/layout/Layout.astro"
 import ArticleView from "@/components/views/ArticleView.astro"
 import CommentView from "@/components/views/CommentView.astro"
 import styles from "@/pages/_[articleUrlId].module.css"
-import { getAllArticleUrlIds, getArticle } from "@/services/api"
+import { getAllArticleUrlIdList, getArticle } from "@/services/api"
 import { isDefined } from "@/utils"
 import {
   calculateReadingTime,
@@ -12,9 +12,9 @@ import {
 
 /** 存在する記事のパス一覧をexportする */
 export const getStaticPaths = async () => {
-  const allArticleUrlIds = await getAllArticleUrlIds()
+  const allArticleUrlIdList = await getAllArticleUrlIdList()
 
-  return allArticleUrlIds.map(articleUrlId => ({
+  return allArticleUrlIdList.map(articleUrlId => ({
     params: {
       articleUrlId
     }

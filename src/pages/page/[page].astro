@@ -4,7 +4,7 @@ import ArticleListView from "@/components/views/ArticleListView.astro"
 import { PAGE_NAME, PAGE_PATH } from "@/constants/page"
 import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
 import { isDefined } from "@/utils"
-import { formatArticleInfo } from "@/utils/formatter"
+import { transformDataToArticleInfo } from "@/utils/transformer"
 
 /** 記事一覧のページネーションで存在するページの一覧をexportする */
 export const getStaticPaths = async () => {
@@ -31,7 +31,9 @@ if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")
 }
 
-const articleInfoList = await Promise.all(articles.filter(isDefined).map(formatArticleInfo))
+const articleInfoList = await Promise.all(
+  articles.filter(isDefined).map(transformDataToArticleInfo)
+)
 const totalArticlePageCount = await getTotalArticlePageCount() // getStaticPathsでも同じ変数を宣言しているが、getStaticPathsの外に出すとエラーになるのでここで再宣言
 ---
 

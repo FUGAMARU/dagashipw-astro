@@ -5,10 +5,7 @@ import { isValidArray } from "@/utils"
 import type { ComponentProps } from "react"
 
 /** コメントデーター */
-type Comment = Omit<ComponentProps<typeof Comment>["commentInfo"], "index"> & {
-  /** コメントID */
-  commentId: number
-}
+type Comment = Omit<ComponentProps<typeof Comment>["commentInfo"], "commentNumber">
 
 /** Props */
 type Props = {
@@ -30,7 +27,7 @@ export const CommentList = ({ commentList }: Props) => {
           <Comment
             commentInfo={{
               ...comment,
-              index: String(commentList.length - commentIndex)
+              commentNumber: String(commentList.length - commentIndex)
             }}
             displayType="parent"
             hasReply={isValidArray(comment.replies)}
@@ -42,8 +39,8 @@ export const CommentList = ({ commentList }: Props) => {
                 <Comment
                   key={reply.commentId}
                   commentInfo={{
-                    ...comment,
-                    index: `${commentList.length - commentIndex}-${replyIndex + 1}`
+                    ...reply,
+                    commentNumber: `${commentList.length - commentIndex}-${replyIndex + 1}`
                   }}
                   displayType="child"
                 />

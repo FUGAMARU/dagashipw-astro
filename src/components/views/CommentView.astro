@@ -1,8 +1,20 @@
 ---
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { CommentList } from "@/components/templates/CommentList"
 import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import styles from "@/components/views/CommentView.module.css"
-// TODO: コメントの取得処理
+import { getComments } from "@/services/api"
+import { isDefined } from "@/utils"
+import { transformDataToCommentInfo } from "@/utils/transformer"
+
+const { articleUrlId } = Astro.params
+
+if (!isDefined(articleUrlId)) {
+  throw new Error("記事URL IDが存在しません")
+}
+
+const comments = await getComments(articleUrlId)
+const commentInfoList = transformDataToCommentInfo(comments)
 ---
 
 <div class={styles.commentView}>
@@ -14,5 +26,5 @@ import styles from "@/components/views/CommentView.module.css"
     <CommentPostButton client:load />
   </div>
 
-  コメント表示エリア
+  <CommentList client:load commentList={commentInfoList} />
 </div>

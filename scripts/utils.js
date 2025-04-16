@@ -56,11 +56,11 @@ export const getArticle = async articleUrlId => {
  *
  * @returns articleUrlId一覧
  */
-export const getAllArticleUrlIds = async () => {
+export const getAllArticleUrlIdList = async () => {
   let currentPage = 1
   let totalArticleCount = 0
   let loadedPageCount = 0
-  const articleUrlIds = []
+  const articleUrlIdList = []
 
   do {
     const response = await axiosInstance.get(
@@ -80,7 +80,7 @@ export const getAllArticleUrlIds = async () => {
       const articleUrlId = article.articleUrlId
 
       if (isDefined(articleUrlId)) {
-        articleUrlIds.push(articleUrlId)
+        articleUrlIdList.push(articleUrlId)
       }
     })
 
@@ -88,7 +88,7 @@ export const getAllArticleUrlIds = async () => {
     currentPage++
   } while (loadedPageCount < totalArticleCount)
 
-  return articleUrlIds
+  return articleUrlIdList
 }
 
 /**
@@ -115,7 +115,7 @@ export const setArticleThemeColor = async (articleUrlId, themeColor) => {
 
 /** 全ての記事の本文を取得する */
 export const getAllArticlesBody = async () => {
-  const allArticleUrlIdList = await getAllArticleUrlIds()
+  const allArticleUrlIdList = await getAllArticleUrlIdList()
   const articles = await Promise.all(allArticleUrlIdList.map(getArticle))
   return articles.map(article => ({
     title: article.title,

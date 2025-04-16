@@ -7,14 +7,14 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { Worker } from "node:worker_threads"
 
-import { isDefined, getAllArticleUrlIds, getArticle, API_ORIGIN } from "./utils.js"
+import { isDefined, getAllArticleUrlIdList, getArticle, API_ORIGIN } from "./utils.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 /** Main */
 const main = async () => {
-  const allArticleUrlIdList = await getAllArticleUrlIds()
+  const allArticleUrlIdList = await getAllArticleUrlIdList()
 
   const articles = await Promise.all(allArticleUrlIdList.map(getArticle))
 

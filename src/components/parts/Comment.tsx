@@ -2,17 +2,7 @@ import styles from "@/components/parts/Comment.module.css"
 import { ItemNumber } from "@/components/parts/common/ItemNumber"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 
-/** コメント情報 */
-type Comment = {
-  /** インデックス */
-  index: string
-  /** ユーザー名 */
-  userName: string
-  /** 投稿日時 */
-  submittedAt: string
-  /** 本文 */
-  body: string
-}
+import type { CommentInfo } from "@/types/models"
 
 /** 親コメントのIF */
 type ParentComment = {
@@ -31,7 +21,10 @@ type ChildComment = {
 /** Props */
 type Props = (ParentComment | ChildComment) & {
   /** コメント情報 */
-  commentInfo: Comment
+  commentInfo: Omit<CommentInfo, "replies"> & {
+    /** コメント番号 */
+    commentNumber: string
+  }
 }
 
 /** コメント表示用コンポーネント */
@@ -44,7 +37,10 @@ export const Comment = ({ commentInfo, ...rest }: Props) => {
   return (
     <div className={styles.commentComponent}>
       <div className={styles.header}>
-        <ItemNumber isFilled={rest.displayType === "parent"} itemNumber={commentInfo.index} />
+        <ItemNumber
+          isFilled={rest.displayType === "parent"}
+          itemNumber={commentInfo.commentNumber}
+        />
         <span className={styles.name}>{commentInfo.userName}</span>
         <span className={styles.datetime}>{commentInfo.submittedAt}</span>
       </div>

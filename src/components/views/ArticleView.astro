@@ -34,7 +34,7 @@ import {
 } from "@/components/views/ArticleView.helpers"
 import styles from "@/components/views/ArticleView.module.css"
 import { isDefined } from "@/utils"
-import { formatArticleInfo } from "@/utils/formatter"
+import { transformDataToArticleInfo } from "@/utils/transformer"
 
 import type { Article } from "@/types/article"
 
@@ -46,7 +46,7 @@ type Props = {
 
 const { article } = Astro.props
 
-const articleInfo = await formatArticleInfo(article)
+const articleInfo = await transformDataToArticleInfo(article)
 const articleDate = isDefined(articleInfo.updatedAt)
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)

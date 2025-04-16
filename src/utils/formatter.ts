@@ -5,92 +5,9 @@
 import { isValidElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
-import { EXTRACTED_PARAGRAPHS_LENGTH } from "@/constants/value"
 import { isDefined } from "@/utils"
-import { API_ORIGIN } from "scripts/utils"
 
-import type { Article, ArticleInfo } from "@/types/article"
 import type { ReactElement, ReactNode } from "react"
-
-/** サムネイルからテーマカラーを取得できなかった場合のフォールバック色 */
-const FALLBACK_THEME_COLOR = "#343434"
-
-/**
- * CMSから取得した記事情報を内部的に扱いやすいフォーマットに整形する
- *
- * @param article - 記事情報
- * @returns 整形された記事情報
- */
-export const formatArticleInfo = async (article: Article): Promise<ArticleInfo> => {
-  const thumbnailUrl = `${API_ORIGIN}${article.thumbnail.url}`
-
-  /**
-   * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
-   *
-   * @param markdown - Markdown
-   * @returns 所定の文字数で切り取られた段落
-   */
-  const extractBeginningParagraph = (markdown: string): string => {
-    const paragraphs = markdown
-      // Markdownリンクのテキスト部分だけを抽出
-      .replace(/\[([^\]]+)]\([^)]+\)/g, "$1")
-      // Markdown画像を削除
-      .replace(/!\[[^\]]*]\([^)]+\)/g, "")
-      // HTMLタグを削除し、タグ内のテキストを保持
-      .replace(/<\/?[^>]+(>|$)/g, "")
-      // 見出しなどの余計なものを削除
-      .replace(/(^|\n)(#+\s|<[^>]+>)/g, "")
-      // 改行をスペースに変換
-      .replace(/\n+/g, " ")
-      // 不要なスペースをトリム
-      .trim()
-
-    return paragraphs.substring(0, EXTRACTED_PARAGRAPHS_LENGTH)
-  }
-
-  /**
-   * 日付文字列をyyyy/MM/dd形式に整形する
-   *
-   * @param dateString - 日付文字列
-   * @returns yyyyMM/dd
-   */
-  const formatDateString = (dateString: string): string => {
-    const date = new Date(dateString)
-    const year = date.getFullYear()
-    const month = `0${date.getMonth() + 1}`.slice(-2)
-    const day = `0${date.getDate()}`.slice(-2)
-    return `${year}/${month}/${day}`
-  }
-
-  const baseData = {
-    articleUrlId: article.articleUrlId,
-    backNumber: 1, // TODO: 実際の値を反映させる必要がある
-    title: article.title,
-    thumbnailUrl,
-    themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
-    tags: (article.tags as Array<string>) ?? [],
-    bodyBeginningParagraph: extractBeginningParagraph(article.body),
-    commentCount: 1 // TODO: 実際の値を反映させる必要がある
-  } as const satisfies Partial<ArticleInfo>
-
-  // 記事作成日はforceCreatedAtが指定されていればその値を優先して使用する
-  const createdAtData = article.forceCreatedAt ?? article.createdAt
-
-  if (!isDefined(createdAtData)) {
-    throw new Error("記事作成日のデーターが存在しません")
-  }
-
-  const createdAt = formatDateString(createdAtData)
-
-  // 記事更新日はforceUpdatedAtだけを使用する
-  const updatedAt = article.forceUpdatedAt
-
-  return {
-    ...baseData,
-    createdAt,
-    updatedAt: isDefined(updatedAt) ? formatDateString(updatedAt) : undefined
-  }
-}
 
 /**
  * 見出し用のIDを生成する関数

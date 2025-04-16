@@ -8,8 +8,50 @@ import { ARTICLES_PER_PAGE } from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
 import { isDefined } from "@/utils"
 
-import type { Article } from "@/types/article"
-import type { paths } from "@/types/schema"
+import type { Article, Comment } from "@/types/models"
+import type { components, paths } from "@/types/schema"
+
+/** ページネーション付きAPIレスポンス (どのコレクションでも同一のIFなので代表してArticleの型定義を引用している) */
+type PaginatedResponse<T> = components["schemas"]["ArticleListResponse"] & {
+  /** データー */
+  data?: Array<T>
+}
+
+/**
+ * ページネーションありで指定したエンドポイントのデータを全て取得する
+ *
+ * @param endpoint - エンドポイント
+ * @returns データ一覧
+ */
+export const fetchAllPaginated = async <T>(endpoint: string): Promise<Array<T>> => {
+  /** 1回のリクエストで取得するデーター件数 */
+  const dataCountPerRequest = 100
+
+  const firstResponse = await axiosInstance.get<PaginatedResponse<T>>(
+    `${endpoint}?pagination[page]=1&pagination[pageSize]=${dataCountPerRequest}&pagination[withCount]=true`
+  )
+
+  const firstData = firstResponse.data.data ?? []
+  const total = firstResponse.data.meta?.pagination?.total ?? 0
+  const perPage = firstResponse.data.meta?.pagination?.pageSize ?? dataCountPerRequest
+  const totalPages = Math.ceil(total / perPage)
+
+  if (totalPages <= 1) {
+    return firstData
+  }
+
+  const restPages = await Promise.all(
+    Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map(page =>
+      axiosInstance
+        .get<
+          PaginatedResponse<T>
+        >(`${endpoint}?pagination[page]=${page}&pagination[pageSize]=${dataCountPerRequest}&pagination[withCount]=false`)
+        .then(res => res.data.data ?? [])
+    )
+  )
+
+  return [...firstData, ...restPages.flat()]
+}
 
 /**
  * 記事を取得する
@@ -29,39 +71,10 @@ export const getArticle = async (articleUrlId: string): Promise<Article | undefi
  *
  * @returns articleUrlId一覧
  */
-export const getAllArticleUrlIds = async (): Promise<Array<string>> => {
-  let currentPage = 1
-  let totalArticleCount = 0
-  let loadedPageCount = 0
-  const articleUrlIds: Array<string> = []
+export const getAllArticleUrlIdList = async (): Promise<Array<string>> => {
+  const articles = await fetchAllPaginated<Article>("/articles")
 
-  do {
-    const response = await axiosInstance.get<
-      paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
-    >(`/articles?pagination[page]=${currentPage}&pagination[withCount]=true`)
-
-    const totalArticleCountResponse = response.data.meta?.pagination?.total
-    const itemCountPerPageResponse = response.data.meta?.pagination?.pageSize
-
-    if (!isDefined(totalArticleCountResponse) || !isDefined(itemCountPerPageResponse)) {
-      break
-    }
-
-    totalArticleCount = totalArticleCountResponse
-
-    response.data.data?.forEach(article => {
-      const articleUrlId = article.articleUrlId
-
-      if (isDefined(articleUrlId)) {
-        articleUrlIds.push(articleUrlId)
-      }
-    })
-
-    loadedPageCount += itemCountPerPageResponse
-    currentPage++
-  } while (loadedPageCount < totalArticleCount)
-
-  return articleUrlIds
+  return articles.map(article => article.articleUrlId).filter(isDefined)
 }
 
 /**
@@ -102,3 +115,12 @@ export const getTotalArticlePageCount = async (): Promise<number> => {
   >(`/articles?pagination[pageSize]=${ARTICLES_PER_PAGE}`)
   return response.data?.meta?.pagination?.pageCount ?? 0
 }
+
+/**
+ * 指定された記事に寄せられているコメント一覧を取得する
+ *
+ * @param articleUrlId - 記事のURL ID
+ * @returns コメント一覧
+ */
+export const getComments = async (articleUrlId: string): Promise<Array<Comment>> =>
+  fetchAllPaginated<Comment>(`/comments?filters[articleUrlId][$eq]=${articleUrlId}&`)
