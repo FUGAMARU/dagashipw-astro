@@ -27,8 +27,6 @@ export type ArticleInfo = {
   createdAt: string
   /** 更新日 */
   updatedAt?: string
-  /** コメント数 */
-  commentCount: number
 }
 
 /** コメント情報 (CMSで保持しているフォーマット) */

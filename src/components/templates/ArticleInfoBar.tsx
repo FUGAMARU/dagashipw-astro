@@ -1,8 +1,10 @@
 import clsx from "clsx"
+import useSWR from "swr"
 
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/ArticleInfoBar.module.css"
 import { useIsSP } from "@/hooks/useIsSP"
+import { selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined } from "@/utils"
 
 import type { ArticleInfo } from "@/types/models"
@@ -13,17 +15,22 @@ type Props = {
   isWhiteStyle?: boolean
   /** ボーダーを非表示にするかどうか */
   isBorderHidden?: boolean
-} & Pick<ArticleInfo, "createdAt" | "updatedAt" | "commentCount">
+} & Pick<ArticleInfo, "articleUrlId" | "createdAt" | "updatedAt">
 
 /** 記事情報 */
 export const ArticleInfoBar = ({
+  articleUrlId,
   createdAt,
   updatedAt,
-  commentCount,
   isWhiteStyle = false,
   isBorderHidden = false
 }: Props) => {
   const isSP = useIsSP()
+
+  const { data: commentCount } = useSWR<number>(
+    `/proxy/comments/${articleUrlId}/count`,
+    selfHostedFetcher
+  )
 
   return (
     <div className={clsx(styles.articleInfo, isWhiteStyle && styles.WhiteStyle)}>
@@ -59,7 +66,7 @@ export const ArticleInfoBar = ({
         )}
       >
         <SvgLoader height={isSP ? 12 : 16} name="commentWithPen" width={isSP ? 12 : 16} />
-        <span>{commentCount}</span>
+        <span>{isDefined(commentCount) ? commentCount : " "}</span>
       </div>
     </div>
   )

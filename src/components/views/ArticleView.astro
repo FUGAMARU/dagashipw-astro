@@ -26,7 +26,8 @@ import ArticleImage from "@/components/article/standards/media/ArticleImage.astr
 import { Video } from "@/components/article/standards/media/Video"
 import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
-import { Hero } from "@/components/templates/hero/Hero"
+import HeroPC from "@/components/templates/hero/HeroPC.astro"
+import HeroSP from "@/components/templates/hero/HeroSP.astro"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 import { insertTableOfContentsToMarkdown } from "@/components/views/ArticleView.helpers"
 import styles from "@/components/views/ArticleView.module.css"
@@ -53,11 +54,11 @@ const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(artic
 
 <div class={styles.articleView}>
   <div class={styles.heroSp}>
-    <Hero device="sp" {...articleInfo} />
+    <HeroSP {...articleInfo} />
   </div>
 
   <div class={styles.heroPc}>
-    <Hero device="pc" {...articleInfo} />
+    <HeroPC {...articleInfo} />
   </div>
 
   <div class={styles.body}>

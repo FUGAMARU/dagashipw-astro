@@ -1,0 +1,50 @@
+---
+import { BackNumber } from "@/components/parts/BackNumber"
+import { Image } from "@/components/parts/common/Image"
+import { Tag } from "@/components/parts/Tag"
+import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
+import styles from "@/components/templates/hero/HeroPC.module.css"
+
+import type { HeroProps } from "@/types/element"
+
+/** Props */
+type Props = HeroProps
+
+const { articleUrlId, thumbnailUrl, backNumber, title, createdAt, updatedAt, tags } = Astro.props
+---
+
+<div class={styles.heroPC}>
+  <div class={styles.imageContainer}>
+    <Image
+      alt={title}
+      cssHeight="auto"
+      cssWidth="full"
+      isEager
+      isObjectFitCover
+      isWide
+      src={thumbnailUrl}
+    />
+  </div>
+
+  <div class={styles.overlayContainer}>
+    <div class={styles.upper}></div>
+    <div class={styles.main}>
+      <ArticleInfoBar
+        articleUrlId={articleUrlId}
+        client:load
+        createdAt={createdAt}
+        isWhiteStyle
+        updatedAt={updatedAt}
+      />
+      <h1 class={styles.title}>{title}</h1>
+
+      <div class={styles.tags}>
+        {tags.map(tagText => <Tag href={`/tags/${tagText}`} text={tagText} />)}
+      </div>
+
+      <div class={styles.number}>
+        <BackNumber backNumber={backNumber} isShiftLeft />
+      </div>
+    </div>
+  </div>
+</div>

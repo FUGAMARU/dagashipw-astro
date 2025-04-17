@@ -8,9 +8,9 @@ const meta: Meta<typeof ArticleInfoBar> = {
   args: {
     isWhiteStyle: undefined,
     isBorderHidden: undefined,
+    articleUrlId: undefined,
     createdAt: undefined,
-    updatedAt: undefined,
-    commentCount: undefined
+    updatedAt: undefined
   },
   argTypes: { isWhiteStyle: { control: "boolean" }, isBorderHidden: { control: "boolean" } }
 }

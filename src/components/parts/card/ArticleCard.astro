@@ -1,0 +1,89 @@
+---
+import clsx from "clsx"
+
+import { BackNumber } from "@/components/parts/BackNumber"
+import styles from "@/components/parts/card/ArticleCard.module.css"
+import { Image } from "@/components/parts/common/Image"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { Tag } from "@/components/parts/Tag"
+import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
+import { determineWhiteTextColor } from "@/utils/color"
+
+import type { ArticleInfo } from "@/types/models"
+import type { ComponentProps } from "react"
+
+/** Props */
+type Props = {
+  /** サムネイルを即時読込するかどうか */
+  isThumbnailEager?: ComponentProps<typeof Image>["isEager"]
+} & ArticleInfo
+
+const {
+  isThumbnailEager = false,
+  thumbnailUrl,
+  themeColor,
+  articleUrlId,
+  createdAt,
+  updatedAt,
+  title,
+  bodyBeginningParagraph,
+  tags,
+  backNumber
+} = Astro.props
+
+const isHeaderTextColorWhite = determineWhiteTextColor(themeColor)
+---
+
+<div class={styles.articleCard}>
+  <div class={styles.thumbnail}>
+    <Image
+      cssHeight="full"
+      cssWidth="full"
+      figureTagClassName={styles.imageFigureTag}
+      isEager={isThumbnailEager}
+      isObjectFitCover
+      src={thumbnailUrl}
+    />
+  </div>
+  <div class={styles.index}>
+    <BackNumber backNumber={backNumber} />
+  </div>
+
+  <div class={styles.main}>
+    <div
+      class={clsx(styles.header, isHeaderTextColorWhite && styles.WhiteText)}
+      style={{ backgroundColor: themeColor }}
+    >
+      <ArticleInfoBar
+        articleUrlId={articleUrlId}
+        client:load
+        createdAt={createdAt}
+        isBorderHidden
+        isWhiteStyle={isHeaderTextColorWhite}
+        updatedAt={updatedAt}
+      />
+    </div>
+
+    <div class={styles.details}>
+      <span class={styles.title}>{title}</span>
+      <span class={styles.body}>{bodyBeginningParagraph}</span>
+      <div class={styles.tags}>
+        {
+          tags.map(tagText => (
+            // TODO: Link Area Delegationが普及したらそれに合わせたい (https://blog.sakupi01.com/dev/articles/proposal-link-area-delegation)
+            <object>
+              <Tag href={`/tags/${tagText}`} text={tagText} />
+            </object>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class={styles.link}>
+      <div class={styles.read}>
+        <SvgLoader height={18} name="doubleRightArrow" width={18} />
+        <span class={styles.text}>読んでみる</span>
+      </div>
+    </div>
+  </div>
+</div>

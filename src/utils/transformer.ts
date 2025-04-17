@@ -10,7 +10,6 @@ import {
   FALLBACK_COMMENT_USER_NAME,
   FALLBACK_THEME_COLOR
 } from "@/constants/value"
-import { getCommentCount } from "@/services/api"
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
@@ -54,8 +53,6 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
     return paragraphs.substring(0, EXTRACTED_PARAGRAPHS_LENGTH)
   }
 
-  const commentCount = await getCommentCount(article.articleUrlId)
-
   const baseData = {
     articleUrlId: article.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
@@ -63,8 +60,7 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
     thumbnailUrl: `${API_ORIGIN}${article.thumbnail.url}`,
     themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
     tags: (article.tags as Array<string>) ?? [],
-    bodyBeginningParagraph: extractBeginningParagraph(article.body),
-    commentCount
+    bodyBeginningParagraph: extractBeginningParagraph(article.body)
   } as const satisfies Partial<ArticleInfo>
 
   // 記事作成日はforceCreatedAtが指定されていればその値を優先して使用する
