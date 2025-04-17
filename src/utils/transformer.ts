@@ -2,7 +2,7 @@
  * @file APIレスポンスをフロントエンドで利用する形式に変換する関数群
  */
 
-import { orderBy } from "es-toolkit"
+import { orderBy, pick } from "es-toolkit"
 
 import { API_ORIGIN } from "@/constants/env"
 import {
@@ -29,8 +29,6 @@ import type {
  * @returns 整形された記事情報
  */
 export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
-  const thumbnailUrl = `${API_ORIGIN}${article.thumbnail.url}`
-
   /**
    * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
    *
@@ -59,7 +57,7 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
     articleUrlId: article.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
     title: article.title,
-    thumbnailUrl,
+    thumbnailUrl: `${API_ORIGIN}${article.thumbnail.url}`,
     themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
     tags: (article.tags as Array<string>) ?? [],
     bodyBeginningParagraph: extractBeginningParagraph(article.body),
@@ -97,16 +95,15 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
  */
 export const transformDataToCommentInfo = (comments: Array<Comment>): Array<CommentInfo> => {
   /** CMSからレスポンスされたデーターのうち使用するプロパティーだけピックアップしたもの */
-  const propertyPickedData = comments.map(
-    comment =>
-      ({
-        documentId: comment.documentId,
-        userName: comment.userName,
-        parentCommentDocumentId: comment.parentCommentDocumentId,
-        body: comment.body,
-        forceCreatedAt: comment.forceCreatedAt,
-        createdAt: comment.createdAt
-      }) satisfies Partial<Comment>
+  const propertyPickedData = comments.map(comment =>
+    pick(comment, [
+      "documentId",
+      "userName",
+      "parentCommentDocumentId",
+      "body",
+      "forceCreatedAt",
+      "createdAt"
+    ])
   )
 
   /** データを変換したもの */
