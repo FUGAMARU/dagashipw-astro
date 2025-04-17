@@ -117,10 +117,23 @@ export const getTotalArticlePageCount = async (): Promise<number> => {
 }
 
 /**
- * 指定された記事に寄せられているコメント一覧を取得する
+ * 指定した記事に寄せられているコメント一覧を取得する
  *
  * @param articleUrlId - 記事のURL ID
  * @returns コメント一覧
  */
 export const getComments = async (articleUrlId: string): Promise<Array<Comment>> =>
   fetchAllPaginated<Comment>(`/comments?filters[articleUrlId][$eq]=${articleUrlId}&`)
+
+/**
+ * 指定した記事に寄せられているコメント数を取得する
+ *
+ * @param articleUrlId - 記事のURL ID
+ * @returns コメント数
+ */
+export const getCommentCount = async (articleUrlId: string): Promise<number> => {
+  const response = await axiosInstance.get<
+    paths["/comments"]["get"]["responses"]["200"]["content"]["application/json"]
+  >(`/comments?filters[articleUrlId][$eq]=${articleUrlId}&pagination[withCount]=true`)
+  return response.data.meta?.pagination?.total ?? 0
+}
