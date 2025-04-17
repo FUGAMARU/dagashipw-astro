@@ -155,15 +155,11 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
   )
 
   return sortedData.map((comment: IntermediateCommentInfo) => ({
+    ...pick(comment, ["userName", "submittedAt", "body"]),
     commentId: comment.documentId,
-    userName: comment.userName,
-    submittedAt: comment.submittedAt,
-    body: comment.body,
     replies: comment.replies.map(reply => ({
-      commentId: reply.documentId,
-      userName: reply.userName,
-      submittedAt: reply.submittedAt,
-      body: reply.body
+      ...pick(reply, ["userName", "submittedAt", "body"]),
+      commentId: reply.documentId
     }))
   }))
 }
