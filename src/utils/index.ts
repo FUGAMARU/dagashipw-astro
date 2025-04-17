@@ -28,3 +28,6 @@ export const isValidString = (value: string | undefined | null): value is string
  */
 export const isValidArray = <T>(value: Array<T> | undefined | null): value is Array<T> =>
   isDefined(value) && value.length > 0
+
+/** サーバーサイド環境かどうか */
+export const isServerSide = typeof window === "undefined"

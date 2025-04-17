@@ -2,7 +2,7 @@
  * @file 環境変数を利用するための中間定数群
  */
 
-import { isDefined, isValidString } from "@/utils"
+import { isDefined, isServerSide, isValidString } from "@/utils"
 
 /** APIオリジン */
 export const API_ORIGIN = import.meta.env.API_ORIGIN
@@ -17,7 +17,7 @@ export const IMGPROXY_SIGNING_KEY = import.meta.env.IMGPROXY_SIGNING_KEY
 /** imgproxyの署名URL生成用ソルト */
 export const IMGPROXY_SIGNING_SALT = import.meta.env.IMGPROXY_SIGNING_SALT
 
-if ([API_ORIGIN, API_TOKEN].some(value => !isValidString(value))) {
+if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))) {
   const missingEnvironmentVariables = [
     !isValidString(API_ORIGIN) && "API_ORIGINが環境変数に設定されていません",
     !isValidString(API_TOKEN) && "API_TOKENが環境変数に設定されていません",

@@ -5,7 +5,7 @@
 import axios from "axios"
 
 import { API_ORIGIN, API_TOKEN } from "@/constants/env"
-import { isValidString } from "@/utils"
+import { isServerSide, isValidString } from "@/utils"
 
 /** API接続する時に使用するAxiosのインスタンス */
 export const axiosInstance = axios.create({
@@ -15,11 +15,16 @@ export const axiosInstance = axios.create({
   }
 })
 
+/** 自己ホストしているAPIに接続する時に使用するAxiosのインスタンス */
+export const selfHostedAxiosInstance = axios.create({
+  baseURL: "/api"
+})
+
 /** リクエストインターセプター */
 axiosInstance.interceptors.request.use(
   config => {
     // リクエストが送信される前の処理
-    if (typeof window === "undefined") {
+    if (isServerSide) {
       const fullUrl = isValidString(config.baseURL)
         ? new URL(config.url ?? "", config.baseURL).href
         : config.url

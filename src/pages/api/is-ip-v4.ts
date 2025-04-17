@@ -13,9 +13,6 @@ export const GET: APIRoute = ({ clientAddress }) => {
   const isIPv4Address = checkIsIPv4Address(clientAddress)
 
   return new Response(JSON.stringify(isIPv4Address), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json"
-    }
+    status: 200
   })
 }

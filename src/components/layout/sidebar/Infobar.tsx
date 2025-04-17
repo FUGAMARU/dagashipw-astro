@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 import { getInfoBarDateInfo } from "@/components/layout/sidebar/Infobar.helpers"
 import styles from "@/components/layout/sidebar/Infobar.module.css"
-import { checkIsIPv4 } from "@/services/api"
+import { checkIsIPv4 } from "@/services/self-hosted-api"
 
 /** 日付やIPv6 / IPv4の接続情報などを表示するコンポーネント */
 export const Infobar = () => {

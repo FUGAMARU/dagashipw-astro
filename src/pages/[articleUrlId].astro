@@ -1,7 +1,7 @@
 ---
 import Layout from "@/components/layout/Layout.astro"
 import ArticleView from "@/components/views/ArticleView.astro"
-import CommentView from "@/components/views/CommentView.astro"
+import { CommentView } from "@/components/views/CommentView"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIdList, getArticle } from "@/services/api"
 import { isDefined } from "@/utils"
@@ -34,13 +34,13 @@ const minutesToRead = calculateReadingTime(article.body)
 ---
 
 <Layout title={`${article.title} | 麩菓子の雑記帳`}>
-  <div class={styles.articlePageMain}>
+  <section class={styles.articlePageMain}>
     <ArticleView article={article} />
-  </div>
+  </section>
 
-  <div class={styles.commentArea}>
-    <CommentView />
-  </div>
+  <section class={styles.commentArea}>
+    <CommentView articleUrlId={articleUrlId} client:load />
+  </section>
 
   <toc-variable-bridge data-minutestoread={minutesToRead}></toc-variable-bridge>
   <toc-variable-bridge data-value={JSON.stringify(tableOfContentsData)}></toc-variable-bridge>

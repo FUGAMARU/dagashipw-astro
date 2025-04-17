@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof CommentList> = {
   component: CommentList,
   tags: ["autodocs"],
-  args: { commentList: undefined },
+  args: { comments: undefined },
   argTypes: {}
 }
 
@@ -14,7 +14,7 @@ type Story = StoryObj<typeof meta>
 
 export const HasNoReplies: Story = {
   args: {
-    commentList: [
+    comments: [
       {
         commentId: 1,
         userName: "田中 太郎",
@@ -42,7 +42,7 @@ export const HasNoReplies: Story = {
 
 export const HasReplies: Story = {
   args: {
-    commentList: [
+    comments: [
       {
         commentId: 10,
         userName: "山田 健太",
@@ -84,7 +84,7 @@ export const HasReplies: Story = {
 
 export const HasMultipleReplies: Story = {
   args: {
-    commentList: [
+    comments: [
       {
         commentId: 20,
         userName: "中村 美咲",

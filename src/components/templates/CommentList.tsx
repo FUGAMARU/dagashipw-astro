@@ -9,8 +9,8 @@ type Comment = Omit<ComponentProps<typeof Comment>["commentInfo"], "commentNumbe
 
 /** Props */
 type Props = {
-  /** コメントリスト */
-  commentList: Array<
+  /** コメント一覧 */
+  comments: Array<
     Comment & {
       /** 返信一覧 */
       replies: Array<Comment>
@@ -19,16 +19,16 @@ type Props = {
 }
 
 /** コメント一覧表示用コンポーネント */
-export const CommentList = ({ commentList }: Props) => {
+export const CommentList = ({ comments }: Props) => {
   return (
     <div>
       <div className={styles.commentList}>
-        {commentList.map((comment, commentIndex) => (
+        {comments.map((comment, commentIndex) => (
           <div key={comment.commentId}>
             <Comment
               commentInfo={{
                 ...comment,
-                commentNumber: String(commentList.length - commentIndex)
+                commentNumber: String(comments.length - commentIndex)
               }}
               displayType="parent"
               hasReply={isValidArray(comment.replies)}
@@ -41,7 +41,7 @@ export const CommentList = ({ commentList }: Props) => {
                     key={reply.commentId}
                     commentInfo={{
                       ...reply,
-                      commentNumber: `${commentList.length - commentIndex}-${replyIndex + 1}`
+                      commentNumber: `${comments.length - commentIndex}-${replyIndex + 1}`
                     }}
                     displayType="child"
                   />
@@ -52,7 +52,7 @@ export const CommentList = ({ commentList }: Props) => {
         ))}
       </div>
 
-      {commentList.length >= 5 && (
+      {comments.length >= 5 && (
         <button className={styles.showMore} type="button">
           TODO: コメントをもっと表示するボタン
         </button>
