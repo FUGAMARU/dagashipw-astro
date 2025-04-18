@@ -29,12 +29,6 @@ export const CommentView = ({ articleUrlId }: Props) => {
     return null
   }
 
-  if (!isValidArray(commentInfoList)) {
-    return (
-      <div className={styles.noComment}>まだコメントされていません。コメントしてみませんか？</div>
-    )
-  }
-
   return (
     <div className={styles.commentView}>
       <div className={styles.header}>
@@ -47,7 +41,7 @@ export const CommentView = ({ articleUrlId }: Props) => {
         <CommentPostButton />
       </div>
 
-      {commentInfoList.length >= 1 ? (
+      {isValidArray(commentInfoList) ? (
         <CommentList comments={commentInfoList} />
       ) : (
         <span className={styles.empty}>まだコメントされていません。コメントしてみませんか？</span>
