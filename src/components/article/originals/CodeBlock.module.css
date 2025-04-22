@@ -19,12 +19,12 @@
 
     > .language {
       --padding-side: 12px;
-      --left-minus-margin: -4.5px;
+      --left-minus-margin: -5px;
 
       display: grid;
       place-items: center;
       width: fit-content;
-      padding: 6px var(--padding-side) 6px
+      padding: 4px var(--padding-side) 4px
         calc(var(--padding-side) + calc(var(--left-minus-margin) * -1));
       margin-left: var(--left-minus-margin);
       border-bottom-right-radius: 4px;
@@ -35,7 +35,7 @@
 
         display: inline-block;
         font-family: Gabarito, sans-serif;
-        font-size: 14px;
+        font-size: 12px;
         transform: skew(28deg);
 
         &.White {
@@ -48,4 +48,19 @@
 
 .checkCircleIcon {
   fill: var(--color-white);
+}
+
+@media (--pc) {
+  .codeBlock {
+    > .header {
+      > .language {
+        padding-top: 6px;
+        padding-bottom: 6px;
+
+        > .text {
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }

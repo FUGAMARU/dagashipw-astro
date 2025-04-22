@@ -13,3 +13,6 @@ export const FALLBACK_THEME_COLOR = "#343434"
 
 /** ユーザー名が指定されていない場合に表示するコメント投稿者のユーザー名 */
 export const FALLBACK_COMMENT_USER_NAME = "匿名ユーザー"
+
+/** PCのメディアクエリの最小横幅ピクセル数 */
+export const PC_MEDIA_QUERY_MIN_WIDTH = 1000

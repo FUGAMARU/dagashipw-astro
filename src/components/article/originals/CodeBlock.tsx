@@ -6,6 +6,7 @@ import { codeToHtml } from "shiki"
 
 import styles from "@/components/article/originals/CodeBlock.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { PC_MEDIA_QUERY_MIN_WIDTH } from "@/constants/value"
 import { isDefined } from "@/utils"
 
 import type { CodeBlockLanguageInfo } from "@/components/article/originals/CodeBlockWrapper.helpers"
@@ -40,7 +41,7 @@ export const CodeBlock = ({ languageInfo, animationInfo, code }: Props) => {
 
   /** コピーするボタンを押下した時の処理 */
   const handleCopyButtonClick = async () => {
-    await navigator.clipboard.writeText(code)
+    await navigator.clipboard.writeText(code) // TODO: iPhoneで押下した時にアニメーション発火しなかったので確認する必要ありそう
 
     const timeline = createTimeline({
       defaults: {
@@ -115,8 +116,8 @@ export const CodeBlock = ({ languageInfo, animationInfo, code }: Props) => {
           {`
             code {
               font-family: "HackGen35", monospace;
-              font-size: 14px;
-              line-height: 1.4;
+              font-size: 12px;
+              line-height: 1.45;
               counter-reset: step;
               counter-increment: step 0;
             }
@@ -141,6 +142,12 @@ export const CodeBlock = ({ languageInfo, animationInfo, code }: Props) => {
 
             span {
               font-style: normal !important;
+            }
+
+            @media screen and (min-width:${PC_MEDIA_QUERY_MIN_WIDTH}px) {
+              code {
+                font-size: 14px;
+              }
             }
           `}
         </style>
