@@ -4,6 +4,8 @@
 
 import { isDefined, isServerSide, isValidString } from "@/utils"
 
+/** サイトオリジン */
+export const SITE_ORIGIN = import.meta.env.SITE_ORIGIN
 /** APIオリジン */
 export const API_ORIGIN = import.meta.env.API_ORIGIN
 /** APIトークン */
@@ -19,6 +21,7 @@ export const IMGPROXY_SIGNING_SALT = import.meta.env.IMGPROXY_SIGNING_SALT
 
 if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))) {
   const missingEnvironmentVariables = [
+    !isValidString(SITE_ORIGIN) && "SITE_ORIGINが環境変数に設定されていません",
     !isValidString(API_ORIGIN) && "API_ORIGINが環境変数に設定されていません",
     !isValidString(API_TOKEN) && "API_TOKENが環境変数に設定されていません",
     !isValidString(CMS_STATIC_CONTENTS_DIRECTORY) &&

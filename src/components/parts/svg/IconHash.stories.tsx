@@ -16,5 +16,10 @@ export const Primary: Story = {
   args: {
     width: 128,
     height: 128
-  }
+  },
+  render: args => (
+    <span style={{ stroke: "#343434" }}>
+      <IconHash {...args} />
+    </span>
+  )
 }

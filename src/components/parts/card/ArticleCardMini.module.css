@@ -1,0 +1,75 @@
+@import url("/src/styles/post.css");
+
+.articleCardMini {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  gap: 0;
+  overflow: hidden;
+  border: solid 1px var(--color-border-gray);
+  border-radius: 8px;
+
+  > .thumbnail {
+    aspect-ratio: 16 / 9;
+    border-bottom: solid 1px var(--color-border-gray);
+  }
+
+  > .main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 8px;
+
+    > .upper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+
+      > .elapsed {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        width: fit-content;
+        padding: 4px 8px;
+        border-radius: 4px;
+
+        &.WhiteStyle {
+          color: var(--color-white);
+          fill: var(--color-white);
+        }
+
+        > .text {
+          @mixin noto-sans-text-adjust;
+
+          font-size: 10px;
+        }
+      }
+
+      > .title {
+        @mixin max-lines 4;
+
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.5;
+      }
+    }
+
+    > .read {
+      display: flex;
+      align-items: center;
+      padding-top: 4px;
+      fill: var(--color-text-gray);
+
+      /* stylelint-disable-next-line no-descending-specificity */
+      > .text {
+        @mixin noto-sans-text-adjust;
+
+        font-size: 10px;
+        color: var(--color-text-gray);
+      }
+    }
+  }
+}

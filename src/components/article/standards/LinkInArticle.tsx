@@ -12,8 +12,8 @@ type Props = {
 /** 記事中に登場するリンク */
 export const LinkInArticle = ({ href, children }: Props) => {
   return (
-    <Link href={href}>
-      <span className={styles.linkInArticle}>{children}</span>
+    <Link className={styles.linkInArticle} href={href}>
+      {children}
     </Link>
   )
 }

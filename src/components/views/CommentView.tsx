@@ -1,6 +1,6 @@
 import useSWR from "swr"
 
-import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import { CommentList } from "@/components/templates/CommentList"
 import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import styles from "@/components/views/CommentView.module.css"
@@ -30,22 +30,18 @@ export const CommentView = ({ articleUrlId }: Props) => {
   }
 
   return (
-    <div className={styles.commentView}>
-      <div className={styles.header}>
-        <div className={styles.left}>
-          <SvgLoader height={20} name="commentWithPen" width={20} />
-          <span
-            className={styles.text}
-          >{`この記事に寄せられたコメント (${commentInfoList.length})`}</span>
-        </div>
-        <CommentPostButton />
-      </div>
-
+    <CommonViewContainer
+      icon={{ name: "commentWithPen", coloringMethod: "fill" }}
+      rightTopElement={<CommentPostButton />}
+      title={`この記事に寄せられたコメント (${commentInfoList.length})`}
+    >
       {isValidArray(commentInfoList) ? (
         <CommentList comments={commentInfoList} />
       ) : (
-        <span className={styles.empty}>まだコメントされていません。コメントしてみませんか？</span>
+        <span className={styles.commentEmpty}>
+          まだコメントされていません。コメントしてみませんか？
+        </span>
       )}
-    </div>
+    </CommonViewContainer>
   )
 }

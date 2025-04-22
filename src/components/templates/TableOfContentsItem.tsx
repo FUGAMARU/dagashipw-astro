@@ -19,11 +19,9 @@ type Props = {
 /** TableOfContentsに並ぶアイテム */
 export const TableOfContentsItem = ({ title, href, isActive = false, itemNumber }: Props) => {
   return (
-    <Link href={href}>
-      <div className={styles.tableOfContentsItem}>
-        <ItemNumber isFilled={isActive} itemNumber={itemNumber} />
-        <span className={clsx(styles.title, isActive && styles.Active)}>{title}</span>
-      </div>
+    <Link className={styles.tableOfContentsItem} href={href}>
+      <ItemNumber isFilled={isActive} itemNumber={itemNumber} />
+      <span className={clsx(styles.title, isActive && styles.Active)}>{title}</span>
     </Link>
   )
 }

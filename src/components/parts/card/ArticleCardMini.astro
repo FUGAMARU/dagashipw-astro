@@ -1,0 +1,50 @@
+---
+import clsx from "clsx"
+
+import { getElapsedTimeString } from "@/components/parts/card/ArticleCardMini.helpers"
+import styles from "@/components/parts/card/ArticleCardMini.module.css"
+import { Image } from "@/components/parts/common/Image"
+import { Link } from "@/components/parts/common/Link"
+import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { isDefined } from "@/utils"
+import { determineWhiteTextColor } from "@/utils/color"
+
+import type { ArticleInfo } from "@/types/models"
+
+/** Props */
+type Props = Pick<
+  ArticleInfo,
+  "articleUrlId" | "createdAt" | "updatedAt" | "thumbnailUrl" | "themeColor" | "title"
+>
+
+const { articleUrlId, createdAt, updatedAt, thumbnailUrl, themeColor, title } = Astro.props
+
+const isElapsedLabelColorWhite = determineWhiteTextColor(themeColor)
+const elapsedTimeString = getElapsedTimeString(
+  isDefined(updatedAt) ? new Date(updatedAt) : new Date(createdAt)
+)
+---
+
+<Link className={styles.articleCardMini} href={`/${articleUrlId}`}>
+  <div class={styles.thumbnail}>
+    <Image borderRadius="0" cssHeight="full" cssWidth="full" isObjectFitCover src={thumbnailUrl} />
+  </div>
+
+  <div class={styles.main}>
+    <div class={styles.upper}>
+      <div
+        class={clsx(styles.elapsed, isElapsedLabelColorWhite && styles.WhiteStyle)}
+        style={`background-color: ${themeColor}`}
+      >
+        <SvgLoader height={10} name="clock" width={10} />
+        <span class={styles.text}>{elapsedTimeString}</span>
+      </div>
+      <span class={styles.title}>{title}</span>
+    </div>
+
+    <div class={styles.read}>
+      <SvgLoader height={14} name="doubleRightArrow" width={14} />
+      <span class={styles.text}>読んでみる</span>
+    </div>
+  </div>
+</Link>

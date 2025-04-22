@@ -1,0 +1,45 @@
+@import url("/src/styles/post.css");
+
+.commonViewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 24px 32px;
+  background-color: var(--color-white);
+  border-radius: 24px;
+
+  > .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > .left {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+
+      &.Fill {
+        fill: var(--color-text-dark);
+        stroke: unset;
+      }
+
+      &.Stroke {
+        fill: unset;
+        stroke: var(--color-text-dark);
+      }
+
+      > .text {
+        @mixin noto-sans-text-adjust;
+
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+@media (--pc) {
+  .commentView {
+    padding: 24px 32px 32px;
+  }
+}

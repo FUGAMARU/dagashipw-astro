@@ -1,0 +1,49 @@
+---
+import ArticleCardMini from "@/components/parts/card/ArticleCardMini.astro"
+import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
+import styles from "@/components/views/SameTagArticlesView.module.css"
+---
+
+<CommonViewContainer
+  icon={{ name: "hash", coloringMethod: "stroke" }}
+  title="同じタグが設定されている記事"
+>
+  <div class={styles.sameTagArticles}>
+    {/** TODO: 【仕様】最大4つ  */}
+    <ArticleCardMini
+      articleUrlId="development"
+      createdAt="2025/04/01"
+      themeColor="#4287f5"
+      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
+      title="テストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトル"
+      updatedAt="2025/04/02"
+    />
+
+    <ArticleCardMini
+      articleUrlId="development"
+      createdAt="2025/04/01"
+      themeColor="#4287f5"
+      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
+      title="テストタイトル"
+      updatedAt="2025/04/02"
+    />
+
+    <ArticleCardMini
+      articleUrlId="development"
+      createdAt="2025/04/01"
+      themeColor="#4287f5"
+      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
+      title="テストタイトルテストタイトルテストタイトル"
+      updatedAt="2025/04/02"
+    />
+
+    <ArticleCardMini
+      articleUrlId="development"
+      createdAt="2025/04/01"
+      themeColor="#4287f5"
+      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
+      title="テストタイトル"
+      updatedAt="2025/04/02"
+    />
+  </div>
+</CommonViewContainer>

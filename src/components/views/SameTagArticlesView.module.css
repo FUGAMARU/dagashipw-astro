@@ -1,0 +1,14 @@
+@import url("/src/styles/post.css");
+
+.sameTagArticles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (--pc) {
+  .sameTagArticles {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}

@@ -6,7 +6,7 @@ const meta: Meta<typeof Tag> = {
   component: Tag,
   tags: ["autodocs"],
   args: { text: undefined, href: undefined },
-  argTypes: { text: { control: "text" }, href: { control: "text" } }
+  argTypes: { text: { control: "text" } }
 }
 
 export default meta
