@@ -1,0 +1,32 @@
+@import url("/src/styles/post.css");
+
+.sectionTitle {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+
+  &.Fill {
+    fill: var(--color-text-dark);
+    stroke: unset;
+  }
+
+  &.Stroke {
+    fill: unset;
+    stroke: var(--color-text-dark);
+  }
+
+  > .text {
+    @mixin noto-sans-text-adjust;
+
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+@media (--pc) {
+  .sectionTitle {
+    > .text {
+      font-size: 16px;
+    }
+  }
+}

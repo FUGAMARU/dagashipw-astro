@@ -8,24 +8,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof Modal> = {
   component: Modal,
   tags: ["autodocs"],
-  args: { isOpen: true, triggerElement: "string", onClose: undefined },
-  argTypes: {
-    isOpen: { control: "boolean" },
-    triggerElement: {
-      control: "select",
-      options: [
-        "string",
-        "number",
-        "bigint",
-        "false",
-        "true",
-        "React.ReactElement<unknown, string | React.JSXElementConstructor<any>>",
-        "Iterable<React.ReactNode>",
-        "React.ReactPortal",
-        "Promise<AwaitedReactNode>"
-      ]
-    }
-  }
+  args: {},
+  argTypes: {}
 }
 
 export default meta
@@ -37,8 +21,13 @@ export const Primary: Story = {
 
     return (
       <Modal
+        icon={{
+          name: "commentWithPen",
+          coloringMethod: "fill"
+        }}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        title="コメントをどうぞ"
         triggerElement={
           <button
             onClick={() => {
