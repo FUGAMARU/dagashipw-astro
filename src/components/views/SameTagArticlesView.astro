@@ -2,7 +2,7 @@
 import ArticleCardMini from "@/components/parts/card/ArticleCardMini.astro"
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import styles from "@/components/views/SameTagArticlesView.module.css"
-import { getRecommendedArticlesWithLodash } from "@/components/views/SameTagArticleView.helpers"
+import { getRelatedArticles } from "@/components/views/SameTagArticleView.helpers"
 import { getArticle, getArticleTagsForAllArticles } from "@/services/api"
 import { isDefined } from "@/utils"
 import { transformDataToArticleInfo } from "@/utils/transformer"
@@ -16,10 +16,7 @@ type Props = {
 const { articleUrlId } = Astro.props
 
 const articleTagsForAllArticles = await getArticleTagsForAllArticles()
-const relatedArticleUrlIdList = getRecommendedArticlesWithLodash(
-  articleTagsForAllArticles,
-  articleUrlId
-)
+const relatedArticleUrlIdList = getRelatedArticles(articleTagsForAllArticles, articleUrlId)
 const relatedArticles = (
   await Promise.all(relatedArticleUrlIdList.map(articleUrlId => getArticle(articleUrlId)))
 ).filter(isDefined)
