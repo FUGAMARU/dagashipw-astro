@@ -35,7 +35,7 @@ import { isDefined } from "@/utils"
 import { formatDateToString } from "@/utils/datetime"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
-import type { Article } from "@/types/models"
+import type { Article } from "@/types/api"
 
 /** Props */
 type Props = {
@@ -45,7 +45,7 @@ type Props = {
 
 const { article } = Astro.props
 
-const articleInfo = await transformDataToArticleInfo(article)
+const articleInfo = transformDataToArticleInfo(article)
 const articleDate = isDefined(articleInfo.updatedAt)
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)

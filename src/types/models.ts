@@ -2,11 +2,6 @@
  * @file モデルに関連する型定義
  */
 
-import type { components } from "@/types/schema"
-
-/** 記事情報 (CMSで保持しているフォーマット) */
-export type Article = components["schemas"]["Article"]
-
 /** 記事情報 (CMSで保持しているフォーマットではなく内部的に記事情報を扱う場合に用いるフォーマット) */
 export type ArticleInfo = {
   /** 記事URL ID */
@@ -28,9 +23,6 @@ export type ArticleInfo = {
   /** 更新日 */
   updatedAt?: string
 }
-
-/** コメント情報 (CMSで保持しているフォーマット) */
-export type Comment = components["schemas"]["Comment"]
 
 /** 子コメントのフォーマット */
 type MainCommentInfo = {
@@ -63,4 +55,12 @@ export type IntermediateCommentInfo = Omit<CommentInfo, "commentId" | "replies">
       documentId: string
     }
   >
+}
+
+/** 記事ごとのタグの一覧 */
+export type ArticleTags = {
+  /** 記事URL ID */
+  articleUrlId: string
+  /** タグ一覧 */
+  tags: Array<string>
 }

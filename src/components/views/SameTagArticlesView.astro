@@ -2,48 +2,47 @@
 import ArticleCardMini from "@/components/parts/card/ArticleCardMini.astro"
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import styles from "@/components/views/SameTagArticlesView.module.css"
+import { getRecommendedArticlesWithLodash } from "@/components/views/SameTagArticleView.helpers"
+import { getArticle, getArticleTagsForAllArticles } from "@/services/api"
+import { isDefined } from "@/utils"
+import { transformDataToArticleInfo } from "@/utils/transformer"
+
+/** Props */
+type Props = {
+  /** 記事URL ID */
+  articleUrlId: string
+}
+
+const { articleUrlId } = Astro.props
+
+const articleTagsForAllArticles = await getArticleTagsForAllArticles()
+const relatedArticleUrlIdList = getRecommendedArticlesWithLodash(
+  articleTagsForAllArticles,
+  articleUrlId
+)
+const relatedArticles = (
+  await Promise.all(relatedArticleUrlIdList.map(articleUrlId => getArticle(articleUrlId)))
+).filter(isDefined)
+
+const relatedArticleInfoList = relatedArticles.map(article => transformDataToArticleInfo(article))
 ---
 
 <CommonViewContainer
   icon={{ name: "hash", coloringMethod: "stroke" }}
-  title="同じタグが設定されている記事"
+  title="同じようなタグが設定されている記事"
 >
   <div class={styles.sameTagArticles}>
-    {/** TODO: 【仕様】最大4つ  */}
-    <ArticleCardMini
-      articleUrlId="development"
-      createdAt="2025/04/01"
-      themeColor="#4287f5"
-      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
-      title="テストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトルテストタイトル"
-      updatedAt="2025/04/02"
-    />
-
-    <ArticleCardMini
-      articleUrlId="development"
-      createdAt="2025/04/01"
-      themeColor="#4287f5"
-      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
-      title="テストタイトル"
-      updatedAt="2025/04/02"
-    />
-
-    <ArticleCardMini
-      articleUrlId="development"
-      createdAt="2025/04/01"
-      themeColor="#4287f5"
-      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
-      title="テストタイトルテストタイトルテストタイトル"
-      updatedAt="2025/04/02"
-    />
-
-    <ArticleCardMini
-      articleUrlId="development"
-      createdAt="2025/04/01"
-      themeColor="#4287f5"
-      thumbnailUrl="https://cdn-ak.f.st-hatena.com/images/fotolife/b/blog-media/20180822/20180822153230.jpg"
-      title="テストタイトル"
-      updatedAt="2025/04/02"
-    />
+    {
+      relatedArticleInfoList.map(article => (
+        <ArticleCardMini
+          articleUrlId={article.articleUrlId}
+          createdAt={article.createdAt}
+          themeColor={article.themeColor}
+          thumbnailUrl={article.thumbnailUrl}
+          title={article.title}
+          updatedAt={article.updatedAt}
+        />
+      ))
+    }
   </div>
 </CommonViewContainer>

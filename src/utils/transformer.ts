@@ -14,13 +14,8 @@ import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
 
-import type {
-  Article,
-  ArticleInfo,
-  Comment,
-  CommentInfo,
-  IntermediateCommentInfo
-} from "@/types/models"
+import type { Article, Comment } from "@/types/api"
+import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/models"
 
 /**
  * CMSから取得した記事情報をフロントエンドで利用する形式に変換する
@@ -28,7 +23,7 @@ import type {
  * @param article - 記事情報
  * @returns 整形された記事情報
  */
-export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
+export const transformDataToArticleInfo = (article: Article): ArticleInfo => {
   /**
    * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
    *
