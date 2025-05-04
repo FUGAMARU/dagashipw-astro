@@ -1,0 +1,13 @@
+.textArea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 16px;
+  font-size: 12px;
+  outline: 0;
+  background-color: var(--color-input-background);
+  border-radius: 8px;
+
+  &::placeholder {
+    color: var(--color-text-gray);
+  }
+}
