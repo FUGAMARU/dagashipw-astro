@@ -110,6 +110,9 @@ const SVG_COMPONENTS = {
     import("@/components/parts/svg/IconTurnBackArrow").then(({ IconTurnBackArrow }) => ({
       default: IconTurnBackArrow
     }))
+  ),
+  cross: lazy(() =>
+    import("@/components/parts/svg/IconCross").then(({ IconCross }) => ({ default: IconCross }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 

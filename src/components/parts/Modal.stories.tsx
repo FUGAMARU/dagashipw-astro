@@ -2,6 +2,7 @@
 import { useState } from "react"
 
 import { Modal } from "@/components/parts/Modal"
+import { CommentPostButton } from "@/components/templates/CommentPostButton"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -27,6 +28,7 @@ export const Primary: Story = {
         }}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        submitButton={<CommentPostButton />}
         title="コメントをどうぞ"
         triggerElement={
           <button
@@ -45,7 +47,9 @@ export const Primary: Story = {
             モーダルを開く
           </button>
         }
-      />
+      >
+        モーダルで表示するコンテンツ
+      </Modal>
     )
   }
 }
