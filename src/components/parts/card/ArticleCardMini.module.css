@@ -12,6 +12,10 @@
   > .thumbnail {
     aspect-ratio: 16 / 9;
     border-bottom: solid 1px var(--color-border-gray);
+
+    > .figure {
+      height: 100%;
+    }
   }
 
   > .main {

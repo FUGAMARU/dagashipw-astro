@@ -27,7 +27,14 @@ const elapsedTimeString = getElapsedTimeString(
 
 <Link className={styles.articleCardMini} href={`/${articleUrlId}`}>
   <div class={styles.thumbnail}>
-    <Image borderRadius="0" cssHeight="auto" cssWidth="full" isObjectFitCover src={thumbnailUrl} />
+    <Image
+      borderRadius="0"
+      cssHeight="auto"
+      cssWidth="full"
+      figureTagClassName={styles.figure}
+      isObjectFitCover
+      src={thumbnailUrl}
+    />
   </div>
 
   <div class={styles.main}>
