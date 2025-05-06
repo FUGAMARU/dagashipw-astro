@@ -17,9 +17,24 @@
     }
   }
 
-  > .error {
-    padding-left: 4px;
-    font-size: 10px;
-    color: var(--color-vivid-red);
+  > .bottom {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    padding: 0 4px;
+
+    &.HasError {
+      justify-content: space-between;
+    }
+
+    > .error {
+      font-size: 10px;
+      color: var(--color-vivid-red);
+    }
+
+    > .counter {
+      font-size: 10px;
+      color: var(--color-text-gray);
+    }
   }
 }
