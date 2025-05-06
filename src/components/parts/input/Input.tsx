@@ -2,15 +2,18 @@ import { useCallback, type ComponentProps } from "react"
 
 import styles from "@/components/parts/input/Input.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { isValidString } from "@/utils"
 
 /** Props */
 type Props = ComponentProps<"input"> & {
   /** 検索アイコンを表示するか */
   hasSearchIcon?: boolean
+  /** エラーメッセージ */
+  errorMessage?: string
 }
 
 /** 入力欄 */
-export const Input = ({ hasSearchIcon = false, ...props }: Props) => {
+export const Input = ({ hasSearchIcon = false, errorMessage, ...props }: Props) => {
   const handleSearchButtonClick = useCallback(() => {
     alert("TODO: 検索処理")
   }, [])
@@ -23,6 +26,7 @@ export const Input = ({ hasSearchIcon = false, ...props }: Props) => {
           <SvgLoader className={styles.searchIcon} height={16} name="search" width={16} />
         </button>
       )}
+      {isValidString(errorMessage) && <span className={styles.error}>{errorMessage}</span>}
     </div>
   )
 }
