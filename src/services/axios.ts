@@ -17,7 +17,7 @@ export const axiosInstance = axios.create({
 
 /** 自己ホストしているAPIに接続する時に使用するAxiosのインスタンス */
 export const selfHostedAxiosInstance = axios.create({
-  baseURL: "/api"
+  baseURL: import.meta.env.STORYBOOK === "true" ? "http://localhost:4321/api" : "/api"
 })
 
 /** リクエストインターセプター */

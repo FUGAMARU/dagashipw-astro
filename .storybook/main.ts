@@ -28,6 +28,7 @@ const config: StorybookConfig = {
           imports: ["src/components/**/*.tsx"],
           ignores: [
             "src/components/article/originals/Inserter.tsx",
+            "src/components/parts/image/ImageOnlyServer.tsx", // 署名付きURL生成用にnode:cryptoを使用しているためStorybookでは表示できないので除外
             "src/components/views/**/*.tsx"
           ],
           prettierConfigPath: resolve(__dirname, "../.prettierrc.js")

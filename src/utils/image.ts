@@ -1,3 +1,7 @@
+/**
+ * @file 画像関連の関数群
+ */
+
 import { createHmac } from "node:crypto"
 
 import {
@@ -18,7 +22,6 @@ const decodeHexToBuffer = (hex: string): Uint8Array => new Uint8Array(Buffer.fro
 
 /**
  * CMSのオリジナル画像URLから軽量化された画像URLを取得する
- * TODO: node:cryptoのcreateHmacを使っているため、CSRするコンポーネントでImageコンポーネントを使おうとすると詰むので対応する必要がある。対応する場合はAstroに画像URL取得用のAPIを設ける必要がありそう。
  *
  * @param originalImageUrl - オリジナル画像のURL
  * @returns 軽量化された画像のURL

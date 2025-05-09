@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof HeightAdjustedImage> = {
   component: HeightAdjustedImage,
   tags: ["autodocs"],
-  args: {},
+  args: { caption: undefined },
   argTypes: {}
 }
 

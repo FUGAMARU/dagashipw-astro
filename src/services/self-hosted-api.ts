@@ -4,8 +4,6 @@
 
 import { selfHostedAxiosInstance } from "@/services/axios"
 
-import type { CommentInfo } from "@/types/models"
-
 /**
  * 自己ホストしているAPIにuseSWRでアクセスする時のfetcher
  *
@@ -17,23 +15,11 @@ export const selfHostedFetcher = <T>(url: string): Promise<T> =>
 
 /**
  * IPv4回線を使用しているどうかをチェックする
+ * TODO: SWRで叩くようにしたほうが良いかも
  *
  * @returns IPv4回線を使用しているかどうか
  */
 export const checkIsIPv4 = async (): Promise<boolean> => {
   const response = await selfHostedAxiosInstance.get<boolean>("/is-ip-v4")
-  return response.data
-}
-
-/**
- * 指定した記事のコメント一覧を取得する
- *
- * @param articleUrlId - 記事のURL ID
- * @returns コメント一覧
- */
-export const getComments = async (articleUrlId: string): Promise<Array<CommentInfo>> => {
-  const response = await selfHostedAxiosInstance.get<Array<CommentInfo>>(
-    `/proxy/comments/${articleUrlId}`
-  )
   return response.data
 }

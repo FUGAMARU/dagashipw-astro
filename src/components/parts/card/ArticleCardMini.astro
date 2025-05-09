@@ -4,11 +4,11 @@ import clsx from "clsx"
 import { getElapsedTimeString } from "@/components/parts/card/ArticleCardMini.helpers"
 import styles from "@/components/parts/card/ArticleCardMini.module.css"
 import { Link } from "@/components/parts/common/Link"
-import { ImageCore } from "@/components/parts/image/ImageCore"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { isDefined } from "@/utils"
 import { determineWhiteTextColor } from "@/utils/color"
 
+import { Image } from "@/components/parts/image/Image"
 import type { ArticleInfo } from "@/types/models"
 
 /** Props */
@@ -27,7 +27,7 @@ const elapsedTimeString = getElapsedTimeString(
 
 <Link className={styles.articleCardMini} href={`/${articleUrlId}`}>
   <div class={styles.thumbnail}>
-    <ImageCore
+    <Image
       borderRadius="0"
       cssHeight="auto"
       cssWidth="full"

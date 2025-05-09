@@ -1,5 +1,5 @@
 import styles from "@/components/article/originals/image/ImageRow.module.css"
-import { ImageCore } from "@/components/parts/image/ImageCore"
+import { Image } from "@/components/parts/image/Image"
 import { convertCommaSeparatedStringToArray } from "@/utils/formatter"
 
 /** Props */
@@ -15,7 +15,7 @@ export const ImageRow = ({ images, gap = "16" }: Props) => {
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
       {convertCommaSeparatedStringToArray(images).map(imageUrl => (
-        <ImageCore key={imageUrl} alt="" src={imageUrl} />
+        <Image key={imageUrl} alt="" src={imageUrl} />
       ))}
     </div>
   )

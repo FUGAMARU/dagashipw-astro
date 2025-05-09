@@ -1,7 +1,6 @@
 import clsx from "clsx"
 import { capitalize } from "es-toolkit"
 
-import { getLightweightImageUrl } from "@/components/parts/image/ImageCore.helpers"
 import styles from "@/components/parts/image/ImageCore.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
 import { isDefined } from "@/utils"
@@ -54,10 +53,6 @@ export const ImageCore = ({
   isHeightAdjustedImage = false,
   ...props
 }: Props) => {
-  if (!isDefined(src)) {
-    return <span>NoImage</span>
-  }
-
   return (
     <figure
       className={clsx(
@@ -79,7 +74,7 @@ export const ImageCore = ({
           isDefined(borderRadius) && styles[`BorderRadius${borderRadius}`]
         )}
         loading={isEager ? "eager" : "lazy"}
-        src={getLightweightImageUrl(src)}
+        src={src}
         {...props}
       />
 

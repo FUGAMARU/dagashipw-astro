@@ -1,5 +1,5 @@
 import styles from "@/components/article/originals/image/ImageTextRow.module.css"
-import { ImageCore } from "@/components/parts/image/ImageCore"
+import { Image } from "@/components/parts/image/Image"
 
 /** Props */
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 export const ImageTextRow = ({ imageUrl, imageHeight, text }: Props) => {
   return (
     <div className={styles.imageTextRow}>
-      <ImageCore figureTagClassName={styles.image} height={imageHeight} src={imageUrl} />
+      <Image figureTagClassName={styles.image} height={imageHeight} src={imageUrl} />
       <p className={styles.text}>{text}</p>
     </div>
   )
