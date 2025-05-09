@@ -1,0 +1,17 @@
+---
+import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
+import { ArticleCardMiniList } from "@/components/templates/list/ArticleCardMiniList"
+import { getRecentArticles } from "@/services/api"
+import { isValidArray } from "@/utils"
+import { transformDataToArticleInfo } from "@/utils/transformer"
+
+const recentArticles = await getRecentArticles()
+const recentArticleInfoList = await Promise.all(recentArticles.map(transformDataToArticleInfo))
+---
+
+<CommonViewContainer
+  icon={{ name: "labelPlus", coloringMethod: "fill" }}
+  title="最近投稿された記事"
+>
+  {isValidArray(recentArticleInfoList) && <ArticleCardMiniList cards={recentArticleInfoList} />}
+</CommonViewContainer>

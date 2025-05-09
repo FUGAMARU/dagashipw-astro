@@ -13,9 +13,7 @@ if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")
 }
 
-const articleInfoList = await Promise.all(
-  articles.filter(isDefined).map(transformDataToArticleInfo)
-)
+const articleInfoList = await Promise.all(articles.map(transformDataToArticleInfo))
 ---
 
 <Layout title={PAGE_NAME.TOP}>

@@ -16,3 +16,6 @@ export const FALLBACK_COMMENT_USER_NAME = "匿名ユーザー"
 
 /** PCのメディアクエリの最小横幅ピクセル数 */
 export const PC_MEDIA_QUERY_MIN_WIDTH = 1000
+
+/** ArticleCardMiniListの最大表示数 */
+export const MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT = 4

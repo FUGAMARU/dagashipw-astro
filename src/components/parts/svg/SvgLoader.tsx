@@ -113,6 +113,11 @@ const SVG_COMPONENTS = {
   ),
   cross: lazy(() =>
     import("@/components/parts/svg/IconCross").then(({ IconCross }) => ({ default: IconCross }))
+  ),
+  labelPlus: lazy(() =>
+    import("@/components/parts/svg/IconLabelPlus").then(({ IconLabelPlus }) => ({
+      default: IconLabelPlus
+    }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 

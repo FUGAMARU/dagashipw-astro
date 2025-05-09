@@ -7,13 +7,10 @@ import styles from "@/components/views/CommentView.module.css"
 import { selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined, isValidArray } from "@/utils"
 
-import type { CommentInfo } from "@/types/models"
+import type { ArticleInfo, CommentInfo } from "@/types/models"
 
 /** Props */
-type Props = {
-  /** 記事のURL ID */
-  articleUrlId: string
-}
+type Props = Pick<ArticleInfo, "articleUrlId">
 
 /**
  * コメントセクション表示用コンポーネント

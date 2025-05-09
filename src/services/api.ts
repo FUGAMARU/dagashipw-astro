@@ -2,7 +2,7 @@
  * @file APIにアクセスしデーターを整形する関数群
  */
 
-import { ARTICLES_PER_PAGE } from "@/constants/value"
+import { ARTICLES_PER_PAGE, MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT } from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
 
 import type {
@@ -84,7 +84,7 @@ export const getAllArticleUrlIdList = async (): Promise<Array<string>> => {
  */
 export const getArticlesWithPagination = async (
   pageNumber: number
-): Promise<Array<Article | undefined> | undefined> => {
+): Promise<Array<Article> | undefined> => {
   const response = await axiosInstance.get<ArticlesPathResponse>(
     `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
@@ -146,4 +146,16 @@ export const getArticleTagsForAllArticles = async (): Promise<
     articleUrlId: article.articleUrlId,
     tags: (article.tags as Array<string>).map(tag => tag)
   }))
+}
+
+/**
+ * 最新の記事n件を取得する (nは定数にて定義 / 更新日は判定基準に含めない)
+ *
+ * @returns 最新記事4件
+ */
+export const getRecentArticles = async (): Promise<Array<Article>> => {
+  const response = await axiosInstance.get<ArticlesPathResponse>(
+    `/articles?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+  )
+  return response.data.data ?? []
 }

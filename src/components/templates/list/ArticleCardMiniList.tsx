@@ -14,9 +14,7 @@ export const ArticleCardMiniList = ({ cards }: Props) => {
   return (
     <div className={styles.articleCardMiniList}>
       {cards.map(card => (
-        <div key={card.articleUrlId} className={styles.card}>
-          <ArticleCardMini {...card} />
-        </div>
+        <ArticleCardMini key={card.articleUrlId} {...card} />
       ))}
     </div>
   )

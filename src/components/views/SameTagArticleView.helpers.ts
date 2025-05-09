@@ -1,11 +1,9 @@
 import { countBy, shuffle } from "es-toolkit"
 
+import { MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT } from "@/constants/value"
 import { isDefined, isValidArray } from "@/utils"
 
 import type { ArticleTags } from "@/types/models"
-
-/** 関連記事の最大表示数 */
-const MAX_RELATED_ARTICLES_DISPLAY_COUNT = 4
 
 /**
  * 閲覧中の記事に関連する記事を取得する
@@ -45,7 +43,7 @@ export const getRelatedArticles = (
   })
 
   return sortedUniqueTags.reduce<Array<string>>((currentRecommendations, priorityTag) => {
-    if (currentRecommendations.length >= MAX_RELATED_ARTICLES_DISPLAY_COUNT) {
+    if (currentRecommendations.length >= MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT) {
       return currentRecommendations
     }
 
@@ -62,7 +60,7 @@ export const getRelatedArticles = (
       return currentRecommendations
     }
 
-    const neededCount = MAX_RELATED_ARTICLES_DISPLAY_COUNT - currentRecommendations.length
+    const neededCount = MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT - currentRecommendations.length
     const selectedIds = shuffle(candidatesForThisTag).slice(0, neededCount)
 
     return [...currentRecommendations, ...selectedIds]

@@ -31,9 +31,7 @@ if (!isDefined(articles)) {
   throw new Error("ページ情報が存在しません")
 }
 
-const articleInfoList = await Promise.all(
-  articles.filter(isDefined).map(transformDataToArticleInfo)
-)
+const articleInfoList = await Promise.all(articles.map(transformDataToArticleInfo))
 const totalArticlePageCount = await getTotalArticlePageCount() // getStaticPathsでも同じ変数を宣言しているが、getStaticPathsの外に出すとエラーになるのでここで再宣言
 ---
 

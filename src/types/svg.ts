@@ -38,3 +38,4 @@ export type SvgComponentName =
   | "checkCircle"
   | "turnBackArrow"
   | "cross"
+  | "labelPlus"
