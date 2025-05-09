@@ -1,13 +1,13 @@
 @import url("/src/styles/post.css");
 
-.sameTagArticles {
+.articleCardMiniList {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
 @media (--pc) {
-  .sameTagArticles {
+  .articleCardMiniList {
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }

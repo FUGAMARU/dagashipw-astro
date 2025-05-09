@@ -1,5 +1,5 @@
 import { Comment } from "@/components/parts/Comment"
-import styles from "@/components/templates/CommentList.module.css"
+import styles from "@/components/templates/list/CommentList.module.css"
 import { isValidArray } from "@/utils"
 
 import type { ComponentProps } from "react"

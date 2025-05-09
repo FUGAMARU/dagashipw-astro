@@ -1,4 +1,4 @@
-import { CommentList } from "@/components/templates/CommentList"
+import { CommentList } from "@/components/templates/list/CommentList"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

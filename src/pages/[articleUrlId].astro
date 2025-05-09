@@ -2,7 +2,7 @@
 import Layout from "@/components/layout/Layout.astro"
 import ArticleView from "@/components/views/ArticleView.astro"
 import { CommentView } from "@/components/views/CommentView"
-import SameTagArticlesView from "@/components/views/SameTagArticlesView.astro"
+import { SameTagArticlesView } from "@/components/views/SameTagArticlesView"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIdList, getArticle } from "@/services/api"
 import { isDefined } from "@/utils"
@@ -45,7 +45,7 @@ const minutesToRead = calculateReadingTime(article.body)
     </section>
 
     <section>
-      <SameTagArticlesView articleUrlId={articleUrlId} />
+      <SameTagArticlesView articleUrlId={articleUrlId} client:load />
     </section>
   </div>
 

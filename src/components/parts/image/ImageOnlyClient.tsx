@@ -1,4 +1,4 @@
-import useSWR from "swr"
+import useSWR from "swr/immutable"
 
 import { ImageCore } from "@/components/parts/image/ImageCore"
 import { selfHostedFetcher } from "@/services/self-hosted-api"

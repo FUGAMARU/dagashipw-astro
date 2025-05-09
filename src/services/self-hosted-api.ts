@@ -4,7 +4,7 @@
 
 import { selfHostedAxiosInstance } from "@/services/axios"
 
-import type { CommentInfo } from "@/types/models"
+import type { ArticleInfo, CommentInfo } from "@/types/models"
 
 /**
  * 自己ホストしているAPIにuseSWRでアクセスする時のfetcher
@@ -16,7 +16,11 @@ import type { CommentInfo } from "@/types/models"
  */
 export const selfHostedFetcher = <T>(option: {
   /** API関数名 */
-  apiFunction: "getArticleCommentCount" | "getArticleCommentInfoList" | "getSignedImageUrl"
+  apiFunction:
+    | "getArticleCommentCount"
+    | "getArticleCommentInfoList"
+    | "getSignedImageUrl"
+    | "getSameTagArticles"
   /** API関数の引数 */
   arg: string
 }): Promise<T> => {
@@ -27,6 +31,8 @@ export const selfHostedFetcher = <T>(option: {
       return getArticleCommentInfoList(option.arg) as unknown as Promise<T>
     case "getSignedImageUrl":
       return getSignedImageUrl(option.arg) as unknown as Promise<T>
+    case "getSameTagArticles":
+      return getSameTagArticles(option.arg) as unknown as Promise<T>
   }
 }
 
@@ -75,5 +81,18 @@ const getArticleCommentInfoList = async (articleUrlId: string): Promise<Array<Co
  */
 const getSignedImageUrl = async (src: string): Promise<string> => {
   const response = await selfHostedAxiosInstance.get<string>(`signed-image-url?src=${src}`)
+  return response.data
+}
+
+/**
+ * 同じタグが設定されている他の記事の一覧をランダムに取得する
+ *
+ * @param articleUrlId - 記事のURL ID
+ * @returns 同じタグが設定されている他の記事の一覧
+ */
+const getSameTagArticles = async (articleUrlId: string): Promise<Array<ArticleInfo>> => {
+  const response = await selfHostedAxiosInstance.get<Array<ArticleInfo>>(
+    `/proxy/articles/${articleUrlId}/same-tag`
+  )
   return response.data
 }

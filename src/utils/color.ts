@@ -17,5 +17,5 @@ export const determineWhiteTextColor = (backgroundColorCode: string): boolean =>
 
   const brightness = Math.floor(redValue * 0.299 + greenValue * 0.587 + blueValue * 0.114)
 
-  return brightness < 170
+  return brightness < 185
 }

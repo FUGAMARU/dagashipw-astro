@@ -1,8 +1,8 @@
 import useSWR from "swr"
 
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
-import { CommentList } from "@/components/templates/CommentList"
 import { CommentPostButton } from "@/components/templates/CommentPostButton"
+import { CommentList } from "@/components/templates/list/CommentList"
 import styles from "@/components/views/CommentView.module.css"
 import { selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined, isValidArray } from "@/utils"
