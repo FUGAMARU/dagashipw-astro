@@ -8,6 +8,7 @@ import { axiosInstance } from "@/services/axios"
 import type {
   Article,
   ArticlesPathResponse,
+  Comment,
   CommentsPathResponse,
   PaginatedResponse,
   FieldPickedArticlePathResponse
