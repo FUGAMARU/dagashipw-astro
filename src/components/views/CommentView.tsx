@@ -21,7 +21,10 @@ type Props = {
  */
 export const CommentView = ({ articleUrlId }: Props) => {
   const { data: commentInfoList } = useSWR<Array<CommentInfo>>(
-    `/proxy/comments/${articleUrlId}`,
+    {
+      apiFunction: "getArticleCommentInfoList",
+      arg: articleUrlId
+    },
     selfHostedFetcher
   )
 

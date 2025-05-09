@@ -11,7 +11,13 @@ type Props = ComponentProps<typeof ImageCore>
 
 /** CSRでのみ利用可能な画像表示用コンポーネント */
 export const ImageOnlyClient = ({ src, ...props }: Props) => {
-  const { data: signedSrc } = useSWR<string>(`signed-image-url?src=${src}`, selfHostedFetcher)
+  const { data: signedSrc } = useSWR<string>(
+    {
+      apiFunction: "getSignedImageUrl",
+      arg: src
+    },
+    selfHostedFetcher
+  )
 
   if (!isValidString(signedSrc)) {
     return null // TODO: フォールバックイメージを表示するべきか？ null返すとレイアウトシフト起こしそう

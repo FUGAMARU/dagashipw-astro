@@ -28,7 +28,10 @@ export const ArticleInfoBar = ({
   const isSP = useIsSP()
 
   const { data: commentCount } = useSWR<number>(
-    `/proxy/comments/${articleUrlId}/count`,
+    {
+      apiFunction: "getArticleCommentCount",
+      arg: articleUrlId
+    },
     selfHostedFetcher
   )
 
