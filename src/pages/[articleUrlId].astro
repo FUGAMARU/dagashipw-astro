@@ -6,7 +6,6 @@ import RecentArticlesView from "@/components/views/RecentArticlesView.astro"
 import { SameTagArticlesView } from "@/components/views/SameTagArticlesView"
 import styles from "@/pages/_[articleUrlId].module.css"
 import { getAllArticleUrlIdList, getArticle } from "@/services/api"
-import { isDefined } from "@/utils"
 import {
   calculateReadingTime,
   generateTableOfContentsFromMarkdown
@@ -26,11 +25,6 @@ export const getStaticPaths = async () => {
 const { articleUrlId } = Astro.params
 
 const article = await getArticle(articleUrlId)
-
-if (!isDefined(article)) {
-  throw new Error("記事情報が存在しません")
-}
-
 const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
 const minutesToRead = calculateReadingTime(article.body)
 ---

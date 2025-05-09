@@ -3,16 +3,10 @@ import Layout from "@/components/layout/Layout.astro"
 import ArticleListView from "@/components/views/ArticleListView.astro"
 import { PAGE_NAME } from "@/constants/page"
 import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
-import { isDefined } from "@/utils"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
 const totalArticlePageCount = await getTotalArticlePageCount()
 const articles = await getArticlesWithPagination(1)
-
-if (!isDefined(articles)) {
-  throw new Error("ページ情報が存在しません")
-}
-
 const articleInfoList = await Promise.all(articles.map(transformDataToArticleInfo))
 ---
 

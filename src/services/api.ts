@@ -4,6 +4,7 @@
 
 import { ARTICLES_PER_PAGE, MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT } from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
+import { isDefined } from "@/utils"
 
 import type {
   Article,
@@ -56,11 +57,18 @@ export const fetchAllPaginated = async <T>(endpoint: string): Promise<Array<T>> 
  * @param articleUrlId - 記事のURL ID
  * @returns 記事データ
  */
-export const getArticle = async (articleUrlId: string): Promise<Article | undefined> => {
+export const getArticle = async (articleUrlId: string): Promise<Article> => {
   const response = await axiosInstance.get<ArticlesPathResponse>(
     `/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`
   )
-  return response.data.data?.[0]
+
+  const article = response.data.data?.[0]
+
+  if (!isDefined(article)) {
+    throw new Error("記事情報が存在しません")
+  }
+
+  return article
 }
 
 /**
@@ -82,12 +90,15 @@ export const getAllArticleUrlIdList = async (): Promise<Array<string>> => {
  * @param pageNumber - ページ番号
  * @returns 記事一覧
  */
-export const getArticlesWithPagination = async (
-  pageNumber: number
-): Promise<Array<Article> | undefined> => {
+export const getArticlesWithPagination = async (pageNumber: number): Promise<Array<Article>> => {
   const response = await axiosInstance.get<ArticlesPathResponse>(
     `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
+
+  if (!isDefined(response.data.data)) {
+    throw new Error("ページ情報が存在しません")
+  }
+
   return response.data.data
 }
 
