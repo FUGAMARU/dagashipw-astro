@@ -1,7 +1,7 @@
 ---
 import { getRemoteImageSize } from "@/components/article/standards/media/ArticleImage.helpers"
 import styles from "@/components/article/standards/media/ArticleImage.module.css"
-import { Image } from "@/components/parts/common/Image"
+import { ImageCore } from "@/components/parts/image/ImageCore"
 
 const { src, alt, caption } = Astro.props
 
@@ -9,5 +9,5 @@ const { width, height } = await getRemoteImageSize(src)
 ---
 
 <div class={styles.articleImage}>
-  <Image alt={alt} caption={caption} cssHeight="full" height={height} src={src} width={width} />
+  <ImageCore alt={alt} caption={caption} cssHeight="full" height={height} src={src} width={width} />
 </div>

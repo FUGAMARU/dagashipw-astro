@@ -1,6 +1,6 @@
 ---
 import { BackNumber } from "@/components/parts/BackNumber"
-import { Image } from "@/components/parts/common/Image"
+import { ImageCore } from "@/components/parts/image/ImageCore"
 import { Tag } from "@/components/parts/Tag"
 import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 import styles from "@/components/templates/hero/HeroPC.module.css"
@@ -15,7 +15,7 @@ const { articleUrlId, thumbnailUrl, backNumber, title, createdAt, updatedAt, tag
 
 <div class={styles.heroPC}>
   <div class={styles.imageContainer}>
-    <Image
+    <ImageCore
       alt={title}
       cssHeight="auto"
       cssWidth="full"

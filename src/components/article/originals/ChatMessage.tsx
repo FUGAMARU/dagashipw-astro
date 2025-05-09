@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { capitalize } from "es-toolkit"
 
 import styles from "@/components/article/originals/ChatMessage.module.css"
-import { Image } from "@/components/parts/common/Image"
+import { ImageCore } from "@/components/parts/image/ImageCore"
 import { isDefined } from "@/utils"
 
 /** Props */
@@ -23,7 +23,7 @@ type Props = {
 export const ChatMessage = ({ role, icon, name, text, isFullWidth = false }: Props) => {
   return (
     <div className={clsx(styles.chatMessage, styles[capitalize(role)])}>
-      <Image
+      <ImageCore
         figureTagClassName={styles.icon}
         height={40}
         isCircle

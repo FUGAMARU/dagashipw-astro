@@ -1,9 +1,9 @@
-import { Image } from "@/components/parts/common/Image"
+import { ImageCore } from "@/components/parts/image/ImageCore"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
-const meta: Meta<typeof Image> = {
-  component: Image,
+const meta: Meta<typeof ImageCore> = {
+  component: ImageCore,
   tags: ["autodocs"],
   args: {},
   argTypes: {}

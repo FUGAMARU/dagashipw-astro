@@ -3,7 +3,7 @@ import clsx from "clsx"
 
 import { BackNumber } from "@/components/parts/BackNumber"
 import styles from "@/components/parts/card/ArticleCard.module.css"
-import { Image } from "@/components/parts/common/Image"
+import { ImageCore } from "@/components/parts/image/ImageCore"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { Tag } from "@/components/parts/Tag"
 import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
@@ -15,7 +15,7 @@ import type { ComponentProps } from "react"
 /** Props */
 type Props = {
   /** サムネイルを即時読込するかどうか */
-  isThumbnailEager?: ComponentProps<typeof Image>["isEager"]
+  isThumbnailEager?: ComponentProps<typeof ImageCore>["isEager"]
 } & ArticleInfo
 
 const {
@@ -36,7 +36,7 @@ const isHeaderTextColorWhite = determineWhiteTextColor(themeColor)
 
 <div class={styles.articleCard}>
   <div class={styles.thumbnail}>
-    <Image
+    <ImageCore
       cssHeight="full"
       cssWidth="full"
       figureTagClassName={styles.imageFigureTag}
