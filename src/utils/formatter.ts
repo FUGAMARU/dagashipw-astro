@@ -119,3 +119,12 @@ export const convertMarkdownImageUrlToLightweightImageUrl = async (
 
   return matches.reduce((result, url, index) => result.replace(url, replacements[index]), markdown)
 }
+
+/**
+ * エスケープされた改行コードをアンエスケープする
+ * (Strapiがデフォルトで改行コードをエスケープしてレスポンスしてくるため)
+ *
+ * @param body - エスケープされた改行コードを含む文字列
+ * @returns 改行コードがアンエスケープされた文字列
+ */
+export const unescapeNewlines = (body: string): string => JSON.parse(`"${body}"`)

@@ -11,6 +11,7 @@ import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isDefined } from "@/utils"
+import { unescapeNewlines } from "@/utils/formatter"
 
 import type { AccordionInfoDisplayType } from "@/components/article/originals/AccordionInfo.helpers"
 import type { MouseEvent, ReactNode } from "react"
@@ -119,9 +120,6 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
     setIsAccordionOpen(true)
   }
 
-  /** 改行コードを含めるとStrapiがエスケープした状態で渡してくるのでデコードしたもの */
-  const normalizedBody = JSON.parse(`"${body}"`)
-
   /** bodyをパースしてMarkdownのリンク記法のstringがあれば実際にLinkInArticleコンポーネントに置き換える */
   const parseMarkdownLinks = (text: string) => {
     const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g
@@ -174,7 +172,7 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
 
         <div ref={bodyRef} className={styles.sectionBody}>
           <p ref={bodyTextRef} className={styles.text}>
-            {parseMarkdownLinks(normalizedBody)}
+            {parseMarkdownLinks(unescapeNewlines(body))}
           </p>
         </div>
       </details>

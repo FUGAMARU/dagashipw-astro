@@ -34,7 +34,7 @@
         @mixin noto-sans-text-adjust;
 
         display: inline-block;
-        font-family: Gabarito, sans-serif;
+        font-family: Gabarito, "Noto Sans JP", sans-serif;
         font-size: 12px;
         transform: skew(28deg);
 
