@@ -65,15 +65,15 @@
   background-color: var(--color-dull-white);
   opacity: 0;
 
+  &.Hidden {
+    position: absolute;
+    visibility: hidden;
+  }
+
   > .text {
     white-space: pre-wrap;
     opacity: 0;
   }
-}
-
-.hiddenElement {
-  position: absolute;
-  visibility: hidden;
 }
 
 @media (--pc) {
@@ -84,6 +84,12 @@
       > .title {
         font-size: 16px;
       }
+    }
+  }
+
+  .sectionBody {
+    &.Hidden {
+      max-width: 650px;
     }
   }
 }

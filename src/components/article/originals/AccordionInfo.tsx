@@ -9,7 +9,6 @@ import {
 import styles from "@/components/article/originals/AccordionInfo.module.css"
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
-import { useIsSP } from "@/hooks/useIsSP"
 import { isDefined } from "@/utils"
 import { unescapeNewlines } from "@/utils/formatter"
 
@@ -29,7 +28,6 @@ type Props = {
 /** アコーディオンで情報を表示するコンポーネント */
 export const AccordionInfo = ({ displayType, title, body }: Props) => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
-  const isSP = useIsSP()
 
   const bodyRef = useRef<HTMLDivElement>(null)
   const hiddenBodyRef = useRef<HTMLDivElement>(null)
@@ -54,7 +52,7 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
       return
     }
 
-    const paddingSize = isSP ? 16 : 32
+    const paddingSize = 16
 
     if (isAccordionOpen) {
       animate(bodyText, {
@@ -178,7 +176,7 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
       </details>
 
       {/* Safariにおいて、要素の初期スタイルとしてheight: 0が指定されているとアコーディオンを開く時に要素のscrollHeightが0になってしまいアニメーションの最終地点が取得できなくなるので、高さ計算用にダミーの要素を設けている */}
-      <div ref={hiddenBodyRef} className={clsx(styles.sectionBody, styles.hiddenElement)}>
+      <div ref={hiddenBodyRef} className={clsx(styles.sectionBody, styles.Hidden)}>
         <p className={styles.text}>{body}</p>
       </div>
     </div>
