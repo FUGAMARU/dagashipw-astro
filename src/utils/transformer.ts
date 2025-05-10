@@ -13,6 +13,7 @@ import {
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
+import { getLightweightImageUrl } from "@/utils/image"
 
 import type { Article, Comment } from "@/types/api"
 import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/models"
@@ -52,7 +53,7 @@ export const transformDataToArticleInfo = (article: Article): ArticleInfo => {
     articleUrlId: article.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
     title: article.title,
-    thumbnailUrl: `${API_ORIGIN}${article.thumbnail.url}`,
+    thumbnailUrl: getLightweightImageUrl(`${API_ORIGIN}${article.thumbnail.url}`),
     themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
     tags: (article.tags as Array<string>) ?? [],
     bodyBeginningParagraph: extractBeginningParagraph(article.body)

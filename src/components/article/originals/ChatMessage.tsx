@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { capitalize } from "es-toolkit"
 
 import styles from "@/components/article/originals/ChatMessage.module.css"
-import { Image } from "@/components/parts/image/Image"
+import { Image } from "@/components/parts/common/Image"
 import { isDefined } from "@/utils"
 
 /** Props */

@@ -5,6 +5,8 @@
 import { isValidElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
+import { API_ORIGIN } from "@/constants/env"
+import { CMS_IMAGE_DIRECTORY, MARKDOWN_IMAGE_EXTENSIONS } from "@/constants/value"
 import { isDefined } from "@/utils"
 
 import type { ReactElement, ReactNode } from "react"
@@ -95,3 +97,23 @@ export const generateHeadingId = (text: ReactNode | string): string => {
  */
 export const convertCommaSeparatedStringToArray = (str: string): Array<string> =>
   str.replace(/\s+/g, "").split(",")
+
+/**
+ * Markdown中の画像URLを軽量化された画像URLに置き換える
+ *
+ * @param markdown - Markdown文字列
+ * @returns 軽量化された画像URLに置き換えられたMarkdown文字列
+ */
+export const convertMarkdownImageUrlToLightweightImageUrl = async (
+  markdown: string
+): Promise<string> => {
+  const imageUtils = await import("@/utils/image")
+
+  const originEscaped = API_ORIGIN.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")
+  const pattern =
+    originEscaped +
+    `/${CMS_IMAGE_DIRECTORY}/[A-Za-z0-9._~:/?#\\[\\]@!$&'()*+,;=-]+?\\.(?:${MARKDOWN_IMAGE_EXTENSIONS})`
+  const uploadUrlPattern = new RegExp(pattern, "g")
+
+  return markdown.replace(uploadUrlPattern, url => imageUtils.getLightweightImageUrl(url))
+}

@@ -19,3 +19,9 @@ export const PC_MEDIA_QUERY_MIN_WIDTH = 1000
 
 /** ArticleCardMiniListの最大表示数 */
 export const MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT = 4
+
+/** CMS上で画像が配置されているディレクトリ */
+export const CMS_IMAGE_DIRECTORY = "uploads"
+
+/** Markdownで使用されている画像URLを軽量化済み画像URLに差し替える時に画像として扱う拡張子の一覧 */
+export const MARKDOWN_IMAGE_EXTENSIONS = "png|jpe?g|gif|svg|webp|avif|bmp|tiff|ico|heic|heif"

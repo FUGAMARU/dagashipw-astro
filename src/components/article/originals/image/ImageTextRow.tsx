@@ -1,5 +1,5 @@
 import styles from "@/components/article/originals/image/ImageTextRow.module.css"
-import { Image } from "@/components/parts/image/Image"
+import { Image } from "@/components/parts/common/Image"
 
 /** Props */
 type Props = {

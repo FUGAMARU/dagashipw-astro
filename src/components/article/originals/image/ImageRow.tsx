@@ -1,5 +1,5 @@
 import styles from "@/components/article/originals/image/ImageRow.module.css"
-import { Image } from "@/components/parts/image/Image"
+import { Image } from "@/components/parts/common/Image"
 import { convertCommaSeparatedStringToArray } from "@/utils/formatter"
 
 /** Props */

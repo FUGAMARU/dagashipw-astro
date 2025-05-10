@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import { capitalize } from "es-toolkit"
 
-import styles from "@/components/parts/image/ImageCore.module.css"
+import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
 import { isDefined } from "@/utils"
 
@@ -35,7 +35,7 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading"> &
   }
 
 /** 画像コンポーネント */
-export const ImageCore = ({
+export const Image = ({
   src,
   caption,
   captionLinkTexts,

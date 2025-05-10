@@ -26,13 +26,14 @@ import ArticleImage from "@/components/article/standards/media/ArticleImage.astr
 import { Video } from "@/components/article/standards/media/Video"
 import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
-import HeroPC from "@/components/templates/hero/HeroPC.astro"
-import HeroSP from "@/components/templates/hero/HeroSP.astro"
+import { HeroPC } from "@/components/templates/hero/HeroPC"
+import { HeroSP } from "@/components/templates/hero/HeroSP"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 import { insertTableOfContentsToMarkdown } from "@/components/views/ArticleView.helpers"
 import styles from "@/components/views/ArticleView.module.css"
 import { isDefined } from "@/utils"
 import { formatDateToString } from "@/utils/datetime"
+import { convertMarkdownImageUrlToLightweightImageUrl } from "@/utils/formatter"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
 import type { Article } from "@/types/api"
@@ -49,20 +50,25 @@ const articleInfo = transformDataToArticleInfo(article)
 const articleDate = isDefined(articleInfo.updatedAt)
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)
-const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(article.body)
+const imageUrlReplacedArticleBody = await convertMarkdownImageUrlToLightweightImageUrl(article.body)
+const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(
+  imageUrlReplacedArticleBody
+)
 ---
 
 <div class={styles.articleView}>
   <div class={styles.heroSp}>
-    <HeroSP {...articleInfo} />
+    {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
+    <HeroSP client:load {...articleInfo} />
   </div>
 
   <div class={styles.heroPc}>
-    <HeroPC {...articleInfo} />
+    {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
+    <HeroPC client:load {...articleInfo} />
   </div>
 
   <div class={styles.body}>
-    <StaleContentWarning articleDate={articleDate} client:load />
+    <StaleContentWarning articleDate={articleDate} />
 
     <Markdown
       components={{

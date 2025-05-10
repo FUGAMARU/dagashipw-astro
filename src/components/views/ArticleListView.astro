@@ -1,5 +1,5 @@
 ---
-import ArticleCard from "@/components/parts/card/ArticleCard.astro"
+import { ArticleCard } from "@/components/parts/card/ArticleCard"
 import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import { Link } from "@/components/parts/common/Link"
 import { Pagination } from "@/components/templates/Pagination"
@@ -27,7 +27,8 @@ const { articleInfoList, pageNumber, totalArticlePageCount } = Astro.props
         <>
           <Link href={`/${articleInfo.articleUrlId}`}>
             <article>
-              <ArticleCard isThumbnailEager={index < 3} {...articleInfo} />
+              {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
+              <ArticleCard client:load isThumbnailEager={index < 3} {...articleInfo} />
             </article>
           </Link>
 

@@ -16,11 +16,7 @@ import type { ArticleInfo, CommentInfo } from "@/types/models"
  */
 export const selfHostedFetcher = <T>(option: {
   /** API関数名 */
-  apiFunction:
-    | "getArticleCommentCount"
-    | "getArticleCommentInfoList"
-    | "getSignedImageUrl"
-    | "getSameTagArticles"
+  apiFunction: "getArticleCommentCount" | "getArticleCommentInfoList" | "getSameTagArticles"
   /** API関数の引数 */
   arg: string
 }): Promise<T> => {
@@ -29,8 +25,6 @@ export const selfHostedFetcher = <T>(option: {
       return getArticleCommentCount(option.arg) as unknown as Promise<T> // TODO: アサーションしないようにしたい
     case "getArticleCommentInfoList":
       return getArticleCommentInfoList(option.arg) as unknown as Promise<T>
-    case "getSignedImageUrl":
-      return getSignedImageUrl(option.arg) as unknown as Promise<T>
     case "getSameTagArticles":
       return getSameTagArticles(option.arg) as unknown as Promise<T>
   }
@@ -70,17 +64,6 @@ const getArticleCommentInfoList = async (articleUrlId: string): Promise<Array<Co
   const response = await selfHostedAxiosInstance.get<Array<CommentInfo>>(
     `/proxy/comments/${articleUrlId}`
   )
-  return response.data
-}
-
-/**
- * 画像の署名付きURLを取得する
- *
- * @param src - 画像のURL
- * @returns 署名付きURL
- */
-const getSignedImageUrl = async (src: string): Promise<string> => {
-  const response = await selfHostedAxiosInstance.get<string>(`signed-image-url?src=${src}`)
   return response.data
 }
 
