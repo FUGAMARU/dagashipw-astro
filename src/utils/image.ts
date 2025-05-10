@@ -2,8 +2,6 @@
  * @file 画像関連の関数群
  */
 
-import { createHmac } from "node:crypto"
-
 import {
   API_ORIGIN,
   CMS_STATIC_CONTENTS_DIRECTORY,
@@ -26,7 +24,9 @@ const decodeHexToBuffer = (hex: string): Uint8Array => new Uint8Array(Buffer.fro
  * @param originalImageUrl - オリジナル画像のURL
  * @returns 軽量化された画像のURL
  */
-export const getLightweightImageUrl = (originalImageUrl: string): string => {
+export const getLightweightImageUrl = async (originalImageUrl: string): Promise<string> => {
+  const nodeCrypto = await import("node:crypto") // ビルド時に「"createHmac" is not exported by "__vite-browser-external"」エラーが出るのを防ぐためにここで動的インポート
+
   // CMSで管理していないリモート画像や既に軽量化されているwebpの場合はそのまま返す
   if (!originalImageUrl.startsWith(API_ORIGIN) || originalImageUrl.endsWith(".webp")) {
     return originalImageUrl
@@ -35,7 +35,7 @@ export const getLightweightImageUrl = (originalImageUrl: string): string => {
   const filename = originalImageUrl.replace(`${API_ORIGIN}${CMS_STATIC_CONTENTS_DIRECTORY}/`, "")
   const path = `/default/plain/local:///${filename}`
 
-  const hmac = createHmac("sha256", decodeHexToBuffer(IMGPROXY_SIGNING_KEY))
+  const hmac = nodeCrypto.createHmac("sha256", decodeHexToBuffer(IMGPROXY_SIGNING_KEY))
   hmac.update(decodeHexToBuffer(IMGPROXY_SIGNING_SALT))
   hmac.update(path)
   const signature = hmac.digest("base64url")

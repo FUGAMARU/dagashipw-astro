@@ -24,7 +24,7 @@ import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/
  * @param article - 記事情報
  * @returns 整形された記事情報
  */
-export const transformDataToArticleInfo = (article: Article): ArticleInfo => {
+export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
   /**
    * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
    *
@@ -49,11 +49,15 @@ export const transformDataToArticleInfo = (article: Article): ArticleInfo => {
     return paragraphs.substring(0, EXTRACTED_PARAGRAPHS_LENGTH)
   }
 
+  const lightweightThumbnailUrl = await getLightweightImageUrl(
+    `${API_ORIGIN}${article.thumbnail.url}`
+  )
+
   const baseData = {
     articleUrlId: article.articleUrlId,
     backNumber: 1, // TODO: 実際の値を反映させる必要がある
     title: article.title,
-    thumbnailUrl: getLightweightImageUrl(`${API_ORIGIN}${article.thumbnail.url}`),
+    thumbnailUrl: lightweightThumbnailUrl,
     themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
     tags: (article.tags as Array<string>) ?? [],
     bodyBeginningParagraph: extractBeginningParagraph(article.body)

@@ -46,7 +46,7 @@ type Props = {
 
 const { article } = Astro.props
 
-const articleInfo = transformDataToArticleInfo(article)
+const articleInfo = await transformDataToArticleInfo(article)
 const articleDate = isDefined(articleInfo.updatedAt)
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)

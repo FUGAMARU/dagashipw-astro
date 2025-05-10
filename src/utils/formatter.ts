@@ -8,6 +8,7 @@ import { renderToStaticMarkup } from "react-dom/server"
 import { API_ORIGIN } from "@/constants/env"
 import { CMS_IMAGE_DIRECTORY, MARKDOWN_IMAGE_EXTENSIONS } from "@/constants/value"
 import { isDefined } from "@/utils"
+import { getLightweightImageUrl } from "@/utils/image"
 
 import type { ReactElement, ReactNode } from "react"
 
@@ -107,13 +108,14 @@ export const convertCommaSeparatedStringToArray = (str: string): Array<string> =
 export const convertMarkdownImageUrlToLightweightImageUrl = async (
   markdown: string
 ): Promise<string> => {
-  const imageUtils = await import("@/utils/image")
-
   const originEscaped = API_ORIGIN.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")
   const pattern =
     originEscaped +
     `/${CMS_IMAGE_DIRECTORY}/[A-Za-z0-9._~:/?#\\[\\]@!$&'()*+,;=-]+?\\.(?:${MARKDOWN_IMAGE_EXTENSIONS})`
   const uploadUrlPattern = new RegExp(pattern, "g")
 
-  return markdown.replace(uploadUrlPattern, url => imageUtils.getLightweightImageUrl(url))
+  const matches = markdown.match(uploadUrlPattern) ?? []
+  const replacements = await Promise.all(matches.map(url => getLightweightImageUrl(url)))
+
+  return matches.reduce((result, url, index) => result.replace(url, replacements[index]), markdown)
 }

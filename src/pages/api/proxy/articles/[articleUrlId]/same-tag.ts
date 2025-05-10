@@ -28,7 +28,9 @@ export const GET: APIRoute = async ({ params }) => {
     await Promise.all(relatedArticleUrlIdList.map(articleUrlId => getArticle(articleUrlId)))
   ).filter(isDefined)
 
-  const relatedArticleInfoList = relatedArticles.map(article => transformDataToArticleInfo(article))
+  const relatedArticleInfoList = await Promise.all(
+    relatedArticles.map(article => transformDataToArticleInfo(article))
+  )
 
   return new Response(JSON.stringify(relatedArticleInfoList), {
     status: 200
