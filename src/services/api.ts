@@ -12,7 +12,8 @@ import type {
   Comment,
   CommentsPathResponse,
   PaginatedResponse,
-  FieldPickedArticlePathResponse
+  FieldPickedArticlePathResponse,
+  PostCommentRequestBody
 } from "@/types/api"
 
 /**
@@ -169,4 +170,31 @@ export const getRecentArticles = async (): Promise<Array<Article>> => {
     `/articles?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
   return response.data.data ?? []
+}
+
+/**
+ * コメントを投稿する
+ *
+ * @param articleUrlId - 記事のURL ID
+ * @param body - コメント本文
+ * @param userName - ユーザー名
+ * @param parentCommentDocumentId - 親コメントのドキュメントID
+ * @returns void
+ */
+export const postComment = async (
+  articleUrlId: string,
+  body: string,
+  userName?: string,
+  parentCommentDocumentId?: string
+): Promise<void> => {
+  await axiosInstance.post<void, void, PostCommentRequestBody>("/comments", {
+    data: {
+      articleUrlId,
+      body,
+      userName,
+      parentCommentDocumentId,
+      isAdministratorComment: false, // 管理者コメントは今のところCMSからのみ投稿する想定なので固定でfalse指定
+      forceCreatedAt: new Date().toISOString() // Strapiが自動で付与するcreatedAtはJSTで値が入ってしまうので、forceCreatedAtを利用して明示的にUTCでコメントの投稿日時を管理する。
+    }
+  })
 }

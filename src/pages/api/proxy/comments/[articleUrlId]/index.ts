@@ -1,4 +1,4 @@
-import { getComments } from "@/services/api"
+import { getComments, postComment } from "@/services/api"
 import { isDefined } from "@/utils"
 import { transformDataToCommentInfo } from "@/utils/transformer"
 
@@ -26,5 +26,36 @@ export const GET: APIRoute = async ({ params }) => {
 
   return new Response(JSON.stringify(commentInfoList), {
     status: 200
+  })
+}
+
+/**
+ * 指定した記事に対してコメントを投稿する
+ *
+ * @param context - APIルートのコンテキスト
+ * @param context.params - パスパラメータ
+ * @param context.request - リクエストオブジェクト
+ */
+export const POST: APIRoute = async ({ params, request }) => {
+  const { articleUrlId } = params
+
+  if (!isDefined(articleUrlId)) {
+    return new Response(JSON.stringify({ error: "articleUrlIdが指定されていません" }), {
+      status: 400
+    })
+  }
+
+  if (request.headers.get("Content-Type") !== "application/json") {
+    return new Response(JSON.stringify({ error: "Content-Typeが不正です" }), {
+      status: 400
+    })
+  }
+
+  const body = await request.json()
+
+  await postComment(articleUrlId, body.body, body.userName, body.parentCommentDocumentId)
+
+  return new Response(null, {
+    status: 201
   })
 }

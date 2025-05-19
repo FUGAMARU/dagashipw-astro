@@ -28,3 +28,23 @@ export type PaginatedResponse<T> = components["schemas"]["ArticleListResponse"] 
   /** データー */
   data?: Array<T>
 }
+
+/** コメント投稿時のリクエストパラメーター */
+export type PostCommentRequestBody = {
+  /** データー */
+  data: Pick<
+    components["schemas"]["CommentRequest"]["data"],
+    | "userName"
+    | "body"
+    | "forceCreatedAt"
+    | "articleUrlId"
+    | "isAdministratorComment"
+    | "parentCommentDocumentId"
+  >
+}
+
+/** ブラウザーから自己ホストしているコメント投稿用プロキシAPIにリクエストする時のパラメーター */
+export type PostCommentFromBrowserRequestBody = Pick<
+  PostCommentRequestBody["data"],
+  "userName" | "body" | "parentCommentDocumentId"
+>

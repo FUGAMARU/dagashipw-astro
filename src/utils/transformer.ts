@@ -111,11 +111,8 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
       throw new Error("コメントIDが存在しません")
     }
 
-    // forceCreatedAtが指定されていればその値を優先して使用する
-    const trulySubmittedAt = comment.forceCreatedAt ?? comment.createdAt
-
-    if (!isDefined(trulySubmittedAt)) {
-      throw new Error("コメントの投稿日が存在しません")
+    if (!isValidString(comment.forceCreatedAt)) {
+      throw new Error("コメントのforceCreatedAtが存在しません")
     }
 
     return {
@@ -124,7 +121,7 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
       parentCommentDocumentId: comment.parentCommentDocumentId,
       body: comment.body,
       submittedAt: formatDateToString(
-        convertUTCToJST(new Date(trulySubmittedAt)),
+        convertUTCToJST(new Date(comment.forceCreatedAt)), // createdAtはStrapiがJSTを入れてしまうため利用しない。forceCreatedAtのみをコメント投稿日時の値として利用する。
         "yyyy/MM/dd HH:mm:ss"
       )
     } satisfies Omit<IntermediateCommentInfo, "replies">

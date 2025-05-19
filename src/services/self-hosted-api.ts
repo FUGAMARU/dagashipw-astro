@@ -4,6 +4,7 @@
 
 import { selfHostedAxiosInstance } from "@/services/axios"
 
+import type { PostCommentFromBrowserRequestBody } from "@/types/api"
 import type { ArticleInfo, CommentInfo } from "@/types/models"
 
 /**
@@ -79,3 +80,28 @@ const getSameTagArticles = async (articleUrlId: string): Promise<Array<ArticleIn
   )
   return response.data
 }
+
+/**
+ * コメントを投稿する
+ * (SWRからは呼ばないのでfetcherに含めていない)
+ *
+ * @param articleUrlId - 記事のURL ID
+ * @param body - コメント本文
+ * @param userName - ユーザー名
+ * @param parentCommentDocumentId - 親コメントのドキュメントID
+ * @returns void
+ */
+export const postComment = async (
+  articleUrlId: string,
+  body: string,
+  userName?: string,
+  parentCommentDocumentId?: string
+): Promise<void> =>
+  await selfHostedAxiosInstance.post<void, void, PostCommentFromBrowserRequestBody>(
+    `/proxy/comments/${articleUrlId}`,
+    {
+      body,
+      userName,
+      parentCommentDocumentId
+    }
+  )
