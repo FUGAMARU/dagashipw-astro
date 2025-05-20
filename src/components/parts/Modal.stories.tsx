@@ -2,7 +2,6 @@
 import { useState } from "react"
 
 import { Modal } from "@/components/parts/Modal"
-import { CommentPostButton } from "@/components/templates/CommentPostButton"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -23,13 +22,12 @@ export const Primary: Story = {
     return (
       <Modal
         icon={{
-          name: "commentWithPen",
+          name: "penPlus",
           coloringMethod: "fill"
         }}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        submitButton={<CommentPostButton />}
-        title="コメントをどうぞ"
+        title="モーダルタイトル"
         triggerElement={
           <button
             onClick={() => {

@@ -10,8 +10,10 @@ const recentArticleInfoList = await Promise.all(recentArticles.map(transformData
 ---
 
 <CommonViewContainer
-  icon={{ name: "labelPlus", coloringMethod: "fill" }}
-  title="最近投稿された記事"
+  sectionTitleProps={{
+    title: "最近投稿された記事",
+    icon: { name: "labelPlus", coloringMethod: "fill" }
+  }}
 >
   {isValidArray(recentArticleInfoList) && <ArticleCardMiniList cards={recentArticleInfoList} />}
 </CommonViewContainer>

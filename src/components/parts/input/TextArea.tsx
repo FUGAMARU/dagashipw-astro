@@ -29,8 +29,8 @@ export const TextArea = ({ maxLength, errorMessage, ...textAreaProps }: Props) =
       <textarea
         className={styles.input}
         maxLength={maxLength}
-        {...textAreaProps}
         onChange={handleChange}
+        {...textAreaProps}
       />
 
       <div className={clsx(styles.bottom, isValidString(errorMessage) && styles.HasError)}>

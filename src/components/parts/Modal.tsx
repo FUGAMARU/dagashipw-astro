@@ -3,7 +3,6 @@ import * as Dialog from "@radix-ui/react-dialog"
 import styles from "@/components/parts/Modal.module.css"
 import { SectionTitle } from "@/components/parts/SectionTitle"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
-import { isDefined } from "@/utils"
 
 import type { Children } from "@/types/children"
 import type { ComponentProps, ReactNode } from "react"
@@ -16,8 +15,6 @@ type Props = {
   triggerElement: ReactNode
   /** モーダルを閉じる時の処理 */
   onClose: () => void
-  /** 投稿ボタン */
-  submitButton?: ReactNode
 } & ComponentProps<typeof SectionTitle> &
   Children
 
@@ -27,7 +24,6 @@ export const Modal = ({
   triggerElement,
   onClose: handleClose,
   children,
-  submitButton,
   ...sectionTitleProps
 }: Props) => {
   return (
@@ -39,10 +35,10 @@ export const Modal = ({
       }}
       open={isOpen}
     >
-      <Dialog.Trigger>{triggerElement}</Dialog.Trigger>
+      <Dialog.Trigger asChild>{triggerElement}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.dialogOverlay} />
-        <Dialog.Content className={styles.dialogContent}>
+        <Dialog.Content aria-describedby={undefined} className={styles.dialogContent}>
           <Dialog.Title>
             <div className={styles.dialogTitle}>
               <SectionTitle {...sectionTitleProps} />
@@ -53,10 +49,7 @@ export const Modal = ({
               </Dialog.Close>
             </div>
           </Dialog.Title>
-          <Dialog.Description className={styles.mainContents}>{children}</Dialog.Description>
-          {isDefined(submitButton) && (
-            <Dialog.Close className={styles.submitButton}>{submitButton}</Dialog.Close>
-          )}
+          {children}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
