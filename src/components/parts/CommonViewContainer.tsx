@@ -38,7 +38,11 @@ export const CommonViewContainer = ({ children, sectionTitleProps, ...rest }: Pr
     "onOpen" in rest &&
     "isOpen" in rest &&
     "onClose" in rest &&
-    "onSubmit" in rest
+    "onSubmit" in rest &&
+    "userNameValue" in rest &&
+    "bodyValue" in rest &&
+    "onUserNameChange" in rest &&
+    "onBodyChange" in rest
 
   return (
     <div className={styles.commonViewContainer}>
@@ -56,7 +60,13 @@ export const CommonViewContainer = ({ children, sectionTitleProps, ...rest }: Pr
             title="コメントをどうぞ"
             triggerElement={<CommentPostButton onClick={rest.onOpen} type="button" />}
           >
-            <CommentPostModal onSubmit={rest.onSubmit} />
+            <CommentPostModal
+              bodyValue={rest.bodyValue}
+              onBodyChange={rest.onBodyChange}
+              onSubmit={rest.onSubmit}
+              onUserNameChange={rest.onUserNameChange}
+              userNameValue={rest.userNameValue}
+            />
           </Modal>
         )}
       </div>

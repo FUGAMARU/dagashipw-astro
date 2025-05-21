@@ -1,10 +1,9 @@
 import clsx from "clsx"
-import { useState } from "react"
 
 import styles from "@/components/parts/input/TextArea.module.css"
 import { isValidString } from "@/utils"
 
-import type { ChangeEvent, ComponentProps } from "react"
+import type { ComponentProps } from "react"
 
 /** Props */
 type Props = ComponentProps<"textarea"> & {
@@ -16,22 +15,11 @@ type Props = ComponentProps<"textarea"> & {
 
 /** TextAreaコンポーネント */
 export const TextArea = ({ maxLength, errorMessage, ...textAreaProps }: Props) => {
-  const [currentLength, setCurrentLength] = useState(0)
-
-  /** textareaの入力が変更された時の処理 */
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setCurrentLength(e.target.value.length)
-    textAreaProps.onChange?.(e)
-  }
+  const currentLength = typeof textAreaProps.value === "string" ? textAreaProps.value.length : 0
 
   return (
     <div className={styles.textArea}>
-      <textarea
-        className={styles.input}
-        maxLength={maxLength}
-        onChange={handleChange}
-        {...textAreaProps}
-      />
+      <textarea className={styles.input} maxLength={maxLength} {...textAreaProps} />
 
       <div className={clsx(styles.bottom, isValidString(errorMessage) && styles.HasError)}>
         {isValidString(errorMessage) && <span className={styles.error}>{errorMessage}</span>}

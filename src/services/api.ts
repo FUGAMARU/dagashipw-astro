@@ -187,14 +187,18 @@ export const postComment = async (
   userName?: string,
   parentCommentDocumentId?: string
 ): Promise<void> => {
-  await axiosInstance.post<void, void, PostCommentRequestBody>("/comments", {
+  const now = new Date()
+  now.setHours(now.getHours() - 9) // DBでは日時データーをUTCで保持したいが、toISOString()したStringをPOSTしてもStrapiが勝手にJSTに変換するという鬼畜仕様のためさらに-9時間した日時をforceCreatedAtとしてPOSTする (createdAtも同様に勝手にJSTが入るので使用しない)
+  const forceCreatedAt = now.toISOString()
+
+  return await axiosInstance.post<void, void, PostCommentRequestBody>("/comments", {
     data: {
       articleUrlId,
       body,
       userName,
       parentCommentDocumentId,
       isAdministratorComment: false, // 管理者コメントは今のところCMSからのみ投稿する想定なので固定でfalse指定
-      forceCreatedAt: new Date().toISOString() // Strapiが自動で付与するcreatedAtはJSTで値が入ってしまうので、forceCreatedAtを利用して明示的にUTCでコメントの投稿日時を管理する。
+      forceCreatedAt
     }
   })
 }
