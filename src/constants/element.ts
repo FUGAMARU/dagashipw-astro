@@ -10,3 +10,6 @@ export const SIDEBAR_SCROLLABLE_OVERLAY_ID = "sidebar-scrollable-overlay"
 
 /** サイドバーを一番下までスクロールするボタンのID */
 export const SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID = "sidebar-scroll-to-bottom-button"
+
+/** コメント表示要素に付けるIDの接頭辞 */
+export const COMMENT_ELEMENT_ID_PREFIX = "comment-"

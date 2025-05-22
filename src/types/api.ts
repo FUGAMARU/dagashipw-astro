@@ -2,7 +2,7 @@
  * @file APIレスポンス関連の型
  */
 
-import type { components, paths } from "@/types/schema"
+import type { components, operations, paths } from "@/types/schema"
 
 /** 記事情報 (CMSで保持しているフォーマット) */
 export type Article = components["schemas"]["Article"]
@@ -33,7 +33,7 @@ export type PaginatedResponse<T> = components["schemas"]["ArticleListResponse"] 
 export type PostCommentRequestBody = {
   /** データー */
   data: Pick<
-    components["schemas"]["CommentRequest"]["data"],
+    operations["post/comments"]["requestBody"]["content"]["application/json"]["data"],
     | "userName"
     | "body"
     | "forceCreatedAt"
@@ -42,6 +42,10 @@ export type PostCommentRequestBody = {
     | "parentCommentDocumentId"
   >
 }
+
+/** コメント投稿時のレスポンス */
+export type PostCommentResponse =
+  operations["post/comments"]["responses"]["200"]["content"]["application/json"]
 
 /** ブラウザーから自己ホストしているコメント投稿用プロキシAPIにリクエストする時のパラメーター */
 export type PostCommentFromBrowserRequestBody = Pick<

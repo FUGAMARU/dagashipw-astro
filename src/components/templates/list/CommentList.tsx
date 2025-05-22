@@ -1,5 +1,6 @@
 import { Comment } from "@/components/parts/Comment"
 import styles from "@/components/templates/list/CommentList.module.css"
+import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
 import { isValidArray } from "@/utils"
 
 import type { ComponentProps } from "react"
@@ -24,7 +25,7 @@ export const CommentList = ({ comments }: Props) => {
     <div>
       <div className={styles.commentList}>
         {comments.map((comment, commentIndex) => (
-          <div key={comment.commentId}>
+          <div key={comment.commentId} id={`${COMMENT_ELEMENT_ID_PREFIX}${comment.commentId}`}>
             <Comment
               commentInfo={{
                 ...comment,
@@ -35,7 +36,10 @@ export const CommentList = ({ comments }: Props) => {
             />
 
             {isValidArray(comment.replies) && (
-              <div className={styles.replyList}>
+              <div
+                className={styles.replyList}
+                id={`${COMMENT_ELEMENT_ID_PREFIX}${comment.commentId}`}
+              >
                 {comment.replies.map((reply, replyIndex) => (
                   <Comment
                     key={reply.commentId}

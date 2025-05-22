@@ -6,6 +6,7 @@ import { selfHostedAxiosInstance } from "@/services/axios"
 
 import type { PostCommentFromBrowserRequestBody } from "@/types/api"
 import type { ArticleInfo, CommentInfo } from "@/types/models"
+import type { AxiosResponse } from "axios"
 
 /**
  * 自己ホストしているAPIにuseSWRでアクセスする時のfetcher
@@ -96,12 +97,13 @@ export const postComment = async (
   body: string,
   userName?: string,
   parentCommentDocumentId?: string
-): Promise<void> =>
-  await selfHostedAxiosInstance.post<void, void, PostCommentFromBrowserRequestBody>(
-    `/proxy/comments/${articleUrlId}`,
-    {
-      body,
-      userName,
-      parentCommentDocumentId
-    }
-  )
+): Promise<AxiosResponse<string>> =>
+  await selfHostedAxiosInstance.post<
+    string,
+    AxiosResponse<string>,
+    PostCommentFromBrowserRequestBody
+  >(`/proxy/comments/${articleUrlId}`, {
+    body,
+    userName,
+    parentCommentDocumentId
+  })

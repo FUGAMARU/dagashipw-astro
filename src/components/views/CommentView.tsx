@@ -1,13 +1,15 @@
-import { useState, type ChangeEvent } from "react"
+import { useState } from "react"
 import useSWR from "swr"
 
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import { CommentList } from "@/components/templates/list/CommentList"
 import styles from "@/components/views/CommentView.module.css"
+import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
 import { postComment, selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined, isValidArray, isValidString } from "@/utils"
 
 import type { ArticleInfo, CommentInfo } from "@/types/models"
+import type { ChangeEvent, FormEvent } from "react"
 
 /** Props */
 type Props = Pick<ArticleInfo, "articleUrlId">
@@ -47,12 +49,17 @@ export const CommentView = ({ articleUrlId }: Props) => {
   }
 
   /** コメントを投稿する時の処理 */
-  const handleSubmit = async () => {
-    await postComment(
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+
+    const { data: createdCommentDocumentId } = await postComment(
       articleUrlId,
       bodyValue,
       isValidString(userNameValue) ? userNameValue : undefined
     )
+
+    location.href = `${window.location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // ペ投稿したコメントの位置まで自動スクロールためのハッシュを追加
+    location.reload() // リロード
   }
 
   const { data: commentInfoList } = useSWR<Array<CommentInfo>>(

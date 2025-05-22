@@ -53,9 +53,14 @@ export const POST: APIRoute = async ({ params, request }) => {
 
   const body = await request.json()
 
-  await postComment(articleUrlId, body.body, body.userName, body.parentCommentDocumentId)
+  const createdCommentDocumentId = await postComment(
+    articleUrlId,
+    body.body,
+    body.userName,
+    body.parentCommentDocumentId
+  )
 
-  return new Response(null, {
+  return new Response(JSON.stringify(createdCommentDocumentId), {
     status: 201
   })
 }

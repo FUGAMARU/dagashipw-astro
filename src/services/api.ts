@@ -13,8 +13,10 @@ import type {
   CommentsPathResponse,
   PaginatedResponse,
   FieldPickedArticlePathResponse,
-  PostCommentRequestBody
+  PostCommentRequestBody,
+  PostCommentResponse
 } from "@/types/api"
+import type { AxiosResponse } from "axios"
 
 /**
  * ページネーションありで指定したエンドポイントのデータを全て取得する
@@ -179,19 +181,23 @@ export const getRecentArticles = async (): Promise<Array<Article>> => {
  * @param body - コメント本文
  * @param userName - ユーザー名
  * @param parentCommentDocumentId - 親コメントのドキュメントID
- * @returns void
+ * @returns 投稿されたコメントのdocumentId
  */
 export const postComment = async (
   articleUrlId: string,
   body: string,
   userName?: string,
   parentCommentDocumentId?: string
-): Promise<void> => {
+): Promise<string> => {
   const now = new Date()
   now.setHours(now.getHours() - 9) // DBでは日時データーをUTCで保持したいが、toISOString()したStringをPOSTしてもStrapiが勝手にJSTに変換するという鬼畜仕様のためさらに-9時間した日時をforceCreatedAtとしてPOSTする (createdAtも同様に勝手にJSTが入るので使用しない)
   const forceCreatedAt = now.toISOString()
 
-  return await axiosInstance.post<void, void, PostCommentRequestBody>("/comments", {
+  const { data } = await axiosInstance.post<
+    PostCommentResponse,
+    AxiosResponse<PostCommentResponse>,
+    PostCommentRequestBody
+  >("/comments", {
     data: {
       articleUrlId,
       body,
@@ -201,4 +207,6 @@ export const postComment = async (
       forceCreatedAt
     }
   })
+
+  return data?.data?.documentId ?? ""
 }
