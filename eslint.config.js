@@ -253,7 +253,8 @@ export default [
       "src/constants/**",
       "src/services/**",
       "src/stores/**",
-      "src/components/**/*.helpers.ts"
+      "src/components/**/*.helpers.ts",
+      "src/components/**/*.hooks.tsx"
     ],
     rules: {
       /** 関数の戻り値記述必須 */
@@ -272,7 +273,7 @@ export default [
     }
   },
   {
-    files: ["src/components/**/*.helpers.ts"],
+    files: ["src/components/**/*.helpers.ts", "src/components/**/*.hooks.tsx"],
     rules: {
       /** JSDocにおけるそのファイルに関する説明の記述を不要に */
       "jsdoc/require-file-overview": ["off"]

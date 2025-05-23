@@ -1,18 +1,13 @@
-import { useState } from "react"
-import useSWR from "swr"
-
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import { Modal } from "@/components/parts/Modal"
 import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import { CommentList } from "@/components/templates/list/CommentList"
 import { CommentPostModal } from "@/components/templates/modal/CommentPostModal"
+import { useCommentView } from "@/components/views/CommentView.hooks"
 import styles from "@/components/views/CommentView.module.css"
-import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
-import { postComment, selfHostedFetcher } from "@/services/self-hosted-api"
-import { isDefined, isValidArray, isValidString } from "@/utils"
+import { isDefined, isValidArray } from "@/utils"
 
-import type { ArticleInfo, CommentInfo } from "@/types/models"
-import type { ChangeEvent, FormEvent } from "react"
+import type { ArticleInfo } from "@/types/models"
 
 /** Props */
 type Props = Pick<ArticleInfo, "articleUrlId">
@@ -22,56 +17,17 @@ type Props = Pick<ArticleInfo, "articleUrlId">
  * コメントに関してはページビルド後に更新される可能性がありSSGできないのでAstroファイルではなくクライアントサイドでも動くReactコンポとして実装している
  */
 export const CommentView = ({ articleUrlId }: Props) => {
-  // TODO: フォーム関係のロジックが肥大化してきているのでフックスに切り出しても良いかも
-
-  /** コメント投稿モーダルが開いているかどうか */
-  const [isCommentPostModalOpen, setIsCommentPostModalOpen] = useState(false)
-  /** ニックネーム欄の値 */
-  const [userNameValue, setUserNameValue] = useState("")
-  /** コメント欄の値 */
-  const [bodyValue, setBodyValue] = useState("")
-
-  /** コメント投稿モーダルのニックネーム欄の値が変更された時の処理 */
-  const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUserNameValue(e.target.value)
-  }
-
-  /** コメント投稿モーダルのコメント欄の値が変更された時の処理 */
-  const handleBodyChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setBodyValue(e.target.value)
-  }
-
-  /** コメント投稿モーダルを開く処理 */
-  const handleCommentPostModalOpen = () => {
-    setIsCommentPostModalOpen(true)
-  }
-
-  /** コメント投稿モーダルを閉じる処理 */
-  const handleCommentPostModalClose = () => {
-    setIsCommentPostModalOpen(false)
-  }
-
-  /** コメントを投稿する時の処理 */
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-
-    const { data: createdCommentDocumentId } = await postComment(
-      articleUrlId,
-      bodyValue,
-      isValidString(userNameValue) ? userNameValue : undefined
-    )
-
-    location.href = `${window.location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // 投稿したコメントの位置まで自動スクロールためのハッシュを追加
-    location.reload() // リロード
-  }
-
-  const { data: commentInfoList } = useSWR<Array<CommentInfo>>(
-    {
-      apiFunction: "getArticleCommentInfoList",
-      arg: articleUrlId
-    },
-    selfHostedFetcher
-  )
+  const {
+    commentInfoList,
+    bodyValue,
+    handleBodyChange,
+    handleCommentPostModalClose,
+    handleCommentPostModalOpen,
+    handleSubmit,
+    handleUserNameChange,
+    isCommentPostModalOpen,
+    userNameValue
+  } = useCommentView(articleUrlId)
 
   if (!isDefined(commentInfoList)) {
     return null
