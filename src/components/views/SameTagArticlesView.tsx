@@ -25,10 +25,8 @@ export const SameTagArticlesView = ({ articleUrlId }: Props) => {
 
   return (
     <CommonViewContainer
-      sectionTitleProps={{
-        title: "同じようなタグが設定されている記事",
-        icon: { name: "hash", coloringMethod: "stroke" }
-      }}
+      icon={{ name: "hash", coloringMethod: "stroke" }}
+      title="同じようなタグが設定されている記事"
     >
       {isValidArray(sameTagArticles) && <ArticleCardMiniList cards={sameTagArticles} />}
     </CommonViewContainer>

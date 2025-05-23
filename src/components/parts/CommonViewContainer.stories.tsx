@@ -16,13 +16,11 @@ export default meta
 type Story = StoryObj<typeof CommonViewContainer>
 
 const commonProps = {
-  sectionTitleProps: {
-    icon: {
-      name: "hash",
-      coloringMethod: "stroke"
-    },
-    title: "セクションタイトル"
+  icon: {
+    name: "hash",
+    coloringMethod: "stroke"
   },
+  title: "セクションタイトル",
   children: <div>子要素</div>
 } as const satisfies ComponentProps<typeof CommonViewContainer>
 

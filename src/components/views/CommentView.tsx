@@ -2,7 +2,10 @@ import { useState } from "react"
 import useSWR from "swr"
 
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
+import { Modal } from "@/components/parts/Modal"
+import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import { CommentList } from "@/components/templates/list/CommentList"
+import { CommentPostModal } from "@/components/templates/modal/CommentPostModal"
 import styles from "@/components/views/CommentView.module.css"
 import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
 import { postComment, selfHostedFetcher } from "@/services/self-hosted-api"
@@ -58,7 +61,7 @@ export const CommentView = ({ articleUrlId }: Props) => {
       isValidString(userNameValue) ? userNameValue : undefined
     )
 
-    location.href = `${window.location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // ペ投稿したコメントの位置まで自動スクロールためのハッシュを追加
+    location.href = `${window.location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // 投稿したコメントの位置まで自動スクロールためのハッシュを追加
     location.reload() // リロード
   }
 
@@ -76,19 +79,31 @@ export const CommentView = ({ articleUrlId }: Props) => {
 
   return (
     <CommonViewContainer
-      bodyValue={bodyValue}
-      isOpen={isCommentPostModalOpen}
-      isReferredFromCommentView
-      onBodyChange={handleBodyChange}
-      onClose={handleCommentPostModalClose}
-      onOpen={handleCommentPostModalOpen}
-      onSubmit={handleSubmit}
-      onUserNameChange={handleUserNameChange}
-      sectionTitleProps={{
-        icon: { name: "commentWithPen", coloringMethod: "fill" },
-        title: `この記事に寄せられたコメント (${commentInfoList.length})`
+      commentPostButton={
+        <Modal
+          icon={{
+            name: "commentWithPen",
+            coloringMethod: "fill"
+          }}
+          isOpen={isCommentPostModalOpen}
+          onClose={handleCommentPostModalClose}
+          title="コメントをどうぞ"
+          triggerElement={<CommentPostButton onClick={handleCommentPostModalOpen} type="button" />}
+        >
+          <CommentPostModal
+            bodyValue={bodyValue}
+            onBodyChange={handleBodyChange}
+            onSubmit={handleSubmit}
+            onUserNameChange={handleUserNameChange}
+            userNameValue={userNameValue}
+          />
+        </Modal>
+      }
+      icon={{
+        name: "commentWithPen",
+        coloringMethod: "fill"
       }}
-      userNameValue={userNameValue}
+      title={`この記事に寄せられたコメント (${commentInfoList.length})`}
     >
       {isValidArray(commentInfoList) ? (
         <CommentList comments={commentInfoList} />
