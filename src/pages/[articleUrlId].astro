@@ -36,11 +36,11 @@ const minutesToRead = calculateReadingTime(article.body)
 
   <div class={styles.additionalContents}>
     <section>
-      <CommentView articleUrlId={articleUrlId} client:load />
+      <CommentView articleUrlId={articleUrlId} client:idle />
     </section>
 
     <section>
-      <SameTagArticlesView articleUrlId={articleUrlId} client:load />
+      <SameTagArticlesView articleUrlId={articleUrlId} client:idle />
     </section>
 
     <section>

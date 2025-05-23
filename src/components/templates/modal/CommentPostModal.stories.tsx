@@ -8,7 +8,14 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof CommentPostModal> = {
   component: CommentPostModal,
   tags: ["autodocs"],
-  args: { onSubmit: undefined },
+  args: {
+    userNameValue: undefined,
+    bodyValue: undefined,
+    userNameErrorMessage: undefined,
+    bodyErrorMessage: undefined,
+    onUserNameChange: undefined,
+    onBodyChange: undefined
+  },
   argTypes: {}
 }
 

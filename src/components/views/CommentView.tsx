@@ -19,14 +19,16 @@ type Props = Pick<ArticleInfo, "articleUrlId">
 export const CommentView = ({ articleUrlId }: Props) => {
   const {
     commentInfoList,
+    userNameValue,
     bodyValue,
+    userNameErrorMessage,
+    bodyErrorMessage,
     handleBodyChange,
     handleCommentPostModalClose,
     handleCommentPostModalOpen,
     handleSubmit,
     handleUserNameChange,
-    isCommentPostModalOpen,
-    userNameValue
+    isCommentPostModalOpen
   } = useCommentView(articleUrlId)
 
   if (!isDefined(commentInfoList)) {
@@ -47,10 +49,12 @@ export const CommentView = ({ articleUrlId }: Props) => {
           triggerElement={<CommentPostButton onClick={handleCommentPostModalOpen} type="button" />}
         >
           <CommentPostModal
+            bodyErrorMessage={bodyErrorMessage}
             bodyValue={bodyValue}
             onBodyChange={handleBodyChange}
             onSubmit={handleSubmit}
             onUserNameChange={handleUserNameChange}
+            userNameErrorMessage={userNameErrorMessage}
             userNameValue={userNameValue}
           />
         </Modal>

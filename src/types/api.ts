@@ -52,3 +52,11 @@ export type PostCommentFromBrowserRequestBody = Pick<
   PostCommentRequestBody["data"],
   "userName" | "body" | "parentCommentDocumentId"
 >
+
+/** コメント投稿用自己ホストAPIからバリデーションエラーをレスポンスする時のフォーマット */
+export type PostCommentValidationErrorResponse = {
+  /** ニックネーム欄のエラーメッセージ */
+  userNameErrorMessage?: string
+  /** コメント欄のエラーメッセージ */
+  bodyErrorMessage?: string
+}

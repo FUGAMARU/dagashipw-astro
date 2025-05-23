@@ -26,5 +26,8 @@ export const CMS_IMAGE_DIRECTORY = "uploads"
 /** Markdownで使用されている画像URLを軽量化済み画像URLに差し替える時に画像として扱う拡張子の一覧 */
 export const MARKDOWN_IMAGE_EXTENSIONS = "png|jpe?g|gif|svg|webp|avif|bmp|tiff|ico|heic|heif"
 
-/** コメントを投稿する際の最大文字数 */
-export const COMMENT_MAX_LENGTH = 1000
+/** コメントを投稿する際のニックネームの最大文字数 */
+export const COMMENT_USER_NAME_MAX_LENGTH = 20
+
+/** コメントを投稿する際の本文の最大文字数 */
+export const COMMENT_BODY_MAX_LENGTH = 1000
