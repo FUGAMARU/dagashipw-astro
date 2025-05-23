@@ -38,7 +38,7 @@ const shouldShowTableOfContents =
     <Infobar client:load />
 
     <SidebarItemWithTitle title="さがす">
-      <Input client:load hasSearchIcon placeholder="キーワードを入力…" />
+      <Input client:idle hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
     <div class={clsx(styles.toc, !shouldShowTableOfContents && styles.Hidden)}>
@@ -47,7 +47,7 @@ const shouldShowTableOfContents =
 
     <SidebarItemWithTitle title="この記事をシェアする">
       <ShareButtons
-        client:load
+        client:idle
         currentArticleTitle={currentArticleTitle}
         currentArticleUrl={currentArticleUrl}
       />

@@ -39,6 +39,6 @@ const { articleInfoList, pageNumber, totalArticlePageCount } = Astro.props
   </div>
 
   <div class={styles.pagination}>
-    <Pagination client:load currentPage={pageNumber} totalPageCount={totalArticlePageCount} />
+    <Pagination client:visible currentPage={pageNumber} totalPageCount={totalArticlePageCount} />
   </div>
 </div>

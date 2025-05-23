@@ -4,4 +4,4 @@ import { AccordionInfo } from "@/components/article/originals/AccordionInfo"
 const { displayType, title, body } = Astro.props
 ---
 
-<AccordionInfo body={body} client:load displayType={displayType} title={title} />
+<AccordionInfo body={body} client:idle displayType={displayType} title={title} />
