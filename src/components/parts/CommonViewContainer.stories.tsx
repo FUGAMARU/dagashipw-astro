@@ -42,13 +42,15 @@ export const Primary: Story = {
 export const FromCommentView: Story = {
   render: () => {
     const {
+      userNameValue,
       bodyValue,
+      userNameErrorMessage,
+      bodyErrorMessage,
       handleBodyChange,
       handleCommentPostModalClose,
       handleCommentPostModalOpen,
       handleUserNameChange,
-      isCommentPostModalOpen,
-      userNameValue
+      isCommentPostModalOpen
     } = useCommentView("")
 
     return (
@@ -68,10 +70,12 @@ export const FromCommentView: Story = {
               }
             >
               <CommentPostModal
+                bodyErrorMessage={bodyErrorMessage}
                 bodyValue={bodyValue}
                 onBodyChange={handleBodyChange}
                 onSubmit={() => console.log("submit")}
                 onUserNameChange={handleUserNameChange}
+                userNameErrorMessage={userNameErrorMessage}
                 userNameValue={userNameValue}
               />
             </Modal>
