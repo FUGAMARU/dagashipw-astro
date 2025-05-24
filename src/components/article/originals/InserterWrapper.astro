@@ -1,7 +1,13 @@
 ---
 import { Inserter } from "@/components/article/originals/Inserter"
+import { isDefined } from "@/utils"
 
 const { type } = Astro.props
+const { article } = Astro.locals
+
+if (!isDefined(article)) {
+  throw new Error("ミドルウェアで記事の取得に失敗している可能性があります")
+}
 ---
 
-<Inserter client:only="react" type={type} />
+<Inserter article={article} client:only="react" type={type} />

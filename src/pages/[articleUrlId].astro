@@ -23,7 +23,7 @@ const { articleUrlId } = Astro.params
 const { article } = Astro.locals
 
 if (!isDefined(article)) {
-  throw new Error(`ミドルウェアで記事の取得に失敗している可能性があります`)
+  throw new Error("ミドルウェアで記事の取得に失敗している可能性があります")
 }
 ---
 
