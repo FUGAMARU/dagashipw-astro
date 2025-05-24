@@ -5,23 +5,27 @@ import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/TableOfContents.module.css"
 import { TableOfContentsItem } from "@/components/templates/TableOfContentsItem"
-import { activeHeadingAnchorLinkWithInitialValueAtom } from "@/stores/active-heading-anchor-link"
+import { activeHeadingAnchorLinkAtom } from "@/stores/active-heading-anchor-link"
 import { isTocHydrationCompleteAtom } from "@/stores/is-toc-hydration-complete"
-import { minutesToReadAtom } from "@/stores/minutes-to-read"
-import { tableOfContentsAtom } from "@/stores/table-of-contents"
+
+import type { TableOfContentsData } from "@/types/table-of-contents"
+
+/** Props */
+type Props = {
+  /** 目次データー */
+  tableOfContentsData: TableOfContentsData
+  /** 読了目安時間 (分) */
+  minutesToRead: number
+}
 
 /** 目次 */
-export const TableOfContents = () => {
-  /** 記事の読了目安時間 (分) */
-  const minutesToRead = useStore(minutesToReadAtom)
+export const TableOfContents = ({ tableOfContentsData, minutesToRead }: Props) => {
+  /** 記事のスクロールに反応して取得された最新の閲覧中セクションに対応する見出しアンカーリンク */
+  const latestHeadingAnchorLink = useStore(activeHeadingAnchorLinkAtom)
 
-  /** 見出し一覧 */
-  const tableOfContents = useStore(tableOfContentsAtom)
-
-  /** アクティブな見出しのアンカーリンク  */
-  const activeHeadingAnchorLinkWithInitialValue = useStore(
-    activeHeadingAnchorLinkWithInitialValueAtom
-  )
+  /** 閲覧中セクションに対応する見出しのアンカーリンク */
+  const currentHeadingAnchorLink = latestHeadingAnchorLink ?? tableOfContentsData?.[0].h2.href
+  // TODO: そもそも記事冒頭のh2より前のセクション閲覧中に最初のh2がアクティブ表示になっているのはおかしい気がする
 
   useEffect(() => {
     isTocHydrationCompleteAtom.set(true)
@@ -30,29 +34,29 @@ export const TableOfContents = () => {
   return (
     <div className={styles.tableOfContents}>
       <div className={styles.main}>
-        {tableOfContents?.map((content, h2Index) => (
-          <Fragment key={content.h2.title}>
+        {tableOfContentsData?.map((content, h2Index) => (
+          <Fragment key={content.h2.href}>
             <TableOfContentsItem
               href={content.h2.href}
-              isActive={activeHeadingAnchorLinkWithInitialValue === content.h2.href}
+              isActive={currentHeadingAnchorLink === content.h2.href}
               itemNumber={`${h2Index + 1}`}
               title={content.h2.title}
             />
             {content.h2.h3?.map((h3, h3Index) => (
-              <Fragment key={h3.title}>
+              <Fragment key={h3.href}>
                 <div className={styles.headingH3}>
                   <TableOfContentsItem
                     href={h3.href}
-                    isActive={activeHeadingAnchorLinkWithInitialValue === h3.href}
+                    isActive={currentHeadingAnchorLink === h3.href}
                     itemNumber={`${h2Index + 1}-${h3Index + 1}`}
                     title={h3.title}
                   />
                 </div>
                 {h3.h4?.map((h4, h4Index) => (
-                  <div key={h4.title} className={styles.headingH4}>
+                  <div key={h4.href} className={styles.headingH4}>
                     <TableOfContentsItem
                       href={h4.href}
-                      isActive={activeHeadingAnchorLinkWithInitialValue === h4.href}
+                      isActive={currentHeadingAnchorLink === h4.href}
                       itemNumber={`${h2Index + 1}-${h3Index + 1}-${h4Index + 1}`}
                       title={h4.title}
                     />
@@ -60,7 +64,7 @@ export const TableOfContents = () => {
                 ))}
               </Fragment>
             ))}
-            {h2Index !== tableOfContents.length - 1 && <DividerHorizontal />}
+            {h2Index !== tableOfContentsData.length - 1 && <DividerHorizontal />}
           </Fragment>
         ))}
       </div>

@@ -1,8 +1,4 @@
-/* eslint-disable reactHooks/rules-of-hooks */
-
 import { TableOfContents } from "@/components/templates/TableOfContents"
-import { minutesToReadAtom } from "@/stores/minutes-to-read"
-import { tableOfContentsAtom } from "@/stores/table-of-contents"
 
 import type { Meta, StoryObj } from "@storybook/react"
 
@@ -17,9 +13,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  render: () => {
-    minutesToReadAtom.set(5)
-    tableOfContentsAtom.set([
+  args: {
+    minutesToRead: 5,
+    tableOfContentsData: [
       {
         h2: {
           title: "Level2 Heading Text",
@@ -50,8 +46,6 @@ export const Primary: Story = {
           href: "#"
         }
       }
-    ])
-
-    return <TableOfContents />
+    ]
   }
 }

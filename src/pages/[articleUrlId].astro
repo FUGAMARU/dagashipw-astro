@@ -5,11 +5,8 @@ import { CommentView } from "@/components/views/CommentView"
 import RecentArticlesView from "@/components/views/RecentArticlesView.astro"
 import { SameTagArticlesView } from "@/components/views/SameTagArticlesView"
 import styles from "@/pages/_[articleUrlId].module.css"
-import { getAllArticleUrlIdList, getArticle } from "@/services/api"
-import {
-  calculateReadingTime,
-  generateTableOfContentsFromMarkdown
-} from "@/utils/table-of-contents"
+import { getAllArticleUrlIdList } from "@/services/api"
+import { isDefined } from "@/utils"
 
 /** 存在する記事のパス一覧をexportする */
 export const getStaticPaths = async () => {
@@ -23,10 +20,11 @@ export const getStaticPaths = async () => {
 }
 
 const { articleUrlId } = Astro.params
+const { article } = Astro.locals
 
-const article = await getArticle(articleUrlId)
-const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
-const minutesToRead = calculateReadingTime(article.body)
+if (!isDefined(article)) {
+  throw new Error(`ミドルウェアで記事の取得に失敗している可能性があります`)
+}
 ---
 
 <Layout title={`${article.title} | 麩菓子の雑記帳`}>
@@ -48,13 +46,8 @@ const minutesToRead = calculateReadingTime(article.body)
     </section>
   </div>
 
-  <toc-variable-bridge data-minutestoread={minutesToRead}></toc-variable-bridge>
-  <toc-variable-bridge data-value={JSON.stringify(tableOfContentsData)}></toc-variable-bridge>
-
   <script>
-    import { isDefined, isValidString } from "@/utils"
-    import { minutesToReadAtom } from "@/stores/minutes-to-read"
-    import { tableOfContentsAtom } from "@/stores/table-of-contents"
+    import { isValidString } from "@/utils"
     import { activeHeadingAnchorLinkAtom } from "@/stores/active-heading-anchor-link"
 
     /**
@@ -88,27 +81,5 @@ const minutesToRead = calculateReadingTime(article.body)
         observer.observe(element)
       })
     })
-
-    /**
-     * コンポーネントスクリプト内の変数をscriptタグから参照するためにカスタム要素を定義して値を橋渡しする (define:varsを利用するよりパフォーマンス的に有利)
-     * @see: https://docs.astro.build/ja/guides/client-side-scripts/#%E3%83%95%E3%83%AD%E3%83%B3%E3%83%88%E3%83%9E%E3%82%BF%E3%83%BC%E5%A4%89%E6%95%B0%E3%82%92%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%AB%E6%B8%A1%E3%81%99
-     */
-    class TocVariableBridge extends HTMLElement {
-      constructor() {
-        super()
-
-        const { value: tableOfContentsData, minutestoread } = this.dataset
-
-        if (isDefined(minutestoread)) {
-          minutesToReadAtom.set(Number(minutestoread))
-        }
-
-        if (isDefined(tableOfContentsData)) {
-          tableOfContentsAtom.set(JSON.parse(tableOfContentsData))
-        }
-      }
-    }
-
-    customElements.define("toc-variable-bridge", TocVariableBridge)
   </script>
 </Layout>

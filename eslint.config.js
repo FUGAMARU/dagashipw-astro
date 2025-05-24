@@ -19,6 +19,7 @@ export default [
       ".stylelintrc.js",
       ".storybook/main.ts",
       ".storybook/preview.ts",
+      "src/env.d.ts",
       "src/types/schema.ts"
     ]
   },

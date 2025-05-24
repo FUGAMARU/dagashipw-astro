@@ -1,6 +1,5 @@
 ---
 import clsx from "clsx"
-import { isList } from "typescanner"
 
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import { Infobar } from "@/components/layout/sidebar/Infobar"
@@ -15,17 +14,12 @@ import {
   SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID,
   SIDEBAR_SCROLLABLE_OVERLAY_ID
 } from "@/constants/element"
-import { PAGE_PATH } from "@/constants/page"
+import { isDefined } from "@/utils"
 
 const currentArticleTitle = "記事のタイトル" // TODO: 仮当て
 const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
 
-const { pathname } = Astro.url
-
-/** 目次を表示するべきか (記事ページ以外では非表示) */
-const shouldShowTableOfContents =
-  !isList(pathname, Object.values(PAGE_PATH)) &&
-  !pathname.startsWith(PAGE_PATH.ARTICLE_LIST_WITH_PAGE.replace("[page]", ""))
+const { article } = Astro.locals
 ---
 
 <div class={styles.sidebarContainer}>
@@ -41,8 +35,8 @@ const shouldShowTableOfContents =
       <Input client:idle hasSearchIcon placeholder="キーワードを入力…" />
     </SidebarItemWithTitle>
 
-    <div class={clsx(styles.toc, !shouldShowTableOfContents && styles.Hidden)}>
-      <TableOfContentsWrapper client:only="react" />
+    <div class={clsx(styles.toc, !isDefined(article) && styles.Hidden)}>
+      {isDefined(article) && <TableOfContentsWrapper article={article} client:idle />}
     </div>
 
     <SidebarItemWithTitle title="この記事をシェアする">

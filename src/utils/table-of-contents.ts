@@ -17,6 +17,9 @@ export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfCo
   const lines = markdown.split("\n")
   const data: TableOfContentsData = []
 
+  /** 見出し文字列ごとの出現回数 */
+  const headingCountMap = new Map<string, number>()
+
   let currentH2:
     | (NestedHeading & {
         /** h3 */
@@ -36,6 +39,20 @@ export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfCo
     | null = null
   let currentH4: NestedHeading | null = null
 
+  /**
+   * 同じ見出し文字列が複数回出現した場合、カウントを接尾辞として付与したIDを生成する
+   * 例: "heading" → "heading", 2回目以降は "heading-1", "heading-2" ...
+   *
+   * @param title - 見出し文字列
+   * @returns カウント付きID
+   */
+  const generateCountedHeadingId = (title: string): string => {
+    const baseId = generateHeadingId(title)
+    const count = headingCountMap.get(baseId) ?? 0
+    headingCountMap.set(baseId, count + 1)
+    return count === 0 ? baseId : `${baseId}-${count}`
+  }
+
   lines.forEach(line => {
     const h2Match = line.match(/^## (.+)/)
     const h3Match = line.match(/^### (.+)/)
@@ -44,7 +61,7 @@ export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfCo
     if (isDefined(h2Match)) {
       currentH2 = {
         title: h2Match[1],
-        href: `#${generateHeadingId(h2Match[1])}`
+        href: `#${generateCountedHeadingId(h2Match[1])}`
       }
       data.push({ h2: currentH2 })
       currentH3 = null
@@ -54,7 +71,7 @@ export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfCo
     if (isDefined(h3Match) && isDefined(currentH2)) {
       currentH3 = {
         title: h3Match[1],
-        href: `#${generateHeadingId(h3Match[1])}`
+        href: `#${generateCountedHeadingId(h3Match[1])}`
       }
       currentH2.h3 = currentH2.h3 ?? []
       currentH2.h3.push(currentH3)
@@ -66,7 +83,7 @@ export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfCo
     }
     currentH4 = {
       title: h4Match[1],
-      href: `#${generateHeadingId(h4Match[1])}`
+      href: `#${generateCountedHeadingId(h4Match[1])}`
     }
     currentH3.h4 = currentH3.h4 ?? []
     currentH3.h4.push(currentH4)
