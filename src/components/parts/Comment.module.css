@@ -36,6 +36,7 @@
   > .reply {
     display: flex;
     align-items: center;
+    width: fit-content;
     padding-left: 16px;
 
     > .icon {
