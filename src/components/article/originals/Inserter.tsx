@@ -1,6 +1,7 @@
 import styles from "@/components/article/originals/Inserter.module.css"
 import { TableOfContents } from "@/components/templates/TableOfContents"
 import { useIsSP } from "@/hooks/useIsSP"
+import { isValidArray } from "@/utils"
 import {
   generateTableOfContentsFromMarkdown,
   calculateReadingTime
@@ -24,6 +25,7 @@ export const Inserter = ({ type, article }: Props) => {
 
   if (
     type === "tableOfContents" &&
+    isValidArray(tableOfContentsData) &&
     isSP // PCではサイドバーに目次を表示するので記事中には表示しない
   ) {
     return (

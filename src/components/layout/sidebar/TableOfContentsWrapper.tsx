@@ -1,5 +1,6 @@
 import { TableOfContents } from "@/components/templates/TableOfContents"
 import { useIsSP } from "@/hooks/useIsSP"
+import { isValidArray } from "@/utils"
 import {
   generateTableOfContentsFromMarkdown,
   calculateReadingTime
@@ -24,7 +25,7 @@ export const TableOfContentsWrapper = ({ article }: Props) => {
   const isSP = useIsSP()
 
   // サイドバーでSP表示を出し分けるとreturn nullにしていてもアイテム間のgapは残るのでここで出し分ける
-  if (isSP) {
+  if (isSP || !isValidArray(tableOfContentsData)) {
     return null
   }
 
