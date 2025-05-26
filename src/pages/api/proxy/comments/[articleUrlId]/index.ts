@@ -1,3 +1,5 @@
+import { RateLimiterMemory } from "rate-limiter-flexible"
+
 import { COMMENT_BODY_MAX_LENGTH, COMMENT_USER_NAME_MAX_LENGTH } from "@/constants/value"
 import { getComments, postComment } from "@/services/api"
 import { isDefined, isValidString } from "@/utils"
@@ -31,14 +33,21 @@ export const GET: APIRoute = async ({ params }) => {
   })
 }
 
+/** POSTリクエストのレートリミット (1つのIPアドレスにつき1分に1投稿まで) */
+const POST_RATE_LIMIT = new RateLimiterMemory({
+  points: 1,
+  duration: 60
+})
+
 /**
  * 指定した記事に対してコメントを投稿する
  *
  * @param context - APIルートのコンテキスト
  * @param context.params - パスパラメータ
  * @param context.request - リクエストオブジェクト
+ * @param context.clientAddress - クライアントのIPアドレス
  */
-export const POST: APIRoute = async ({ params, request }) => {
+export const POST: APIRoute = async ({ params, request, clientAddress }) => {
   const { articleUrlId } = params
 
   if (!isDefined(articleUrlId)) {
@@ -50,6 +59,14 @@ export const POST: APIRoute = async ({ params, request }) => {
   if (request.headers.get("Content-Type") !== "application/json") {
     return new Response(JSON.stringify({ error: "Content-Typeが不正です" }), {
       status: 400
+    })
+  }
+
+  try {
+    await POST_RATE_LIMIT.consume(clientAddress)
+  } catch {
+    return new Response(JSON.stringify({ error: "短時間のコメントの連続投稿はできません" }), {
+      status: 429
     })
   }
 
