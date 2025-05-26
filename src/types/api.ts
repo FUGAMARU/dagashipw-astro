@@ -51,7 +51,10 @@ export type PostCommentResponse =
 export type PostCommentFromBrowserRequestBody = Pick<
   PostCommentRequestBody["data"],
   "userName" | "body" | "parentCommentDocumentId"
->
+> & {
+  /** Cloudflare Turnstileのトークン */
+  turnstileToken: string
+}
 
 /** コメント投稿用自己ホストAPIからバリデーションエラーをレスポンスする時のフォーマット */
 export type PostCommentValidationErrorResponse = {
@@ -59,4 +62,21 @@ export type PostCommentValidationErrorResponse = {
   userNameErrorMessage?: string
   /** コメント欄のエラーメッセージ */
   bodyErrorMessage?: string
+}
+
+/**
+ * Cloudflare Turnstileのトークン検証APIのレスポンス
+ * 公式ドキュメントを参考に手打ちしたもの
+ *
+ * @see https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
+ */
+export type TurnstileTokenVerifyApiResponse = {
+  /** 検証が成功したかどうか */
+  success: boolean
+  /** チャレンジタイムスタンプ */
+  challenge_ts: string
+  /** ホスト名 */
+  hostname?: string
+  /** エラーコード */
+  "error-codes"?: Array<string>
 }

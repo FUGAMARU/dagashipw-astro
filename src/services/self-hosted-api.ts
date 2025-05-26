@@ -88,6 +88,7 @@ const getSameTagArticles = async (articleUrlId: string): Promise<Array<ArticleIn
  *
  * @param articleUrlId - 記事のURL ID
  * @param body - コメント本文
+ * @param turnstileToken - Cloudflare Turnstileのトークン
  * @param userName - ユーザー名
  * @param parentCommentDocumentId - 親コメントのドキュメントID
  * @returns void
@@ -95,6 +96,7 @@ const getSameTagArticles = async (articleUrlId: string): Promise<Array<ArticleIn
 export const postComment = async (
   articleUrlId: string,
   body: string,
+  turnstileToken: string,
   userName?: string,
   parentCommentDocumentId?: string
 ): Promise<AxiosResponse<string>> =>
@@ -105,5 +107,6 @@ export const postComment = async (
   >(`/proxy/comments/${articleUrlId}`, {
     body,
     userName,
-    parentCommentDocumentId
+    parentCommentDocumentId,
+    turnstileToken
   })

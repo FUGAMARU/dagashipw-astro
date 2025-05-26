@@ -1,13 +1,18 @@
+import { useState } from "react"
+import Turnstile, { useTurnstile } from "react-turnstile"
+
 import { Input } from "@/components/parts/input/Input"
 import { TextArea } from "@/components/parts/input/TextArea"
 import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import styles from "@/components/templates/modal/CommentPostModal.module.css"
+import { TURNSTILE_SITE_KEY } from "@/constants/env"
 import { COMMENT_BODY_MAX_LENGTH, COMMENT_USER_NAME_MAX_LENGTH } from "@/constants/value"
+import { isValidString } from "@/utils"
 
-import type { ComponentProps } from "react"
+import type { ComponentProps, FormEvent } from "react"
 
 /** Props */
-type Props = Required<Pick<ComponentProps<"form">, "onSubmit">> & {
+type Props = {
   /** ニックネーム欄の値 */
   userNameValue: ComponentProps<typeof Input>["value"]
   /** コメント欄の値 */
@@ -20,20 +25,25 @@ type Props = Required<Pick<ComponentProps<"form">, "onSubmit">> & {
   onUserNameChange: ComponentProps<typeof Input>["onChange"]
   /** コメント欄の入力が変更された時の処理 */
   onBodyChange: ComponentProps<typeof TextArea>["onChange"]
+  /** 投稿処理 */
+  onSubmit: (e: FormEvent<HTMLFormElement>, turnstileToken: string) => Promise<void> | void
 }
 
 /** コメント投稿用モーダル */
 export const CommentPostModal = ({
-  userNameValue,
-  bodyValue,
-  userNameErrorMessage,
   bodyErrorMessage,
-  onUserNameChange: handleUserNameChange,
+  bodyValue,
   onBodyChange: handleBodyChange,
+  onUserNameChange: handleUserNameChange,
+  userNameErrorMessage,
+  userNameValue,
   onSubmit: handleSubmit
 }: Props) => {
+  const turnstile = useTurnstile()
+  const [turnstileToken, setTurnstileToken] = useState<string>()
+
   return (
-    <form className={styles.commentPostModal} onSubmit={handleSubmit}>
+    <form className={styles.commentPostModal} onSubmit={e => handleSubmit(e, turnstileToken ?? "")}>
       <Input
         errorMessage={userNameErrorMessage}
         maxLength={COMMENT_USER_NAME_MAX_LENGTH}
@@ -51,9 +61,21 @@ export const CommentPostModal = ({
         value={bodyValue}
       />
 
-      <div className={styles.post}>
+      <div className={styles.footer}>
+        <Turnstile
+          fixedSize
+          language="ja"
+          onExpire={turnstile.reset}
+          onVerify={setTurnstileToken}
+          sitekey={TURNSTILE_SITE_KEY}
+          theme="light"
+        />
+
         <CommentPostButton
-          disabled={typeof bodyValue === "string" && bodyValue?.length === 0}
+          disabled={
+            (typeof bodyValue === "string" && bodyValue?.length === 0) ||
+            !isValidString(turnstileToken)
+          }
           type="submit"
         />
       </div>

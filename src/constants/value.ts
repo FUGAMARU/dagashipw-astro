@@ -31,3 +31,7 @@ export const COMMENT_USER_NAME_MAX_LENGTH = 20
 
 /** コメントを投稿する際の本文の最大文字数 */
 export const COMMENT_BODY_MAX_LENGTH = 1000
+
+/** Cloudflare Turnstileのトークン検証APIエンドポイント */
+export const TURNSTILE_VERIFY_API_ENDPOINT =
+  "https://challenges.cloudflare.com/turnstile/v0/siteverify"

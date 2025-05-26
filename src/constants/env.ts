@@ -18,6 +18,17 @@ export const IMGPROXY_ORIGIN = import.meta.env.IMGPROXY_ORIGIN
 export const IMGPROXY_SIGNING_KEY = import.meta.env.IMGPROXY_SIGNING_KEY
 /** imgproxyの署名URL生成用ソルト */
 export const IMGPROXY_SIGNING_SALT = import.meta.env.IMGPROXY_SIGNING_SALT
+/**
+ * Cloudflare Turnstileのサイトキー
+ * ダミーのサイトキーに関しては以下を参照
+ *
+ * @see https://developers.cloudflare.com/turnstile/troubleshooting/testing/
+ */
+export const TURNSTILE_SITE_KEY = import.meta.env.DEV
+  ? "1x00000000000000000000AA"
+  : import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
+/** Cloudflare Turnstileのシークレットキー */
+export const TURNSTILE_SECRET_KEY = import.meta.env.TURNSTILE_SECRET_KEY
 
 if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))) {
   const missingEnvironmentVariables = [
@@ -28,7 +39,9 @@ if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))
       "CMS_STATIC_CONTENTS_DIRECTORYが環境変数に設定されていません",
     !isValidString(IMGPROXY_ORIGIN) && "IMGPROXY_ORIGINが環境変数に設定されていません",
     !isValidString(IMGPROXY_SIGNING_KEY) && "IMGPROXY_SIGNING_KEYが環境変数に設定されていません",
-    !isValidString(IMGPROXY_SIGNING_SALT) && "IMGPROXY_SIGNING_SALTが環境変数に設定されていません"
+    !isValidString(IMGPROXY_SIGNING_SALT) && "IMGPROXY_SIGNING_SALTが環境変数に設定されていません",
+    !isValidString(TURNSTILE_SITE_KEY) && "TURNSTILE_SITE_KEYが環境変数に設定されていません",
+    !isValidString(TURNSTILE_SECRET_KEY) && "TURNSTILE_SECRET_KEYが環境変数に設定されていません"
   ]
     .filter(isDefined)
     .join("\n")

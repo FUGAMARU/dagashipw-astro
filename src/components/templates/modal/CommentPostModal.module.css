@@ -3,7 +3,9 @@
   flex-direction: column;
   gap: 16px;
 
-  > .post {
-    align-self: flex-end;
+  > .footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
   }
 }

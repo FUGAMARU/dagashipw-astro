@@ -14,7 +14,8 @@ const meta: Meta<typeof CommentPostModal> = {
     userNameErrorMessage: undefined,
     bodyErrorMessage: undefined,
     onUserNameChange: undefined,
-    onBodyChange: undefined
+    onBodyChange: undefined,
+    onSubmit: undefined
   },
   argTypes: {}
 }

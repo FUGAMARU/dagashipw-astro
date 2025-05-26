@@ -1,11 +1,21 @@
+import axios from "axios"
 import { RateLimiterMemory } from "rate-limiter-flexible"
 
-import { COMMENT_BODY_MAX_LENGTH, COMMENT_USER_NAME_MAX_LENGTH } from "@/constants/value"
+import { TURNSTILE_SECRET_KEY } from "@/constants/env"
+import {
+  COMMENT_BODY_MAX_LENGTH,
+  COMMENT_USER_NAME_MAX_LENGTH,
+  TURNSTILE_VERIFY_API_ENDPOINT
+} from "@/constants/value"
 import { getComments, postComment } from "@/services/api"
 import { isDefined, isValidString } from "@/utils"
 import { transformDataToCommentInfo } from "@/utils/transformer"
 
-import type { PostCommentValidationErrorResponse } from "@/types/api"
+import type {
+  PostCommentFromBrowserRequestBody,
+  PostCommentValidationErrorResponse,
+  TurnstileTokenVerifyApiResponse
+} from "@/types/api"
 import type { APIRoute } from "astro"
 
 export const prerender = false
@@ -70,7 +80,9 @@ export const POST: APIRoute = async ({ params, request, clientAddress }) => {
     })
   }
 
-  const requestBody = await request.json()
+  const requestBody = (await request.json()) as PostCommentFromBrowserRequestBody
+
+  // -----バリデーション-----
 
   const userNameErrorMessage = isValidString(requestBody.userName)
     ? validateString(requestBody.userName.trim(), "userName")
@@ -90,6 +102,22 @@ export const POST: APIRoute = async ({ params, request, clientAddress }) => {
         status: 422
       }
     )
+  }
+
+  // -----Cloudflare Turnstileのトークン検証-----
+
+  const { data } = await axios.post<TurnstileTokenVerifyApiResponse>(
+    TURNSTILE_VERIFY_API_ENDPOINT,
+    new URLSearchParams({
+      secret: TURNSTILE_SECRET_KEY,
+      response: requestBody.turnstileToken
+    })
+  )
+
+  if (!data.success) {
+    return new Response(JSON.stringify({ error: "Cloudflare Turnstileの検証に失敗しました" }), {
+      status: 422
+    })
   }
 
   const createdCommentDocumentId = await postComment(

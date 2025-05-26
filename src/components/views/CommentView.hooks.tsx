@@ -1,5 +1,5 @@
 import { isAxiosError } from "axios"
-import { useState, type ChangeEvent, type FormEvent } from "react"
+import { useState } from "react"
 import useSWR from "swr"
 
 import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
@@ -8,6 +8,7 @@ import { isDefined, isValidString } from "@/utils"
 
 import type { PostCommentValidationErrorResponse } from "@/types/api"
 import type { CommentInfo } from "@/types/models"
+import type { ChangeEvent, FormEvent } from "react"
 
 /** 返り値 */
 type UseCommentView = {
@@ -32,7 +33,7 @@ type UseCommentView = {
   /** ニックネーム欄の値が変更された時の処理 */
   handleUserNameChange: (e: ChangeEvent<HTMLInputElement>) => void
   /** コメントを投稿する時の処理 */
-  handleSubmit: (e: FormEvent) => Promise<void>
+  handleSubmit: (e: FormEvent<HTMLFormElement>, turnstileToken: string) => Promise<void>
 }
 
 /**
@@ -93,14 +94,16 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
    * コメントを投稿する時の処理
    *
    * @param e - イベント
+   * @param turnstileToken - Cloudflare Turnstileのトークン
    */
-  const handleSubmit = async (e: FormEvent): Promise<void> => {
+  const handleSubmit = async (e: FormEvent, turnstileToken: string): Promise<void> => {
     e.preventDefault()
 
     try {
       const { data: createdCommentDocumentId } = await postComment(
         articleUrlId,
         bodyValue,
+        turnstileToken,
         isValidString(userNameValue) ? userNameValue : undefined
       )
 
