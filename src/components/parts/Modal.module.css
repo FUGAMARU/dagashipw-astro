@@ -2,6 +2,11 @@
   position: fixed;
   inset: 0;
   background-color: var(--color-black-50);
+  animation: overlay-fade-in 0.3s ease;
+
+  &[data-state="closed"] {
+    animation: overlay-fade-out 0.3s ease 0.15s forwards;
+  }
 }
 
 .dialogContent {
@@ -12,7 +17,13 @@
   padding: 24px;
   background-color: var(--color-white);
   border-radius: 16px;
-  transform: translate(-50%, -50%);
+  opacity: 0;
+  transform: translate(-50%, -50%) translateY(30px);
+  animation: content-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+  &[data-state="closed"] {
+    animation: content-fade-out 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
 
   &:focus {
     outline: none;
@@ -30,4 +41,48 @@
   width: 100%;
   margin-top: 16px;
   text-align: right;
+}
+
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlay-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
+
+@keyframes content-fade-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(30px);
+  }
 }
