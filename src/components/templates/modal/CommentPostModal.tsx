@@ -65,7 +65,7 @@ export const CommentPostModal = ({
         <Turnstile
           fixedSize
           language="ja"
-          onExpire={turnstile.reset}
+          onExpire={() => turnstile.reset()}
           onVerify={setTurnstileToken}
           sitekey={TURNSTILE_SITE_KEY}
           theme="light"
