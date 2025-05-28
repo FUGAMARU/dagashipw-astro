@@ -105,19 +105,20 @@ export const POST: APIRoute = async ({ params, request, clientAddress }) => {
   }
 
   // -----Cloudflare Turnstileのトークン検証-----
+  if (!import.meta.env.DEV) {
+    const { data } = await axios.post<TurnstileTokenVerifyApiResponse>(
+      TURNSTILE_VERIFY_API_ENDPOINT,
+      new URLSearchParams({
+        secret: TURNSTILE_SECRET_KEY,
+        response: requestBody.turnstileToken
+      })
+    )
 
-  const { data } = await axios.post<TurnstileTokenVerifyApiResponse>(
-    TURNSTILE_VERIFY_API_ENDPOINT,
-    new URLSearchParams({
-      secret: TURNSTILE_SECRET_KEY,
-      response: requestBody.turnstileToken
-    })
-  )
-
-  if (!data.success) {
-    return new Response(JSON.stringify({ error: "Cloudflare Turnstileの検証に失敗しました" }), {
-      status: 422
-    })
+    if (!data.success) {
+      return new Response(JSON.stringify({ error: "Cloudflare Turnstileの検証に失敗しました" }), {
+        status: 422
+      })
+    }
   }
 
   const createdCommentDocumentId = await postComment(
