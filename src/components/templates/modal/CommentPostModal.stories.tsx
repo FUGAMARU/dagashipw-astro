@@ -15,7 +15,8 @@ const meta: Meta<typeof CommentPostModal> = {
     bodyErrorMessage: undefined,
     onUserNameChange: undefined,
     onBodyChange: undefined,
-    onSubmit: undefined
+    onSubmit: undefined,
+    isPosting: undefined
   },
   argTypes: {}
 }
@@ -31,13 +32,15 @@ export const Primary: Story = {
       userNameErrorMessage,
       bodyErrorMessage,
       handleBodyChange,
-      handleUserNameChange
+      handleUserNameChange,
+      isCommentPosting
     } = useCommentView("")
 
     return (
       <CommentPostModal
         bodyErrorMessage={bodyErrorMessage}
         bodyValue={bodyValue}
+        isPosting={isCommentPosting}
         onBodyChange={handleBodyChange}
         onSubmit={() => console.log("submit")}
         onUserNameChange={handleUserNameChange}

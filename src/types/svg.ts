@@ -39,3 +39,4 @@ export type SvgComponentName =
   | "turnBackArrow"
   | "cross"
   | "labelPlus"
+  | "spinner"

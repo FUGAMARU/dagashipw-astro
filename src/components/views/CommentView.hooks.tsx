@@ -34,6 +34,8 @@ type UseCommentView = {
   handleUserNameChange: (e: ChangeEvent<HTMLInputElement>) => void
   /** コメントを投稿する時の処理 */
   handleSubmit: (e: FormEvent<HTMLFormElement>, turnstileToken: string) => Promise<void>
+  /** コメント投稿中かどうか */
+  isCommentPosting: boolean
 }
 
 /**
@@ -61,6 +63,8 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
   const [userNameErrorMessage, setUserNameErrorMessage] = useState<string>()
   /** コメント欄のエラーメッセージ */
   const [bodyErrorMessage, setBodyErrorMessage] = useState<string>()
+  /** コメントの投稿処理中かどうか */
+  const [isCommentPosting, setIsCommentPosting] = useState(false)
 
   /**
    * コメント投稿モーダルのニックネーム欄の値が変更された時の処理
@@ -100,15 +104,16 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
     e.preventDefault()
 
     try {
+      setUserNameErrorMessage(undefined)
+      setBodyErrorMessage(undefined)
+      setIsCommentPosting(true)
+
       const { data: createdCommentDocumentId } = await postComment(
         articleUrlId,
         bodyValue,
         turnstileToken,
         isValidString(userNameValue) ? userNameValue : undefined
       )
-
-      setUserNameErrorMessage(undefined)
-      setBodyErrorMessage(undefined)
 
       location.href = `${window.location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // 投稿したコメントの位置まで自動スクロールためのハッシュを追加
       location.reload() // リロード
@@ -125,7 +130,10 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
 
       setUserNameErrorMessage(errorResponse.userNameErrorMessage)
       setBodyErrorMessage(errorResponse.bodyErrorMessage)
+      setIsCommentPosting(false)
     }
+
+    // ページリロードまでスピナー表示にしておきたいのでfinallyは使わず、例外発生時のみスピナー表示を解除する。
   }
 
   return {
@@ -139,6 +147,7 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
     handleCommentPostModalOpen,
     handleSubmit,
     handleUserNameChange,
-    isCommentPostModalOpen
+    isCommentPostModalOpen,
+    isCommentPosting
   } as const
 }

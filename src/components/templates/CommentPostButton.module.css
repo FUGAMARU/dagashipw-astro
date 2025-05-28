@@ -5,8 +5,8 @@
 .commentPostButton {
   position: relative;
   transition:
-    opacity 0.2s,
-    filter 0.2s;
+    opacity 0.3s,
+    filter 0.3s;
 
   &.Disabled {
     pointer-events: none;
@@ -29,15 +29,34 @@
       display: flex;
       gap: 4px;
       align-items: center;
-      padding: 2px 8px;
+      justify-content: center;
+      width: 126px;
+      height: 24px;
       border: solid 1px var(--color-text-dark);
       border-radius: 4px;
 
-      > .text {
-        @mixin noto-sans-text-adjust;
+      > .spinner {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
 
-        font-size: 12px;
-        font-weight: bold;
+      > .initial {
+        position: static;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 0.2s;
+
+        > .text {
+          @mixin noto-sans-text-adjust;
+
+          font-size: 12px;
+          font-weight: bold;
+        }
       }
     }
   }

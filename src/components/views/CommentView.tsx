@@ -28,7 +28,8 @@ export const CommentView = ({ articleUrlId }: Props) => {
     handleCommentPostModalOpen,
     handleSubmit,
     handleUserNameChange,
-    isCommentPostModalOpen
+    isCommentPostModalOpen,
+    isCommentPosting
   } = useCommentView(articleUrlId)
 
   if (!isDefined(commentInfoList)) {
@@ -51,6 +52,7 @@ export const CommentView = ({ articleUrlId }: Props) => {
           <CommentPostModal
             bodyErrorMessage={bodyErrorMessage}
             bodyValue={bodyValue}
+            isPosting={isCommentPosting}
             onBodyChange={handleBodyChange}
             onSubmit={handleSubmit}
             onUserNameChange={handleUserNameChange}

@@ -118,6 +118,11 @@ const SVG_COMPONENTS = {
     import("@/components/parts/svg/IconLabelPlus").then(({ IconLabelPlus }) => ({
       default: IconLabelPlus
     }))
+  ),
+  spinner: lazy(() =>
+    import("@/components/parts/svg/IconSpinner").then(({ IconSpinner }) => ({
+      default: IconSpinner
+    }))
   )
 } as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
 

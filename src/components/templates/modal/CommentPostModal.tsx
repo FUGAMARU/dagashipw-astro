@@ -27,7 +27,7 @@ type Props = {
   onBodyChange: ComponentProps<typeof TextArea>["onChange"]
   /** 投稿処理 */
   onSubmit: (e: FormEvent<HTMLFormElement>, turnstileToken: string) => Promise<void> | void
-}
+} & Required<Pick<ComponentProps<typeof CommentPostButton>, "isPosting">>
 
 /** コメント投稿用モーダル */
 export const CommentPostModal = ({
@@ -37,7 +37,8 @@ export const CommentPostModal = ({
   onUserNameChange: handleUserNameChange,
   userNameErrorMessage,
   userNameValue,
-  onSubmit: handleSubmit
+  onSubmit: handleSubmit,
+  isPosting
 }: Props) => {
   const turnstile = useTurnstile()
   const [turnstileToken, setTurnstileToken] = useState<string>()
@@ -76,6 +77,7 @@ export const CommentPostModal = ({
             (typeof bodyValue === "string" && bodyValue?.length === 0) ||
             !isValidString(turnstileToken)
           }
+          isPosting={isPosting}
           type="submit"
         />
       </div>

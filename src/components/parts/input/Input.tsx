@@ -1,8 +1,10 @@
-import { useCallback, type ComponentProps } from "react"
+import { useCallback } from "react"
 
 import styles from "@/components/parts/input/Input.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { isValidString } from "@/utils"
+
+import type { ComponentProps } from "react"
 
 /** Props */
 type Props = ComponentProps<"input"> & {
