@@ -1,8 +1,10 @@
-import { useRef, type RefObject } from "react"
+import { useRef } from "react"
 import ResponsivePagination from "react-responsive-pagination"
 import { useResizeObserver } from "usehooks-ts"
 
 import { PAGE_PATH } from "@/constants/page"
+
+import type { RefObject } from "react"
 
 import "react-responsive-pagination/themes/classic.css"
 
