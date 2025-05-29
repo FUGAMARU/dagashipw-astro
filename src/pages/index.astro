@@ -13,7 +13,8 @@ const articleInfoList = await Promise.all(articles.map(transformDataToArticleInf
 <Layout title={PAGE_NAME.TOP}>
   <ArticleListView
     articleInfoList={articleInfoList}
-    pageNumber={1}
-    totalArticlePageCount={totalArticlePageCount}
+    currentPage={1}
+    totalPageCount={totalArticlePageCount}
+    useCase="list"
   />
 </Layout>

@@ -1,7 +1,6 @@
-import { useCallback } from "react"
-
 import styles from "@/components/parts/input/Input.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { KEYWORD_INPUT_NAME } from "@/constants/element"
 import { isValidString } from "@/utils"
 
 import type { ComponentProps } from "react"
@@ -16,15 +15,11 @@ type Props = ComponentProps<"input"> & {
 
 /** 入力欄 */
 export const Input = ({ hasSearchIcon = false, errorMessage, ...props }: Props) => {
-  const handleSearchButtonClick = useCallback(() => {
-    alert("TODO: 検索処理")
-  }, [])
-
   return (
     <div className={styles.inputContainer}>
-      <input className={styles.inputElement} type="text" {...props} />
+      <input className={styles.inputElement} name={KEYWORD_INPUT_NAME} type="text" {...props} />
       {hasSearchIcon && (
-        <button onClick={handleSearchButtonClick} type="button">
+        <button type="submit">
           <SvgLoader className={styles.searchIcon} height={16} name="search" width={16} />
         </button>
       )}

@@ -32,7 +32,8 @@ const totalArticlePageCount = await getTotalArticlePageCount() // getStaticPaths
 <Layout title={PAGE_NAME.ARTICLE_LIST_WITH_PAGE}>
   <ArticleListView
     articleInfoList={articleInfoList}
-    pageNumber={pageNumber}
-    totalArticlePageCount={totalArticlePageCount}
+    currentPage={pageNumber}
+    totalPageCount={totalArticlePageCount}
+    useCase="list"
   />
 </Layout>

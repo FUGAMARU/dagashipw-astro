@@ -13,3 +13,6 @@ export const SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID = "sidebar-scroll-to-bottom-butt
 
 /** コメント表示要素に付けるIDの接頭辞 */
 export const COMMENT_ELEMENT_ID_PREFIX = "comment-"
+
+/** キーワード入力欄のname属性の値 */
+export const KEYWORD_INPUT_NAME = "keyword"

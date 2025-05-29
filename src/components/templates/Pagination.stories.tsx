@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof Pagination> = {
   component: Pagination,
   tags: ["autodocs"],
-  args: { currentPage: undefined, totalPageCount: undefined },
+  args: { useCase: undefined, currentPage: undefined, totalPageCount: undefined },
   argTypes: { currentPage: { control: "number" }, totalPageCount: { control: "number" } }
 }
 

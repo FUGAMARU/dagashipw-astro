@@ -118,6 +118,32 @@ export const getTotalArticlePageCount = async (): Promise<number> => {
 }
 
 /**
+ * キーワードで絞り込んだ状態の記事一覧をページネーション付きで表示する場合に全部で何ページあるのか取得する
+ *
+ * @param keyword - 検索キーワード
+ * @returns キーワードで絞り込んだ状態の記事一覧の合計ページ数
+ */
+export const getTotalArticlePageCountByKeyword = async (keyword: string): Promise<number> => {
+  const response = await axiosInstance.get<ArticlesPathResponse>(
+    `/articles?filters[title][$containsi]=${keyword}&filters[body][$containsi]=${keyword}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
+  )
+  return response.data?.meta?.pagination?.pageCount ?? 0
+}
+
+/**
+ * タグで絞り込んだ状態の記事一覧をページネーション付きで表示する場合に全部で何ページあるのか取得する
+ *
+ * @param tag - タグ
+ * @returns タグで絞り込んだ状態の記事一覧の合計ページ数
+ */
+export const getTotalArticlePageCountByTag = async (tag: string): Promise<number> => {
+  const response = await axiosInstance.get<ArticlesPathResponse>(
+    `/articles?filters[tags][_contains]=${tag}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
+  )
+  return response.data?.meta?.pagination?.pageCount ?? 0
+}
+
+/**
  * 指定した記事に寄せられているコメント一覧を取得する
  *
  * @param articleUrlId - 記事のURL ID
@@ -209,4 +235,48 @@ export const postComment = async (
   })
 
   return data?.data?.documentId ?? ""
+}
+
+/**
+ * 記事をページネーション付きでキーワード検索する
+ *
+ * @param keyword - 検索キーワード
+ * @param pageNumber - ページ番号
+ * @returns 検索結果の記事一覧
+ */
+export const searchArticlesByKeywordWithPagination = async (
+  keyword: string,
+  pageNumber: number
+): Promise<Array<Article>> => {
+  const response = await axiosInstance.get<ArticlesPathResponse>(
+    `/articles?filters[title][$containsi]=${keyword}&filters[body][$containsi]=${keyword}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+  )
+
+  if (!isDefined(response.data.data)) {
+    throw new Error("ページ情報が存在しません")
+  }
+
+  return response.data.data
+}
+
+/**
+ * 記事をページネーション付きでタグで絞り込んで検索する
+ *
+ * @param tag - タグ
+ * @param pageNumber - ページ番号
+ * @returns タグで絞り込んだ状態の記事一覧
+ */
+export const searchArticlesByTagWithPagination = async (
+  tag: string,
+  pageNumber: number
+): Promise<Array<Article>> => {
+  const response = await axiosInstance.get<ArticlesPathResponse>(
+    `/articles?filters[tags][$contains]=${tag}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+  )
+
+  if (!isDefined(response.data.data)) {
+    throw new Error("ページ情報が存在しません")
+  }
+
+  return response.data.data
 }

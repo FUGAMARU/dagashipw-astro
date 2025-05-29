@@ -1,0 +1,45 @@
+---
+import Layout from "@/components/layout/Layout.astro"
+import ArticleListView from "@/components/views/ArticleListView.astro"
+import { PAGE_NAME, PAGE_PATH } from "@/constants/page"
+import { QUERY_PARAM_KEYS } from "@/constants/query"
+import {
+  getTotalArticlePageCountByKeyword,
+  searchArticlesByKeywordWithPagination,
+  searchArticlesByTagWithPagination
+} from "@/services/api"
+import { isValidString } from "@/utils"
+import { replaceTextInSquareBracket } from "@/utils/formatter"
+import { transformDataToArticleInfo } from "@/utils/transformer"
+
+export const prerender = false
+
+const pageNumberQuery = Astro.url.searchParams.get(QUERY_PARAM_KEYS.PAGE) ?? 1
+const pageNumber = Number(pageNumberQuery)
+const keyword = Astro.url.searchParams.get(QUERY_PARAM_KEYS.KEYWORD)
+const tag = Astro.url.searchParams.get(QUERY_PARAM_KEYS.TAG)
+
+const targetKeyword = keyword ?? tag
+
+if (!isValidString(targetKeyword)) {
+  return Astro.redirect(PAGE_PATH.TOP)
+}
+
+const pageTitle = replaceTextInSquareBracket(PAGE_NAME.SEARCH, "keyword", targetKeyword)
+
+const totalPageCount = await getTotalArticlePageCountByKeyword(targetKeyword) // キーワードとタグが同時に指定されることはない
+const articles = isValidString(keyword)
+  ? await searchArticlesByKeywordWithPagination(targetKeyword, pageNumber)
+  : await searchArticlesByTagWithPagination(targetKeyword, pageNumber)
+const articleInfoList = await Promise.all(articles.map(transformDataToArticleInfo))
+---
+
+<Layout title={pageTitle}>
+  <ArticleListView
+    articleInfoList={articleInfoList}
+    currentPage={pageNumber}
+    keyword={targetKeyword}
+    totalPageCount={totalPageCount}
+    useCase={isValidString(keyword) ? "keyword" : "tag"}
+  />
+</Layout>

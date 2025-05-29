@@ -3,11 +3,11 @@ import clsx from "clsx"
 
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import { Infobar } from "@/components/layout/sidebar/Infobar"
+import { SearchInput } from "@/components/layout/sidebar/SearchInput"
 import { ShareButtons } from "@/components/layout/sidebar/ShareButtons"
 import styles from "@/components/layout/sidebar/Sidebar.module.css"
 import { SidebarItemWithTitle } from "@/components/layout/sidebar/SidebarItemWithTitle"
 import { TableOfContentsWrapper } from "@/components/layout/sidebar/TableOfContentsWrapper"
-import { Input } from "@/components/parts/input/Input"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import {
   SIDEBAR_ID,
@@ -32,7 +32,7 @@ const { article } = Astro.locals
     <Infobar client:load />
 
     <SidebarItemWithTitle title="さがす">
-      <Input client:idle hasSearchIcon placeholder="キーワードを入力…" />
+      <SearchInput client:idle />
     </SidebarItemWithTitle>
 
     <div class={clsx(styles.toc, !isDefined(article) && styles.Hidden)}>

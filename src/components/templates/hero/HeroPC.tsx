@@ -46,7 +46,7 @@ export const HeroPC = ({
 
           <div className={styles.tags}>
             {tags.map(tagText => (
-              <Tag key={tagText} href={`/tags/${tagText}`} text={tagText} />
+              <Tag key={tagText} text={tagText} />
             ))}
           </div>
 

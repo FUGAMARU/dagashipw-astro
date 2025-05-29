@@ -128,3 +128,20 @@ export const convertMarkdownImageUrlToLightweightImageUrl = async (
  * @returns 改行コードがアンエスケープされた文字列
  */
 export const unescapeNewlines = (body: string): string => JSON.parse(`"${body}"`)
+
+/**
+ * 角括弧で囲まれた特定の文字列を別の文字列に置き換える関数
+ *
+ * @param baseTemplate - 置き換え元のテンプレート文字列
+ * @param targetString - 置き換えたい文字列 (括弧を含まない)
+ * @param replacement - 置き換え後の文字列
+ * @returns 置き換え後の文字列全文
+ */
+export const replaceTextInSquareBracket = (
+  baseTemplate: string,
+  targetString: string,
+  replacement: string
+): string => {
+  const regex = new RegExp(`\\[${targetString}\\]`, "g")
+  return baseTemplate.replace(regex, replacement)
+}

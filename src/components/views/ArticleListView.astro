@@ -6,18 +6,15 @@ import { Pagination } from "@/components/templates/Pagination"
 import styles from "@/components/views/ArticleListView.module.css"
 
 import type { ArticleInfo } from "@/types/models"
+import type { ComponentProps } from "react"
 
 /** Props */
 type Props = {
   /** 記事情報リスト */
   articleInfoList: Array<ArticleInfo>
-  /** 現在のページ番号 */
-  pageNumber: number
-  /** ページネーションした際の合計ページ数 */
-  totalArticlePageCount: number
-}
+} & ComponentProps<typeof Pagination>
 
-const { articleInfoList, pageNumber, totalArticlePageCount } = Astro.props
+const { articleInfoList, ...paginationProps } = Astro.props
 ---
 
 <div class={styles.articleList}>
@@ -38,7 +35,11 @@ const { articleInfoList, pageNumber, totalArticlePageCount } = Astro.props
     }
   </div>
 
-  <div class={styles.pagination}>
-    <Pagination client:visible currentPage={pageNumber} totalPageCount={totalArticlePageCount} />
-  </div>
+  {
+    paginationProps.totalPageCount >= 2 && (
+      <div class={styles.pagination}>
+        <Pagination client:visible {...paginationProps} />
+      </div>
+    )
+  }
 </div>

@@ -69,7 +69,7 @@ export const ArticleCard = ({
             {tags.map(tagText => (
               // TODO: Link Area Delegationが普及したらそれに合わせたい (https://blog.sakupi01.com/dev/articles/proposal-link-area-delegation)
               <object key={tagText}>
-                <Tag href={`/tags/${tagText}`} text={tagText} />
+                <Tag text={tagText} />
               </object>
             ))}
           </div>

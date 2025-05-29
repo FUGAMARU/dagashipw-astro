@@ -1,19 +1,22 @@
 import { Link } from "@/components/parts/common/Link"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/parts/Tag.module.css"
-
-import type { ComponentProps } from "react"
+import { PAGE_PATH } from "@/constants/page"
+import { QUERY_PARAM_KEYS } from "@/constants/query"
 
 /** Props */
 type Props = {
   /** テキスト */
   text: string
-} & Pick<ComponentProps<typeof Link>, "href">
+}
 
 /** タグ */
-export const Tag = ({ text, ...linkProps }: Props) => {
+export const Tag = ({ text }: Props) => {
   return (
-    <Link className={styles.tagComponent} {...linkProps}>
+    <Link
+      className={styles.tagComponent}
+      href={`${PAGE_PATH.SEARCH}?${QUERY_PARAM_KEYS.TAG}=${encodeURIComponent(text)}`}
+    >
       <SvgLoader className={styles.icon} height={16} name="hash" width={16} />
       <span>{text}</span>
     </Link>
