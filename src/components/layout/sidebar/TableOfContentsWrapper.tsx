@@ -1,7 +1,8 @@
 import { TableOfContents } from "@/components/templates/TableOfContents"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isValidArray } from "@/utils"
-import { calculateReadingTime, generateTableOfContentsFormat } from "@/utils/table-of-contents"
+import { generateTableOfContentsFormat } from "@/utils/markdown"
+import { calculateReadingTime } from "@/utils/table-of-contents"
 
 import type { Article } from "@/types/api"
 

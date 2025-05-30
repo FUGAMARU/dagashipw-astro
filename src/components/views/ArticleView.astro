@@ -36,7 +36,8 @@ import { formatDateToString } from "@/utils/datetime"
 import {
   convertMarkdownHeadingsToHtml,
   convertMarkdownImageUrlToLightweightImageUrl
-} from "@/utils/formatter"
+} from "@/utils/markdown"
+import { startAsyncPipe } from "@/utils/pipe"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
 import type { Article } from "@/types/api"
@@ -53,11 +54,12 @@ const articleInfo = await transformDataToArticleInfo(article)
 const articleDate = isDefined(articleInfo.updatedAt)
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)
-const imageUrlReplacedArticleBody = await convertMarkdownImageUrlToLightweightImageUrl(article.body)
-const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(
-  imageUrlReplacedArticleBody
+const processedContent = await startAsyncPipe(
+  convertMarkdownImageUrlToLightweightImageUrl(article.body) // 画像URLを軽量画像URLに置き換え
 )
-const hogepoyo = convertMarkdownHeadingsToHtml(tableOfContentsInsertedArticleBody)
+  .pipe(insertTableOfContentsToMarkdown) // 目次を挿入
+  .pipe(convertMarkdownHeadingsToHtml) // 見出しをコンポーネントに直接変換
+  .value()
 ---
 
 <div class={styles.articleView}>
@@ -106,7 +108,7 @@ const hogepoyo = convertMarkdownHeadingsToHtml(tableOfContentsInsertedArticleBod
         ChatMessage,
         TableWithoutHeader
       }}
-      content={hogepoyo}
+      content={processedContent}
       sanitize={{
         allowComponents: true
       }}

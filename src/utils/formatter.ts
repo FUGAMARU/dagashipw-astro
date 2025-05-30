@@ -2,11 +2,6 @@
  * @file データーをフォーマット(操作)するための関数群
  */
 
-import { API_ORIGIN } from "@/constants/env"
-import { CMS_IMAGE_DIRECTORY, MARKDOWN_IMAGE_EXTENSIONS } from "@/constants/value"
-import { isDefined } from "@/utils"
-import { getLightweightImageUrl } from "@/utils/image"
-
 /**
  * カンマ区切りのstringをstringの配列に変換する
  *
@@ -15,27 +10,6 @@ import { getLightweightImageUrl } from "@/utils/image"
  */
 export const convertCommaSeparatedStringToArray = (str: string): Array<string> =>
   str.replace(/\s+/g, "").split(",")
-
-/**
- * Markdown中の画像URLを軽量化された画像URLに置き換える
- *
- * @param markdown - Markdown文字列
- * @returns 軽量化された画像URLに置き換えられたMarkdown文字列
- */
-export const convertMarkdownImageUrlToLightweightImageUrl = async (
-  markdown: string
-): Promise<string> => {
-  const originEscaped = API_ORIGIN.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")
-  const pattern =
-    originEscaped +
-    `/${CMS_IMAGE_DIRECTORY}/[A-Za-z0-9._~:/?#\\[\\]@!$&'()*+,;=-]+?\\.(?:${MARKDOWN_IMAGE_EXTENSIONS})`
-  const uploadUrlPattern = new RegExp(pattern, "g")
-
-  const matches = markdown.match(uploadUrlPattern) ?? []
-  const replacements = await Promise.all(matches.map(url => getLightweightImageUrl(url)))
-
-  return matches.reduce((result, url, index) => result.replace(url, replacements[index]), markdown)
-}
 
 /**
  * エスケープされた改行コードをアンエスケープする
@@ -98,32 +72,4 @@ export const generateUniqueHeadingId = (
   headingIdCountMap.set(baseId, count + 1)
 
   return count === 0 ? baseId : `${baseId}-${count}`
-}
-
-/**
- * Markdown内の見出し文字列を見出しコンポーネント用のJSX(のようなもの)に書き換える
- *
- * @param markdown - Markdown
- * @returns 見出しが見出しコンポーネント呼び出し用文字列に変換されたMarkdown
- */
-export const convertMarkdownHeadingsToHtml = (markdown: string): string => {
-  const headingIdCountMap = new Map<string, number>()
-  const lines = markdown.split("\n")
-
-  const processedLines = lines.map(line => {
-    const headingMatch = line.match(/^(#{1,4})\s+(.*?)(?:\s*#+\s*)?$/)
-
-    if (!isDefined(headingMatch)) {
-      return line
-    }
-
-    const level = headingMatch[1].length
-    const originalHeadingText = headingMatch[2].trim()
-
-    const uniqueId = generateUniqueHeadingId(originalHeadingText, headingIdCountMap)
-
-    return `<H${level} id="${uniqueId}">${originalHeadingText}</H${level}>`
-  })
-
-  return processedLines.join("\n")
 }
