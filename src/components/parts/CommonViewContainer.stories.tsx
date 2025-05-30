@@ -50,7 +50,8 @@ export const FromCommentView: Story = {
       handleCommentPostModalClose,
       handleCommentPostModalOpen,
       handleUserNameChange,
-      isCommentPostModalOpen
+      isCommentPostModalOpen,
+      isCommentPosting
     } = useCommentView("")
 
     return (
@@ -72,6 +73,7 @@ export const FromCommentView: Story = {
               <CommentPostModal
                 bodyErrorMessage={bodyErrorMessage}
                 bodyValue={bodyValue}
+                isPosting={isCommentPosting}
                 onBodyChange={handleBodyChange}
                 onSubmit={() => console.log("submit")}
                 onUserNameChange={handleUserNameChange}

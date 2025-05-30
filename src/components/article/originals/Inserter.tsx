@@ -2,10 +2,7 @@ import styles from "@/components/article/originals/Inserter.module.css"
 import { TableOfContents } from "@/components/templates/TableOfContents"
 import { useIsSP } from "@/hooks/useIsSP"
 import { isValidArray } from "@/utils"
-import {
-  generateTableOfContentsFromMarkdown,
-  calculateReadingTime
-} from "@/utils/table-of-contents"
+import { calculateReadingTime, generateTableOfContentsFormat } from "@/utils/table-of-contents"
 
 import type { Article } from "@/types/api"
 
@@ -19,7 +16,7 @@ type Props = {
 
 /** 記事中で目次や広告を挿入するためのコンポーネント */
 export const Inserter = ({ type, article }: Props) => {
-  const tableOfContentsData = generateTableOfContentsFromMarkdown(article.body)
+  const tableOfContentsData = generateTableOfContentsFormat(article.body)
   const minutesToRead = calculateReadingTime(article.body)
   const isSP = useIsSP()
 

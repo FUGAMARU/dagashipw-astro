@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof TableOfContentsWrapper> = {
   component: TableOfContentsWrapper,
   tags: ["autodocs"],
-  args: {},
+  args: { article: undefined },
   argTypes: {}
 }
 

@@ -3,94 +3,14 @@
  */
 
 import { isDefined } from "@/utils"
-import { generateHeadingId } from "@/utils/formatter"
+import { generateUniqueHeadingId } from "@/utils/formatter"
 
-import type { NestedHeading, TableOfContentsData } from "@/types/table-of-contents"
-
-/**
- * Markdownから目次データを生成する
- *
- * @param markdown - Markdown
- * @returns 目次データ
- */
-export const generateTableOfContentsFromMarkdown = (markdown: string): TableOfContentsData => {
-  const lines = markdown.split("\n")
-  const data: TableOfContentsData = []
-
-  /** 見出し文字列ごとの出現回数 */
-  const headingCountMap = new Map<string, number>()
-
-  let currentH2:
-    | (NestedHeading & {
-        /** h3 */
-        h3?: Array<
-          NestedHeading & {
-            /** h4 */
-            h4?: Array<NestedHeading>
-          }
-        >
-      })
-    | null = null
-  let currentH3:
-    | (NestedHeading & {
-        /** h4 */
-        h4?: Array<NestedHeading>
-      })
-    | null = null
-  let currentH4: NestedHeading | null = null
-
-  /**
-   * 同じ見出し文字列が複数回出現した場合、カウントを接尾辞として付与したIDを生成する
-   * 例: "heading" → "heading", 2回目以降は "heading-1", "heading-2" ...
-   *
-   * @param title - 見出し文字列
-   * @returns カウント付きID
-   */
-  const generateCountedHeadingId = (title: string): string => {
-    const baseId = generateHeadingId(title)
-    const count = headingCountMap.get(baseId) ?? 0
-    headingCountMap.set(baseId, count + 1)
-    return count === 0 ? baseId : `${baseId}-${count}`
-  }
-
-  lines.forEach(line => {
-    const h2Match = line.match(/^## (.+)/)
-    const h3Match = line.match(/^### (.+)/)
-    const h4Match = line.match(/^#### (.+)/)
-
-    if (isDefined(h2Match)) {
-      currentH2 = {
-        title: h2Match[1],
-        href: `#${generateCountedHeadingId(h2Match[1])}`
-      }
-      data.push({ h2: currentH2 })
-      currentH3 = null
-      currentH4 = null
-      return
-    }
-    if (isDefined(h3Match) && isDefined(currentH2)) {
-      currentH3 = {
-        title: h3Match[1],
-        href: `#${generateCountedHeadingId(h3Match[1])}`
-      }
-      currentH2.h3 = currentH2.h3 ?? []
-      currentH2.h3.push(currentH3)
-      currentH4 = null
-      return
-    }
-    if (!(isDefined(h4Match) && isDefined(currentH3))) {
-      return
-    }
-    currentH4 = {
-      title: h4Match[1],
-      href: `#${generateCountedHeadingId(h4Match[1])}`
-    }
-    currentH3.h4 = currentH3.h4 ?? []
-    currentH3.h4.push(currentH4)
-  })
-
-  return data
-}
+import type {
+  H2ItemStructure,
+  H3ItemStructure,
+  H4ItemStructure,
+  TableOfContentsData
+} from "@/types/table-of-contents"
 
 /**
  * マークダウンから純粋なテキスト部分のみを抽出する
@@ -125,4 +45,64 @@ export const calculateReadingTime = (body: string): number => {
   const words = extractPlainTextFromMarkdown(body).length
   const readingTime = words / 500
   return readingTime < 1 ? parseFloat(readingTime.toFixed(1)) : Math.ceil(readingTime)
+}
+
+/**
+ * Markdownから目次データーを生成する
+ *
+ * @param markdown - Markdown文字列
+ * @returns 目次データー
+ */
+export const generateTableOfContentsFormat = (markdown: string): TableOfContentsData => {
+  const headingIdCountMap = new Map<string, number>()
+  const lines = markdown.split("\n")
+  const tocResult: TableOfContentsData = []
+
+  let currentH2: H2ItemStructure | undefined
+  let currentH3: H3ItemStructure | undefined
+
+  lines.forEach(line => {
+    const h2Match = line.match(/^##\s+(.*?)(?:\s*#+\s*)?$/)
+    const h3Match = line.match(/^###\s+(.*?)(?:\s*#+\s*)?$/)
+    const h4Match = line.match(/^####\s+(.*?)(?:\s*#+\s*)?$/)
+
+    if (isDefined(h2Match)) {
+      const originalHeadingText = h2Match[1].trim()
+      const id = generateUniqueHeadingId(originalHeadingText, headingIdCountMap)
+      currentH2 = {
+        title: originalHeadingText,
+        href: `#${id}`
+      }
+      tocResult.push({ h2: currentH2 })
+      currentH3 = undefined
+      return
+    }
+
+    if (isDefined(h3Match) && isDefined(currentH2)) {
+      const originalHeadingText = h3Match[1].trim()
+      const id = generateUniqueHeadingId(originalHeadingText, headingIdCountMap)
+      currentH3 = {
+        title: originalHeadingText,
+        href: `#${id}`
+      }
+      currentH2.h3 = currentH2.h3 ?? []
+      currentH2.h3.push(currentH3)
+      return
+    }
+
+    if (!(isDefined(h4Match) && isDefined(currentH3))) {
+      return
+    }
+
+    const originalHeadingText = h4Match[1].trim()
+    const id = generateUniqueHeadingId(originalHeadingText, headingIdCountMap)
+    const h4Item: H4ItemStructure = {
+      title: originalHeadingText,
+      href: `#${id}`
+    }
+    currentH3.h4 = currentH3.h4 ?? []
+    currentH3.h4.push(h4Item)
+  })
+
+  return tocResult
 }

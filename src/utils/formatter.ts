@@ -2,93 +2,10 @@
  * @file データーをフォーマット(操作)するための関数群
  */
 
-import { isValidElement } from "react"
-import { renderToStaticMarkup } from "react-dom/server"
-
 import { API_ORIGIN } from "@/constants/env"
 import { CMS_IMAGE_DIRECTORY, MARKDOWN_IMAGE_EXTENSIONS } from "@/constants/value"
 import { isDefined } from "@/utils"
 import { getLightweightImageUrl } from "@/utils/image"
-
-import type { ReactElement, ReactNode } from "react"
-
-/**
- * 見出し用のIDを生成する関数
- *
- * @param text - ReactNode | string
- * @returns ID
- */
-export const generateHeadingId = (text: ReactNode | string): string => {
-  /**
-   * HTMLタグで囲まれた中身のテキストを抽出する
-   *
-   * @param html - HTML文字列
-   * @returns - 抽出されたテキスト
-   */
-  const extractTextFromHTMLTag = (html: string): string => {
-    const regex = /<[^>]*>([^<]*)<\/[^>]*>/
-    const match = html.match(regex)
-    return isDefined(match) ? match[1] : ""
-  }
-
-  /**
-   * ReactNodeがオブジェクトであり、特定のプロパティを持つかチェックする
-   *
-   * @param node - ReactNode
-   * @returns - nodeがReactElementであり、propsプロパティを持つ場合はtrue、それ以外はfalse
-   */
-  const checkHasProps = (
-    node: ReactNode
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): node is ReactElement<any> & {
-    /** props */
-    props: object
-  } => {
-    return isValidElement(node) && typeof node.props === "object" && node.props !== null
-  }
-
-  /**
-   * childrenからテキストの部分を抽出する
-   *
-   * @param node - ReactNode
-   * @returns 文字列に変換されたReactNode
-   */
-  const extractTextFromChildren = (node: ReactNode): string => {
-    if (typeof node === "string" || typeof node === "number") {
-      return node.toString()
-    }
-
-    if (Array.isArray(node)) {
-      return node.map(extractTextFromChildren).join("")
-    }
-
-    if (checkHasProps(node)) {
-      if (
-        isDefined(node.props) &&
-        isDefined(node.props.value) &&
-        typeof node.props.value === "string"
-      ) {
-        return node.props.value
-      }
-
-      if (isDefined(node.props) && isDefined(node.props.children)) {
-        return extractTextFromChildren(node.props.children)
-      }
-
-      return renderToStaticMarkup(node)
-    }
-
-    return ""
-  }
-
-  const targetText =
-    typeof text === "string" ? text : extractTextFromHTMLTag(extractTextFromChildren(text))
-
-  return targetText
-    .replace(/^\d/, "") // 先頭が数字の場合は削除
-    .replace(/[^A-Za-z0-9\u3040-\u309F\u30A0-\u30FF\u3400-\u4DBF\u4E00-\u9FFFー_-]/g, "") // 英数字と日本語と一部記号以外を削除
-    .replace(/\s/g, "") // 空白を削除
-}
 
 /**
  * カンマ区切りのstringをstringの配列に変換する
@@ -144,4 +61,69 @@ export const replaceTextInSquareBracket = (
 ): string => {
   const regex = new RegExp(`\\[${targetString}\\]`, "g")
   return baseTemplate.replace(regex, replacement)
+}
+
+/**
+ * 見出しテキストを正規化する (これを基にアンカーリンク用のIDを生成する)
+ *
+ * @param text - 元の見出しテキスト
+ * @returns 正規化された見出しテキスト
+ */
+export const normalizeHeadingText = (text: string): string => {
+  const withoutLeadingDigit = text.replace(/^\d/, "")
+
+  const sanitized = withoutLeadingDigit.replace(
+    /[^A-Za-z0-9\u3040-\u309F\u30A0-\u30FF\u3400-\u4DBF\u4E00-\u9FFFー_-]/g,
+    ""
+  )
+
+  return sanitized.replace(/\s/g, "")
+}
+
+/**
+ * 見出し用IDを生成する
+ * IDが重複しそうな場合は接尾辞としてインデックスを付与する
+ *
+ * @param originalText - 元の見出しテキスト
+ * @param headingIdCountMap - 見出しID（ベースID）の出現回数を記録するMapオブジェクト (呼び出し側で初期化・管理されこの関数によって更新される)
+ * @returns 見出し用ID
+ */
+export const generateUniqueHeadingId = (
+  originalText: string,
+  headingIdCountMap: Map<string, number>
+): string => {
+  const baseId = normalizeHeadingText(originalText)
+  const count = headingIdCountMap.get(baseId) ?? 0
+
+  headingIdCountMap.set(baseId, count + 1)
+
+  return count === 0 ? baseId : `${baseId}-${count}`
+}
+
+/**
+ * Markdown内の見出し文字列を見出しコンポーネント用のJSX(のようなもの)に書き換える
+ *
+ * @param markdown - Markdown
+ * @returns 見出しが見出しコンポーネント呼び出し用文字列に変換されたMarkdown
+ */
+export const convertMarkdownHeadingsToHtml = (markdown: string): string => {
+  const headingIdCountMap = new Map<string, number>()
+  const lines = markdown.split("\n")
+
+  const processedLines = lines.map(line => {
+    const headingMatch = line.match(/^(#{1,4})\s+(.*?)(?:\s*#+\s*)?$/)
+
+    if (!isDefined(headingMatch)) {
+      return line
+    }
+
+    const level = headingMatch[1].length
+    const originalHeadingText = headingMatch[2].trim()
+
+    const uniqueId = generateUniqueHeadingId(originalHeadingText, headingIdCountMap)
+
+    return `<H${level} id="${uniqueId}">${originalHeadingText}</H${level}>`
+  })
+
+  return processedLines.join("\n")
 }

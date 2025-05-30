@@ -33,7 +33,10 @@ import { insertTableOfContentsToMarkdown } from "@/components/views/ArticleView.
 import styles from "@/components/views/ArticleView.module.css"
 import { isDefined } from "@/utils"
 import { formatDateToString } from "@/utils/datetime"
-import { convertMarkdownImageUrlToLightweightImageUrl } from "@/utils/formatter"
+import {
+  convertMarkdownHeadingsToHtml,
+  convertMarkdownImageUrlToLightweightImageUrl
+} from "@/utils/formatter"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
 import type { Article } from "@/types/api"
@@ -54,6 +57,7 @@ const imageUrlReplacedArticleBody = await convertMarkdownImageUrlToLightweightIm
 const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(
   imageUrlReplacedArticleBody
 )
+const hogepoyo = convertMarkdownHeadingsToHtml(tableOfContentsInsertedArticleBody)
 ---
 
 <div class={styles.articleView}>
@@ -75,6 +79,9 @@ const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(
         h2: H2,
         h3: H3,
         h4: H4,
+        H2,
+        H3,
+        H4,
         p: Paragraph,
         a: LinkInArticle,
         img: ArticleImage,
@@ -99,7 +106,7 @@ const tableOfContentsInsertedArticleBody = insertTableOfContentsToMarkdown(
         ChatMessage,
         TableWithoutHeader
       }}
-      content={tableOfContentsInsertedArticleBody}
+      content={hogepoyo}
       sanitize={{
         allowComponents: true
       }}
