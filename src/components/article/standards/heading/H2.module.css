@@ -3,6 +3,7 @@
 .h2Tag {
   display: flex;
   margin: var(--spacing-article-heading-sp);
+  scroll-margin-top: var(--scroll-margin-top);
 
   > .line {
     width: 8px;

@@ -4,6 +4,7 @@
   margin: var(--spacing-article-heading-sp);
   font-size: 14px;
   font-weight: bold;
+  scroll-margin-top: var(--scroll-margin-top);
 }
 
 @media (--pc) {

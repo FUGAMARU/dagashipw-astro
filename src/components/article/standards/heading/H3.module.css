@@ -6,6 +6,7 @@
   gap: 8px;
   width: fit-content;
   margin: var(--spacing-article-heading-sp);
+  scroll-margin-top: var(--scroll-margin-top);
 
   > .text {
     font-size: 18px;

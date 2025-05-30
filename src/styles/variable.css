@@ -53,4 +53,7 @@
   /* react-responsive-pagination関連 */
   --pagination-color: #67a700;
   --pagination-hover-color: #67a700;
+
+  /** Scroll Margin Top */
+  --scroll-margin-top: 32px;
 }

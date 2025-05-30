@@ -10,6 +10,7 @@ body {
   color: var(--color-text-dark);
   background-color: var(--color-page-background);
   fill: var(--color-text-dark);
+  scroll-behavior: smooth;
 
   @media (--pc) {
     height: 100%;
