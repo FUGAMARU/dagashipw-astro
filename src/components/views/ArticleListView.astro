@@ -1,9 +1,12 @@
 ---
+import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { ArticleCard } from "@/components/parts/card/ArticleCard"
 import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import { Link } from "@/components/parts/common/Link"
 import { Pagination } from "@/components/templates/Pagination"
 import styles from "@/components/views/ArticleListView.module.css"
+import { PAGE_PATH } from "@/constants/page"
+import { isValidArray } from "@/utils"
 
 import type { ArticleInfo } from "@/types/models"
 import type { ComponentProps } from "react"
@@ -18,22 +21,31 @@ const { articleInfoList, ...paginationProps } = Astro.props
 ---
 
 <div class={styles.articleList}>
-  <div class={styles.list}>
-    {
-      articleInfoList.map((articleInfo, index) => (
-        <>
-          <Link href={`/${articleInfo.articleUrlId}`}>
-            <article>
-              {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
-              <ArticleCard client:load isThumbnailEager={index < 3} {...articleInfo} />
-            </article>
-          </Link>
+  {
+    isValidArray(articleInfoList) || !("keyword" in paginationProps) ? (
+      <div class={styles.list}>
+        {articleInfoList.map((articleInfo, index) => (
+          <>
+            <Link href={`/${articleInfo.articleUrlId}`}>
+              <article>
+                {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
+                <ArticleCard client:load isThumbnailEager={index < 3} {...articleInfo} />
+              </article>
+            </Link>
 
-          {index !== articleInfoList.length - 1 && <DividerHorizontal />}
-        </>
-      ))
-    }
-  </div>
+            {index !== articleInfoList.length - 1 && <DividerHorizontal />}
+          </>
+        ))}
+      </div>
+    ) : (
+      <div class={styles.empty}>
+        <span
+          class={styles.text}
+        >{`「${paginationProps.keyword}」に関連する記事は存在しません`}</span>
+        <LinkInArticle href={PAGE_PATH.TOP}>トップページに戻る</LinkInArticle>
+      </div>
+    )
+  }
 
   {
     paginationProps.totalPageCount >= 2 && (

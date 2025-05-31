@@ -1,4 +1,5 @@
 .linkInArticle {
+  width: fit-content;
   color: var(--color-link-green);
   text-decoration: none;
 
