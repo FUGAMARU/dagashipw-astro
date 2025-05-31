@@ -35,3 +35,6 @@ export const COMMENT_BODY_MAX_LENGTH = 1000
 /** Cloudflare Turnstileのトークン検証APIエンドポイント */
 export const TURNSTILE_VERIFY_API_ENDPOINT =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+
+/** 見出し用IDを付与できなかった際のフォールバックID */
+export const FALLBACK_HEADING_ID = "section"

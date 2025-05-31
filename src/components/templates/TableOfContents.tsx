@@ -23,10 +23,6 @@ export const TableOfContents = ({ tableOfContentsData, minutesToRead }: Props) =
   /** 記事のスクロールに反応して取得された最新の閲覧中セクションに対応する見出しアンカーリンク */
   const latestHeadingAnchorLink = useStore(activeHeadingAnchorLinkAtom)
 
-  /** 閲覧中セクションに対応する見出しのアンカーリンク */
-  const currentHeadingAnchorLink = latestHeadingAnchorLink ?? tableOfContentsData?.[0].h2.href
-  // TODO: そもそも記事冒頭のh2より前のセクション閲覧中に最初のh2がアクティブ表示になっているのはおかしい気がする
-
   useEffect(() => {
     isTocHydrationCompleteAtom.set(true)
   })
@@ -38,7 +34,7 @@ export const TableOfContents = ({ tableOfContentsData, minutesToRead }: Props) =
           <Fragment key={content.h2.href}>
             <TableOfContentsItem
               href={content.h2.href}
-              isActive={currentHeadingAnchorLink === content.h2.href}
+              isActive={latestHeadingAnchorLink === content.h2.href}
               itemNumber={`${h2Index + 1}`}
               title={content.h2.title}
             />
@@ -47,7 +43,7 @@ export const TableOfContents = ({ tableOfContentsData, minutesToRead }: Props) =
                 <div className={styles.headingH3}>
                   <TableOfContentsItem
                     href={h3.href}
-                    isActive={currentHeadingAnchorLink === h3.href}
+                    isActive={latestHeadingAnchorLink === h3.href}
                     itemNumber={`${h2Index + 1}-${h3Index + 1}`}
                     title={h3.title}
                   />
@@ -56,7 +52,7 @@ export const TableOfContents = ({ tableOfContentsData, minutesToRead }: Props) =
                   <div key={h4.href} className={styles.headingH4}>
                     <TableOfContentsItem
                       href={h4.href}
-                      isActive={currentHeadingAnchorLink === h4.href}
+                      isActive={latestHeadingAnchorLink === h4.href}
                       itemNumber={`${h2Index + 1}-${h3Index + 1}-${h4Index + 1}`}
                       title={h4.title}
                     />

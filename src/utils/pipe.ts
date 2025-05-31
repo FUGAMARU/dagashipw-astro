@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
 /**
- * @file パイプライン演算子風記法をTypeScriptで実現するための関数群 (全文Gemini生成)
+ * @file パイプライン演算子風記法をTypeScriptで実現するための関数群 (Gemini生成)
  */
 
 // asyncPipeline.ts (または任意のユーティリティファイル)
@@ -66,6 +66,40 @@ export const startAsyncPipe = <T>(initialValueOrPromise: T | Promise<T>): IAsync
         return value // 元の値を次のステップに渡す
       })
       return this // 同じパイプラインインスタンスを返す (型はTのまま)
+    }
+  }
+}
+
+/**
+ * 同期パイプラインのインターフェース。
+ *
+ * @template T 現在のパイプラインが扱う値の型。
+ */
+export interface ISyncPipeline<T> {
+  pipe<U>(fn: (value: T) => U): ISyncPipeline<U>
+  value(): T
+  tap(fn: (value: T) => void): ISyncPipeline<T>
+}
+
+/**
+ * 同期パイプラインを開始します。
+ *
+ * @template T 初期値の型。
+ * @param initialValue - パイプラインの初期値。
+ * @returns ISyncPipeline<T> インスタンス。
+ */
+export const startSyncPipe = <T>(initialValue: T): ISyncPipeline<T> => {
+  const currentValue = initialValue
+  return {
+    pipe<U>(fn: (value: T) => U): ISyncPipeline<U> {
+      return startSyncPipe(fn(currentValue))
+    },
+    value(): T {
+      return currentValue
+    },
+    tap(fn: (value: T) => void): ISyncPipeline<T> {
+      fn(currentValue)
+      return this
     }
   }
 }

@@ -2,6 +2,10 @@
  * @file データーをフォーマット(操作)するための関数群
  */
 
+import { FALLBACK_HEADING_ID } from "@/constants/value"
+import { isValidString } from "@/utils"
+import { startSyncPipe } from "@/utils/pipe"
+
 /**
  * カンマ区切りのstringをstringの配列に変換する
  *
@@ -43,16 +47,13 @@ export const replaceTextInSquareBracket = (
  * @param text - 元の見出しテキスト
  * @returns 正規化された見出しテキスト
  */
-export const normalizeHeadingText = (text: string): string => {
-  const withoutLeadingDigit = text.replace(/^\d/, "")
-
-  const sanitized = withoutLeadingDigit.replace(
-    /[^A-Za-z0-9\u3040-\u309F\u30A0-\u30FF\u3400-\u4DBF\u4E00-\u9FFFー_-]/g,
-    ""
-  )
-
-  return sanitized.replace(/\s/g, "")
-}
+export const normalizeHeadingText = (text: string): string =>
+  startSyncPipe(text)
+    .pipe(t => t.replace(/^\d/, ""))
+    .pipe(t => t.replace(/\s+/g, "_"))
+    // eslint-disable-next-line no-control-regex
+    .pipe(t => t.replace(/[\x00-\x1F\x7F-\x9F]/g, ""))
+    .value()
 
 /**
  * 見出し用IDを生成する
@@ -66,10 +67,13 @@ export const generateUniqueHeadingId = (
   originalText: string,
   headingIdCountMap: Map<string, number>
 ): string => {
-  const baseId = normalizeHeadingText(originalText)
+  let baseId = normalizeHeadingText(originalText)
+
+  if (!isValidString(baseId)) {
+    baseId = FALLBACK_HEADING_ID
+  }
+
   const count = headingIdCountMap.get(baseId) ?? 0
-
   headingIdCountMap.set(baseId, count + 1)
-
   return count === 0 ? baseId : `${baseId}-${count}`
 }
