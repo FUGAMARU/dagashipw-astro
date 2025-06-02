@@ -10,6 +10,8 @@ type ParentComment = {
   displayType: "parent"
   /** 返信の有無 */
   hasReply: boolean
+  /** 返信ボタンを押下した時の処理 */
+  onReplyButtonClick: (commentId: string) => void
 }
 
 /** 子コメントのIF */
@@ -29,10 +31,7 @@ type Props = (ParentComment | ChildComment) & {
 
 /** コメント表示用コンポーネント */
 export const Comment = ({ commentInfo, ...rest }: Props) => {
-  /** 返信ボタンを押下した時の処理 */
-  const handleReplyButtonClick = () => {
-    alert("TODO: モーダル開く処理実装")
-  }
+  const handleReplyButtonClick = rest.displayType === "parent" ? rest.onReplyButtonClick : undefined
 
   return (
     <div className={styles.commentComponent}>
@@ -48,7 +47,11 @@ export const Comment = ({ commentInfo, ...rest }: Props) => {
       <p className={styles.body}>{commentInfo.body}</p>
 
       {rest.displayType === "parent" && (
-        <button className={styles.reply} onClick={handleReplyButtonClick} type="button">
+        <button
+          className={styles.reply}
+          onClick={() => handleReplyButtonClick?.(commentInfo.commentId)}
+          type="button"
+        >
           <SvgLoader className={styles.icon} height={16} name="turnBackArrow" width={16} />
           <span className={styles.label}>
             {rest.hasReply ? "このコメントに返信を追加する" : "このコメントに返信する"}

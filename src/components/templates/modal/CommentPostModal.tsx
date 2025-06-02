@@ -74,7 +74,7 @@ export const CommentPostModal = ({
 
         <CommentPostButton
           disabled={
-            (typeof bodyValue === "string" && bodyValue?.length === 0) ||
+            (typeof bodyValue === "string" && !isValidString(bodyValue)) ||
             !isValidString(turnstileToken)
           }
           isPosting={isPosting}

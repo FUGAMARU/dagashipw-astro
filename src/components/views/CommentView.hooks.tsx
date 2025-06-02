@@ -33,7 +33,11 @@ type UseCommentView = {
   /** ニックネーム欄の値が変更された時の処理 */
   handleUserNameChange: (e: ChangeEvent<HTMLInputElement>) => void
   /** コメントを投稿する時の処理 */
-  handleSubmit: (e: FormEvent<HTMLFormElement>, turnstileToken: string) => Promise<void>
+  handleSubmit: (
+    e: FormEvent<HTMLFormElement>,
+    turnstileToken: string,
+    parentCommentDocumentId?: string
+  ) => Promise<void>
   /** コメント投稿中かどうか */
   isCommentPosting: boolean
 }
@@ -99,8 +103,13 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
    *
    * @param e - イベント
    * @param turnstileToken - Cloudflare Turnstileのトークン
+   * @param parentCommentDocumentId - 親コメントのドキュメントID (返信コメントの場合)
    */
-  const handleSubmit = async (e: FormEvent, turnstileToken: string): Promise<void> => {
+  const handleSubmit = async (
+    e: FormEvent,
+    turnstileToken: string,
+    parentCommentDocumentId?: string
+  ): Promise<void> => {
     e.preventDefault()
 
     try {
@@ -112,7 +121,8 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
         articleUrlId,
         bodyValue,
         turnstileToken,
-        isValidString(userNameValue) ? userNameValue : undefined
+        isValidString(userNameValue) ? userNameValue : undefined,
+        parentCommentDocumentId
       )
 
       location.href = `${window.location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // 投稿したコメントの位置まで自動スクロールためのハッシュを追加

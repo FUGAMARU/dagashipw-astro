@@ -68,7 +68,7 @@ export const CommentView = ({ articleUrlId }: Props) => {
       title={`この記事に寄せられたコメント (${commentInfoList.length})`}
     >
       {isValidArray(commentInfoList) ? (
-        <CommentList comments={commentInfoList} />
+        <CommentList articleUrlId={articleUrlId} comments={commentInfoList} />
       ) : (
         <span className={styles.commentEmpty}>
           まだコメントされていません。コメントしてみませんか？

@@ -1,5 +1,11 @@
+import { useState } from "react"
+
 import { Comment } from "@/components/parts/Comment"
+import { Modal } from "@/components/parts/Modal"
+import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import styles from "@/components/templates/list/CommentList.module.css"
+import { CommentPostModal } from "@/components/templates/modal/CommentPostModal"
+import { useCommentView } from "@/components/views/CommentView.hooks"
 import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
 import { isValidArray } from "@/utils"
 
@@ -10,6 +16,8 @@ type Comment = Omit<ComponentProps<typeof Comment>["commentInfo"], "commentNumbe
 
 /** Props */
 type Props = {
+  /** 記事のURL ID */
+  articleUrlId: string
   /** コメント一覧 */
   comments: Array<
     Comment & {
@@ -20,7 +28,29 @@ type Props = {
 }
 
 /** コメント一覧表示用コンポーネント */
-export const CommentList = ({ comments }: Props) => {
+export const CommentList = ({ articleUrlId, comments }: Props) => {
+  const [replyTargetCommentId, setReplyTargetCommentId] = useState<string>()
+
+  const {
+    userNameValue,
+    bodyValue,
+    userNameErrorMessage,
+    bodyErrorMessage,
+    handleBodyChange,
+    handleCommentPostModalClose,
+    handleCommentPostModalOpen,
+    handleSubmit,
+    handleUserNameChange,
+    isCommentPostModalOpen,
+    isCommentPosting
+  } = useCommentView(articleUrlId)
+
+  /** コメント返信ボタンを押下した時の処理 */
+  const handleReplyButtonClick = (commentId: string) => {
+    setReplyTargetCommentId(commentId)
+    handleCommentPostModalOpen()
+  }
+
   return (
     <div>
       <div className={styles.commentList}>
@@ -33,6 +63,7 @@ export const CommentList = ({ comments }: Props) => {
               }}
               displayType="parent"
               hasReply={isValidArray(comment.replies)}
+              onReplyButtonClick={handleReplyButtonClick}
             />
 
             {isValidArray(comment.replies) && (
@@ -61,6 +92,28 @@ export const CommentList = ({ comments }: Props) => {
           TODO: コメントをもっと表示するボタン
         </button>
       )}
+
+      <Modal
+        icon={{
+          name: "commentWithPen",
+          coloringMethod: "fill"
+        }}
+        isOpen={isCommentPostModalOpen}
+        onClose={handleCommentPostModalClose}
+        title="コメントをどうぞ"
+        triggerElement={<CommentPostButton onClick={handleCommentPostModalOpen} type="button" />}
+      >
+        <CommentPostModal
+          bodyErrorMessage={bodyErrorMessage}
+          bodyValue={bodyValue}
+          isPosting={isCommentPosting}
+          onBodyChange={handleBodyChange}
+          onSubmit={(e, t) => handleSubmit(e, t, replyTargetCommentId)}
+          onUserNameChange={handleUserNameChange}
+          userNameErrorMessage={userNameErrorMessage}
+          userNameValue={userNameValue}
+        />
+      </Modal>
     </div>
   )
 }
