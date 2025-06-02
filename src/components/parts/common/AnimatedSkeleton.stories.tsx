@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof AnimatedSkeleton> = {
   component: AnimatedSkeleton,
   tags: ["autodocs"],
-  args: {},
-  argTypes: {}
+  args: { width: undefined, height: undefined },
+  argTypes: { width: { control: "number" }, height: { control: "number" } }
 }
 
 export default meta

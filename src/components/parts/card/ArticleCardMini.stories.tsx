@@ -5,19 +5,12 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof ArticleCardMini> = {
   component: ArticleCardMini,
   tags: ["autodocs"],
-  args: {
-    articleUrlId: undefined,
-    createdAt: undefined,
-    updatedAt: undefined,
-    thumbnailUrl: undefined,
-    themeColor: undefined,
-    title: undefined
-  },
+  args: { isFallback: undefined },
   argTypes: {}
 }
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof ArticleCardMini>
 
 export const Primary: Story = {
   args: {
@@ -27,5 +20,11 @@ export const Primary: Story = {
     thumbnailUrl: "/dummy-images/sea-candle.jpg",
     themeColor: "#6b33bf",
     title: "江ノ島シーキャンドル"
+  }
+}
+
+export const Fallback: Story = {
+  args: {
+    isFallback: true
   }
 }

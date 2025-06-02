@@ -3,7 +3,6 @@ import useSWR from "swr/immutable"
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import { ArticleCardMiniList } from "@/components/templates/list/ArticleCardMiniList"
 import { selfHostedFetcher } from "@/services/self-hosted-api"
-import { isValidArray } from "@/utils"
 
 import type { ArticleInfo } from "@/types/models"
 
@@ -28,7 +27,7 @@ export const SameTagArticlesView = ({ articleUrlId }: Props) => {
       icon={{ name: "hash", coloringMethod: "stroke" }}
       title="同じようなタグが設定されている記事"
     >
-      {isValidArray(sameTagArticles) && <ArticleCardMiniList cards={sameTagArticles} />}
+      <ArticleCardMiniList cards={sameTagArticles} />
     </CommonViewContainer>
   )
 }
