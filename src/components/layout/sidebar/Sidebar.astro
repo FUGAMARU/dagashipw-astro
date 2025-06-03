@@ -16,10 +16,8 @@ import {
 } from "@/constants/element"
 import { isDefined } from "@/utils"
 
-const currentArticleTitle = "記事のタイトル" // TODO: 仮当て
-const currentArticleUrl = "https://dagashi.pw" // TODO: 仮当て
-
 const { article } = Astro.locals
+const currentUrl = Astro.url.href
 ---
 
 <div class={styles.sidebarContainer}>
@@ -39,13 +37,17 @@ const { article } = Astro.locals
       {isDefined(article) && <TableOfContentsWrapper article={article} client:idle />}
     </div>
 
-    <SidebarItemWithTitle title="この記事をシェアする">
-      <ShareButtons
-        client:idle
-        currentArticleTitle={currentArticleTitle}
-        currentArticleUrl={currentArticleUrl}
-      />
-    </SidebarItemWithTitle>
+    {
+      isDefined(article) && (
+        <SidebarItemWithTitle title="この記事をシェアする">
+          <ShareButtons
+            client:idle
+            currentArticleTitle={article.title}
+            currentArticleUrl={currentUrl}
+          />
+        </SidebarItemWithTitle>
+      )
+    }
 
     <SidebarItemWithTitle title="ミニゲーム - Color Junction">
       <div class={styles.colorJunction}>

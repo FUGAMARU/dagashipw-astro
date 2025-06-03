@@ -8,6 +8,6 @@
   }
 
   &:visited {
-    /* TODO: 設定する */
+    color: var(--color-link-green-visited);
   }
 }

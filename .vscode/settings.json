@@ -25,6 +25,7 @@
     "typescanner",
     "nanostores",
     "imgproxy",
-    "axios"
+    "axios",
+    "infobar"
   ]
 }

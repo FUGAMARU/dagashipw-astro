@@ -4,7 +4,7 @@
 
 import { selfHostedAxiosInstance } from "@/services/axios"
 
-import type { PostCommentFromBrowserRequestBody } from "@/types/api"
+import type { PostCommentFromBrowserRequestBody, SidebarApiResponse } from "@/types/api"
 import type { ArticleInfo, CommentInfo } from "@/types/models"
 import type { AxiosResponse } from "axios"
 
@@ -18,7 +18,11 @@ import type { AxiosResponse } from "axios"
  */
 export const selfHostedFetcher = <T>(option: {
   /** API関数名 */
-  apiFunction: "getArticleCommentCount" | "getArticleCommentInfoList" | "getSameTagArticles"
+  apiFunction:
+    | "getArticleCommentCount"
+    | "getArticleCommentInfoList"
+    | "getSameTagArticles"
+    | "getSidebarInfo"
   /** API関数の引数 */
   arg: string
 }): Promise<T> => {
@@ -29,17 +33,18 @@ export const selfHostedFetcher = <T>(option: {
       return getArticleCommentInfoList(option.arg) as unknown as Promise<T>
     case "getSameTagArticles":
       return getSameTagArticles(option.arg) as unknown as Promise<T>
+    case "getSidebarInfo":
+      return getSidebarInfo() as unknown as Promise<T>
   }
 }
 
 /**
- * IPv4回線を使用しているどうかをチェックする
- * TODO: SWRで叩くようにしたほうが良いかも
+ * サイドバーに表示する情報を取得する
  *
- * @returns IPv4回線を使用しているかどうか
+ * @returns サイドバーに表示する情報
  */
-export const checkIsIPv4 = async (): Promise<boolean> => {
-  const response = await selfHostedAxiosInstance.get<boolean>("/is-ip-v4")
+export const getSidebarInfo = async (): Promise<SidebarApiResponse> => {
+  const response = await selfHostedAxiosInstance.get<SidebarApiResponse>("/sidebar")
   return response.data
 }
 

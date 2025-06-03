@@ -80,3 +80,11 @@ export type TurnstileTokenVerifyApiResponse = {
   /** エラーコード */
   "error-codes"?: Array<string>
 }
+
+/** サイドバー用APIレスポンス */
+export type SidebarApiResponse = {
+  /** 日付 */
+  date: string
+  /** クライアントのIPアドレスがIPv4アドレスかどうか */
+  isIPv4: boolean
+}

@@ -1,8 +1,9 @@
+import type { SidebarApiResponse } from "@/types/api"
 import type { APIRoute } from "astro"
 
 export const prerender = false
 
-/** このAPIにアクセスしてきたクライアントがIPv4でアクセスしてきたのかIPv6でアクセスしてきたのかを返す */
+/** サイドバーに表示するデーターをレスポンスする */
 export const GET: APIRoute = ({ clientAddress }) => {
   /** IPアドレスがIPv4アドレスかどうかチェックする */
   const checkIsIPv4Address = (address: string) => {
@@ -12,7 +13,13 @@ export const GET: APIRoute = ({ clientAddress }) => {
 
   const isIPv4Address = checkIsIPv4Address(clientAddress)
 
-  return new Response(JSON.stringify(isIPv4Address), {
-    status: 200
-  })
+  return new Response(
+    JSON.stringify({
+      date: new Date().toISOString(),
+      isIPv4: isIPv4Address
+    } satisfies SidebarApiResponse),
+    {
+      status: 200
+    }
+  )
 }
