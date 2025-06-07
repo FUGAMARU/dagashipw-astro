@@ -7,13 +7,12 @@ import {
   ACCORDION_INFO_RESOURCES_BY_DISPLAY_TYPE
 } from "@/components/article/originals/AccordionInfo.helpers"
 import styles from "@/components/article/originals/AccordionInfo.module.css"
-import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { isDefined } from "@/utils"
-import { unescapeNewlines } from "@/utils/formatter"
+import { parseMarkdownLinks } from "@/utils/markdown"
 
 import type { AccordionInfoDisplayType } from "@/components/article/originals/AccordionInfo.helpers"
-import type { MouseEvent, ReactNode } from "react"
+import type { MouseEvent } from "react"
 
 /** Props */
 type Props = {
@@ -118,25 +117,6 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
     setIsAccordionOpen(true)
   }
 
-  /** bodyをパースしてMarkdownのリンク記法のstringがあれば実際にLinkInArticleコンポーネントに置き換える */
-  const parseMarkdownLinks = (text: string) => {
-    const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g
-
-    return text.split(regex).reduce<Array<string | ReactNode>>((acc, part, index, arr) => {
-      // 0: テキスト部分, 1: リンクテキスト, 2: リンクURL
-      if (index % 3 === 0) {
-        acc.push(part)
-      } else if (index % 3 === 1) {
-        acc.push(
-          <LinkInArticle key={index} href={arr[index + 1]}>
-            {part}
-          </LinkInArticle>
-        )
-      }
-      return acc
-    }, [])
-  }
-
   return (
     <div className={styles.accordionInfo}>
       <details className={styles.main} open={isAccordionOpen}>
@@ -170,7 +150,7 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
 
         <div ref={bodyRef} className={styles.sectionBody}>
           <p ref={bodyTextRef} className={styles.text}>
-            {parseMarkdownLinks(unescapeNewlines(body))}
+            {parseMarkdownLinks(body)}
           </p>
         </div>
       </details>

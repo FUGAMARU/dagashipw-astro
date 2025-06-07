@@ -3,7 +3,7 @@ import { capitalize } from "es-toolkit"
 
 import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
-import { isDefined } from "@/utils"
+import { isValidString } from "@/utils"
 
 import type { ComponentProps } from "react"
 
@@ -38,8 +38,6 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading"> &
 export const Image = ({
   src,
   caption,
-  captionLinkTexts,
-  captionLinks,
   isEager = false,
   isObjectFitCover = false,
   isCircle = false,
@@ -57,7 +55,7 @@ export const Image = ({
     <figure
       className={clsx(
         styles.imageTag,
-        isDefined(align) && styles[`Align${capitalize(align)}`],
+        isValidString(align) && styles[`Align${capitalize(align)}`],
         figureTagClassName
       )}
     >
@@ -67,24 +65,18 @@ export const Image = ({
           styles.image,
           isObjectFitCover && styles.Covered,
           isCircle && styles.Circle,
-          isDefined(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
-          isDefined(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
+          isValidString(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
+          isValidString(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
           isMaxHeight100 && styles.MaxHeight100,
           isWide && styles.Wide,
-          isDefined(borderRadius) && styles[`BorderRadius${borderRadius}`]
+          isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`]
         )}
         loading={isEager ? "eager" : "lazy"}
         src={src}
         {...props}
       />
 
-      {isDefined(caption) && !isHeightAdjustedImage && (
-        <ImageCaption
-          caption={caption}
-          captionLinks={captionLinks}
-          captionLinkTexts={captionLinkTexts}
-        />
-      )}
+      {isValidString(caption) && !isHeightAdjustedImage && <ImageCaption caption={caption} />}
     </figure>
   )
 }

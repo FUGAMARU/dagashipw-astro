@@ -10,25 +10,14 @@ type Props = Omit<ComponentProps<typeof Image>, "isHeightAdjustedImage" | "capti
   Partial<Pick<ComponentProps<typeof Image>, "caption">>
 
 /** PC表示の時に縦長だったり正方形だったりする画像の高さを見やすくして表示するためのコンポーネント */
-export const HeightAdjustedImage = ({
-  caption,
-  captionLinkTexts,
-  captionLinks,
-  ...imageProps
-}: Props) => {
+export const HeightAdjustedImage = ({ caption, ...imageProps }: Props) => {
   return (
-    <figure>
-      <div className={styles.heightAdjustedImage}>
+    <figure className={styles.heightAdjustedImage}>
+      <div className={styles.image}>
         <Image isHeightAdjustedImage isMaxHeight100 {...imageProps} />
       </div>
 
-      {isValidString(caption) && (
-        <ImageCaption
-          caption={caption}
-          captionLinks={captionLinks}
-          captionLinkTexts={captionLinkTexts}
-        />
-      )}
+      {isValidString(caption) && <ImageCaption caption={caption} />}
     </figure>
   )
 }

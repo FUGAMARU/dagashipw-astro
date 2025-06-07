@@ -5,12 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof ImageCaption> = {
   component: ImageCaption,
   tags: ["autodocs"],
-  args: { caption: undefined, captionLinkTexts: undefined, captionLinks: undefined },
-  argTypes: {
-    caption: { control: "text" },
-    captionLinkTexts: { control: "text" },
-    captionLinks: { control: "text" }
-  }
+  args: { caption: undefined },
+  argTypes: { caption: { control: "text" } }
 }
 
 export default meta
