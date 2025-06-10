@@ -45,5 +45,11 @@
     inset: 0;
     z-index: -1; /* TODO: 一箇所にまとめたほうが良さそう */
     display: block;
+
+    > .overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--color-page-background-alpha);
+    }
   }
 }
