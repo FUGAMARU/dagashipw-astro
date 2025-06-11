@@ -12,7 +12,7 @@ type Props = {
   /** 開閉状態 */
   isOpen: boolean
   /** トリガー要素 */
-  triggerElement: ReactNode
+  triggerElement?: ReactNode
   /** モーダルを閉じる時の処理 */
   onClose: () => void
 } & ComponentProps<typeof SectionTitle> &

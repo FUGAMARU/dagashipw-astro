@@ -23,6 +23,7 @@ export const CommentView = ({ articleUrlId }: Props) => {
     bodyValue,
     userNameErrorMessage,
     bodyErrorMessage,
+    errorMessage,
     handleBodyChange,
     handleCommentPostModalClose,
     handleCommentPostModalOpen,
@@ -52,6 +53,7 @@ export const CommentView = ({ articleUrlId }: Props) => {
           <CommentPostModal
             bodyErrorMessage={bodyErrorMessage}
             bodyValue={bodyValue}
+            errorMessage={errorMessage}
             isPosting={isCommentPosting}
             onBodyChange={handleBodyChange}
             onSubmit={handleSubmit}

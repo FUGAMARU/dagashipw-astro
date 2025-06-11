@@ -15,10 +15,11 @@ const meta: Meta<typeof CommentPostModal> = {
     bodyErrorMessage: undefined,
     onUserNameChange: undefined,
     onBodyChange: undefined,
+    errorMessage: undefined,
     onSubmit: undefined,
     isPosting: undefined
   },
-  argTypes: {}
+  argTypes: { errorMessage: { control: "text" } }
 }
 
 export default meta

@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { isAxiosError } from "axios"
 import { RateLimiterMemory } from "rate-limiter-flexible"
 
 import { TURNSTILE_SECRET_KEY } from "@/constants/env"
@@ -13,7 +13,7 @@ import { transformDataToCommentInfo } from "@/utils/transformer"
 
 import type {
   PostCommentFromBrowserRequestBody,
-  PostCommentValidationErrorResponse,
+  PostCommentErrorResponse,
   TurnstileTokenVerifyApiResponse
 } from "@/types/api"
 import type { APIRoute } from "astro"
@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ params }) => {
   if (!isDefined(articleUrlId)) {
     return new Response(
       JSON.stringify({
-        error: "articleUrlIdが指定されていません"
+        errorMessage: "articleUrlIdが指定されていません"
       }),
       {
         status: 400
@@ -61,23 +61,38 @@ export const POST: APIRoute = async ({ params, request, clientAddress }) => {
   const { articleUrlId } = params
 
   if (!isDefined(articleUrlId)) {
-    return new Response(JSON.stringify({ error: "articleUrlIdが指定されていません" }), {
-      status: 400
-    })
+    return new Response(
+      JSON.stringify({
+        errorMessage: "articleUrlIdが指定されていません"
+      } satisfies PostCommentErrorResponse),
+      {
+        status: 400
+      }
+    )
   }
 
   if (request.headers.get("Content-Type") !== "application/json") {
-    return new Response(JSON.stringify({ error: "Content-Typeが不正です" }), {
-      status: 400
-    })
+    return new Response(
+      JSON.stringify({
+        errorMessage: "Content-Typeが不正です"
+      } satisfies PostCommentErrorResponse),
+      {
+        status: 400
+      }
+    )
   }
 
   try {
     await POST_RATE_LIMIT.consume(clientAddress)
   } catch {
-    return new Response(JSON.stringify({ error: "短時間のコメントの連続投稿はできません" }), {
-      status: 429
-    })
+    return new Response(
+      JSON.stringify({
+        errorMessage: "短時間のコメントの連続投稿はできません"
+      } satisfies PostCommentErrorResponse),
+      {
+        status: 429
+      }
+    )
   }
 
   const requestBody = (await request.json()) as PostCommentFromBrowserRequestBody
@@ -97,7 +112,7 @@ export const POST: APIRoute = async ({ params, request, clientAddress }) => {
       JSON.stringify({
         userNameErrorMessage,
         bodyErrorMessage
-      } satisfies PostCommentValidationErrorResponse),
+      } satisfies PostCommentErrorResponse),
       {
         status: 422
       }
@@ -115,22 +130,45 @@ export const POST: APIRoute = async ({ params, request, clientAddress }) => {
     )
 
     if (!data.success) {
-      return new Response(JSON.stringify({ error: "Cloudflare Turnstileの検証に失敗しました" }), {
-        status: 422
-      })
+      return new Response(
+        JSON.stringify({
+          errorMessage: "Cloudflare Turnstileの検証に失敗しました"
+        } satisfies PostCommentErrorResponse),
+        {
+          status: 422
+        }
+      )
     }
   }
 
-  const createdCommentDocumentId = await postComment(
-    articleUrlId,
-    requestBody.body.trim(),
-    isValidString(requestBody.userName) ? requestBody.userName.trim() : undefined,
-    requestBody.parentCommentDocumentId
-  )
+  try {
+    const createdCommentDocumentId = await postComment(
+      articleUrlId,
+      requestBody.body.trim(),
+      isValidString(requestBody.userName) ? requestBody.userName.trim() : undefined,
+      requestBody.parentCommentDocumentId
+    )
+    return new Response(JSON.stringify(createdCommentDocumentId), {
+      status: 201
+    })
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return new Response(
+        JSON.stringify({
+          errorMessage: error.message ?? "コメント投稿時に予期せぬエラーが発生しました"
+        } satisfies PostCommentErrorResponse),
+        { status: error.response?.status ?? 500 }
+      )
+    }
 
-  return new Response(JSON.stringify(createdCommentDocumentId), {
-    status: 201
-  })
+    // Axiosエラーでない場合 (発生しない想定)
+    return new Response(
+      JSON.stringify({
+        errorMessage: "コメント投稿時に予期せぬエラーが発生しました"
+      } satisfies PostCommentErrorResponse),
+      { status: 500 }
+    )
+  }
 }
 
 /**

@@ -6,7 +6,7 @@ import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
 import { postComment, selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined, isValidString } from "@/utils"
 
-import type { PostCommentValidationErrorResponse } from "@/types/api"
+import type { PostCommentErrorResponse } from "@/types/api"
 import type { CommentInfo } from "@/types/models"
 import type { ChangeEvent, FormEvent } from "react"
 
@@ -24,6 +24,8 @@ type UseCommentView = {
   userNameErrorMessage?: string
   /** コメント欄のエラーメッセージ */
   bodyErrorMessage?: string
+  /** バリデーション以外のエラーメッセージ */
+  errorMessage?: string
   /** コメント投稿モーダルを開く処理 */
   handleCommentPostModalOpen: () => void
   /** コメント投稿モーダルを閉じる処理 */
@@ -67,6 +69,8 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
   const [userNameErrorMessage, setUserNameErrorMessage] = useState<string>()
   /** コメント欄のエラーメッセージ */
   const [bodyErrorMessage, setBodyErrorMessage] = useState<string>()
+  /** バリデーション以外のエラーメッセージ */
+  const [errorMessage, setErrorMessage] = useState<string>()
   /** コメントの投稿処理中かどうか */
   const [isCommentPosting, setIsCommentPosting] = useState(false)
 
@@ -132,7 +136,7 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
         throw e
       }
 
-      const errorResponse = e.response?.data as PostCommentValidationErrorResponse | undefined
+      const errorResponse = e.response?.data as PostCommentErrorResponse | undefined
 
       if (!isDefined(errorResponse)) {
         throw e
@@ -140,6 +144,7 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
 
       setUserNameErrorMessage(errorResponse.userNameErrorMessage)
       setBodyErrorMessage(errorResponse.bodyErrorMessage)
+      setErrorMessage(errorResponse.errorMessage)
       setIsCommentPosting(false)
     }
 
@@ -152,6 +157,7 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
     bodyValue,
     userNameErrorMessage,
     bodyErrorMessage,
+    errorMessage,
     handleBodyChange,
     handleCommentPostModalClose,
     handleCommentPostModalOpen,

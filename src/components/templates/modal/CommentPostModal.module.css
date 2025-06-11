@@ -3,6 +3,12 @@
   flex-direction: column;
   gap: 16px;
 
+  > .error {
+    padding-left: 4px;
+    font-size: 10px;
+    color: var(--color-vivid-red);
+  }
+
   > .footer {
     display: flex;
     align-items: flex-end;

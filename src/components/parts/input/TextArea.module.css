@@ -29,6 +29,7 @@
     }
 
     > .error {
+      padding-left: 4px;
       font-size: 10px;
       color: var(--color-vivid-red);
     }

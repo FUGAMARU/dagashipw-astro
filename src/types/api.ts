@@ -56,12 +56,14 @@ export type PostCommentFromBrowserRequestBody = Pick<
   turnstileToken: string
 }
 
-/** コメント投稿用自己ホストAPIからバリデーションエラーをレスポンスする時のフォーマット */
-export type PostCommentValidationErrorResponse = {
+/** コメント投稿用自己ホストAPIからエラーをレスポンスする時のフォーマット */
+export type PostCommentErrorResponse = {
   /** ニックネーム欄のエラーメッセージ */
   userNameErrorMessage?: string
   /** コメント欄のエラーメッセージ */
   bodyErrorMessage?: string
+  /** バリデーション以外のエラーメッセージ */
+  errorMessage?: string
 }
 
 /**

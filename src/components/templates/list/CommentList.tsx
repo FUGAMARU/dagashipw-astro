@@ -2,7 +2,6 @@ import { useState } from "react"
 
 import { Comment } from "@/components/parts/Comment"
 import { Modal } from "@/components/parts/Modal"
-import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import styles from "@/components/templates/list/CommentList.module.css"
 import { CommentPostModal } from "@/components/templates/modal/CommentPostModal"
 import { useCommentView } from "@/components/views/CommentView.hooks"
@@ -101,7 +100,6 @@ export const CommentList = ({ articleUrlId, comments }: Props) => {
         isOpen={isCommentPostModalOpen}
         onClose={handleCommentPostModalClose}
         title="コメントをどうぞ"
-        triggerElement={<CommentPostButton onClick={handleCommentPostModalOpen} type="button" />}
       >
         <CommentPostModal
           bodyErrorMessage={bodyErrorMessage}

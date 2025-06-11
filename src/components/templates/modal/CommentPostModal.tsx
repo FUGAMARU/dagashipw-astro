@@ -25,6 +25,8 @@ type Props = {
   onUserNameChange: ComponentProps<typeof Input>["onChange"]
   /** コメント欄の入力が変更された時の処理 */
   onBodyChange: ComponentProps<typeof TextArea>["onChange"]
+  /** バリデーション以外のエラーメッセージ */
+  errorMessage?: string
   /** 投稿処理 */
   onSubmit: (e: FormEvent<HTMLFormElement>, turnstileToken: string) => Promise<void> | void
 } & Required<Pick<ComponentProps<typeof CommentPostButton>, "isPosting">>
@@ -37,6 +39,7 @@ export const CommentPostModal = ({
   onUserNameChange: handleUserNameChange,
   userNameErrorMessage,
   userNameValue,
+  errorMessage,
   onSubmit: handleSubmit,
   isPosting
 }: Props) => {
@@ -61,6 +64,8 @@ export const CommentPostModal = ({
         placeholder="本文"
         value={bodyValue}
       />
+
+      {isValidString(errorMessage) && <div className={styles.error}>{errorMessage}</div>}
 
       <div className={styles.footer}>
         <Turnstile
