@@ -37,6 +37,11 @@ export const CommentView = ({ articleUrlId }: Props) => {
     return null
   }
 
+  const commentCountIncludingReplies = commentInfoList.reduce(
+    (count, comment) => count + 1 + comment.replies.length,
+    0
+  )
+
   return (
     <CommonViewContainer
       commentPostButton={
@@ -67,7 +72,7 @@ export const CommentView = ({ articleUrlId }: Props) => {
         name: "commentWithPen",
         coloringMethod: "fill"
       }}
-      title={`この記事に寄せられたコメント (${commentInfoList.length})`}
+      title={`この記事に寄せられたコメント (${commentCountIncludingReplies})`}
     >
       {isValidArray(commentInfoList) ? (
         <CommentList articleUrlId={articleUrlId} comments={commentInfoList} />
