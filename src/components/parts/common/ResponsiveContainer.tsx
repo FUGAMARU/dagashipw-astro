@@ -1,6 +1,6 @@
-import type { Children } from "@/types/children"
-
 import styles from "@/components/parts/common/ResponsiveContainer.module.css"
+
+import type { Children } from "@/types/children"
 
 /** Props */
 type Props = {

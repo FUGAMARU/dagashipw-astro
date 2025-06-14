@@ -25,6 +25,7 @@ const main = async () => {
   const articleBodyList = await getAllArticlesBody()
 
   const searchResult = articleBodyList
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     .filter(article => article.body.includes(searchTargetString))
     .map(article => article.title)
 

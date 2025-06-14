@@ -15,6 +15,7 @@ export default [
     ignores: [
       "**/dist/**",
       "**/node_modules/**",
+      "**/.astro/**",
       ".prettierrc.js",
       ".stylelintrc.js",
       ".storybook/main.ts",
@@ -202,7 +203,12 @@ export default [
           alphabetize: { order: "asc", caseInsensitive: true },
           pathGroups: [
             { pattern: "src/types/**", group: "internal", position: "before" },
-            { pattern: "src/repositories/**", group: "internal", position: "before" }
+            { pattern: "src/constants/**", group: "internal", position: "before" },
+            { pattern: "src/services/**", group: "internal", position: "before" },
+            { pattern: "src/stores/**", group: "internal", position: "before" },
+            { pattern: "src/hooks/**", group: "internal", position: "before" },
+            { pattern: "src/utils/**", group: "internal", position: "before" },
+            { pattern: "src/components/**", group: "internal", position: "before" }
           ]
         }
       ]
