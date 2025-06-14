@@ -38,3 +38,6 @@ export const TURNSTILE_VERIFY_API_ENDPOINT =
 
 /** 見出し用IDを付与できなかった際のフォールバックID */
 export const FALLBACK_HEADING_ID = "section"
+
+/** デフォルトのOGP画像のファイル名 */
+export const DEFAULT_OGP_IMAGE_FILENAME = "ogp.jpg"

@@ -4,7 +4,11 @@
 
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { API_ORIGIN } from "@/constants/env"
-import { CMS_IMAGE_DIRECTORY, MARKDOWN_IMAGE_EXTENSIONS } from "@/constants/value"
+import {
+  CMS_IMAGE_DIRECTORY,
+  EXTRACTED_PARAGRAPHS_LENGTH,
+  MARKDOWN_IMAGE_EXTENSIONS
+} from "@/constants/value"
 import { isDefined } from "@/utils"
 import { generateUniqueHeadingId } from "@/utils/formatter"
 import { unescapeNewlines } from "@/utils/formatter"
@@ -22,23 +26,45 @@ import type { ReactNode } from "react"
  * マークダウンから純粋なテキスト部分のみを抽出する
  *
  * @param markdown - マークダウン
+ * @param replaceNewlineWithSpace - 改行をスペースに変換するか（デフォルト: false）
+ * @param trimLength - 先頭から何文字だけ返すか（省略時は全体）
  * @returns テキスト部分
  */
-export const extractPlainTextFromMarkdown = (markdown: string): string => {
-  return markdown
+export const extractPlainTextFromMarkdown = (
+  markdown: string,
+  replaceNewlineWithSpace: boolean = false,
+  trimLength?: number
+): string => {
+  let text = markdown
     .replace(/```[\s\S]*?```/g, "") // コードブロックを削除
     .replace(/`([^`]+)`/g, "$1") // インラインコードを削除
     .replace(/!\[.*?\]\(.*?\)/g, "") // 画像を削除
-    .replace(/\[([^\]]+)\]\(.*?\)/g, "$1") // リンクをテキスト部分のみに変換
+    .replace(/\[([^\]]+)]\(.*?\)/g, "$1") // リンクをテキスト部分のみに変換
     .replace(/<[^>]+>/g, "") // HTMLタグを削除
     .replace(/^#{1,6}\s+.*$/gm, "") // 見出しを削除
     .replace(/^\|.*\|$/gm, "") // テーブルを削除
     .replace(/^>.*$/gm, "") // 引用を削除
     .replace(/^\s*[-+*]\s+/gm, "") // 箇条書き（リスト）を削除
     .replace(/^\s*\d+\.\s+/gm, "") // 箇条書き（リスト）を削除
-    .replace(/\n+/g, "\n") // 余分な改行を整理
-    .trim()
+
+  text = replaceNewlineWithSpace ? text.replace(/\n+/g, " ") : text.replace(/\n+/g, "\n")
+
+  text = text.trim()
+
+  if (isDefined(trimLength) && trimLength > 0) {
+    return text.substring(0, trimLength)
+  }
+  return text
 }
+
+/**
+ * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
+ *
+ * @param markdown - Markdown
+ * @returns 所定の文字数で切り取られた段落
+ */
+export const extractBeginningParagraph = (markdown: string): string =>
+  extractPlainTextFromMarkdown(markdown, true, EXTRACTED_PARAGRAPHS_LENGTH)
 
 /**
  * Markdownから目次データーを生成する

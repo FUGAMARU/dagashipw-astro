@@ -5,15 +5,12 @@
 import { orderBy, pick } from "es-toolkit"
 
 import { API_ORIGIN } from "@/constants/env"
-import {
-  EXTRACTED_PARAGRAPHS_LENGTH,
-  FALLBACK_COMMENT_USER_NAME,
-  FALLBACK_THEME_COLOR
-} from "@/constants/value"
+import { FALLBACK_COMMENT_USER_NAME, FALLBACK_THEME_COLOR } from "@/constants/value"
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
 import { getLightweightImageUrl } from "@/utils/image"
+import { extractBeginningParagraph } from "@/utils/markdown"
 
 import type { Article, Comment } from "@/types/api"
 import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/models"
@@ -25,30 +22,6 @@ import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/
  * @returns 整形された記事情報
  */
 export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
-  /**
-   * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
-   *
-   * @param markdown - Markdown
-   * @returns 所定の文字数で切り取られた段落
-   */
-  const extractBeginningParagraph = (markdown: string): string => {
-    const paragraphs = markdown
-      // Markdownリンクのテキスト部分だけを抽出
-      .replace(/\[([^\]]+)]\([^)]+\)/g, "$1")
-      // Markdown画像を削除
-      .replace(/!\[[^\]]*]\([^)]+\)/g, "")
-      // HTMLタグを削除し、タグ内のテキストを保持
-      .replace(/<\/?[^>]+(>|$)/g, "")
-      // 見出しなどの余計なものを削除
-      .replace(/(^|\n)(#+\s|<[^>]+>)/g, "")
-      // 改行をスペースに変換
-      .replace(/\n+/g, " ")
-      // 不要なスペースをトリム
-      .trim()
-
-    return paragraphs.substring(0, EXTRACTED_PARAGRAPHS_LENGTH)
-  }
-
   const lightweightThumbnailUrl = await getLightweightImageUrl(
     `${API_ORIGIN}${article.thumbnail.url}`
   )

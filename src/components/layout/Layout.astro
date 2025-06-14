@@ -1,11 +1,18 @@
 ---
 import "@/styles/global.css"
 
+import { SEO } from "astro-seo"
+
+import { createArticleSchema, createDefaultSchema } from "@/components/layout/Layout.helpers"
 import styles from "@/components/layout/Layout.module.css"
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import Sidebar from "@/components/layout/sidebar/Sidebar.astro"
 import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { DEFAULT_OGP_IMAGE_FILENAME } from "@/constants/value"
+import { isDefined, isValidString } from "@/utils"
+import { extractBeginningParagraph } from "@/utils/markdown"
+import { transformDataToArticleInfo } from "@/utils/transformer"
 
 /** Props */
 type Props = {
@@ -14,16 +21,85 @@ type Props = {
 }
 
 const { title } = Astro.props
+const { article } = Astro.locals
+const currentUrl = Astro.url.href
+
+const isArticlePage = isDefined(article)
+
+if (!isDefined(Astro.site)) {
+  throw new Error("Astroの設定ファイルにてsiteの設定がされていません")
+}
+
+const siteUrl = Astro.site.href
+const articleInfo = isArticlePage ? await transformDataToArticleInfo(article) : undefined
+const description = isArticlePage
+  ? extractBeginningParagraph(article.body)
+  : "趣味全開の個人的備忘録"
+const ogImageUrl =
+  isArticlePage && isValidString(article.thumbnail.url)
+    ? article.thumbnail.url // OGP用なので軽量化画像はあえて使用していない
+    : new URL(DEFAULT_OGP_IMAGE_FILENAME, Astro.site).href
+
+const schema = isDefined(articleInfo) ? createArticleSchema(
+  title,
+  description,
+  ogImageUrl,
+  currentUrl,
+  articleInfo,
+) : createDefaultSchema(siteUrl)
 ---
 
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-    <meta content="width=device-width" name="viewport" />
-    <meta content={Astro.generator} name="generator" />
-    <meta content="#545454" name="theme-color" />
-    <title>{title}</title>
+    <link href="/favicon.ico" rel="icon" />
+    <SEO
+      canonical={isArticlePage ? currentUrl : siteUrl}
+      description={description}
+      extend={{
+        link: [{ rel: "icon", href: "/favicon.ico" }],
+        meta: [
+          {
+            name: "viewport",
+            content: "width=device-width"
+          },
+          {
+            name: "generator",
+            content: Astro.generator
+          },
+          {
+            name: "theme-color",
+            content: "#545454"
+          }
+        ]
+      }}
+      openGraph={{
+        basic: {
+          title,
+          type: isArticlePage ? "article" : "website",
+          image: ogImageUrl,
+          url: currentUrl
+        },
+        optional: {
+          siteName: "麩菓子の雑記帳",
+          description,
+          locale: "ja_JP"
+        }
+      }}
+      title={title}
+      twitter={{
+        card: "summary_large_image",
+        title,
+        description,
+        image: ogImageUrl
+      }}
+    />
+
+    {isDefined(schema) && (
+      <script is:inline type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    )}
   </head>
   <body>
     <div class={styles.layoutContainer}>
