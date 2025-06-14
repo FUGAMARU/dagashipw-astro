@@ -1,0 +1,2 @@
+/* PC表示のカスタムメディアクエリ */
+@custom-media --pc (min-width: 1000px);

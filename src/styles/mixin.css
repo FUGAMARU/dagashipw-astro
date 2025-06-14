@@ -1,6 +1,3 @@
-/* PC表示のカスタムメディアクエリ */
-@custom-media --pc (min-width: 1000px);
-
 /* 記事中に登場するパーツの共通Spacing (見出しと段落を除く) */
 @define-mixin section-article-common-spacing {
   margin: var(--spacing-article-parts-common-sp) 0;

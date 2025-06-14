@@ -13,10 +13,5 @@
     "scope": "css",
     "prefix": "media",
     "body": ["@media (--pc) {", "\t$0", "}"]
-  },
-  "Import Post CSS Definition": {
-    "scope": "css",
-    "prefix": "post",
-    "body": ["@import url(\"/src/styles/post.css\");"]
   }
 }

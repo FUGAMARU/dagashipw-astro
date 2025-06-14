@@ -20,7 +20,8 @@ export default [
       ".storybook/main.ts",
       ".storybook/preview.ts",
       "src/env.d.ts",
-      "src/types/schema.ts"
+      "src/types/schema.ts",
+      "postcss.config.cjs"
     ]
   },
   {
