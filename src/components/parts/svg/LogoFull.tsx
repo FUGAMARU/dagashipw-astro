@@ -1,18 +1,18 @@
-import type { SvgProps } from "@/types/svg"
-
 /** Props */
 type Props = {
   /** PCで表示するかどうか */
   isPC: boolean
-} & SvgProps
+  /** クラス */
+  className: string
+}
 
 /** ロゴ (フル) */
-export const LogoFull = ({ isPC, ...svgProps }: Props) => {
+export const LogoFull = ({ isPC, className }: Props) => {
   const classNamePrefix = isPC ? "cls-logo-full-pc-" : "cls-logo-full-sp-"
   const clippathPrefix = isPC ? "clippath-logo-full-pc-" : "clippath-logo-full-sp-"
 
   return (
-    <svg viewBox="0 0 474.61 95.79" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
+    <svg className={className} viewBox="0 0 474.61 95.79" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <style>
           {`.${classNamePrefix}1 {

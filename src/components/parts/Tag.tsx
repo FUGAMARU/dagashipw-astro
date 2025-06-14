@@ -17,7 +17,7 @@ export const Tag = ({ text }: Props) => {
       className={styles.tagComponent}
       href={`${PAGE_PATH.SEARCH}?${QUERY_PARAM_KEYS.TAG}=${encodeURIComponent(text)}`}
     >
-      <SvgLoader className={styles.icon} height={16} name="hash" width={16} />
+      <SvgLoader className={styles.icon} name="hash" />
       <span>{text}</span>
     </Link>
   )

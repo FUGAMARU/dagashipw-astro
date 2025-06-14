@@ -71,7 +71,7 @@ export const TableOfContents = ({ tableOfContentsData, minutesToRead }: Props) =
         </div>
 
         <div className={styles.minutes}>
-          <SvgLoader className={styles.icon} height={10} name="clock" width={10} />
+          <SvgLoader className={styles.icon} name="clock" />
           <span className={styles.text}>この記事は{minutesToRead}分くらいで読めます</span>
         </div>
       </div>

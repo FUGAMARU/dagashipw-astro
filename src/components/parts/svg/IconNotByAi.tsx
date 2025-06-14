@@ -1,9 +1,7 @@
-import type { SvgProps } from "@/types/svg"
-
 /** Not By AIのアイコン */
-export const IconNotByAi = (svgProps: SvgProps) => {
+export const IconNotByAi = () => {
   return (
-    <svg fill="none" viewBox="0 0 131 42" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
+    <svg fill="none" viewBox="0 0 131 42" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M0.5 0.5H116C124.008 0.5 130.5 6.99187 130.5 15V41.5H15C6.99187 41.5 0.5 35.0081 0.5 27V0.5Z"
         fill="white"

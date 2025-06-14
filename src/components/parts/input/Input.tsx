@@ -20,7 +20,7 @@ export const Input = ({ hasSearchIcon = false, errorMessage, ...props }: Props) 
       <input className={styles.inputElement} name={KEYWORD_INPUT_NAME} type="text" {...props} />
       {hasSearchIcon && (
         <button type="submit">
-          <SvgLoader className={styles.searchIcon} height={16} name="search" width={16} />
+          <SvgLoader className={styles.searchIcon} name="search" />
         </button>
       )}
       {isValidString(errorMessage) && <span className={styles.error}>{errorMessage}</span>}

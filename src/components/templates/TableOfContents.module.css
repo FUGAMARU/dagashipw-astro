@@ -81,6 +81,8 @@
     align-items: center;
 
     > .icon {
+      width: 10px;
+      height: 10px;
       fill: var(--color-text-gray);
     }
 

@@ -8,11 +8,21 @@
     var(--color-gradient-header-start) 0%,
     var(--color-gradient-header-end) 100%
   );
+
+  > .logo {
+    width: 198.19px;
+    height: 40px;
+  }
 }
 
 @media (--pc) {
   .logoWrapper {
     padding: 8px 0;
     text-align: center;
+
+    > .logo {
+      width: 297.28px;
+      height: 60px;
+    }
   }
 }

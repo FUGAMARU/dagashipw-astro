@@ -44,7 +44,7 @@ export const Modal = ({
               <SectionTitle {...sectionTitleProps} />
               <Dialog.Close asChild>
                 <button onClick={handleClose} type="button">
-                  <SvgLoader height={20} name="cross" width={20} />
+                  <SvgLoader className={styles.closeIcon} name="cross" />
                 </button>
               </Dialog.Close>
             </div>

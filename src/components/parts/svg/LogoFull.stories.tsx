@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof LogoFull> = {
   component: LogoFull,
   tags: ["autodocs"],
-  args: {},
-  argTypes: {}
+  args: { isPC: true, className: undefined },
+  argTypes: { isPC: { control: "boolean" }, className: { control: "text" } }
 }
 
 export default meta

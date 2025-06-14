@@ -45,6 +45,11 @@
           fill: var(--color-white);
         }
 
+        > .icon {
+          width: 10px;
+          height: 10px;
+        }
+
         > .text {
           @mixin noto-sans-text-adjust;
 
@@ -67,6 +72,12 @@
       align-items: center;
       padding-top: 4px;
       fill: var(--color-text-gray);
+
+      /* stylelint-disable-next-line no-descending-specificity */
+      > .icon {
+        width: 14px;
+        height: 14px;
+      }
 
       /* stylelint-disable-next-line no-descending-specificity */
       > .text {

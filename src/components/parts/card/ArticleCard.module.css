@@ -76,6 +76,11 @@
         color: var(--color-text-gray);
         fill: var(--color-text-gray);
 
+        > .icon {
+          width: 18px;
+          height: 18px;
+        }
+
         > .text {
           font-size: 12px;
         }

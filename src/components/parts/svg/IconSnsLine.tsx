@@ -1,9 +1,7 @@
-import type { SvgProps } from "@/types/svg"
-
 /** SNSアイコン (LINE) */
-export const IconSnsLine = (svgProps: SvgProps) => {
+export const IconSnsLine = () => {
   return (
-    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
+    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <style>
           {`.cls-1-line {

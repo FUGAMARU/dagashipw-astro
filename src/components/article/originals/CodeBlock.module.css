@@ -46,8 +46,13 @@
   }
 }
 
-.checkCircleIcon {
-  fill: var(--color-white);
+.topRightIcon {
+  width: 16px;
+  height: 16px;
+
+  &.Check {
+    fill: var(--color-white);
+  }
 }
 
 @media (--pc) {

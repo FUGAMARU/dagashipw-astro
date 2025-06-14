@@ -1,7 +1,5 @@
-import type { SvgProps } from "@/types/svg"
-
 /** SNSアイコン (Facebook) */
-export const IconSnsFacebook = (svgProps: SvgProps) => {
+export const IconSnsFacebook = () => {
   return (
     <svg
       id="Layer_1"
@@ -12,7 +10,6 @@ export const IconSnsFacebook = (svgProps: SvgProps) => {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       xmlSpace="preserve"
       y="0px"
-      {...svgProps}
     >
       <style type="text/css">
         {`.st0{fill:url(#SVGID_1_);}

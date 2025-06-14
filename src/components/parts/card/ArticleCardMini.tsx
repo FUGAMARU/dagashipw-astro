@@ -49,7 +49,7 @@ export const ArticleCardMini = (props: Props) => {
             </div>
           </div>
           <div className={styles.read}>
-            <SvgLoader height={14} name="doubleRightArrow" width={14} />
+            <SvgLoader className={styles.icon} name="doubleRightArrow" />
             <span className={styles.text}>読んでみる</span>
           </div>
         </div>
@@ -83,14 +83,14 @@ export const ArticleCardMini = (props: Props) => {
             className={clsx(styles.elapsed, isElapsedLabelColorWhite && styles.WhiteStyle)}
             style={{ backgroundColor: themeColor }}
           >
-            <SvgLoader height={10} name="clock" width={10} />
+            <SvgLoader className={styles.icon} name="clock" />
             <span className={styles.text}>{elapsedTimeString}</span>
           </div>
           <span className={styles.title}>{title}</span>
         </div>
 
         <div className={styles.read}>
-          <SvgLoader height={14} name="doubleRightArrow" width={14} />
+          <SvgLoader className={styles.icon} name="doubleRightArrow" />
           <span className={styles.text}>読んでみる</span>
         </div>
       </div>

@@ -32,6 +32,11 @@
         gap: 4px;
         align-items: center;
 
+        > .icon {
+          width: 18px;
+          height: 18px;
+        }
+
         > .label {
           padding: 2px 4px;
           font-family: Gabarito, sans-serif;
@@ -48,8 +53,10 @@
         }
       }
 
+      /* stylelint-disable-next-line no-descending-specificity */
       > .icon {
-        display: inline-flex;
+        width: 8px;
+        height: 8px;
       }
     }
   }

@@ -3,3 +3,8 @@
   gap: 16px;
   justify-content: center;
 }
+
+.iconStyle {
+  width: 32px;
+  height: 32px;
+}

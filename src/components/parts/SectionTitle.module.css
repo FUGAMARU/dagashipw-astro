@@ -5,14 +5,19 @@
   gap: 2px;
   align-items: center;
 
-  &.Fill {
-    fill: var(--color-text-dark);
-    stroke: unset;
-  }
+  > .icon {
+    width: 20px;
+    height: 20px;
 
-  &.Stroke {
-    fill: unset;
-    stroke: var(--color-text-dark);
+    &.Fill {
+      fill: var(--color-text-dark);
+      stroke: unset;
+    }
+
+    &.Stroke {
+      fill: unset;
+      stroke: var(--color-text-dark);
+    }
   }
 
   > .text {

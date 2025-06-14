@@ -2,6 +2,7 @@ import { animate } from "animejs"
 import clsx from "clsx"
 import { useRef, useEffect } from "react"
 
+import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { COMMENT_POST_BUTTON_FADE_DURATION } from "@/components/templates/CommentPostButton.helpers"
 import styles from "@/components/templates/CommentPostButton.module.css"
@@ -66,20 +67,22 @@ export const CommentPostButton = ({
       onClick={handleClick}
       type={type}
     >
-      <span className={styles.sp}>
-        <SvgLoader height={20} name="penPlus" width={20} />
-      </span>
+      <ResponsiveContainer>
+        <SvgLoader className={styles.iconStyle} name="penPlus" />
+      </ResponsiveContainer>
 
-      <div className={styles.pc}>
-        <span ref={spinnerRef} className={styles.spinner}>
-          <SvgLoader height={18} name="spinner" width={18} />
-        </span>
+      <ResponsiveContainer isPC>
+        <div className={styles.pcContents}>
+          <span ref={spinnerRef} className={styles.spinner}>
+            <SvgLoader className={styles.iconStyle} name="spinner" />
+          </span>
 
-        <div ref={iconTextRef} className={styles.initial}>
-          <SvgLoader height={18} name="penPlus" width={18} />
-          <span className={styles.text}>コメントを残す</span>
+          <div ref={iconTextRef} className={styles.initial}>
+            <SvgLoader className={styles.iconStyle} name="penPlus" />
+            <span className={styles.text}>コメントを残す</span>
+          </div>
         </div>
-      </div>
+      </ResponsiveContainer>
     </button>
   )
 }

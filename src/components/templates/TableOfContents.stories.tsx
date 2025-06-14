@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof TableOfContents> = {
   component: TableOfContents,
   tags: ["autodocs"],
-  args: {},
-  argTypes: {}
+  args: { tableOfContentsData: undefined, minutesToRead: undefined },
+  argTypes: { minutesToRead: { control: "number" } }
 }
 
 export default meta

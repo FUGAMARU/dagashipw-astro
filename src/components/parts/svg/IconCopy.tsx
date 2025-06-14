@@ -1,9 +1,7 @@
-import type { SvgProps } from "@/types/svg"
-
 /** コピーアイコン */
-export const IconCopy = (svgProps: SvgProps) => {
+export const IconCopy = () => {
   return (
-    <svg fill="none" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
+    <svg fill="none" viewBox="0 0 16 17" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12.7188 4.5H5.78125C4.79749 4.5 4 5.29749 4 6.28125V13.2188C4 14.2025 4.79749 15 5.78125 15H12.7188C13.7025 15 14.5 14.2025 14.5 13.2188V6.28125C14.5 5.29749 13.7025 4.5 12.7188 4.5Z"
         stroke="white"

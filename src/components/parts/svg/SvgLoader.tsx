@@ -1,7 +1,10 @@
-import { lazy } from "react"
+import clsx from "clsx"
+import { forwardRef, lazy } from "react"
 
-import type { SvgComponentName, SvgProps } from "@/types/svg"
-import type { ReactNode } from "react"
+import styles from "@/components/parts/svg/SvgLoader.module.css"
+
+import type { SvgComponentName } from "@/types/svg"
+import type { LazyExoticComponent, ReactNode } from "react"
 
 const SVG_COMPONENTS = {
   search: lazy(() =>
@@ -124,17 +127,28 @@ const SVG_COMPONENTS = {
       default: IconSpinner
     }))
   )
-} as const satisfies Record<SvgComponentName, (props: SvgProps) => ReactNode>
+} as const satisfies Record<SvgComponentName, LazyExoticComponent<() => ReactNode>>
 
 /** Props */
 type Props = {
   /** SVGコンポーネント名 */
   name: SvgComponentName
-} & SvgProps
+  /** クラス */
+  className?: string
+}
 
 /** SVG親コンポーネント */
-export const SvgLoader = ({ name, ...props }: Props) => {
+export const SvgLoader = forwardRef<HTMLSpanElement, Props>(({ name, className }, ref) => {
   const SvgComponent = SVG_COMPONENTS[name]
 
-  return <SvgComponent {...props} />
-}
+  return (
+    <span
+      ref={ref}
+      className={clsx(className, styles.svgLoader, name === "background" && styles.Background)}
+    >
+      <SvgComponent />
+    </span>
+  )
+})
+
+SvgLoader.displayName = "SvgLoader"

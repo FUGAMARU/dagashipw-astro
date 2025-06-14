@@ -50,7 +50,7 @@ export const ShareButtons = ({ currentArticleUrl, currentArticleTitle }: Props) 
   const LinkCircleButton = useCallback(() => {
     return (
       <button onClick={handleLinkCircleButtonClick} type="button">
-        <SvgLoader height={32} name="linkCircle" width={32} />
+        <SvgLoader className={styles.iconStyle} name="linkCircle" />
       </button>
     )
   }, [handleLinkCircleButtonClick])
@@ -59,7 +59,7 @@ export const ShareButtons = ({ currentArticleUrl, currentArticleTitle }: Props) 
     <div className={styles.shareButtons}>
       {shareButtons.map(({ iconName, shareUrl }) => (
         <Link key={iconName} href={shareUrl}>
-          <SvgLoader height={32} name={iconName} width={32} />
+          <SvgLoader className={styles.iconStyle} name={iconName} />
         </Link>
       ))}
       <LinkCircleButton />

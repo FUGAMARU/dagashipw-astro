@@ -1,0 +1,9 @@
+.svgLoader {
+  display: inline-flex;
+  line-height: 1;
+
+  &.Background {
+    display: unset;
+    line-height: unset;
+  }
+}

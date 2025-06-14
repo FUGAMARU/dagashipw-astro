@@ -3,7 +3,6 @@ import useSWR from "swr"
 
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/ArticleInfoBar.module.css"
-import { useIsSP } from "@/hooks/useIsSP"
 import { selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined } from "@/utils"
 
@@ -25,8 +24,6 @@ export const ArticleInfoBar = ({
   isWhiteStyle = false,
   isBorderHidden = false
 }: Props) => {
-  const isSP = useIsSP()
-
   const { data: commentCount } = useSWR<number>(
     {
       apiFunction: "getArticleCommentCount",
@@ -44,7 +41,7 @@ export const ArticleInfoBar = ({
           styles.createdAt
         )}
       >
-        <SvgLoader height={isSP ? 12 : 16} name="writingPen" width={isSP ? 12 : 16} />
+        <SvgLoader className={styles.iconSize} name="writingPen" />
         <span>{createdAt}</span>
       </div>
 
@@ -56,7 +53,7 @@ export const ArticleInfoBar = ({
             styles.updatedAt
           )}
         >
-          <SvgLoader height={isSP ? 16 : 18} name="reverseClock" width={isSP ? 16 : 18} />
+          <SvgLoader className={clsx(styles.iconSize, styles.Large)} name="reverseClock" />
           <span>{updatedAt}</span>
         </div>
       )}
@@ -68,7 +65,7 @@ export const ArticleInfoBar = ({
           styles.commentCount
         )}
       >
-        <SvgLoader height={isSP ? 12 : 16} name="commentWithPen" width={isSP ? 12 : 16} />
+        <SvgLoader className={styles.iconSize} name="commentWithPen" />
         <span>{isDefined(commentCount) ? commentCount : " "}</span>
       </div>
     </div>

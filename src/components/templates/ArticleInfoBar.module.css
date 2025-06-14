@@ -36,8 +36,28 @@
   gap: 4px;
 }
 
+.iconSize {
+  width: 12px;
+  height: 12px;
+
+  &.Large {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 @media (--pc) {
   .articleInfo {
     gap: 24px;
+  }
+
+  .iconSize {
+    width: 16px;
+    height: 16px;
+
+    &.Large {
+      width: 18px;
+      height: 18px;
+    }
   }
 }

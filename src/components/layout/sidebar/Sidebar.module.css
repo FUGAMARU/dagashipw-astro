@@ -21,6 +21,11 @@
       gap: 8px;
       align-items: center;
 
+      > .icon {
+        width: 131px;
+        height: 42px;
+      }
+
       > .slogan {
         font-size: 10px;
         color: var(--color-text-gray);
@@ -81,6 +86,9 @@
       align-items: center;
 
       > .icon {
+        width: 24px;
+        height: 24px;
+
         path {
           stroke: var(--color-text-gray);
         }

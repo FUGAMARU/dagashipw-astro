@@ -52,7 +52,7 @@ export const Comment = ({ commentInfo, ...rest }: Props) => {
           onClick={() => handleReplyButtonClick?.(commentInfo.commentId)}
           type="button"
         >
-          <SvgLoader className={styles.icon} height={16} name="turnBackArrow" width={16} />
+          <SvgLoader className={styles.icon} name="turnBackArrow" />
           <span className={styles.label}>
             {rest.hasReply ? "このコメントに返信を追加する" : "このコメントに返信する"}
           </span>

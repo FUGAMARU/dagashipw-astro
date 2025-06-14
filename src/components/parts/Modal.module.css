@@ -43,6 +43,11 @@
   text-align: right;
 }
 
+.closeIcon {
+  width: 20px;
+  height: 20px;
+}
+
 @keyframes overlay-fade-in {
   from {
     opacity: 0;

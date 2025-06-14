@@ -27,6 +27,8 @@
   top: 0;
   right: 16px;
   bottom: 0;
+  width: 16px;
+  height: 16px;
   margin: auto 0;
   fill: var(--color-text-gray);
 }

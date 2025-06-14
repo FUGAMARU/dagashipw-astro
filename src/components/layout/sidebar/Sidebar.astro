@@ -60,14 +60,14 @@ const currentUrl = Astro.url.href
     </SidebarItemWithTitle>
 
     <div class={styles.notbyai}>
-      <SvgLoader height={42} name="notByAi" width={131} />
+      <SvgLoader className={styles.icon} name="notByAi" />
       <span class={styles.slogan}>このブログは人間が丹精込めて書いていますᕕ( ᐛ )ᕗ</span>
     </div>
   </div>
 
   <div class={styles.scrollableOverlay} id={SIDEBAR_SCROLLABLE_OVERLAY_ID}>
     <button class={styles.button} id={SIDEBAR_SCROLL_TO_BOTTOM_BUTTON_ID}>
-      <SvgLoader className={styles.icon} height={24} name="arrowDown" width={24} />
+      <SvgLoader className={styles.icon} name="arrowDown" />
       <span class={styles.text}> スクロールしてもっと表示</span>
     </button>
   </div>

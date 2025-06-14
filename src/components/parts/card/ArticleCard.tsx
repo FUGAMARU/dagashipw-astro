@@ -77,7 +77,7 @@ export const ArticleCard = ({
 
         <div className={styles.link}>
           <div className={styles.read}>
-            <SvgLoader height={18} name="doubleRightArrow" width={18} />
+            <SvgLoader className={styles.icon} name="doubleRightArrow" />
             <span className={styles.text}>読んでみる</span>
           </div>
         </div>

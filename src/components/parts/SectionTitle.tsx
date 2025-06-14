@@ -21,13 +21,11 @@ type Props = {
 /** セクションタイトル */
 export const SectionTitle = ({ icon, title }: Props) => {
   return (
-    <div
-      className={clsx(
-        styles.sectionTitle,
-        icon.coloringMethod === "fill" ? styles.Fill : styles.Stroke
-      )}
-    >
-      <SvgLoader height={20} width={20} {...icon} />
+    <div className={styles.sectionTitle}>
+      <SvgLoader
+        className={clsx(styles.icon, icon.coloringMethod === "fill" ? styles.Fill : styles.Stroke)}
+        name={icon.name}
+      />
       <span className={styles.text}>{title}</span>
     </div>
   )

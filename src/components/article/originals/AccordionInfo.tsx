@@ -128,9 +128,8 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
             }}
           >
             <SvgLoader
-              height={18}
+              className={styles.icon}
               name={ACCORDION_INFO_RESOURCES_BY_DISPLAY_TYPE[displayType].iconName}
-              width={18}
             />
             <span
               className={styles.label}
@@ -143,9 +142,7 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
             <span className={styles.title}>{title}</span>
           </div>
 
-          <span ref={triangleIconRef} className={styles.icon}>
-            <SvgLoader height={8} name="roundedTriangleDown" width={8} />
-          </span>
+          <SvgLoader ref={triangleIconRef} className={styles.icon} name="roundedTriangleDown" />
         </summary>
 
         <div ref={bodyRef} className={styles.sectionBody}>

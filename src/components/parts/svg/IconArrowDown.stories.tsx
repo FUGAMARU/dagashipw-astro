@@ -11,7 +11,7 @@ const StyledIconArrowDown = styled(IconArrowDown)`
 `
 
 const meta: Meta<typeof IconArrowDown> = {
-  component: StyledIconArrowDown,
+  component: IconArrowDown,
   tags: ["autodocs"],
   args: {},
   argTypes: {}
