@@ -1,0 +1,15 @@
+@import url("/src/styles/post.css");
+
+.pcContainer {
+  display: none;
+}
+
+@media (--pc) {
+  .spContainer {
+    display: none;
+  }
+
+  .pcContainer {
+    display: block;
+  }
+}
