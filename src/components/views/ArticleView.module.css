@@ -7,10 +7,6 @@
   border-bottom-right-radius: 24px;
   border-bottom-left-radius: 24px;
 
-  > .heroPc {
-    display: none;
-  }
-
   > .body {
     padding: 10px 16px 16px;
 
@@ -30,14 +26,6 @@
 @media (--pc) {
   .articleView {
     border-radius: 16px;
-
-    > .heroSp {
-      display: none;
-    }
-
-    > .heroPc {
-      display: block;
-    }
 
     > .body {
       padding: 16px 32px;

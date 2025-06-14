@@ -4,6 +4,7 @@ import "@/styles/global.css"
 import styles from "@/components/layout/Layout.module.css"
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import Sidebar from "@/components/layout/sidebar/Sidebar.astro"
+import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 
 /** Props */
@@ -26,9 +27,11 @@ const { title } = Astro.props
   </head>
   <body>
     <div class={styles.layoutContainer}>
-      <header class={styles.header}>
-        <LogoWrapper isPC={false} />
-      </header>
+      <ResponsiveContainer>
+        <header class={styles.header}>
+          <LogoWrapper isPC={false} />
+        </header>
+      </ResponsiveContainer>
 
       <main class={styles.main}>
         <slot />
@@ -39,9 +42,11 @@ const { title } = Astro.props
       </aside>
     </div>
 
-    <div class={styles.backgroundPattern}>
-      <SvgLoader name="background" />
-      <div class={styles.overlay}></div>
-    </div>
+    <ResponsiveContainer isPC>
+      <div class={styles.backgroundPattern}>
+        <SvgLoader name="background" />
+        <div class={styles.overlay}></div>
+      </div>
+    </ResponsiveContainer>
   </body>
 </html>

@@ -26,6 +26,7 @@ import ArticleImage from "@/components/article/standards/media/ArticleImage.astr
 import { Video } from "@/components/article/standards/media/Video"
 import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
+import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { HeroPC } from "@/components/templates/hero/HeroPC"
 import { HeroSP } from "@/components/templates/hero/HeroSP"
 import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
@@ -63,15 +64,15 @@ const processedContent = await startAsyncPipe(
 ---
 
 <div class={styles.articleView}>
-  <div class={styles.heroSp}>
+  <ResponsiveContainer>
     {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
     <HeroSP client:load {...articleInfo} />
-  </div>
+  </ResponsiveContainer>
 
-  <div class={styles.heroPc}>
+  <ResponsiveContainer isPC>
     {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
     <HeroPC client:load {...articleInfo} />
-  </div>
+  </ResponsiveContainer>
 
   <div class={styles.body}>
     <StaleContentWarning articleDate={articleDate} />

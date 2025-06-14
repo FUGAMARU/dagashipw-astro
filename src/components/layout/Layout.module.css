@@ -8,10 +8,6 @@
   }
 }
 
-.backgroundPattern {
-  display: none;
-}
-
 @media (--pc) {
   .layoutContainer {
     --padding-vertical: 48px;
@@ -21,10 +17,6 @@
     max-width: 1350px;
     padding: var(--padding-vertical) calc(var(--padding-vertical) / 2);
     margin: 0 auto;
-
-    > .header {
-      display: none;
-    }
 
     > .main {
       flex: 7.2;

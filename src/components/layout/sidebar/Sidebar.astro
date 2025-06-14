@@ -8,6 +8,7 @@ import { ShareButtons } from "@/components/layout/sidebar/ShareButtons"
 import styles from "@/components/layout/sidebar/Sidebar.module.css"
 import { SidebarItemWithTitle } from "@/components/layout/sidebar/SidebarItemWithTitle"
 import { TableOfContentsWrapper } from "@/components/layout/sidebar/TableOfContentsWrapper"
+import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import {
   SIDEBAR_ID,
@@ -21,9 +22,11 @@ const currentUrl = Astro.url.href
 ---
 
 <div class={styles.sidebarContainer}>
-  <header class={styles.header}>
-    <LogoWrapper isPC />
-  </header>
+  <ResponsiveContainer isPC>
+    <header>
+      <LogoWrapper isPC />
+    </header>
+  </ResponsiveContainer>
 
   <div class={styles.main} id={SIDEBAR_ID}>
     {/* ビルド時点の日付で止まってしまうのとIPv4かどうか判定する必要があるのでCSRさせる */}
