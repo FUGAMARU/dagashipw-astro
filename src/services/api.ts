@@ -4,7 +4,7 @@
 
 import { ARTICLES_PER_PAGE, MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT } from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
-import { isDefined } from "@/utils"
+import { isDefined, isValidString } from "@/utils"
 
 import type {
   Article,
@@ -279,4 +279,65 @@ export const searchArticlesByTagWithPagination = async (
   }
 
   return response.data.data
+}
+
+/**
+ * 指定されたフィルタ条件に一致する記事の総数を取得するヘルパー関数
+ * (この関数は前回のものから変更ありません)
+ *
+ * @param filters - フィルタ条件のクエリ文字列
+ * @returns 一致する記事の総数
+ */
+const countArticles = async (filters: string): Promise<number> => {
+  const response = await axiosInstance.get<PaginatedResponse<never>>(
+    `/articles?${filters}&pagination[pageSize]=1&pagination[withCount]=true`
+  )
+  return response.data.meta?.pagination?.total ?? 0
+}
+
+/**
+ * 記事のバックナンバーを取得する
+ *
+ * @param articleUrlId - 記事のURL ID
+ * @returns バックナンバー
+ */
+export const getArticleBackNumber = async (articleUrlId: string): Promise<number> => {
+  const articleResponse = await axiosInstance.get<PaginatedResponse<Article>>(
+    `/articles?filters[articleUrlId][$eq]=${articleUrlId}&fields[0]=forceCreatedAt&fields[1]=createdAt`
+  )
+
+  const targetArticle = articleResponse.data.data?.[0]
+
+  if (!isDefined(targetArticle)) {
+    throw new Error("指定された記事が存在しません")
+  }
+
+  const targetDate = targetArticle.forceCreatedAt
+  const targetCreatedAt = targetArticle.createdAt
+
+  if (isValidString(targetDate)) {
+    const olderArticlesCountPromise = countArticles(`filters[forceCreatedAt][$lt]=${targetDate}`)
+    const sameDateOlderCreatedAtArticlesCountPromise = countArticles(
+      `filters[forceCreatedAt][$eq]=${targetDate}&filters[createdAt][$lt]=${targetCreatedAt}`
+    )
+
+    const [olderArticlesCount, sameDateOlderCreatedAtArticlesCount] = await Promise.all([
+      olderArticlesCountPromise,
+      sameDateOlderCreatedAtArticlesCountPromise
+    ])
+
+    return olderArticlesCount + sameDateOlderCreatedAtArticlesCount // 開発用の記事が存在するので+1しない
+  }
+
+  const notNullCountPromise = countArticles(`filters[forceCreatedAt][$notNull]=true`)
+  const nullAndOlderCreatedAtCountPromise = countArticles(
+    `filters[forceCreatedAt][$null]=true&filters[createdAt][$lt]=${targetCreatedAt}`
+  )
+
+  const [notNullCount, nullAndOlderCreatedAtCount] = await Promise.all([
+    notNullCountPromise,
+    nullAndOlderCreatedAtCountPromise
+  ])
+
+  return notNullCount + nullAndOlderCreatedAtCount // 開発用の記事が存在するので+1しない
 }

@@ -6,6 +6,7 @@ import { orderBy, pick } from "es-toolkit"
 
 import { API_ORIGIN } from "@/constants/env"
 import { FALLBACK_COMMENT_USER_NAME, FALLBACK_THEME_COLOR } from "@/constants/value"
+import { getArticleBackNumber } from "@/services/api"
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
@@ -22,13 +23,14 @@ import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/
  * @returns 整形された記事情報
  */
 export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
-  const lightweightThumbnailUrl = await getLightweightImageUrl(
-    `${API_ORIGIN}${article.thumbnail.url}`
-  )
+  const [backNumber, lightweightThumbnailUrl] = await Promise.all([
+    getArticleBackNumber(article.articleUrlId),
+    getLightweightImageUrl(`${API_ORIGIN}${article.thumbnail.url}`)
+  ])
 
   const baseData = {
     articleUrlId: article.articleUrlId,
-    backNumber: 1, // TODO: 実際の値を反映させる必要がある
+    backNumber,
     title: article.title,
     thumbnailUrl: lightweightThumbnailUrl,
     themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
