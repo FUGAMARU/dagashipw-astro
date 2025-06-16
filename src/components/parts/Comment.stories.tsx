@@ -20,7 +20,8 @@ export const ParentComment: Story = {
       commentNumber: "1",
       userName: "ユーザー名",
       submittedAt: "2023-10-01 12:00",
-      body: "本文"
+      body: "本文",
+      isAdministratorComment: false
     }
   }
 }
@@ -34,7 +35,8 @@ export const ParentCommentWithReply: Story = {
       commentNumber: "2",
       userName: "ユーザー名",
       submittedAt: "2023-10-01 12:00",
-      body: "本文"
+      body: "本文",
+      isAdministratorComment: false
     }
   }
 }
@@ -47,7 +49,22 @@ export const ChildComment: Story = {
       commentNumber: "3",
       userName: "ユーザー名",
       submittedAt: "2023-10-01 12:00",
-      body: "本文"
+      body: "本文",
+      isAdministratorComment: false
+    }
+  }
+}
+
+export const AdminComment: Story = {
+  args: {
+    displayType: "parent",
+    commentInfo: {
+      commentId: "4",
+      commentNumber: "4",
+      userName: "管理者",
+      submittedAt: "2023-10-01 12:00",
+      body: "管理者のコメント",
+      isAdministratorComment: true
     }
   }
 }

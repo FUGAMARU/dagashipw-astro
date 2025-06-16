@@ -9,10 +9,22 @@
     align-items: center;
 
     > .name {
-      @mixin noto-sans-text-adjust;
+      display: flex;
+      gap: 4px;
+      align-items: center;
 
-      font-size: 14px;
-      font-weight: bold;
+      > .text {
+        @mixin noto-sans-text-adjust;
+
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      > .verified {
+        width: 16px;
+        height: 16px;
+        fill: var(--color-text-gray);
+      }
     }
 
     > .datetime {

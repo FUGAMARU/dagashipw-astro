@@ -40,7 +40,12 @@ export const Comment = ({ commentInfo, ...rest }: Props) => {
           isFilled={rest.displayType === "parent"}
           itemNumber={commentInfo.commentNumber}
         />
-        <span className={styles.name}>{commentInfo.userName}</span>
+        <div className={styles.name}>
+          <span className={styles.text}>{commentInfo.userName}</span>
+          {commentInfo.isAdministratorComment && (
+            <SvgLoader className={styles.verified} name="verified" />
+          )}
+        </div>
         <span className={styles.datetime}>{commentInfo.submittedAt}</span>
       </div>
 

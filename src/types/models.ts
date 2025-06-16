@@ -34,6 +34,8 @@ type MainCommentInfo = {
   submittedAt: string
   /** 本文 */
   body: string
+  /** 管理者による投稿かどうか */
+  isAdministratorComment: boolean
 }
 
 /** コメント情報 (CMSで保持しているフォーマットではなく内部的にコメント情報を扱う場合に用いるフォーマット) */

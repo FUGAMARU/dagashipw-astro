@@ -59,8 +59,6 @@ export const transformDataToArticleInfo = async (article: Article): Promise<Arti
   }
 }
 
-// TODO: isAdministratorCommentへの対応が必要 (コンポ側も)
-
 /**
  * CMSから取得したコメントデーターをフロントエンドで利用する形式に変換する
  *
@@ -76,7 +74,8 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
       "parentCommentDocumentId",
       "body",
       "forceCreatedAt",
-      "createdAt"
+      "createdAt",
+      "isAdministratorComment"
     ])
   )
 
@@ -98,7 +97,8 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
       submittedAt: formatDateToString(
         convertUTCToJST(new Date(comment.forceCreatedAt)), // createdAtはStrapiがJSTを入れてしまうため利用しない。forceCreatedAtのみをコメント投稿日時の値として利用する。
         "yyyy/MM/dd HH:mm:ss"
-      )
+      ),
+      isAdministratorComment: comment.isAdministratorComment
     } satisfies Omit<IntermediateCommentInfo, "replies">
   })
 
@@ -123,10 +123,10 @@ export const transformDataToCommentInfo = (comments: Array<Comment>): Array<Comm
   )
 
   return sortedData.map((comment: IntermediateCommentInfo) => ({
-    ...pick(comment, ["userName", "submittedAt", "body"]),
+    ...pick(comment, ["userName", "submittedAt", "body", "isAdministratorComment"]),
     commentId: comment.documentId,
     replies: comment.replies.map(reply => ({
-      ...pick(reply, ["userName", "submittedAt", "body"]),
+      ...pick(reply, ["userName", "submittedAt", "body", "isAdministratorComment"]),
       commentId: reply.documentId
     }))
   }))
