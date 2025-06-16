@@ -1,5 +1,5 @@
 import styles from "@/components/parts/ImageCaption.module.css"
-import { parseMarkdownLinks } from "@/utils/markdown"
+import { parseMarkdownLinks } from "@/utils/link"
 
 /** Props */
 type Props = {

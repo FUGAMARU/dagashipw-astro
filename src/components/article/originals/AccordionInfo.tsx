@@ -9,7 +9,7 @@ import {
 import styles from "@/components/article/originals/AccordionInfo.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { isDefined } from "@/utils"
-import { parseMarkdownLinks } from "@/utils/markdown"
+import { parseMarkdownLinks } from "@/utils/link"
 
 import type { AccordionInfoDisplayType } from "@/components/article/originals/AccordionInfo.helpers"
 import type { MouseEvent } from "react"

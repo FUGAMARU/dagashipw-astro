@@ -1,6 +1,7 @@
 import styles from "@/components/parts/Comment.module.css"
 import { ItemNumber } from "@/components/parts/common/ItemNumber"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { parsePlainTextUrls } from "@/utils/link"
 
 import type { CommentInfo } from "@/types/models"
 
@@ -49,7 +50,7 @@ export const Comment = ({ commentInfo, ...rest }: Props) => {
         <span className={styles.datetime}>{commentInfo.submittedAt}</span>
       </div>
 
-      <p className={styles.body}>{commentInfo.body}</p>
+      <p className={styles.body}>{parsePlainTextUrls(commentInfo.body)}</p>
 
       {rest.displayType === "parent" && (
         <button
