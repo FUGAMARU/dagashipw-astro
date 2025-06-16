@@ -13,8 +13,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  args: {
-    width: 64,
-    height: 64
-  }
+  render: () => (
+    <div style={{ width: 128, height: 128 }}>
+      <IconWarning />
+    </div>
+  )
 }

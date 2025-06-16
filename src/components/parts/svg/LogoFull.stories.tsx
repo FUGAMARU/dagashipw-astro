@@ -13,8 +13,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  args: {
-    width: 297.28,
-    height: 60
-  }
+  render: () => (
+    <div style={{ width: 297.28, height: 60, backgroundColor: "#292c2f" }}>
+      <LogoFull className="" isPC />
+    </div>
+  )
 }
