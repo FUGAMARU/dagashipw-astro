@@ -86,11 +86,11 @@ export const CommentList = ({ articleUrlId, comments }: Props) => {
         ))}
       </div>
 
-      {comments.length >= 5 && (
+      {/* {comments.length >= 5 && (
         <button className={styles.showMore} type="button">
           TODO: コメントをもっと表示するボタン
         </button>
-      )}
+      )} */}
 
       <Modal
         icon={{
