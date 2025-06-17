@@ -1,6 +1,14 @@
+import { createTimeline } from "animejs"
+import { useRef, useState } from "react"
+
+import {
+  SHARE_BUTTONS_LINK_CIRCLE_BUTTON_ANIMATION_DURATION,
+  SHARE_BUTTONS_LINK_CIRCLE_BUTTON_CHECK_ICON_DISPLAY_DURATION
+} from "@/components/layout/sidebar/ShareButtons.helpers"
 import styles from "@/components/layout/sidebar/ShareButtons.module.css"
 import { Link } from "@/components/parts/common/Link"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { isDefined } from "@/utils"
 
 import type { SvgComponentName } from "@/types/svg"
 
@@ -44,16 +52,72 @@ export const ShareButtons = ({ currentArticleUrl, currentArticleTitle }: Props) 
     shareUrl: string
   }>
 
+  /** リンクコピーボタンのアニメーション中かどうか */
+  const [isLinkButtonAnimating, setIsLinkButtonAnimating] = useState(false)
+
+  const linkIconRef = useRef<HTMLDivElement>(null)
+  const checkIconRef = useRef<HTMLDivElement>(null)
+
   /** LinkCircleButtonをクリックした時の処理 */
   const handleLinkCircleButtonClick = async () => {
+    if (isLinkButtonAnimating) {
+      return
+    }
+
+    setIsLinkButtonAnimating(true)
+
     await navigator.clipboard.writeText(currentArticleUrl)
+
+    const linkIcon = linkIconRef.current
+    const checkIcon = checkIconRef.current
+    if (!isDefined(linkIcon) || !isDefined(checkIcon)) {
+      return
+    }
+
+    const timeline = createTimeline({
+      defaults: {
+        ease: "linear", // フェードアニメーションの場合に最も適切なイージングはlinearなので定数化しない
+        duration: SHARE_BUTTONS_LINK_CIRCLE_BUTTON_ANIMATION_DURATION
+      }
+    })
+
+    timeline
+      .add(linkIcon, {
+        opacity: 0
+      })
+      .add(checkIcon, {
+        opacity: 1
+      })
+      .add(checkIcon, {
+        opacity: 0,
+        delay: SHARE_BUTTONS_LINK_CIRCLE_BUTTON_CHECK_ICON_DISPLAY_DURATION
+      })
+      .add(linkIcon, {
+        opacity: 1,
+        /** アニメーションが完了した時の処理 */
+        onComplete: () => {
+          setIsLinkButtonAnimating(false)
+        }
+      })
   }
 
   /** リンクアイコンのボタン */
   const LinkCircleButton = () => {
     return (
-      <button onClick={handleLinkCircleButtonClick} type="button">
-        <SvgLoader className={styles.iconStyle} name="linkCircle" />
+      <button
+        className={styles.linkCircleButton}
+        onClick={handleLinkCircleButtonClick}
+        type="button"
+      >
+        <div className={styles.iconStyle}>
+          <div className={styles.linkIcon}>
+            <SvgLoader ref={linkIconRef} className={styles.iconStyle} name="linkCircle" />
+          </div>
+
+          <div ref={checkIconRef} className={styles.checkIcon}>
+            <SvgLoader className={styles.icon} name="check" />
+          </div>
+        </div>
       </button>
     )
   }

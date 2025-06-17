@@ -31,3 +31,4 @@ export type SvgComponentName =
   | "labelPlus"
   | "spinner"
   | "verified"
+  | "check"

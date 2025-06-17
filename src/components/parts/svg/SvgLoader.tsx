@@ -131,6 +131,9 @@ const SVG_COMPONENTS = {
     import("@/components/parts/svg/IconVerified").then(({ IconVerified }) => ({
       default: IconVerified
     }))
+  ),
+  check: lazy(() =>
+    import("@/components/parts/svg/IconCheck").then(({ IconCheck }) => ({ default: IconCheck }))
   )
 } as const satisfies Record<SvgComponentName, LazyExoticComponent<() => ReactNode>>
 
