@@ -1,0 +1,12 @@
+---
+import Layout from "@/components/layout/Layout.astro"
+import { ErrorView } from "@/components/views/ErrorView"
+---
+
+<Layout title="ページが見つかりませんでした | 麩菓子の雑記帳">
+  <ErrorView
+    englishMessage="Not Found"
+    errorCode={404}
+    japaneseMessage="お探しのページは見つかりませんでした😭"
+  />
+</Layout>

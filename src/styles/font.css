@@ -53,3 +53,11 @@
   src: url("/fonts/HackGen35-Regular.woff2") format("woff2");
   font-display: swap;
 }
+
+@font-face {
+  font-family: FugazOne;
+  font-style: normal;
+  font-weight: normal;
+  src: url("/fonts/FugazOne-Regular.woff2") format("woff2");
+  font-display: swap;
+}
