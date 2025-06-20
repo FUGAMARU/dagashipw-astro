@@ -1,5 +1,4 @@
-import axios from "axios"
-import { imageSize } from "image-size"
+import probe from "probe-image-size"
 
 /**
  * リモート画像のサイズを取得する
@@ -15,14 +14,7 @@ export const getRemoteImageSize = async (
   /** 高さ */
   height: number
 }> => {
-  const response = await axios.get(src, {
-    responseType: "arraybuffer"
-  })
-
-  const buffer = Buffer.from(response.data)
-  const uint8Array = new Uint8Array(buffer)
-
-  const { width, height } = imageSize(uint8Array)
+  const { width, height } = await probe(src)
 
   return { width, height }
 }
