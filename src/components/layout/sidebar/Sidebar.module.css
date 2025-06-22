@@ -28,6 +28,10 @@
   }
 }
 
+.scrollableOverlay {
+  display: none;
+}
+
 .colorJunction {
   display: flex;
   justify-content: center;
@@ -60,7 +64,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-    display: none;
     justify-content: center;
     padding: 20px 0 12px;
     background: linear-gradient(

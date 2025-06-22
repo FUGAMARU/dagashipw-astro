@@ -41,3 +41,6 @@ export const FALLBACK_HEADING_ID = "section"
 
 /** デフォルトのOGP画像のファイル名 */
 export const DEFAULT_OGP_IMAGE_FILENAME = "ogp.jpg"
+
+/** レスポンシブ対応する際のSP表示の最大サイズ */
+export const RESPONSIVE_SP_MAX_WIDTH = 999
