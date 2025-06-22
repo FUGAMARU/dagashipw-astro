@@ -3,3 +3,7 @@
   color: var(--color-text-gray);
   text-align: center;
 }
+
+.postButton {
+  width: 126px;
+}

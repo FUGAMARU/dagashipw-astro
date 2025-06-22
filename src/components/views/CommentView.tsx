@@ -1,3 +1,4 @@
+import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import { Modal } from "@/components/parts/Modal"
 import { CommentPostButton } from "@/components/templates/CommentPostButton"
@@ -8,6 +9,7 @@ import styles from "@/components/views/CommentView.module.css"
 import { isDefined, isValidArray } from "@/utils"
 
 import type { ArticleInfo } from "@/types/models"
+import type { ComponentProps } from "react"
 
 /** Props */
 type Props = Pick<ArticleInfo, "articleUrlId">
@@ -42,6 +44,11 @@ export const CommentView = ({ articleUrlId }: Props) => {
     0
   )
 
+  const commentPostButtonCommonProps = {
+    onClick: handleCommentPostModalOpen,
+    type: "button"
+  } as const satisfies Pick<ComponentProps<typeof CommentPostButton>, "onClick" | "type">
+
   return (
     <CommonViewContainer
       commentPostButton={
@@ -53,7 +60,19 @@ export const CommentView = ({ articleUrlId }: Props) => {
           isOpen={isCommentPostModalOpen}
           onClose={handleCommentPostModalClose}
           title="コメントをどうぞ"
-          triggerElement={<CommentPostButton onClick={handleCommentPostModalOpen} type="button" />}
+          triggerElement={
+            // Fragment使うとエラーになるので注意
+            <div>
+              <ResponsiveContainer>
+                <CommentPostButton shouldShowIconOnly {...commentPostButtonCommonProps} />
+              </ResponsiveContainer>
+              <ResponsiveContainer isPC>
+                <div className={styles.postButton}>
+                  <CommentPostButton {...commentPostButtonCommonProps} />
+                </div>
+              </ResponsiveContainer>
+            </div>
+          }
         >
           <CommentPostModal
             bodyErrorMessage={bodyErrorMessage}

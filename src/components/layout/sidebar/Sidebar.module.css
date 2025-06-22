@@ -9,6 +9,10 @@
     padding: 24px 16px;
     background-color: var(--color-white);
 
+    > .toc {
+      display: none;
+    }
+
     > .notbyai {
       display: flex;
       flex-direction: column;

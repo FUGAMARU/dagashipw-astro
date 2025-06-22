@@ -77,14 +77,16 @@ export const CommentPostModal = ({
           theme="light"
         />
 
-        <CommentPostButton
-          disabled={
-            (typeof bodyValue === "string" && !isValidString(bodyValue)) ||
-            !isValidString(turnstileToken)
-          }
-          isPosting={isPosting}
-          type="submit"
-        />
+        <div className={styles.button}>
+          <CommentPostButton
+            disabled={
+              (typeof bodyValue === "string" && !isValidString(bodyValue)) ||
+              !isValidString(turnstileToken)
+            }
+            isPosting={isPosting}
+            type="submit"
+          />
+        </div>
       </div>
     </form>
   )

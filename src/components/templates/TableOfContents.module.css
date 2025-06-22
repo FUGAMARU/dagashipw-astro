@@ -6,7 +6,7 @@
   position: relative;
   padding: var(--table-of-contents-section-top-height) 12px 10px;
   overflow: hidden;
-  line-height: 1.2;
+  line-height: 1.3;
   background: linear-gradient(
     to bottom,
     var(--color-gradient-silver-start) 0%,

@@ -100,13 +100,10 @@ export const CodeBlock = ({ languageInfo, animationInfo, code }: Props) => {
           </span>
         </div>
 
-        <button onClick={handleCopyButtonClick} type="button">
+        <button className={styles.copy} onClick={handleCopyButtonClick} type="button">
           <SvgLoader
             ref={copyIconRef}
-            className={clsx(
-              styles.topRightIcon,
-              copyButtonIconName === "checkCircle" && styles.Check
-            )}
+            className={clsx(styles.icon, copyButtonIconName === "checkCircle" && styles.Check)}
             name={copyButtonIconName}
           />
         </button>

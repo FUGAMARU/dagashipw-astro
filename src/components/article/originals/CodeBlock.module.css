@@ -10,8 +10,8 @@
   -moz-osx-font-smoothing: grayscale;
 
   > .header {
+    position: relative;
     display: flex;
-    align-items: flex-end;
     justify-content: space-between;
     padding-right: 12px;
 
@@ -41,15 +41,21 @@
         }
       }
     }
-  }
-}
 
-.topRightIcon {
-  width: 16px;
-  height: 16px;
+    > .copy {
+      position: absolute;
+      top: 4px;
+      right: 8px;
 
-  &.Check {
-    fill: var(--color-white);
+      > .icon {
+        width: 16px;
+        height: 16px;
+
+        &.Check {
+          fill: var(--color-white);
+        }
+      }
+    }
   }
 }
 
@@ -62,6 +68,16 @@
 
         > .text {
           font-size: 14px;
+        }
+      }
+
+      > .copy {
+        top: 6px;
+        right: 12px;
+
+        > .icon {
+          width: 18px;
+          height: 18px;
         }
       }
     }

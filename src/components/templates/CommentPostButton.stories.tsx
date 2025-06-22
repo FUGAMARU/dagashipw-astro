@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof CommentPostButton> = {
   component: CommentPostButton,
   tags: ["autodocs"],
-  args: { isPosting: undefined },
-  argTypes: { isPosting: { control: "boolean" } }
+  args: { shouldShowIconOnly: undefined, isPosting: undefined },
+  argTypes: { shouldShowIconOnly: { control: "boolean" }, isPosting: { control: "boolean" } }
 }
 
 export default meta
