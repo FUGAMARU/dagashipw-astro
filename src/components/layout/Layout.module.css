@@ -6,14 +6,20 @@
   }
 }
 
+.footerContainer {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+}
+
 @media (--pc) {
   .layoutContainer {
-    --padding-vertical: 48px;
+    --padding-base: 48px;
 
     display: flex;
     gap: 48px;
     max-width: 1350px;
-    padding: var(--padding-vertical) calc(var(--padding-vertical) / 2);
+    padding: var(--padding-base) calc(var(--padding-base) / 2) 0;
     margin: 0 auto;
 
     > .main {
@@ -22,12 +28,16 @@
 
     > .sidebar {
       position: sticky;
-      top: var(--padding-vertical);
+      top: var(--padding-base);
       flex: 2.8;
       min-width: 330px;
-      max-height: calc(100vh - var(--padding-vertical) * 2);
+      max-height: calc(100vh - var(--padding-base) * 2);
       margin-top: 0;
     }
+  }
+
+  .footerContainer {
+    padding: 48px 0;
   }
 
   .backgroundPattern {

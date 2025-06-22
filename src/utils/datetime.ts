@@ -11,7 +11,7 @@
  */
 export const formatDateToString = (
   date: Date,
-  format: "yyyy/MM/dd" | "yyyy/MM/dd HH:mm:ss"
+  format: "yyyy/MM/dd" | "yyyy/MM/dd HH:mm:ss" | "yyyy"
 ): string => {
   const year = date.getFullYear()
   const month = `0${date.getMonth() + 1}`.slice(-2)
@@ -25,6 +25,8 @@ export const formatDateToString = (
       return `${year}/${month}/${day}`
     case "yyyy/MM/dd HH:mm:ss":
       return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`
+    case "yyyy":
+      return `${year}`
   }
 }
 

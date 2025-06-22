@@ -1,0 +1,17 @@
+.footerComponent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  > .logo {
+    width: 193.232px;
+    height: 39px;
+  }
+
+  > .copyright {
+    padding-left: 8px;
+    font-family: Gabarito, sans-serif;
+    font-size: 12px;
+    color: var(--color-text-gray);
+  }
+}

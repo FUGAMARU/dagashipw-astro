@@ -3,6 +3,7 @@ import "@/styles/global.css"
 
 import { SEO } from "astro-seo"
 
+import { Footer } from "@/components/layout/Footer"
 import { createArticleSchema, createDefaultSchema } from "@/components/layout/Layout.helpers"
 import styles from "@/components/layout/Layout.module.css"
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
@@ -117,6 +118,11 @@ const schema = isDefined(articleInfo) ? createArticleSchema(
         <Sidebar />
       </aside>
     </div>
+
+    <footer class={styles.footerContainer}>
+      {/* 年の部分を最新化したいのでCSRもさせる */}
+      <Footer client:idle />
+    </footer>
 
     <ResponsiveContainer isPC>
       <div class={styles.backgroundPattern}>
