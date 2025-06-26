@@ -1,7 +1,7 @@
 import { getRelatedArticles } from "@/components/views/SameTagArticleView.helpers"
-import { getArticle, getArticleTagsForAllArticles } from "@/services/api"
+import { getArticlesBatch, getArticleTagsForAllArticles } from "@/services/api"
 import { isDefined } from "@/utils"
-import { transformDataToArticleInfo } from "@/utils/transformer"
+import { transformDataToArticleInfoBatch } from "@/utils/transformer"
 
 import type { APIRoute } from "astro"
 
@@ -24,13 +24,8 @@ export const GET: APIRoute = async ({ params }) => {
 
   const articleTagsForAllArticles = await getArticleTagsForAllArticles()
   const relatedArticleUrlIdList = getRelatedArticles(articleTagsForAllArticles, articleUrlId)
-  const relatedArticles = (
-    await Promise.all(relatedArticleUrlIdList.map(articleUrlId => getArticle(articleUrlId)))
-  ).filter(isDefined)
-
-  const relatedArticleInfoList = await Promise.all(
-    relatedArticles.map(article => transformDataToArticleInfo(article, "smaller"))
-  )
+  const relatedArticles = await getArticlesBatch(relatedArticleUrlIdList)
+  const relatedArticleInfoList = await transformDataToArticleInfoBatch(relatedArticles, "smaller")
 
   return new Response(JSON.stringify(relatedArticleInfoList), {
     status: 200

@@ -3,12 +3,10 @@ import { CommonViewContainer } from "@/components/parts/CommonViewContainer"
 import { ArticleCardMiniList } from "@/components/templates/list/ArticleCardMiniList"
 import { getRecentArticles } from "@/services/api"
 import { isValidArray } from "@/utils"
-import { transformDataToArticleInfo } from "@/utils/transformer"
+import { transformDataToArticleInfoBatch } from "@/utils/transformer"
 
 const recentArticles = await getRecentArticles()
-const recentArticleInfoList = await Promise.all(
-  recentArticles.map(article => transformDataToArticleInfo(article, "smaller"))
-)
+const recentArticleInfoList = await transformDataToArticleInfoBatch(recentArticles, "smaller")
 ---
 
 <CommonViewContainer

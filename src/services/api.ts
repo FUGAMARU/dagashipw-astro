@@ -4,7 +4,7 @@
 
 import { ARTICLES_PER_PAGE, MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT } from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
-import { isDefined, isValidString } from "@/utils"
+import { isDefined, isValidArray } from "@/utils"
 
 import type {
   Article,
@@ -282,62 +282,82 @@ export const searchArticlesByTagWithPagination = async (
 }
 
 /**
- * 指定されたフィルタ条件に一致する記事の総数を取得するヘルパー関数
- * (この関数は前回のものから変更ありません)
+ * 複数の記事を一括で取得する
  *
- * @param filters - フィルタ条件のクエリ文字列
- * @returns 一致する記事の総数
+ * @param articleUrlIdList - 記事のURL ID一覧
+ * @returns 記事データ一覧
  */
-const countArticles = async (filters: string): Promise<number> => {
-  const response = await axiosInstance.get<PaginatedResponse<never>>(
-    `/articles?${filters}&pagination[pageSize]=1&pagination[withCount]=true`
+export const getArticlesBatch = async (
+  articleUrlIdList: Array<string>
+): Promise<Array<Article>> => {
+  if (!isValidArray(articleUrlIdList)) {
+    return []
+  }
+
+  // StrapiのORフィルターを使用して一括取得
+  const orFilters = articleUrlIdList
+    .map((id, index) => `filters[$or][${index}][articleUrlId][$eq]=${id}`)
+    .join("&")
+
+  const response = await axiosInstance.get<ArticlesPathResponse>(
+    `/articles?${orFilters}&populate=*`
   )
-  return response.data.meta?.pagination?.total ?? 0
+
+  return response.data.data ?? []
 }
 
 /**
- * 記事のバックナンバーを取得する
+ * 複数記事のバックナンバーを一括で取得する
  *
- * @param articleUrlId - 記事のURL ID
- * @returns バックナンバー
+ * @param articleUrlIdList - 記事のURL ID一覧
+ * @returns 記事URLとバックナンバーのマップ
  */
-export const getArticleBackNumber = async (articleUrlId: string): Promise<number> => {
-  const articleResponse = await axiosInstance.get<PaginatedResponse<Article>>(
-    `/articles?filters[articleUrlId][$eq]=${articleUrlId}&fields[0]=forceCreatedAt&fields[1]=createdAt`
-  )
-
-  const targetArticle = articleResponse.data.data?.[0]
-
-  if (!isDefined(targetArticle)) {
-    throw new Error("指定された記事が存在しません")
+export const getArticleBackNumbersBatch = async (
+  articleUrlIdList: Array<string>
+): Promise<Map<string, number>> => {
+  if (!isValidArray(articleUrlIdList)) {
+    return new Map()
   }
 
-  const targetDate = targetArticle.forceCreatedAt
-  const targetCreatedAt = targetArticle.createdAt
+  try {
+    const allArticles = await fetchAllPaginated<
+      FieldPickedArticlePathResponse<"articleUrlId" | "forceCreatedAt" | "createdAt">
+    >("/articles?fields[0]=articleUrlId&fields[1]=forceCreatedAt&fields[2]=createdAt")
 
-  if (isValidString(targetDate)) {
-    const olderArticlesCountPromise = countArticles(`filters[forceCreatedAt][$lt]=${targetDate}`)
-    const sameDateOlderCreatedAtArticlesCountPromise = countArticles(
-      `filters[forceCreatedAt][$eq]=${targetDate}&filters[createdAt][$lt]=${targetCreatedAt}`
+    const sortedArticles = allArticles
+      .map(article => ({
+        articleUrlId: article.articleUrlId,
+        sortDate: article.forceCreatedAt ?? article.createdAt ?? "1970-01-01",
+        createdAt: article.createdAt ?? "1970-01-01T00:00:00.000Z"
+      }))
+      .sort((a, b) => {
+        const dateComparison = a.sortDate.localeCompare(b.sortDate)
+        if (dateComparison !== 0) {
+          return dateComparison
+        }
+
+        return a.createdAt.localeCompare(b.createdAt)
+      })
+
+    const backNumbers = new Map<string, number>()
+
+    sortedArticles.forEach((article, index) => {
+      if (articleUrlIdList.includes(article.articleUrlId)) {
+        backNumbers.set(article.articleUrlId, index)
+      }
+    })
+
+    return backNumbers
+  } catch (error) {
+    console.warn(
+      "バックナンバーの一括計算に失敗しました。シンプルなインデックス方式にフォールバックします:",
+      error
     )
 
-    const [olderArticlesCount, sameDateOlderCreatedAtArticlesCount] = await Promise.all([
-      olderArticlesCountPromise,
-      sameDateOlderCreatedAtArticlesCountPromise
-    ])
-
-    return olderArticlesCount + sameDateOlderCreatedAtArticlesCount // 開発用の記事が存在するので+1しない
+    const backNumbers = new Map<string, number>()
+    articleUrlIdList.forEach((articleUrlId, index) => {
+      backNumbers.set(articleUrlId, index + 1)
+    })
+    return backNumbers
   }
-
-  const notNullCountPromise = countArticles(`filters[forceCreatedAt][$notNull]=true`)
-  const nullAndOlderCreatedAtCountPromise = countArticles(
-    `filters[forceCreatedAt][$null]=true&filters[createdAt][$lt]=${targetCreatedAt}`
-  )
-
-  const [notNullCount, nullAndOlderCreatedAtCount] = await Promise.all([
-    notNullCountPromise,
-    nullAndOlderCreatedAtCountPromise
-  ])
-
-  return notNullCount + nullAndOlderCreatedAtCount // 開発用の記事が存在するので+1しない
 }

@@ -3,13 +3,11 @@ import Layout from "@/components/layout/Layout.astro"
 import ArticleListView from "@/components/views/ArticleListView.astro"
 import { PAGE_NAME } from "@/constants/page"
 import { getArticlesWithPagination, getTotalArticlePageCount } from "@/services/api"
-import { transformDataToArticleInfo } from "@/utils/transformer"
+import { transformDataToArticleInfoBatch } from "@/utils/transformer"
 
 const totalArticlePageCount = await getTotalArticlePageCount()
 const articles = await getArticlesWithPagination(1)
-const articleInfoList = await Promise.all(
-  articles.map(article => transformDataToArticleInfo(article, "smaller"))
-)
+const articleInfoList = await transformDataToArticleInfoBatch(articles, "smaller")
 ---
 
 <Layout title={PAGE_NAME.TOP}>

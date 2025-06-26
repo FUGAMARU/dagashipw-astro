@@ -10,7 +10,7 @@ import {
 } from "@/services/api"
 import { isValidString } from "@/utils"
 import { replaceTextInSquareBracket } from "@/utils/formatter"
-import { transformDataToArticleInfo } from "@/utils/transformer"
+import { transformDataToArticleInfoBatch } from "@/utils/transformer"
 
 export const prerender = false
 
@@ -31,9 +31,7 @@ const totalPageCount = await getTotalArticlePageCountByKeyword(targetKeyword) //
 const articles = isValidString(keyword)
   ? await searchArticlesByKeywordWithPagination(targetKeyword, pageNumber)
   : await searchArticlesByTagWithPagination(targetKeyword, pageNumber)
-const articleInfoList = await Promise.all(
-  articles.map(article => transformDataToArticleInfo(article, "smaller"))
-)
+const articleInfoList = await transformDataToArticleInfoBatch(articles, "smaller")
 ---
 
 <Layout title={pageTitle}>

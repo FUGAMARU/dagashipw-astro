@@ -6,7 +6,7 @@ import { orderBy, pick } from "es-toolkit"
 
 import { API_ORIGIN } from "@/constants/env"
 import { FALLBACK_COMMENT_USER_NAME, FALLBACK_THEME_COLOR } from "@/constants/value"
-import { getArticleBackNumber } from "@/services/api"
+import { getArticleBackNumbersBatch } from "@/services/api"
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
@@ -16,6 +16,66 @@ import { extractBeginningParagraph } from "@/utils/markdown"
 import type { Article, Comment } from "@/types/api"
 import type { ImageSizeType } from "@/types/image"
 import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/models"
+
+/**
+ * 複数のCMSから取得した記事情報をフロントエンドで利用する形式に一括変換する
+ *
+ * @param articles - 記事情報の配列
+ * @param imageSizeType - 画像のサイズタイプ
+ * @returns 整形された記事情報の配列
+ */
+export const transformDataToArticleInfoBatch = async (
+  articles: Array<Article>,
+  imageSizeType: ImageSizeType
+): Promise<Array<ArticleInfo>> => {
+  if (articles.length === 0) {
+    return []
+  }
+
+  const articleUrlIds = articles.map(article => article.articleUrlId)
+
+  const backNumbersMap = await getArticleBackNumbersBatch(articleUrlIds)
+
+  const transformPromises = articles.map(async article => {
+    const backNumber = backNumbersMap.get(article.articleUrlId) ?? 0
+    const lightweightThumbnailUrl = await generateImageSources(
+      `${API_ORIGIN}${article.thumbnail.url}`,
+      imageSizeType
+    )
+
+    const baseData = {
+      articleUrlId: article.articleUrlId,
+      backNumber,
+      title: article.title,
+      thumbnail: lightweightThumbnailUrl,
+      themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
+      tags: (article.tags as Array<string>) ?? [],
+      bodyBeginningParagraph: extractBeginningParagraph(article.body)
+    } as const satisfies Partial<ArticleInfo>
+
+    // 記事作成日はforceCreatedAtが指定されていればその値を優先して使用する
+    const createdAtData = article.forceCreatedAt ?? article.createdAt
+
+    if (!isDefined(createdAtData)) {
+      throw new Error("記事作成日のデーターが存在しません")
+    }
+
+    const createdAt = formatDateToString(new Date(createdAtData), "yyyy/MM/dd")
+
+    // 記事更新日はforceUpdatedAtだけを使用する
+    const updatedAt = article.forceUpdatedAt
+
+    return {
+      ...baseData,
+      createdAt,
+      updatedAt: isDefined(updatedAt)
+        ? formatDateToString(new Date(updatedAt), "yyyy/MM/dd")
+        : undefined
+    }
+  })
+
+  return Promise.all(transformPromises)
+}
 
 /**
  * CMSから取得した記事情報をフロントエンドで利用する形式に変換する
@@ -28,40 +88,8 @@ export const transformDataToArticleInfo = async (
   article: Article,
   imageSizeType: ImageSizeType
 ): Promise<ArticleInfo> => {
-  const [backNumber, lightweightThumbnailUrl] = await Promise.all([
-    getArticleBackNumber(article.articleUrlId),
-    generateImageSources(`${API_ORIGIN}${article.thumbnail.url}`, imageSizeType)
-  ])
-
-  const baseData = {
-    articleUrlId: article.articleUrlId,
-    backNumber,
-    title: article.title,
-    thumbnail: lightweightThumbnailUrl,
-    themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
-    tags: (article.tags as Array<string>) ?? [],
-    bodyBeginningParagraph: extractBeginningParagraph(article.body)
-  } as const satisfies Partial<ArticleInfo>
-
-  // 記事作成日はforceCreatedAtが指定されていればその値を優先して使用する
-  const createdAtData = article.forceCreatedAt ?? article.createdAt
-
-  if (!isDefined(createdAtData)) {
-    throw new Error("記事作成日のデーターが存在しません")
-  }
-
-  const createdAt = formatDateToString(new Date(createdAtData), "yyyy/MM/dd")
-
-  // 記事更新日はforceUpdatedAtだけを使用する
-  const updatedAt = article.forceUpdatedAt
-
-  return {
-    ...baseData,
-    createdAt,
-    updatedAt: isDefined(updatedAt)
-      ? formatDateToString(new Date(updatedAt), "yyyy/MM/dd")
-      : undefined
-  }
+  const results = await transformDataToArticleInfoBatch([article], imageSizeType)
+  return results[0]
 }
 
 /**
