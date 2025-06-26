@@ -1,5 +1,6 @@
 import styles from "@/components/article/originals/image/ImageTextRow.module.css"
 import { Image } from "@/components/parts/common/Image"
+import { generateImageSources } from "@/utils/image"
 
 /** Props */
 type Props = {
@@ -12,10 +13,12 @@ type Props = {
 }
 
 /** 画像をテキストを横並びに表示するコンポーネント (SP表示では縦表示) */
-export const ImageTextRow = ({ imageUrl, imageHeight, text }: Props) => {
+export const ImageTextRow = async ({ imageUrl, imageHeight, text }: Props) => {
+  const imageSources = await generateImageSources(imageUrl, "normal")
+
   return (
     <div className={styles.imageTextRow}>
-      <Image figureTagClassName={styles.image} height={imageHeight} src={imageUrl} />
+      <Image figureTagClassName={styles.image} height={imageHeight} sources={imageSources} />
       <p className={styles.text}>{text}</p>
     </div>
   )

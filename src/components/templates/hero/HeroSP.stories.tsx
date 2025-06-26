@@ -23,6 +23,11 @@ export const Primary: Story = {
     tags: ["アニメ", "旅行", "ライフスタイル", "はがない"],
     backNumber: 1,
     themeColor: "#f1c333",
-    thumbnailUrl: "/dummy-images/nagara-park.jpg"
+    thumbnail: {
+      pc1x: "/dummy-images/nagara-park.jpg",
+      pc2x: "/dummy-images/nagara-park.jpg",
+      sp1x: "/dummy-images/nagara-park.jpg",
+      sp2x: "/dummy-images/nagara-park.jpg"
+    }
   }
 }

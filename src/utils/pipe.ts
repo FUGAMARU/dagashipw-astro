@@ -1,105 +1,102 @@
 /* eslint-disable jsdoc/require-jsdoc */
 /**
- * @file パイプライン演算子風記法をTypeScriptで実現するための関数群 (Gemini生成)
+ * @file パイプライン演算子風記法をTypeScriptで実現するための関数群（Claude生成）
  */
-
-// asyncPipeline.ts (または任意のユーティリティファイル)
 
 /**
- * 非同期パイプラインのインターフェース。
- *
- * @template T 現在のパイプラインが扱う値の型。
+ * 非同期パイプラインクラス
  */
-export interface IAsyncPipeline<T> {
-  /**
-   * パイプラインに新しい処理ステップを追加します。
-   *
-   * @template U 次のステップで扱われる値の型。
-   * @param fn - 現在の値 T を受け取り、新しい値 U または Promise<U> を返す関数。
-   * @returns 次のステップの値を扱う新しい IAsyncPipeline<U> インスタンス。
-   */
-  pipe<U>(fn: (value: T) => U | Promise<U>): IAsyncPipeline<U>
+class AsyncPipeline<T> {
+  constructor(private promise: Promise<T>) {}
 
   /**
-   * パイプラインの全ての処理を実行し、最終結果を含むPromiseを取得します。
+   * パイプラインに新しい処理ステップを追加
    *
-   * @returns パイプラインの最終結果を含む Promise<T>。
+   * @param fn - 現在の値を受け取り、新しい値を返す関数
+   * @returns 新しいパイプラインインスタンス
    */
-  value(): Promise<T>
+  pipe<U>(fn: (value: T) => U | Promise<U>): AsyncPipeline<U> {
+    return new AsyncPipeline(this.promise.then(fn))
+  }
 
   /**
-   * (オプション) パイプラインの現在の値を変更せずに副作用を実行します（デバッグやロギング用）。
+   * パイプラインの最終結果を取得
    *
-   * @param fn - 現在の値 T を受け取り、何か処理を行う関数（戻り値は無視されます）。
-   * @returns 現在の値を扱う同じ IAsyncPipeline<T> インスタンス。
+   * @returns パイプラインの最終結果を含むPromise
    */
-  tap(fn: (value: T) => void | Promise<void>): IAsyncPipeline<T>
-}
+  value(): Promise<T> {
+    return this.promise
+  }
 
-/**
- * 非同期パイプラインを開始します。
- *
- * @template T 初期値の型。
- * @param initialValueOrPromise - パイプラインの初期値、または初期値を含むPromise。
- * @returns IAsyncPipeline<T> インスタンス。
- */
-export const startAsyncPipe = <T>(initialValueOrPromise: T | Promise<T>): IAsyncPipeline<T> => {
-  // 内部では常にPromiseとして値を扱います。
-  let currentPromise: Promise<T> = Promise.resolve(initialValueOrPromise)
-
-  return {
-    pipe<U>(fn: (value: T) => U | Promise<U>): IAsyncPipeline<U> {
-      // fnを現在のPromiseにチェインし、その結果で新しいパイプラインを開始します。
-      // Promise.then はネストされたPromiseを自動的に解決するため、
-      // fn が U を返しても Promise<U> を返しても、nextPromise は Promise<U> (解決後の型) になります。
-      const nextPromise: Promise<U> = currentPromise.then(fn)
-      return startAsyncPipe(nextPromise) // 新しい型Uのパイプラインを返す
-    },
-
-    value(): Promise<T> {
-      return currentPromise
-    },
-
-    tap(fn: (value: T) => void | Promise<void>): IAsyncPipeline<T> {
-      currentPromise = currentPromise.then(async value => {
-        await Promise.resolve(fn(value)) // 副作用を実行 (結果は無視)
-        return value // 元の値を次のステップに渡す
+  /**
+   * デバッグ用の副作用実行
+   *
+   * @param fn - 副作用を実行する関数
+   * @returns 現在のパイプラインインスタンス
+   */
+  tap(fn: (value: T) => void | Promise<void>): AsyncPipeline<T> {
+    return new AsyncPipeline(
+      this.promise.then(async value => {
+        await Promise.resolve(fn(value))
+        return value
       })
-      return this // 同じパイプラインインスタンスを返す (型はTのまま)
-    }
+    )
   }
 }
 
 /**
- * 同期パイプラインのインターフェース。
- *
- * @template T 現在のパイプラインが扱う値の型。
+ * 同期パイプラインクラス
  */
-export interface ISyncPipeline<T> {
-  pipe<U>(fn: (value: T) => U): ISyncPipeline<U>
-  value(): T
-  tap(fn: (value: T) => void): ISyncPipeline<T>
+class SyncPipeline<T> {
+  constructor(private currentValue: T) {}
+
+  /**
+   * パイプラインに新しい処理ステップを追加
+   *
+   * @param fn - 現在の値を受け取り、新しい値を返す関数
+   * @returns 新しいパイプラインインスタンス
+   */
+  pipe<U>(fn: (value: T) => U): SyncPipeline<U> {
+    return new SyncPipeline(fn(this.currentValue))
+  }
+
+  /**
+   * パイプラインの最終結果を取得
+   *
+   * @returns パイプラインの最終結果
+   */
+  value(): T {
+    return this.currentValue
+  }
+
+  /**
+   * デバッグ用の副作用実行
+   *
+   * @param fn - 副作用を実行する関数
+   * @returns 現在のパイプラインインスタンス
+   */
+  tap(fn: (value: T) => void): SyncPipeline<T> {
+    fn(this.currentValue)
+    return this
+  }
 }
 
 /**
- * 同期パイプラインを開始します。
+ * 非同期パイプラインを開始
  *
- * @template T 初期値の型。
- * @param initialValue - パイプラインの初期値。
- * @returns ISyncPipeline<T> インスタンス。
+ * @param initialValue - パイプラインの初期値
+ * @returns 非同期パイプラインインスタンス
  */
-export const startSyncPipe = <T>(initialValue: T): ISyncPipeline<T> => {
-  const currentValue = initialValue
-  return {
-    pipe<U>(fn: (value: T) => U): ISyncPipeline<U> {
-      return startSyncPipe(fn(currentValue))
-    },
-    value(): T {
-      return currentValue
-    },
-    tap(fn: (value: T) => void): ISyncPipeline<T> {
-      fn(currentValue)
-      return this
-    }
-  }
+export const startAsyncPipe = <T>(initialValue: T | Promise<T>): AsyncPipeline<T> => {
+  return new AsyncPipeline(Promise.resolve(initialValue))
+}
+
+/**
+ * 同期パイプラインを開始
+ *
+ * @param initialValue - パイプラインの初期値
+ * @returns 同期パイプラインインスタンス
+ */
+export const startSyncPipe = <T>(initialValue: T): SyncPipeline<T> => {
+  return new SyncPipeline(initialValue)
 }

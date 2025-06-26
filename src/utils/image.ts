@@ -10,6 +10,8 @@ import {
   IMGPROXY_SIGNING_SALT
 } from "@/constants/env"
 
+import type { ImageSizeType, ImageSources, ImgproxyPresets } from "@/types/image"
+
 /**
  * HexをBufferにデコードする
  *
@@ -19,21 +21,25 @@ import {
 const decodeHexToBuffer = (hex: string): Uint8Array => new Uint8Array(Buffer.from(hex, "hex"))
 
 /**
- * CMSのオリジナル画像URLから軽量化された画像URLを取得する
+ * imgproxyの署名付きURLを生成する
  *
- * @param originalImageUrl - オリジナル画像のURL
- * @returns 軽量化された画像のURL
+ * @param absoluteImageUrl - オリジナル画像の絶対URL
+ * @param preset - imgproxyの設定で定義したプリセット名
+ * @returns 署名付きimgproxy URL
  */
-export const getLightweightImageUrl = async (originalImageUrl: string): Promise<string> => {
-  const nodeCrypto = await import("node:crypto") // ビルド時に「"createHmac" is not exported by "__vite-browser-external"」エラーが出るのを防ぐためにここで動的インポート
+const getSignedImgproxyUrl = async (
+  absoluteImageUrl: string,
+  preset: ImgproxyPresets
+): Promise<string> => {
+  const nodeCrypto = await import("node:crypto")
 
   // CMSで管理していないリモート画像や既に軽量化されているwebpの場合はそのまま返す
-  if (!originalImageUrl.startsWith(API_ORIGIN) || originalImageUrl.endsWith(".webp")) {
-    return originalImageUrl
+  if (!absoluteImageUrl.startsWith(API_ORIGIN) || absoluteImageUrl.endsWith(".webp")) {
+    return absoluteImageUrl
   }
 
-  const filename = originalImageUrl.replace(`${API_ORIGIN}${CMS_STATIC_CONTENTS_DIRECTORY}/`, "")
-  const path = `/default/plain/local:///${filename}`
+  const filename = absoluteImageUrl.replace(`${API_ORIGIN}${CMS_STATIC_CONTENTS_DIRECTORY}/`, "")
+  const path = `/${preset}/plain/local:///${filename}`
 
   const hmac = nodeCrypto.createHmac("sha256", decodeHexToBuffer(IMGPROXY_SIGNING_KEY))
   hmac.update(decodeHexToBuffer(IMGPROXY_SIGNING_SALT))
@@ -41,4 +47,37 @@ export const getLightweightImageUrl = async (originalImageUrl: string): Promise<
   const signature = hmac.digest("base64url")
 
   return `${IMGPROXY_ORIGIN}/${signature}${path}`
+}
+
+/**
+ * レスポンシブ対応用に画像のURLセットを生成する
+ *
+ * @param originalUrl - オリジナル画像のURL
+ * @param imageSizeType - 画像のサイズ種別
+ * @returns レスポンシブ対応用のURLセット
+ */
+export const generateImageSources = async (
+  originalUrl: string,
+  imageSizeType: ImageSizeType
+): Promise<ImageSources> => {
+  const presets: Array<{
+    /** プリセット名に対応するキー */
+    key: keyof ImageSources
+    /** プリセット名 */
+    name: ImgproxyPresets
+  }> = [
+    { key: "pc1x", name: `${imageSizeType}-pc` },
+    { key: "pc2x", name: `${imageSizeType}-pc-2x` },
+    { key: "sp1x", name: `${imageSizeType}-sp` },
+    { key: "sp2x", name: `${imageSizeType}-sp-2x` }
+  ]
+
+  const urlEntries = await Promise.all(
+    presets.map(async ({ key, name }) => {
+      const url = await getSignedImgproxyUrl(originalUrl, name)
+      return [key, url]
+    })
+  )
+
+  return Object.fromEntries(urlEntries)
 }

@@ -6,7 +6,9 @@ import { isValidArray } from "@/utils"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
 const recentArticles = await getRecentArticles()
-const recentArticleInfoList = await Promise.all(recentArticles.map(transformDataToArticleInfo))
+const recentArticleInfoList = await Promise.all(
+  recentArticles.map(article => transformDataToArticleInfo(article, "smaller"))
+)
 ---
 
 <CommonViewContainer

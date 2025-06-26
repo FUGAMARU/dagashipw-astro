@@ -12,7 +12,7 @@ type Props = HeroProps
 /** PC版Heroコンポーネント */
 export const HeroPC = ({
   articleUrlId,
-  thumbnailUrl,
+  thumbnail,
   backNumber,
   title,
   createdAt,
@@ -29,7 +29,7 @@ export const HeroPC = ({
           isEager
           isObjectFitCover
           isWide
-          src={thumbnailUrl}
+          sources={thumbnail}
         />
       </div>
 

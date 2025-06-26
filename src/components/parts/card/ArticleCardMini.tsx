@@ -20,7 +20,7 @@ type FallbackProps = {
 /** 通常表示時のProps */
 type NormalProps = Pick<
   ArticleInfo,
-  "articleUrlId" | "createdAt" | "updatedAt" | "thumbnailUrl" | "themeColor" | "title"
+  "articleUrlId" | "createdAt" | "updatedAt" | "thumbnail" | "themeColor" | "title"
 > & {
   /** フォールバック表示するかどうか */
   isFallback?: false
@@ -57,7 +57,7 @@ export const ArticleCardMini = (props: Props) => {
     )
   }
 
-  const { themeColor, createdAt, updatedAt, articleUrlId, thumbnailUrl, title } = props
+  const { themeColor, createdAt, updatedAt, articleUrlId, thumbnail, title } = props
 
   const isElapsedLabelColorWhite = determineWhiteTextColor(themeColor)
   const elapsedTimeString = getElapsedTimeString(
@@ -73,7 +73,7 @@ export const ArticleCardMini = (props: Props) => {
           cssWidth="full"
           figureTagClassName={styles.figure}
           isObjectFitCover
-          src={thumbnailUrl}
+          sources={thumbnail}
         />
       </div>
 

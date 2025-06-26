@@ -7,7 +7,9 @@ import { transformDataToArticleInfo } from "@/utils/transformer"
 
 const totalArticlePageCount = await getTotalArticlePageCount()
 const articles = await getArticlesWithPagination(1)
-const articleInfoList = await Promise.all(articles.map(transformDataToArticleInfo))
+const articleInfoList = await Promise.all(
+  articles.map(article => transformDataToArticleInfo(article, "smaller"))
+)
 ---
 
 <Layout title={PAGE_NAME.TOP}>

@@ -29,7 +29,7 @@ export const GET: APIRoute = async ({ params }) => {
   ).filter(isDefined)
 
   const relatedArticleInfoList = await Promise.all(
-    relatedArticles.map(article => transformDataToArticleInfo(article))
+    relatedArticles.map(article => transformDataToArticleInfo(article, "smaller"))
   )
 
   return new Response(JSON.stringify(relatedArticleInfoList), {

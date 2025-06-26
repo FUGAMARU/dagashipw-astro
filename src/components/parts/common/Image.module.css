@@ -1,4 +1,4 @@
-.imageTag {
+.imageComponent {
   &.AlignStart {
     text-align: start;
   }
@@ -10,51 +10,51 @@
   &.AlignEnd {
     text-align: end;
   }
+}
 
-  > .image {
-    max-width: 100%;
+.imgTag {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+
+  &.Covered {
+    object-fit: cover;
+  }
+
+  &.Circle {
+    border-radius: 50%;
+  }
+
+  &.WidthFull {
+    width: 100%;
+  }
+
+  &.WidthAuto {
+    width: auto;
+  }
+
+  &.HeightFull {
+    height: 100%;
+  }
+
+  &.HeightAuto {
+    height: auto;
+  }
+
+  &.MaxHeight100 {
     max-height: 100%;
-    object-fit: contain;
-    border-radius: 4px;
+  }
 
-    &.Covered {
-      object-fit: cover;
-    }
+  &.Wide {
+    aspect-ratio: 16 / 9;
+  }
 
-    &.Circle {
-      border-radius: 50%;
-    }
+  &.BorderRadius16 {
+    border-radius: 16px;
+  }
 
-    &.WidthFull {
-      width: 100%;
-    }
-
-    &.WidthAuto {
-      width: auto;
-    }
-
-    &.HeightFull {
-      height: 100%;
-    }
-
-    &.HeightAuto {
-      height: auto;
-    }
-
-    &.MaxHeight100 {
-      max-height: 100%;
-    }
-
-    &.Wide {
-      aspect-ratio: 16 / 9;
-    }
-
-    &.BorderRadius16 {
-      border-radius: 16px;
-    }
-
-    &.BorderRadius0 {
-      border-radius: 0;
-    }
+  &.BorderRadius0 {
+    border-radius: 0;
   }
 }

@@ -2,15 +2,9 @@
  * @file Markdown関連の関数群
  */
 
-import { API_ORIGIN } from "@/constants/env"
-import {
-  CMS_IMAGE_DIRECTORY,
-  EXTRACTED_PARAGRAPHS_LENGTH,
-  MARKDOWN_IMAGE_EXTENSIONS
-} from "@/constants/value"
+import { EXTRACTED_PARAGRAPHS_LENGTH } from "@/constants/value"
 import { isDefined } from "@/utils"
 import { generateUniqueHeadingId } from "@/utils/formatter"
-import { getLightweightImageUrl } from "@/utils/image"
 
 import type {
   TableOfContentsData,
@@ -149,25 +143,4 @@ export const convertMarkdownHeadingsToHtml = (markdown: string): string => {
   })
 
   return processedLines.join("\n")
-}
-
-/**
- * Markdown中の画像URLを軽量化された画像URLに置き換える
- *
- * @param markdown - Markdown文字列
- * @returns 軽量化された画像URLに置き換えられたMarkdown文字列
- */
-export const convertMarkdownImageUrlToLightweightImageUrl = async (
-  markdown: string
-): Promise<string> => {
-  const originEscaped = API_ORIGIN.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")
-  const pattern =
-    originEscaped +
-    `/${CMS_IMAGE_DIRECTORY}/[A-Za-z0-9._~:/?#\\[\\]@!$&'()*+,;=-]+?\\.(?:${MARKDOWN_IMAGE_EXTENSIONS})`
-  const uploadUrlPattern = new RegExp(pattern, "g")
-
-  const matches = markdown.match(uploadUrlPattern) ?? []
-  const replacements = await Promise.all(matches.map(url => getLightweightImageUrl(url)))
-
-  return matches.reduce((result, url, index) => result.replace(url, replacements[index]), markdown)
 }

@@ -34,11 +34,8 @@ import { insertTableOfContentsToMarkdown } from "@/components/views/ArticleView.
 import styles from "@/components/views/ArticleView.module.css"
 import { isDefined } from "@/utils"
 import { formatDateToString } from "@/utils/datetime"
-import {
-  convertMarkdownHeadingsToHtml,
-  convertMarkdownImageUrlToLightweightImageUrl
-} from "@/utils/markdown"
-import { startAsyncPipe } from "@/utils/pipe"
+import { convertMarkdownHeadingsToHtml } from "@/utils/markdown"
+import { startSyncPipe } from "@/utils/pipe"
 import { transformDataToArticleInfo } from "@/utils/transformer"
 
 import type { Article } from "@/types/api"
@@ -51,13 +48,11 @@ type Props = {
 
 const { article } = Astro.props
 
-const articleInfo = await transformDataToArticleInfo(article)
+const articleInfo = await transformDataToArticleInfo(article, "normal")
 const articleDate = isDefined(articleInfo.updatedAt)
   ? new Date(articleInfo.updatedAt)
   : new Date(articleInfo.createdAt)
-const processedContent = await startAsyncPipe(
-  convertMarkdownImageUrlToLightweightImageUrl(article.body) // 画像URLを軽量画像URLに置き換え
-)
+const processedContent = startSyncPipe(article.body)
   .pipe(insertTableOfContentsToMarkdown) // 目次を挿入
   .pipe(convertMarkdownHeadingsToHtml) // 見出しをコンポーネントに直接変換
   .value()

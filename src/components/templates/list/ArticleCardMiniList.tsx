@@ -10,7 +10,7 @@ type Props = {
   cards?: Array<
     Pick<
       ArticleInfo,
-      "articleUrlId" | "createdAt" | "updatedAt" | "thumbnailUrl" | "themeColor" | "title"
+      "articleUrlId" | "createdAt" | "updatedAt" | "thumbnail" | "themeColor" | "title"
     >
   >
 }

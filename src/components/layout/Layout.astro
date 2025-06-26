@@ -32,7 +32,7 @@ if (!isDefined(Astro.site)) {
 }
 
 const siteUrl = Astro.site.href
-const articleInfo = isArticlePage ? await transformDataToArticleInfo(article) : undefined
+const articleInfo = isArticlePage ? await transformDataToArticleInfo(article, "smaller") : undefined
 const description = isArticlePage
   ? extractBeginningParagraph(article.body)
   : "趣味全開の個人的備忘録"
@@ -41,13 +41,9 @@ const ogImageUrl =
     ? article.thumbnail.url // OGP用なので軽量化画像はあえて使用していない
     : new URL(DEFAULT_OGP_IMAGE_FILENAME, Astro.site).href
 
-const schema = isDefined(articleInfo) ? createArticleSchema(
-  title,
-  description,
-  ogImageUrl,
-  currentUrl,
-  articleInfo,
-) : createDefaultSchema(siteUrl)
+const schema = isDefined(articleInfo)
+  ? createArticleSchema(title, description, ogImageUrl, currentUrl, articleInfo)
+  : createDefaultSchema(siteUrl)
 ---
 
 <html lang="ja">
@@ -96,11 +92,11 @@ const schema = isDefined(articleInfo) ? createArticleSchema(
       }}
     />
 
-    {isDefined(schema) && (
-      <script is:inline type="application/ld+json">
-        {JSON.stringify(schema)}
-      </script>
-    )}
+    {
+      isDefined(schema) && (
+        <script is:inline set:html={JSON.stringify(schema)} type="application/ld+json" />
+      )
+    }
   </head>
   <body>
     <div class={styles.layoutContainer}>

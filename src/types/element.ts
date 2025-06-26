@@ -5,15 +5,15 @@
 import type { BackNumber } from "@/components/parts/BackNumber"
 import type { Tag } from "@/components/parts/Tag"
 import type { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
+import type { ArticleInfo } from "@/types/models"
 import type { ComponentProps } from "react"
 
 /** Heroコンポーネント共通Props */
 export type HeroProps = {
-  /** サムネイル */
-  thumbnailUrl: string
   /** タイトル */
   title: string
   /** タグ一覧 */
   tags: Array<ComponentProps<typeof Tag>["text"]>
-} & ComponentProps<typeof BackNumber> &
+} & Pick<ArticleInfo, "thumbnail"> &
+  ComponentProps<typeof BackNumber> &
   Pick<ComponentProps<typeof ArticleInfoBar>, "articleUrlId" | "createdAt" | "updatedAt">

@@ -3,13 +3,17 @@ import { capitalize } from "es-toolkit"
 
 import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
+import { RESPONSIVE_SP_MAX_WIDTH } from "@/constants/value"
 import { isValidString } from "@/utils"
 
+import type { ImageSources } from "@/types/image"
 import type { ComponentProps } from "react"
 
 /** Props */
-type Props = Omit<ComponentProps<"img">, "className" | "loading"> &
+type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcSet"> &
   Partial<ComponentProps<typeof ImageCaption>> & {
+    /** 画像のURLセット */
+    sources: ImageSources
     /** 画像を即時読み込みするかどうか */
     isEager?: boolean
     /** object-fir: cover指定かどうか */
@@ -36,7 +40,7 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading"> &
 
 /** 画像コンポーネント */
 export const Image = ({
-  src,
+  sources,
   caption,
   isEager = false,
   isObjectFitCover = false,
@@ -54,27 +58,40 @@ export const Image = ({
   return (
     <figure
       className={clsx(
-        styles.imageTag,
+        styles.imageComponent,
         isValidString(align) && styles[`Align${capitalize(align)}`],
         figureTagClassName
       )}
     >
-      <img
-        // TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討
-        className={clsx(
-          styles.image,
-          isObjectFitCover && styles.Covered,
-          isCircle && styles.Circle,
-          isValidString(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
-          isValidString(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
-          isMaxHeight100 && styles.MaxHeight100,
-          isWide && styles.Wide,
-          isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`]
-        )}
-        loading={isEager ? "eager" : "lazy"}
-        src={src}
-        {...props}
-      />
+      <picture>
+        {/* SP表示 */}
+        <source
+          media={`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`}
+          srcSet={`${sources.sp1x} 1x, ${sources.sp2x} 2x`}
+        />
+        {/* PC表示 */}
+        <source
+          media={`(min-width: ${RESPONSIVE_SP_MAX_WIDTH + 1}px)`}
+          srcSet={`${sources.pc1x} 1x, ${sources.pc2x} 2x`}
+        />
+        {/* フォールバック */}
+        <img
+          // TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討
+          className={clsx(
+            styles.imgTag,
+            isObjectFitCover && styles.Covered,
+            isCircle && styles.Circle,
+            isValidString(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
+            isValidString(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
+            isMaxHeight100 && styles.MaxHeight100,
+            isWide && styles.Wide,
+            isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`]
+          )}
+          loading={isEager ? "eager" : "lazy"}
+          src={sources.pc1x}
+          {...props}
+        />
+      </picture>
 
       {isValidString(caption) && !isHeightAdjustedImage && <ImageCaption caption={caption} />}
     </figure>

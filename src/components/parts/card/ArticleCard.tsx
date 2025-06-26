@@ -20,7 +20,7 @@ type Props = {
 /** 記事情報カード */
 export const ArticleCard = ({
   isThumbnailEager = false,
-  thumbnailUrl,
+  thumbnail,
   themeColor,
   articleUrlId,
   createdAt,
@@ -41,7 +41,7 @@ export const ArticleCard = ({
           figureTagClassName={styles.imageFigureTag}
           isEager={isThumbnailEager}
           isObjectFitCover
-          src={thumbnailUrl}
+          sources={thumbnail}
         />
       </div>
       <div className={styles.index}>

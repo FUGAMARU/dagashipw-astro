@@ -1,6 +1,7 @@
 import styles from "@/components/article/originals/image/ImageRow.module.css"
 import { Image } from "@/components/parts/common/Image"
 import { convertCommaSeparatedStringToArray } from "@/utils/formatter"
+import { generateImageSources } from "@/utils/image"
 
 /** Props */
 type Props = {
@@ -11,11 +12,17 @@ type Props = {
 }
 
 /** 画像を横並びに表示するコンポーネント */
-export const ImageRow = ({ images, gap = "16" }: Props) => {
+export const ImageRow = async ({ images, gap = "16" }: Props) => {
+  const imageUrlList = convertCommaSeparatedStringToArray(images)
+
+  const imageSourcesList = await Promise.all(
+    imageUrlList.map(imageUrl => generateImageSources(imageUrl, "normal"))
+  )
+
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
-      {convertCommaSeparatedStringToArray(images).map(imageUrl => (
-        <Image key={imageUrl} alt="" src={imageUrl} />
+      {imageUrlList.map((imageUrl, index) => (
+        <Image key={imageUrl} alt="" sources={imageSourcesList[index]} />
       ))}
     </div>
   )

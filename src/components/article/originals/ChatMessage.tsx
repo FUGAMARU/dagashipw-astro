@@ -5,6 +5,7 @@ import styles from "@/components/article/originals/ChatMessage.module.css"
 import { Image } from "@/components/parts/common/Image"
 import { isDefined } from "@/utils"
 import { unescapeNewlines } from "@/utils/formatter"
+import { generateImageSources } from "@/utils/image"
 
 /** Props */
 type Props = {
@@ -21,7 +22,9 @@ type Props = {
 }
 
 /** 吹き出し付きのチャット風メッセージコンポーネント */
-export const ChatMessage = ({ role, icon, name, text, isFullWidth = "false" }: Props) => {
+export const ChatMessage = async ({ role, icon, name, text, isFullWidth = "false" }: Props) => {
+  const imageSources = await generateImageSources(icon, "smaller")
+
   return (
     <div className={clsx(styles.chatMessage, styles[capitalize(role)])}>
       <Image
@@ -29,7 +32,7 @@ export const ChatMessage = ({ role, icon, name, text, isFullWidth = "false" }: P
         height={40}
         isCircle
         isObjectFitCover
-        src={icon}
+        sources={imageSources}
         width={40}
       />
 

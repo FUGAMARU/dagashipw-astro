@@ -10,29 +10,34 @@ import { getArticleBackNumber } from "@/services/api"
 import { isValidString } from "@/utils"
 import { isDefined } from "@/utils"
 import { convertUTCToJST, formatDateToString } from "@/utils/datetime"
-import { getLightweightImageUrl } from "@/utils/image"
+import { generateImageSources } from "@/utils/image"
 import { extractBeginningParagraph } from "@/utils/markdown"
 
 import type { Article, Comment } from "@/types/api"
+import type { ImageSizeType } from "@/types/image"
 import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/models"
 
 /**
  * CMSから取得した記事情報をフロントエンドで利用する形式に変換する
  *
  * @param article - 記事情報
+ * @param imageSizeType - 画像のサイズタイプ
  * @returns 整形された記事情報
  */
-export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
+export const transformDataToArticleInfo = async (
+  article: Article,
+  imageSizeType: ImageSizeType
+): Promise<ArticleInfo> => {
   const [backNumber, lightweightThumbnailUrl] = await Promise.all([
     getArticleBackNumber(article.articleUrlId),
-    getLightweightImageUrl(`${API_ORIGIN}${article.thumbnail.url}`)
+    generateImageSources(`${API_ORIGIN}${article.thumbnail.url}`, imageSizeType)
   ])
 
   const baseData = {
     articleUrlId: article.articleUrlId,
     backNumber,
     title: article.title,
-    thumbnailUrl: lightweightThumbnailUrl,
+    thumbnail: lightweightThumbnailUrl,
     themeColor: article.themeColor ?? FALLBACK_THEME_COLOR,
     tags: (article.tags as Array<string>) ?? [],
     bodyBeginningParagraph: extractBeginningParagraph(article.body)

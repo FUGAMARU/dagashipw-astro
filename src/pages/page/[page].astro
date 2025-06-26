@@ -25,7 +25,9 @@ if (pageNumber === 1) {
 }
 
 const articles = await getArticlesWithPagination(pageNumber)
-const articleInfoList = await Promise.all(articles.map(transformDataToArticleInfo))
+const articleInfoList = await Promise.all(
+  articles.map(article => transformDataToArticleInfo(article, "smaller"))
+)
 const totalArticlePageCount = await getTotalArticlePageCount() // getStaticPathsでも同じ変数を宣言しているが、getStaticPathsの外に出すとエラーになるのでここで再宣言
 ---
 

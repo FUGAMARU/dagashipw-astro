@@ -12,7 +12,7 @@ type Props = HeroProps
 /** SP版Heroコンポーネント */
 export const HeroSP = ({
   articleUrlId,
-  thumbnailUrl,
+  thumbnail,
   backNumber,
   title,
   createdAt,
@@ -30,7 +30,7 @@ export const HeroSP = ({
           isEager
           isObjectFitCover
           isWide
-          src={thumbnailUrl}
+          sources={thumbnail}
         />
         <div className={styles.overlay} />
         <div className={styles.number}>
