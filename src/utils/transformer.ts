@@ -67,17 +67,6 @@ export const transformDataToArticleInfoBatch = async (
 }
 
 /**
- * CMSから取得した記事情報をフロントエンドで利用する形式に変換する
- *
- * @param article - 記事情報
- * @returns 整形された記事情報
- */
-export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
-  const results = await transformDataToArticleInfoBatch([article])
-  return results[0]
-}
-
-/**
  * CMSから取得したコメントデーターをフロントエンドで利用する形式に変換する
  *
  * @param comments - コメントデーター
