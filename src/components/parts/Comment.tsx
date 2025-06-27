@@ -3,7 +3,7 @@ import { ItemNumber } from "@/components/parts/common/ItemNumber"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { parsePlainTextUrls } from "@/utils/link"
 
-import type { CommentInfo } from "@/types/models"
+import type { CalculatedComment } from "@/types/api"
 
 /** 親コメントのIF */
 type ParentComment = {
@@ -24,7 +24,7 @@ type ChildComment = {
 /** Props */
 type Props = (ParentComment | ChildComment) & {
   /** コメント情報 */
-  commentInfo: Omit<CommentInfo, "replies"> & {
+  commentInfo: Omit<CalculatedComment, "replies"> & {
     /** コメント番号 */
     commentNumber: string
   }

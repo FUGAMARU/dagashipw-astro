@@ -6,7 +6,7 @@ import { codeToHtml } from "shiki"
 
 import styles from "@/components/article/originals/CodeBlock.module.css"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
-import { PC_MEDIA_QUERY_MIN_WIDTH } from "@/constants/value"
+import { RESPONSIVE_SP_MAX_WIDTH } from "@/constants/value"
 import { isDefined } from "@/utils"
 
 import type { CodeBlockLanguageInfo } from "@/components/article/originals/CodeBlockWrapper.helpers"
@@ -143,7 +143,7 @@ export const CodeBlock = ({ languageInfo, animationInfo, code }: Props) => {
               font-style: normal !important;
             }
 
-            @media screen and (min-width:${PC_MEDIA_QUERY_MIN_WIDTH}px) {
+            @media screen and (min-width:${RESPONSIVE_SP_MAX_WIDTH + 1}px) {
               code {
                 font-size: 14px;
               }

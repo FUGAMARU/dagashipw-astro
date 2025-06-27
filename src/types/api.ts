@@ -3,13 +3,10 @@
  */
 
 import type { ImageSources } from "@/types/image"
-import type { components, operations, paths } from "@/types/schema"
-
-/** コメント情報 (CMSで保持しているフォーマット) */
-export type Comment = components["schemas"]["Comment"]
+import type { operations, paths } from "@/types/schema"
 
 /** APIの/articlesのレスポンス */
-export type ArticlesPathResponse =
+type ArticlesPathResponse =
   paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
 
 /** APIの/commentsのレスポンス */
@@ -48,16 +45,31 @@ export type CalculatedArticleResponse = {
   data: Array<CalculatedArticle>
 } & Pick<ArticlesPathResponse, "meta">
 
-/** 取得するフィールドを指定して/articlesにリクエストを飛ばした時のレスポンスの型を生成するユーティリティー型 */
-export type FieldPickedArticlePathResponse<
-  SpecificKey extends keyof NonNullable<ArticlesPathResponse["data"]>[number]
-> = Pick<NonNullable<ArticlesPathResponse["data"]>[number], "id" | "documentId" | SpecificKey>
-
-/** ページネーション付きAPIレスポンス (どのコレクションでも同一のIFなので代表してArticleの型定義を引用している) */
-export type PaginatedResponse<T> = components["schemas"]["ArticleListResponse"] & {
-  /** データー */
-  data?: Array<T>
+/** 子コメントのフォーマット */
+type MainCommentInfo = {
+  /** コメントID */
+  commentId: string
+  /** ユーザー名 */
+  userName: string
+  /** 投稿日時 */
+  submittedAt: string
+  /** 本文 */
+  body: string
+  /** 管理者による投稿かどうか */
+  isAdministratorComment: boolean
 }
+
+/** 計算済みコメントデーター (計算はCMS側で行う) */
+export type CalculatedComment = MainCommentInfo & {
+  /** 返信一覧 */
+  replies: Array<MainCommentInfo>
+}
+
+/** 計算済みコメントデーターをカスタムエンドポイントから取得した時のレスポンス (CMSのDocumentation Pluginが拾ってくれないので手打ち) */
+export type CalculatedCommentResponse = {
+  /** data */
+  data: Array<CalculatedComment>
+} & Pick<CommentsPathResponse, "meta">
 
 /** コメント投稿時のリクエストパラメーター */
 export type PostCommentRequestBody = {

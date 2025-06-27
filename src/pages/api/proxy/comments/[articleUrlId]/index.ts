@@ -9,7 +9,6 @@ import {
 } from "@/constants/value"
 import { getComments, postComment } from "@/services/api"
 import { isDefined, isValidString } from "@/utils"
-import { transformDataToCommentInfo } from "@/utils/transformer"
 
 import type {
   PostCommentFromBrowserRequestBody,
@@ -36,9 +35,8 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   const comments = await getComments(articleUrlId)
-  const commentInfoList = transformDataToCommentInfo(comments)
 
-  return new Response(JSON.stringify(commentInfoList), {
+  return new Response(JSON.stringify(comments), {
     status: 200
   })
 }

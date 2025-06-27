@@ -2,7 +2,6 @@
  * @file Markdown関連の関数群
  */
 
-import { EXTRACTED_PARAGRAPHS_LENGTH } from "@/constants/value"
 import { isDefined } from "@/utils"
 import { generateUniqueHeadingId } from "@/utils/formatter"
 
@@ -47,15 +46,6 @@ export const extractPlainTextFromMarkdown = (
   }
   return text
 }
-
-/**
- * 記事のMarkdownテキストから冒頭の段落を抽出し、所定の文字数だけ切り取る
- *
- * @param markdown - Markdown
- * @returns 所定の文字数で切り取られた段落
- */
-export const extractBeginningParagraph = (markdown: string): string =>
-  extractPlainTextFromMarkdown(markdown, true, EXTRACTED_PARAGRAPHS_LENGTH)
 
 /**
  * Markdownから目次データーを生成する

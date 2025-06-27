@@ -12,7 +12,6 @@ import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContain
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { DEFAULT_OGP_IMAGE_FILENAME } from "@/constants/value"
 import { isDefined } from "@/utils"
-import { extractBeginningParagraph } from "@/utils/markdown"
 
 /** Props */
 type Props = {
@@ -31,9 +30,7 @@ if (!isDefined(Astro.site)) {
 }
 
 const siteUrl = Astro.site.href
-const description = isArticlePage
-  ? extractBeginningParagraph(article.body)
-  : "趣味全開の個人的備忘録"
+const description = isArticlePage ? article.bodyBeginningParagraph : "趣味全開の個人的備忘録"
 const ogImageUrl = isArticlePage
   ? article.originalThumbnailUrl // OGP用なので軽量化画像はあえて使用していない
   : new URL(DEFAULT_OGP_IMAGE_FILENAME, Astro.site).href

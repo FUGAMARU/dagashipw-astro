@@ -6,10 +6,10 @@ import { selfHostedAxiosInstance } from "@/services/axios"
 
 import type {
   CalculatedArticle,
+  CalculatedComment,
   PostCommentFromBrowserRequestBody,
   SidebarApiResponse
 } from "@/types/api"
-import type { CommentInfo } from "@/types/models"
 import type { AxiosResponse } from "axios"
 
 /**
@@ -71,8 +71,10 @@ const getArticleCommentCount = async (articleUrlId: string): Promise<number> => 
  * @param articleUrlId - 記事のURL ID
  * @returns コメント一覧
  */
-const getArticleCommentInfoList = async (articleUrlId: string): Promise<Array<CommentInfo>> => {
-  const response = await selfHostedAxiosInstance.get<Array<CommentInfo>>(
+const getArticleCommentInfoList = async (
+  articleUrlId: string
+): Promise<Array<CalculatedComment>> => {
+  const response = await selfHostedAxiosInstance.get<Array<CalculatedComment>>(
     `/proxy/comments/${articleUrlId}`
   )
   return response.data

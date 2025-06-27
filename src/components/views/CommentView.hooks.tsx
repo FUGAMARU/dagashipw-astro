@@ -6,14 +6,13 @@ import { COMMENT_ELEMENT_ID_PREFIX } from "@/constants/element"
 import { postComment, selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined, isValidString } from "@/utils"
 
-import type { PostCommentErrorResponse } from "@/types/api"
-import type { CommentInfo } from "@/types/models"
+import type { CalculatedComment, PostCommentErrorResponse } from "@/types/api"
 import type { ChangeEvent, FormEvent } from "react"
 
 /** 返り値 */
 type UseCommentView = {
   /** コメント一覧 */
-  commentInfoList: Array<CommentInfo> | undefined
+  commentInfoList: Array<CalculatedComment> | undefined
   /** コメント投稿モーダルが開いているかどうか */
   isCommentPostModalOpen: boolean
   /** ニックネーム欄の値 */
@@ -51,7 +50,7 @@ type UseCommentView = {
  * @returns CommentViewコンポーネントの処理
  */
 export const useCommentView = (articleUrlId: string): UseCommentView => {
-  const { data: commentInfoList } = useSWR<Array<CommentInfo>>(
+  const { data: commentInfoList } = useSWR<Array<CalculatedComment>>(
     {
       apiFunction: "getArticleCommentInfoList",
       arg: articleUrlId
