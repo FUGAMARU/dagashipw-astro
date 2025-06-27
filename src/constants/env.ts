@@ -29,6 +29,8 @@ export const TURNSTILE_SITE_KEY = import.meta.env.DEV
   : import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
 /** Cloudflare Turnstileのシークレットキー */
 export const TURNSTILE_SECRET_KEY = import.meta.env.TURNSTILE_SECRET_KEY
+/** 開発用ページの記事URL ID */
+export const DEVELOPMENT_ARTICLE_URL_ID = import.meta.env.DEVELOPMENT_ARTICLE_URL_ID
 
 if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))) {
   const missingEnvironmentVariables = [
@@ -41,7 +43,9 @@ if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))
     !isValidString(IMGPROXY_SIGNING_KEY) && "IMGPROXY_SIGNING_KEYが環境変数に設定されていません",
     !isValidString(IMGPROXY_SIGNING_SALT) && "IMGPROXY_SIGNING_SALTが環境変数に設定されていません",
     !isValidString(TURNSTILE_SITE_KEY) && "TURNSTILE_SITE_KEYが環境変数に設定されていません",
-    !isValidString(TURNSTILE_SECRET_KEY) && "TURNSTILE_SECRET_KEYが環境変数に設定されていません"
+    !isValidString(TURNSTILE_SECRET_KEY) && "TURNSTILE_SECRET_KEYが環境変数に設定されていません",
+    !isValidString(DEVELOPMENT_ARTICLE_URL_ID) &&
+      "DEVELOPMENT_ARTICLE_URL_IDが環境変数に設定されていません"
   ]
     .filter(isDefined)
     .join("\n")
