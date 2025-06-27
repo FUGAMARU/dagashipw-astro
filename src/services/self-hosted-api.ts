@@ -4,8 +4,12 @@
 
 import { selfHostedAxiosInstance } from "@/services/axios"
 
-import type { PostCommentFromBrowserRequestBody, SidebarApiResponse } from "@/types/api"
-import type { ArticleInfo, CommentInfo } from "@/types/models"
+import type {
+  CalculatedArticle,
+  PostCommentFromBrowserRequestBody,
+  SidebarApiResponse
+} from "@/types/api"
+import type { CommentInfo } from "@/types/models"
 import type { AxiosResponse } from "axios"
 
 /**
@@ -80,10 +84,11 @@ const getArticleCommentInfoList = async (articleUrlId: string): Promise<Array<Co
  * @param articleUrlId - 記事のURL ID
  * @returns 同じタグが設定されている他の記事の一覧
  */
-const getSameTagArticles = async (articleUrlId: string): Promise<Array<ArticleInfo>> => {
-  const response = await selfHostedAxiosInstance.get<Array<ArticleInfo>>(
+const getSameTagArticles = async (articleUrlId: string): Promise<Array<CalculatedArticle>> => {
+  const response = await selfHostedAxiosInstance.get<Array<CalculatedArticle>>(
     `/proxy/articles/${articleUrlId}/same-tag`
   )
+
   return response.data
 }
 

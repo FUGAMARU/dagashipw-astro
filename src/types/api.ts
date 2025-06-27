@@ -5,9 +5,6 @@
 import type { ImageSources } from "@/types/image"
 import type { components, operations, paths } from "@/types/schema"
 
-/** 記事情報 (CMSで保持しているフォーマット) */
-export type Article = components["schemas"]["Article"]
-
 /** コメント情報 (CMSで保持しているフォーマット) */
 export type Comment = components["schemas"]["Comment"]
 
@@ -48,15 +45,8 @@ export type CalculatedArticle = {
 /** 計算済み記事データーをカスタムエンドポイントから取得した時のレスポンス (CMSのDocumentation Pluginが拾ってくれないので手打ち) */
 export type CalculatedArticleResponse = {
   /** data */
-  data: CalculatedArticle
-  /** meta */
-  meta: {
-    /** processed */
-    processed: boolean
-    /** processingDate */
-    processingDate: string
-  }
-}
+  data: Array<CalculatedArticle>
+} & Pick<ArticlesPathResponse, "meta">
 
 /** 取得するフィールドを指定して/articlesにリクエストを飛ばした時のレスポンスの型を生成するユーティリティー型 */
 export type FieldPickedArticlePathResponse<

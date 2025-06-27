@@ -2,14 +2,14 @@ import { ArticleCardMini } from "@/components/parts/card/ArticleCardMini"
 import styles from "@/components/templates/list/ArticleCardMiniList.module.css"
 import { isValidArray } from "@/utils"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 
 /** Props */
 type Props = {
   /** カード一覧 */
   cards?: Array<
     Pick<
-      ArticleInfo,
+      CalculatedArticle,
       "articleUrlId" | "createdAt" | "updatedAt" | "thumbnail" | "themeColor" | "title"
     >
   >

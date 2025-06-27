@@ -4,10 +4,9 @@
 
 import { ARTICLES_PER_PAGE, MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT } from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
-import { isDefined, isValidArray } from "@/utils"
+import { isDefined } from "@/utils"
 
 import type {
-  Article,
   ArticlesPathResponse,
   Comment,
   CommentsPathResponse,
@@ -63,11 +62,11 @@ export const fetchAllPaginated = async <T>(endpoint: string): Promise<Array<T>> 
  * @returns 記事データ
  */
 export const getArticle = async (articleUrlId: string): Promise<CalculatedArticle> => {
-  const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/by-url-id/${articleUrlId}`
+  const response = await axiosInstance.get<CalculatedArticle>(
+    `/articles/calculated/${articleUrlId}`
   )
 
-  return response.data.data
+  return response.data
 }
 
 /**
@@ -89,9 +88,11 @@ export const getAllArticleUrlIdList = async (): Promise<Array<string>> => {
  * @param pageNumber - ページ番号
  * @returns 記事一覧
  */
-export const getArticlesWithPagination = async (pageNumber: number): Promise<Array<Article>> => {
-  const response = await axiosInstance.get<ArticlesPathResponse>(
-    `/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+export const getArticlesWithPagination = async (
+  pageNumber: number
+): Promise<Array<CalculatedArticle>> => {
+  const response = await axiosInstance.get<CalculatedArticleResponse>(
+    `/articles/calculated?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
 
   if (!isDefined(response.data.data)) {
@@ -162,26 +163,19 @@ export const getCommentCount = async (articleUrlId: string): Promise<number> => 
 }
 
 /**
- * 全ての記事に対して記事ごとに指定されているタグの一覧を取得する
+ * 指定した記事の関連記事を取得する
+ * (最大件数はAPI側で制御)
  *
- *  @returns 記事URL IDとタグの一覧
+ * @param articleUrlId - 記事のURL ID
+ * @returns 関連記事一覧
  */
-export const getArticleTagsForAllArticles = async (): Promise<
-  Array<{
-    /** 記事URL ID */
-    articleUrlId: string
-    /** タグ一覧 */
-    tags: Array<string>
-  }>
-> => {
-  const articles = await fetchAllPaginated<FieldPickedArticlePathResponse<"articleUrlId" | "tags">>(
-    "/articles?fields[0]=articleUrlId&fields[1]=tags"
+export const getSameTagArticles = async (
+  articleUrlId: string
+): Promise<Array<CalculatedArticle>> => {
+  const response = await axiosInstance.get<CalculatedArticleResponse>(
+    `/articles/calculated/${articleUrlId}/related?limit=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
   )
-
-  return articles.map(article => ({
-    articleUrlId: article.articleUrlId,
-    tags: (article.tags as Array<string>).map(tag => tag)
-  }))
+  return response.data.data
 }
 
 /**
@@ -189,9 +183,9 @@ export const getArticleTagsForAllArticles = async (): Promise<
  *
  * @returns 最新記事4件
  */
-export const getRecentArticles = async (): Promise<Array<Article>> => {
-  const response = await axiosInstance.get<ArticlesPathResponse>(
-    `/articles?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+export const getRecentArticles = async (): Promise<Array<CalculatedArticle>> => {
+  const response = await axiosInstance.get<CalculatedArticleResponse>(
+    `/articles/calculated/?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
   return response.data.data ?? []
 }
@@ -243,14 +237,10 @@ export const postComment = async (
 export const searchArticlesByKeywordWithPagination = async (
   keyword: string,
   pageNumber: number
-): Promise<Array<Article>> => {
-  const response = await axiosInstance.get<ArticlesPathResponse>(
-    `/articles?filters[title][$containsi]=${keyword}&filters[body][$containsi]=${keyword}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+): Promise<Array<CalculatedArticle>> => {
+  const response = await axiosInstance.get<CalculatedArticleResponse>(
+    `/articles/calculated?filters[title][$containsi]=${keyword}&filters[body][$containsi]=${keyword}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
-
-  if (!isDefined(response.data.data)) {
-    throw new Error("ページ情報が存在しません")
-  }
 
   return response.data.data
 }
@@ -265,95 +255,10 @@ export const searchArticlesByKeywordWithPagination = async (
 export const searchArticlesByTagWithPagination = async (
   tag: string,
   pageNumber: number
-): Promise<Array<Article>> => {
-  const response = await axiosInstance.get<ArticlesPathResponse>(
-    `/articles?filters[tags][$contains]=${tag}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+): Promise<Array<CalculatedArticle>> => {
+  const response = await axiosInstance.get<CalculatedArticleResponse>(
+    `/articles/calculated?filters[tags][$contains]=${tag}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
   )
-
-  if (!isDefined(response.data.data)) {
-    throw new Error("ページ情報が存在しません")
-  }
 
   return response.data.data
-}
-
-/**
- * 複数の記事を一括で取得する
- *
- * @param articleUrlIdList - 記事のURL ID一覧
- * @returns 記事データ一覧
- */
-export const getArticlesBatch = async (
-  articleUrlIdList: Array<string>
-): Promise<Array<Article>> => {
-  if (!isValidArray(articleUrlIdList)) {
-    return []
-  }
-
-  // StrapiのORフィルターを使用して一括取得
-  const orFilters = articleUrlIdList
-    .map((id, index) => `filters[$or][${index}][articleUrlId][$eq]=${id}`)
-    .join("&")
-
-  const response = await axiosInstance.get<ArticlesPathResponse>(
-    `/articles?${orFilters}&populate=*`
-  )
-
-  return response.data.data ?? []
-}
-
-/**
- * 複数記事のバックナンバーを一括で取得する
- *
- * @param articleUrlIdList - 記事のURL ID一覧
- * @returns 記事URLとバックナンバーのマップ
- */
-export const getArticleBackNumbersBatch = async (
-  articleUrlIdList: Array<string>
-): Promise<Map<string, number>> => {
-  if (!isValidArray(articleUrlIdList)) {
-    return new Map()
-  }
-
-  try {
-    const allArticles = await fetchAllPaginated<
-      FieldPickedArticlePathResponse<"articleUrlId" | "forceCreatedAt" | "createdAt">
-    >("/articles?fields[0]=articleUrlId&fields[1]=forceCreatedAt&fields[2]=createdAt")
-
-    const sortedArticles = allArticles
-      .map(article => ({
-        articleUrlId: article.articleUrlId,
-        sortDate: article.forceCreatedAt,
-        createdAt: article.createdAt ?? "1970-01-01T00:00:00.000Z"
-      }))
-      .sort((a, b) => {
-        const dateComparison = a.sortDate.localeCompare(b.sortDate)
-        if (dateComparison !== 0) {
-          return dateComparison
-        }
-
-        return a.createdAt.localeCompare(b.createdAt)
-      })
-
-    const backNumbers = new Map<string, number>()
-
-    sortedArticles.forEach((article, index) => {
-      if (articleUrlIdList.includes(article.articleUrlId)) {
-        backNumbers.set(article.articleUrlId, index)
-      }
-    })
-
-    return backNumbers
-  } catch (error) {
-    console.warn(
-      "バックナンバーの一括計算に失敗しました。シンプルなインデックス方式にフォールバックします:",
-      error
-    )
-
-    const backNumbers = new Map<string, number>()
-    articleUrlIdList.forEach((articleUrlId, index) => {
-      backNumbers.set(articleUrlId, index + 1)
-    })
-    return backNumbers
-  }
 }

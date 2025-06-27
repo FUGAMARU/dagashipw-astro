@@ -8,13 +8,13 @@ import styles from "@/components/views/ArticleListView.module.css"
 import { PAGE_PATH } from "@/constants/page"
 import { isValidArray } from "@/utils"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 import type { ComponentProps } from "react"
 
 /** Props */
 type Props = {
   /** 記事情報リスト */
-  articleInfoList: Array<ArticleInfo>
+  articleInfoList: Array<CalculatedArticle>
 } & ComponentProps<typeof Pagination>
 
 const { articleInfoList, ...paginationProps } = Astro.props

@@ -10,7 +10,6 @@ import {
 } from "@/services/api"
 import { isValidString } from "@/utils"
 import { replaceTextInSquareBracket } from "@/utils/formatter"
-import { transformDataToArticleInfoBatch } from "@/utils/transformer"
 
 export const prerender = false
 
@@ -31,12 +30,11 @@ const totalPageCount = await getTotalArticlePageCountByKeyword(targetKeyword) //
 const articles = isValidString(keyword)
   ? await searchArticlesByKeywordWithPagination(targetKeyword, pageNumber)
   : await searchArticlesByTagWithPagination(targetKeyword, pageNumber)
-const articleInfoList = await transformDataToArticleInfoBatch(articles)
 ---
 
 <Layout title={pageTitle}>
   <ArticleListView
-    articleInfoList={articleInfoList}
+    articleInfoList={articles}
     currentPage={pageNumber}
     keyword={targetKeyword}
     totalPageCount={totalPageCount}
