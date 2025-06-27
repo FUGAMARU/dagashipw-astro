@@ -93,20 +93,22 @@ const schema = isDefined(article)
     }
   </head>
   <body>
-    <div class={styles.layoutContainer}>
-      <ResponsiveContainer>
-        <header class={styles.header}>
-          <LogoWrapper isPC={false} />
-        </header>
-      </ResponsiveContainer>
+    <div class={styles.mainContent}>
+      <div class={styles.inner}>
+        <ResponsiveContainer>
+          <header class={styles.header}>
+            <LogoWrapper isPC={false} />
+          </header>
+        </ResponsiveContainer>
 
-      <main class={styles.main}>
-        <slot />
-      </main>
+        <main class={styles.main}>
+          <slot />
+        </main>
 
-      <aside class={styles.sidebar}>
-        <Sidebar />
-      </aside>
+        <aside class={styles.sidebar}>
+          <Sidebar />
+        </aside>
+      </div>
     </div>
 
     <footer class={styles.footerContainer}>

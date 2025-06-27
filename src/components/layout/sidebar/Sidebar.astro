@@ -1,6 +1,4 @@
 ---
-import clsx from "clsx"
-
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import { Infobar } from "@/components/layout/sidebar/Infobar"
 import { SearchInput } from "@/components/layout/sidebar/SearchInput"
@@ -32,9 +30,13 @@ const currentUrl = Astro.url.href
     {/* ビルド時点の日付で止まってしまうのとIPv4かどうか判定する必要があるのでCSRさせる */}
     <Infobar client:load />
 
-    <div class={clsx(styles.toc, !isDefined(article) && styles.Hidden)}>
-      {isDefined(article) && <TableOfContentsWrapper article={article} client:idle />}
-    </div>
+    {
+      isDefined(article) && (
+        <ResponsiveContainer isPC>
+          <TableOfContentsWrapper article={article} client:idle />
+        </ResponsiveContainer>
+      )
+    }
 
     {
       isDefined(article) && (

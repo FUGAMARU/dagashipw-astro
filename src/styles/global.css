@@ -16,6 +16,12 @@ body {
   }
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 /* detailsをSafariで表示した時のデフォルトの三角形アイコンを消す */
 summary::-webkit-details-marker {
   display: none;

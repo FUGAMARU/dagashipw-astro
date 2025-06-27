@@ -1,8 +1,12 @@
-.layoutContainer {
-  width: 100%;
+.mainContent {
+  flex: 1;
 
-  > .sidebar {
-    margin-top: 32px;
+  > .inner {
+    width: 100%;
+
+    > .sidebar {
+      margin-top: 32px;
+    }
   }
 }
 
@@ -13,26 +17,28 @@
 }
 
 @media (--pc) {
-  .layoutContainer {
-    --padding-base: 48px;
+  .mainContent {
+    > .inner {
+      --padding-base: 48px;
 
-    display: flex;
-    gap: 48px;
-    max-width: 1350px;
-    padding: var(--padding-base) calc(var(--padding-base) / 2) 0;
-    margin: 0 auto;
+      display: flex;
+      gap: 48px;
+      max-width: 1350px;
+      padding: var(--padding-base) calc(var(--padding-base) / 2) 0;
+      margin: 0 auto;
 
-    > .main {
-      flex: 7.2;
-    }
+      > .main {
+        flex: 7.2;
+      }
 
-    > .sidebar {
-      position: sticky;
-      top: var(--padding-base);
-      flex: 2.8;
-      min-width: 330px;
-      max-height: calc(100vh - var(--padding-base) * 2);
-      margin-top: 0;
+      > .sidebar {
+        position: sticky;
+        top: var(--padding-base);
+        flex: 2.8;
+        min-width: 330px;
+        max-height: calc(100vh - var(--padding-base) * 2);
+        margin-top: 0;
+      }
     }
   }
 

@@ -50,14 +50,6 @@
       max-height: calc(100% - 76px); /* サイドバー全体の高さ - ロゴエリアの高さ */
       padding: 16px 12px;
       overflow: auto;
-
-      > .toc {
-        display: block;
-
-        &.Hidden {
-          display: none;
-        }
-      }
     }
   }
 
