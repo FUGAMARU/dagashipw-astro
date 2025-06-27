@@ -773,6 +773,42 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "permissions": {
+                         *         "api::content-type.content-type": {
+                         *           "controllers": {
+                         *             "controllerA": {
+                         *               "find": {
+                         *                 "enabled": false,
+                         *                 "policy": ""
+                         *               },
+                         *               "findOne": {
+                         *                 "enabled": false,
+                         *                 "policy": ""
+                         *               },
+                         *               "create": {
+                         *                 "enabled": false,
+                         *                 "policy": ""
+                         *               }
+                         *             },
+                         *             "controllerB": {
+                         *               "find": {
+                         *                 "enabled": false,
+                         *                 "policy": ""
+                         *               },
+                         *               "findOne": {
+                         *                 "enabled": false,
+                         *                 "policy": ""
+                         *               },
+                         *               "create": {
+                         *                 "enabled": false,
+                         *                 "policy": ""
+                         *               }
+                         *             }
+                         *           }
+                         *         }
+                         *       }
+                         *     } */
                         "application/json": {
                             permissions?: components["schemas"]["Users-Permissions-PermissionsTree"];
                         };
@@ -820,6 +856,19 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "roles": [
+                         *         {
+                         *           "id": 1,
+                         *           "name": "Public",
+                         *           "description": "Default role given to unauthenticated user.",
+                         *           "type": "public",
+                         *           "createdAt": "2022-05-19T17:35:35.097Z",
+                         *           "updatedAt": "2022-05-31T16:05:36.603Z",
+                         *           "nb_users": 0
+                         *         }
+                         *       ]
+                         *     } */
                         "application/json": {
                             roles?: (components["schemas"]["Users-Permissions-Role"] & {
                                 nb_users?: number;
@@ -904,6 +953,27 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "role": {
+                         *         "id": 1,
+                         *         "name": "Public",
+                         *         "description": "Default role given to unauthenticated user.",
+                         *         "type": "public",
+                         *         "createdAt": "2022-05-19T17:35:35.097Z",
+                         *         "updatedAt": "2022-05-31T16:05:36.603Z",
+                         *         "permissions": {
+                         *           "api::content-type.content-type": {
+                         *             "controllers": {
+                         *               "controllerA": {
+                         *                 "find": {
+                         *                   "enabled": true
+                         *                 }
+                         *               }
+                         *             }
+                         *           }
+                         *         }
+                         *       }
+                         *     } */
                         "application/json": {
                             role?: components["schemas"]["Users-Permissions-Role"];
                         };
@@ -1037,6 +1107,18 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example [
+                         *       {
+                         *         "id": 9,
+                         *         "username": "foao@strapi.io",
+                         *         "email": "foao@strapi.io",
+                         *         "provider": "local",
+                         *         "confirmed": false,
+                         *         "blocked": false,
+                         *         "createdAt": "2022-06-01T18:32:35.211Z",
+                         *         "updatedAt": "2022-06-01T18:32:35.217Z"
+                         *       }
+                         *     ] */
                         "application/json": components["schemas"]["Users-Permissions-User"][];
                     };
                 };
@@ -1081,6 +1163,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "id": 1,
+                         *       "username": "foo",
+                         *       "email": "foo@strapi.io",
+                         *       "provider": "local",
+                         *       "confirmed": false,
+                         *       "blocked": false,
+                         *       "createdAt": "2022-05-19T17:35:35.096Z",
+                         *       "updatedAt": "2022-05-19T17:35:35.096Z",
+                         *       "role": {
+                         *         "id": 1,
+                         *         "name": "X",
+                         *         "description": "Default role given to authenticated user.",
+                         *         "type": "authenticated",
+                         *         "createdAt": "2022-05-19T17:35:35.096Z",
+                         *         "updatedAt": "2022-06-04T07:11:59.551Z"
+                         *       }
+                         *     } */
                         "application/json": components["schemas"]["Users-Permissions-User"] & {
                             role?: components["schemas"]["Users-Permissions-Role"];
                         };
@@ -1129,6 +1229,16 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "id": 1,
+                         *       "username": "foo",
+                         *       "email": "foo@strapi.io",
+                         *       "provider": "local",
+                         *       "confirmed": false,
+                         *       "blocked": false,
+                         *       "createdAt": "2022-05-19T17:35:35.096Z",
+                         *       "updatedAt": "2022-05-19T17:35:35.096Z"
+                         *     } */
                         "application/json": components["schemas"]["Users-Permissions-User"];
                     };
                 };
@@ -1175,6 +1285,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "id": 1,
+                         *       "username": "foo",
+                         *       "email": "foo@strapi.io",
+                         *       "provider": "local",
+                         *       "confirmed": false,
+                         *       "blocked": false,
+                         *       "createdAt": "2022-05-19T17:35:35.096Z",
+                         *       "updatedAt": "2022-05-19T17:35:35.096Z",
+                         *       "role": {
+                         *         "id": 1,
+                         *         "name": "X",
+                         *         "description": "Default role given to authenticated user.",
+                         *         "type": "authenticated",
+                         *         "createdAt": "2022-05-19T17:35:35.096Z",
+                         *         "updatedAt": "2022-06-04T07:11:59.551Z"
+                         *       }
+                         *     } */
                         "application/json": components["schemas"]["Users-Permissions-User"] & {
                             role?: components["schemas"]["Users-Permissions-Role"];
                         };
@@ -1211,6 +1339,16 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "id": 1,
+                         *       "username": "foo",
+                         *       "email": "foo@strapi.io",
+                         *       "provider": "local",
+                         *       "confirmed": false,
+                         *       "blocked": false,
+                         *       "createdAt": "2022-05-19T17:35:35.096Z",
+                         *       "updatedAt": "2022-05-19T17:35:35.096Z"
+                         *     } */
                         "application/json": components["schemas"]["Users-Permissions-User"];
                     };
                 };
@@ -1253,6 +1391,16 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example {
+                         *       "id": 1,
+                         *       "username": "foo",
+                         *       "email": "foo@strapi.io",
+                         *       "provider": "local",
+                         *       "confirmed": false,
+                         *       "blocked": false,
+                         *       "createdAt": "2022-05-19T17:35:35.096Z",
+                         *       "updatedAt": "2022-05-19T17:35:35.096Z"
+                         *     } */
                         "application/json": components["schemas"]["Users-Permissions-User"];
                     };
                 };
@@ -1298,6 +1446,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
+                        /** @example 1 */
                         "application/json": number;
                     };
                 };
@@ -1341,7 +1490,7 @@ export interface components {
                 body: string;
                 tags: unknown;
                 /** Format: date */
-                forceCreatedAt?: string;
+                forceCreatedAt: string;
                 /** Format: date */
                 forceUpdatedAt?: string;
                 articleUrlId: string;
@@ -1583,7 +1732,7 @@ export interface components {
             body: string;
             tags: unknown;
             /** Format: date */
-            forceCreatedAt?: string;
+            forceCreatedAt: string;
             /** Format: date */
             forceUpdatedAt?: string;
             articleUrlId: string;

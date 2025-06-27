@@ -327,7 +327,7 @@ export const getArticleBackNumbersBatch = async (
     const sortedArticles = allArticles
       .map(article => ({
         articleUrlId: article.articleUrlId,
-        sortDate: article.forceCreatedAt ?? article.createdAt ?? "1970-01-01",
+        sortDate: article.forceCreatedAt,
         createdAt: article.createdAt ?? "1970-01-01T00:00:00.000Z"
       }))
       .sort((a, b) => {

@@ -53,14 +53,7 @@ export const transformDataToArticleInfoBatch = async (
       bodyBeginningParagraph: extractBeginningParagraph(article.body)
     } as const satisfies Partial<ArticleInfo>
 
-    // 記事作成日はforceCreatedAtが指定されていればその値を優先して使用する
-    const createdAtData = article.forceCreatedAt ?? article.createdAt
-
-    if (!isDefined(createdAtData)) {
-      throw new Error("記事作成日のデーターが存在しません")
-    }
-
-    const createdAt = formatDateToString(new Date(createdAtData), "yyyy/MM/dd")
+    const createdAt = formatDateToString(new Date(article.forceCreatedAt), "yyyy/MM/dd")
 
     // 記事更新日はforceUpdatedAtだけを使用する
     const updatedAt = article.forceUpdatedAt
