@@ -25,7 +25,7 @@ export const GET: APIRoute = async ({ params }) => {
   const articleTagsForAllArticles = await getArticleTagsForAllArticles()
   const relatedArticleUrlIdList = getRelatedArticles(articleTagsForAllArticles, articleUrlId)
   const relatedArticles = await getArticlesBatch(relatedArticleUrlIdList)
-  const relatedArticleInfoList = await transformDataToArticleInfoBatch(relatedArticles, "smaller")
+  const relatedArticleInfoList = await transformDataToArticleInfoBatch(relatedArticles)
 
   return new Response(JSON.stringify(relatedArticleInfoList), {
     status: 200

@@ -2,6 +2,7 @@
  * @file APIレスポンス関連の型
  */
 
+import type { ImageSources } from "@/types/image"
 import type { components, operations, paths } from "@/types/schema"
 
 /** 記事情報 (CMSで保持しているフォーマット) */
@@ -17,6 +18,45 @@ export type ArticlesPathResponse =
 /** APIの/commentsのレスポンス */
 export type CommentsPathResponse =
   paths["/comments"]["get"]["responses"]["200"]["content"]["application/json"]
+
+/** 計算済み記事データー (計算はCMS側で行う) */
+export type CalculatedArticle = {
+  /** 記事のURL ID */
+  articleUrlId: string
+  /** バックナンバー */
+  backNumber: number
+  /** タイトル */
+  title: string
+  /** サムネイル */
+  thumbnail: ImageSources
+  /** サムネイルのオリジナルURL */
+  originalThumbnailUrl: string
+  /** テーマカラー */
+  themeColor: string
+  /** タグ一覧 */
+  tags: Array<string>
+  /** 記事本文段落冒頭 */
+  bodyBeginningParagraph: string
+  /** 記事本文 */
+  body: string
+  /** 投稿日 */
+  createdAt: string
+  /** 更新日 */
+  updatedAt?: string
+}
+
+/** 計算済み記事データーをカスタムエンドポイントから取得した時のレスポンス (CMSのDocumentation Pluginが拾ってくれないので手打ち) */
+export type CalculatedArticleResponse = {
+  /** data */
+  data: CalculatedArticle
+  /** meta */
+  meta: {
+    /** processed */
+    processed: boolean
+    /** processingDate */
+    processingDate: string
+  }
+}
 
 /** 取得するフィールドを指定して/articlesにリクエストを飛ばした時のレスポンスの型を生成するユーティリティー型 */
 export type FieldPickedArticlePathResponse<

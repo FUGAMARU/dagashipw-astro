@@ -1,6 +1,6 @@
 import { isValidString } from "@/utils"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 
 /**
  * 記事ページ用の構造化データーを作成する
@@ -17,7 +17,7 @@ export const createArticleSchema = (
   description: string,
   ogImageUrl: string,
   currentUrl: string,
-  articleInfo: ArticleInfo
+  articleInfo: CalculatedArticle
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
   return {

@@ -14,7 +14,9 @@ import type {
   PaginatedResponse,
   FieldPickedArticlePathResponse,
   PostCommentRequestBody,
-  PostCommentResponse
+  PostCommentResponse,
+  CalculatedArticleResponse,
+  CalculatedArticle
 } from "@/types/api"
 import type { AxiosResponse } from "axios"
 
@@ -60,18 +62,12 @@ export const fetchAllPaginated = async <T>(endpoint: string): Promise<Array<T>> 
  * @param articleUrlId - 記事のURL ID
  * @returns 記事データ
  */
-export const getArticle = async (articleUrlId: string): Promise<Article> => {
-  const response = await axiosInstance.get<ArticlesPathResponse>(
-    `/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`
+export const getArticle = async (articleUrlId: string): Promise<CalculatedArticle> => {
+  const response = await axiosInstance.get<CalculatedArticleResponse>(
+    `/articles/by-url-id/${articleUrlId}`
   )
 
-  const article = response.data.data?.[0]
-
-  if (!isDefined(article)) {
-    throw new Error("記事情報が存在しません")
-  }
-
-  return article
+  return response.data.data
 }
 
 /**

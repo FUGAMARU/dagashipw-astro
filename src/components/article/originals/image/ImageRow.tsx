@@ -16,13 +16,13 @@ export const ImageRow = async ({ images, gap = "16" }: Props) => {
   const imageUrlList = convertCommaSeparatedStringToArray(images)
 
   const imageSourcesList = await Promise.all(
-    imageUrlList.map(imageUrl => generateImageSources(imageUrl, "normal"))
+    imageUrlList.map(imageUrl => generateImageSources(imageUrl))
   )
 
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
       {imageUrlList.map((imageUrl, index) => (
-        <Image key={imageUrl} alt="" sources={imageSourcesList[index]} />
+        <Image key={imageUrl} alt="" imageSize="normal" sources={imageSourcesList[index]} />
       ))}
     </div>
   )

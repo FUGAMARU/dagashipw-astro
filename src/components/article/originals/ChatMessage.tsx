@@ -23,13 +23,14 @@ type Props = {
 
 /** 吹き出し付きのチャット風メッセージコンポーネント */
 export const ChatMessage = async ({ role, icon, name, text, isFullWidth = "false" }: Props) => {
-  const imageSources = await generateImageSources(icon, "smaller")
+  const imageSources = await generateImageSources(icon)
 
   return (
     <div className={clsx(styles.chatMessage, styles[capitalize(role)])}>
       <Image
         figureTagClassName={styles.icon}
         height={40}
+        imageSize="smaller"
         isCircle
         isObjectFitCover
         sources={imageSources}

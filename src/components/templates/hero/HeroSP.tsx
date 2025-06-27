@@ -27,6 +27,7 @@ export const HeroSP = ({
           borderRadius="0"
           cssHeight="auto"
           cssWidth="full"
+          imageSize="normal"
           isEager
           isObjectFitCover
           isWide

@@ -7,7 +7,7 @@ import { transformDataToArticleInfoBatch } from "@/utils/transformer"
 
 const totalArticlePageCount = await getTotalArticlePageCount()
 const articles = await getArticlesWithPagination(1)
-const articleInfoList = await transformDataToArticleInfoBatch(articles, "smaller")
+const articleInfoList = await transformDataToArticleInfoBatch(articles)
 ---
 
 <Layout title={PAGE_NAME.TOP}>

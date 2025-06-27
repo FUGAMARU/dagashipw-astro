@@ -6,7 +6,7 @@ import { isValidArray } from "@/utils"
 import { transformDataToArticleInfoBatch } from "@/utils/transformer"
 
 const recentArticles = await getRecentArticles()
-const recentArticleInfoList = await transformDataToArticleInfoBatch(recentArticles, "smaller")
+const recentArticleInfoList = await transformDataToArticleInfoBatch(recentArticles)
 ---
 
 <CommonViewContainer

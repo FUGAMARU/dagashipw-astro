@@ -72,6 +72,7 @@ export const ArticleCardMini = (props: Props) => {
           cssHeight="auto"
           cssWidth="full"
           figureTagClassName={styles.figure}
+          imageSize="smaller"
           isObjectFitCover
           sources={thumbnail}
         />

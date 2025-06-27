@@ -26,6 +26,7 @@ export const HeroPC = ({
           alt={title}
           cssHeight="auto"
           cssWidth="full"
+          imageSize="normal"
           isEager
           isObjectFitCover
           isWide

@@ -4,14 +4,28 @@
 
 /** 画像のURLセット */
 export type ImageSources = {
-  /** PC 1倍 */
-  pc1x: string
-  /** PC 2倍 */
-  pc2x: string
-  /** SP 1倍 */
-  sp1x: string
-  /** SP 2倍 */
-  sp2x: string
+  /** 標準サイズ */
+  normal: {
+    /** PC 1倍 */
+    pc1x: string
+    /** PC 2倍 */
+    pc2x: string
+    /** SP 1倍 */
+    sp1x: string
+    /** SP 2倍 */
+    sp2x: string
+  }
+  /** 小さめサイズ */
+  smaller: {
+    /** PC 1倍 */
+    pc1x: string
+    /** PC 2倍 */
+    pc2x: string
+    /** SP 1倍 */
+    sp1x: string
+    /** SP 2倍 */
+    sp2x: string
+  }
 }
 
 /** 画像のサイズタイプの一覧 */

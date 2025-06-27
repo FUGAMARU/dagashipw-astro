@@ -18,10 +18,18 @@ export const Primary: Story = {
     createdAt: "2022-12-30T00:00:00Z",
     updatedAt: "2022-12-31T00:00:00Z",
     thumbnail: {
-      pc1x: "/dummy-images/sea-candle.jpg",
-      pc2x: "/dummy-images/sea-candle.jpg",
-      sp1x: "/dummy-images/sea-candle.jpg",
-      sp2x: "/dummy-images/sea-candle.jpg"
+      normal: {
+        pc1x: "/dummy-images/sea-candle.jpg",
+        pc2x: "/dummy-images/sea-candle.jpg",
+        sp1x: "/dummy-images/sea-candle.jpg",
+        sp2x: "/dummy-images/sea-candle.jpg"
+      },
+      smaller: {
+        pc1x: "/dummy-images/sea-candle.jpg",
+        pc2x: "/dummy-images/sea-candle.jpg",
+        sp1x: "/dummy-images/sea-candle.jpg",
+        sp2x: "/dummy-images/sea-candle.jpg"
+      }
     },
     themeColor: "#6b33bf",
     title: "江ノ島シーキャンドル"

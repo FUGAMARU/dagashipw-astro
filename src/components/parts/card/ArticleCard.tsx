@@ -39,6 +39,7 @@ export const ArticleCard = ({
           cssHeight="full"
           cssWidth="full"
           figureTagClassName={styles.imageFigureTag}
+          imageSize="smaller"
           isEager={isThumbnailEager}
           isObjectFitCover
           sources={thumbnail}

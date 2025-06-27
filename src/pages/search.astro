@@ -31,7 +31,7 @@ const totalPageCount = await getTotalArticlePageCountByKeyword(targetKeyword) //
 const articles = isValidString(keyword)
   ? await searchArticlesByKeywordWithPagination(targetKeyword, pageNumber)
   : await searchArticlesByTagWithPagination(targetKeyword, pageNumber)
-const articleInfoList = await transformDataToArticleInfoBatch(articles, "smaller")
+const articleInfoList = await transformDataToArticleInfoBatch(articles)
 ---
 
 <Layout title={pageTitle}>

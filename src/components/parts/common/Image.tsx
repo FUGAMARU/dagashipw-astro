@@ -6,7 +6,7 @@ import { ImageCaption } from "@/components/parts/ImageCaption"
 import { RESPONSIVE_SP_MAX_WIDTH } from "@/constants/value"
 import { isValidString } from "@/utils"
 
-import type { ImageSources } from "@/types/image"
+import type { ImageSizeType, ImageSources } from "@/types/image"
 import type { ComponentProps } from "react"
 
 /** Props */
@@ -14,6 +14,8 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcS
   Partial<ComponentProps<typeof ImageCaption>> & {
     /** 画像のURLセット */
     sources: ImageSources
+    /** 使用する画像サイズ */
+    imageSize: ImageSizeType
     /** 画像を即時読み込みするかどうか */
     isEager?: boolean
     /** object-fir: cover指定かどうか */
@@ -41,6 +43,7 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcS
 /** 画像コンポーネント */
 export const Image = ({
   sources,
+  imageSize,
   caption,
   isEager = false,
   isObjectFitCover = false,
@@ -55,6 +58,8 @@ export const Image = ({
   isHeightAdjustedImage = false,
   ...props
 }: Props) => {
+  const selectedSources = sources[imageSize]
+
   return (
     <figure
       className={clsx(
@@ -67,12 +72,12 @@ export const Image = ({
         {/* SP表示 */}
         <source
           media={`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`}
-          srcSet={`${sources.sp1x} 1x, ${sources.sp2x} 2x`}
+          srcSet={`${selectedSources.sp1x} 1x, ${selectedSources.sp2x} 2x`}
         />
         {/* PC表示 */}
         <source
           media={`(min-width: ${RESPONSIVE_SP_MAX_WIDTH + 1}px)`}
-          srcSet={`${sources.pc1x} 1x, ${sources.pc2x} 2x`}
+          srcSet={`${selectedSources.pc1x} 1x, ${selectedSources.pc2x} 2x`}
         />
         {/* フォールバック */}
         <img
@@ -88,7 +93,7 @@ export const Image = ({
             isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`]
           )}
           loading={isEager ? "eager" : "lazy"}
-          src={sources.pc1x}
+          src={selectedSources.pc1x}
           {...props}
         />
       </picture>

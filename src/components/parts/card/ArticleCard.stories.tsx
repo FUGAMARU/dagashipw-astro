@@ -24,10 +24,18 @@ export const Primary: Story = {
     backNumber: 1,
     themeColor: "#f1c333",
     thumbnail: {
-      pc1x: "/dummy-images/nagara-park.jpg",
-      pc2x: "/dummy-images/nagara-park.jpg",
-      sp1x: "/dummy-images/nagara-park.jpg",
-      sp2x: "/dummy-images/nagara-park.jpg"
+      normal: {
+        pc1x: "/dummy-images/nagara-park.jpg",
+        pc2x: "/dummy-images/nagara-park.jpg",
+        sp1x: "/dummy-images/nagara-park.jpg",
+        sp2x: "/dummy-images/nagara-park.jpg"
+      },
+      smaller: {
+        pc1x: "/dummy-images/nagara-park.jpg",
+        pc2x: "/dummy-images/nagara-park.jpg",
+        sp1x: "/dummy-images/nagara-park.jpg",
+        sp2x: "/dummy-images/nagara-park.jpg"
+      }
     }
   }
 }

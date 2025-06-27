@@ -14,19 +14,16 @@ import { generateImageSources } from "@/utils/image"
 import { extractBeginningParagraph } from "@/utils/markdown"
 
 import type { Article, Comment } from "@/types/api"
-import type { ImageSizeType } from "@/types/image"
 import type { ArticleInfo, CommentInfo, IntermediateCommentInfo } from "@/types/models"
 
 /**
  * 複数のCMSから取得した記事情報をフロントエンドで利用する形式に一括変換する
  *
  * @param articles - 記事情報の配列
- * @param imageSizeType - 画像のサイズタイプ
  * @returns 整形された記事情報の配列
  */
 export const transformDataToArticleInfoBatch = async (
-  articles: Array<Article>,
-  imageSizeType: ImageSizeType
+  articles: Array<Article>
 ): Promise<Array<ArticleInfo>> => {
   if (articles.length === 0) {
     return []
@@ -39,8 +36,7 @@ export const transformDataToArticleInfoBatch = async (
   const transformPromises = articles.map(async article => {
     const backNumber = backNumbersMap.get(article.articleUrlId) ?? 0
     const lightweightThumbnailUrl = await generateImageSources(
-      `${API_ORIGIN}${article.thumbnail.url}`,
-      imageSizeType
+      `${API_ORIGIN}${article.thumbnail.url}`
     )
 
     const baseData = {
@@ -74,14 +70,10 @@ export const transformDataToArticleInfoBatch = async (
  * CMSから取得した記事情報をフロントエンドで利用する形式に変換する
  *
  * @param article - 記事情報
- * @param imageSizeType - 画像のサイズタイプ
  * @returns 整形された記事情報
  */
-export const transformDataToArticleInfo = async (
-  article: Article,
-  imageSizeType: ImageSizeType
-): Promise<ArticleInfo> => {
-  const results = await transformDataToArticleInfoBatch([article], imageSizeType)
+export const transformDataToArticleInfo = async (article: Article): Promise<ArticleInfo> => {
+  const results = await transformDataToArticleInfoBatch([article])
   return results[0]
 }
 

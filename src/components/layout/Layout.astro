@@ -11,9 +11,8 @@ import Sidebar from "@/components/layout/sidebar/Sidebar.astro"
 import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { DEFAULT_OGP_IMAGE_FILENAME } from "@/constants/value"
-import { isDefined, isValidString } from "@/utils"
+import { isDefined } from "@/utils"
 import { extractBeginningParagraph } from "@/utils/markdown"
-import { transformDataToArticleInfo } from "@/utils/transformer"
 
 /** Props */
 type Props = {
@@ -32,17 +31,15 @@ if (!isDefined(Astro.site)) {
 }
 
 const siteUrl = Astro.site.href
-const articleInfo = isArticlePage ? await transformDataToArticleInfo(article, "smaller") : undefined
 const description = isArticlePage
   ? extractBeginningParagraph(article.body)
   : "趣味全開の個人的備忘録"
-const ogImageUrl =
-  isArticlePage && isValidString(article.thumbnail.url)
-    ? article.thumbnail.url // OGP用なので軽量化画像はあえて使用していない
-    : new URL(DEFAULT_OGP_IMAGE_FILENAME, Astro.site).href
+const ogImageUrl = isArticlePage
+  ? article.originalThumbnailUrl // OGP用なので軽量化画像はあえて使用していない
+  : new URL(DEFAULT_OGP_IMAGE_FILENAME, Astro.site).href
 
-const schema = isDefined(articleInfo)
-  ? createArticleSchema(title, description, ogImageUrl, currentUrl, articleInfo)
+const schema = isDefined(article)
+  ? createArticleSchema(title, description, ogImageUrl, currentUrl, article)
   : createDefaultSchema(siteUrl)
 ---
 

@@ -4,12 +4,12 @@ import { isValidArray } from "@/utils"
 import { generateTableOfContentsFormat } from "@/utils/markdown"
 import { calculateReadingTime } from "@/utils/table-of-contents"
 
-import type { Article } from "@/types/api"
+import type { CalculatedArticle } from "@/types/api"
 
 /** Props */
 type Props = {
   /** 記事 */
-  article: Article
+  article: CalculatedArticle
 }
 
 /**

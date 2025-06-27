@@ -53,23 +53,48 @@ const getSignedImgproxyUrl = async (
  * レスポンシブ対応用に画像のURLセットを生成する
  *
  * @param originalUrl - オリジナル画像のURL
- * @param imageSizeType - 画像のサイズ種別
  * @returns レスポンシブ対応用のURLセット
  */
-export const generateImageSources = async (
+export const generateImageSources = async (originalUrl: string): Promise<ImageSources> => {
+  const normalUrls = await generateSizeUrls(originalUrl, "normal")
+  const smallerUrls = await generateSizeUrls(originalUrl, "smaller")
+
+  return {
+    normal: normalUrls,
+    smaller: smallerUrls
+  }
+}
+
+/**
+ * 指定されたサイズの画像URLセットを生成する
+ *
+ * @param originalUrl - オリジナル画像のURL
+ * @param sizeType - サイズタイプ
+ * @returns 画像URLセット
+ */
+const generateSizeUrls = async (
   originalUrl: string,
-  imageSizeType: ImageSizeType
-): Promise<ImageSources> => {
+  sizeType: ImageSizeType
+): Promise<{
+  /** PC 1倍 */
+  pc1x: string
+  /** PC 2倍 */
+  pc2x: string
+  /** SP 1倍 */
+  sp1x: string
+  /** SP 2倍 */
+  sp2x: string
+}> => {
   const presets: Array<{
     /** プリセット名に対応するキー */
-    key: keyof ImageSources
+    key: "pc1x" | "pc2x" | "sp1x" | "sp2x"
     /** プリセット名 */
     name: ImgproxyPresets
   }> = [
-    { key: "pc1x", name: `${imageSizeType}-pc` },
-    { key: "pc2x", name: `${imageSizeType}-pc-2x` },
-    { key: "sp1x", name: `${imageSizeType}-sp` },
-    { key: "sp2x", name: `${imageSizeType}-sp-2x` }
+    { key: "pc1x", name: `${sizeType}-pc` },
+    { key: "pc2x", name: `${sizeType}-pc-2x` },
+    { key: "sp1x", name: `${sizeType}-sp` },
+    { key: "sp2x", name: `${sizeType}-sp-2x` }
   ]
 
   const urlEntries = await Promise.all(
@@ -79,5 +104,12 @@ export const generateImageSources = async (
     })
   )
 
-  return Object.fromEntries(urlEntries)
+  const urlMap = Object.fromEntries(urlEntries) as Record<"pc1x" | "pc2x" | "sp1x" | "sp2x", string>
+
+  return {
+    pc1x: urlMap.pc1x,
+    pc2x: urlMap.pc2x,
+    sp1x: urlMap.sp1x,
+    sp2x: urlMap.sp2x
+  }
 }

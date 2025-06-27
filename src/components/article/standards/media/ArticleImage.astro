@@ -7,7 +7,7 @@ import { generateImageSources } from "@/utils/image"
 const { src, alt, caption } = Astro.props
 
 const { width, height } = await getRemoteImageSize(src)
-const imageSources = await generateImageSources(src, "normal")
+const imageSources = await generateImageSources(src)
 ---
 
 <div class={styles.articleImage}>
@@ -16,6 +16,7 @@ const imageSources = await generateImageSources(src, "normal")
     caption={caption}
     cssHeight="full"
     height={height}
+    imageSize="normal"
     sources={imageSources}
     width={width}
   />

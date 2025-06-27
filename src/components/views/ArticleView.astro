@@ -36,22 +36,20 @@ import { isDefined } from "@/utils"
 import { formatDateToString } from "@/utils/datetime"
 import { convertMarkdownHeadingsToHtml } from "@/utils/markdown"
 import { startSyncPipe } from "@/utils/pipe"
-import { transformDataToArticleInfo } from "@/utils/transformer"
 
-import type { Article } from "@/types/api"
+import type { CalculatedArticle } from "@/types/api"
 
 /** Props */
 type Props = {
   /** 記事情報 */
-  article: Article
+  article: CalculatedArticle
 }
 
 const { article } = Astro.props
 
-const articleInfo = await transformDataToArticleInfo(article, "normal")
-const articleDate = isDefined(articleInfo.updatedAt)
-  ? new Date(articleInfo.updatedAt)
-  : new Date(articleInfo.createdAt)
+const articleDate = isDefined(article.updatedAt)
+  ? new Date(article.updatedAt)
+  : new Date(article.createdAt)
 const processedContent = startSyncPipe(article.body)
   .pipe(insertTableOfContentsToMarkdown) // 目次を挿入
   .pipe(convertMarkdownHeadingsToHtml) // 見出しをコンポーネントに直接変換
@@ -61,12 +59,12 @@ const processedContent = startSyncPipe(article.body)
 <div class={styles.articleView}>
   <ResponsiveContainer>
     {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
-    <HeroSP client:load {...articleInfo} />
+    <HeroSP client:load {...article} />
   </ResponsiveContainer>
 
   <ResponsiveContainer isPC>
     {/* ArticleInfoBarの中でSWRでAPIを叩く必要があるのでclientディレクティブを付与している */}
-    <HeroPC client:load {...articleInfo} />
+    <HeroPC client:load {...article} />
   </ResponsiveContainer>
 
   <div class={styles.body}>
