@@ -1,5 +1,6 @@
 import styles from "@/components/article/originals/image/ImageTextRow.module.css"
 import { Image } from "@/components/parts/common/Image"
+import { unescapeNewlines } from "@/utils/formatter"
 import { generateImageSources } from "@/utils/image"
 
 /** Props */
@@ -25,7 +26,7 @@ export const ImageTextRow = async ({ imageUrl, imageHeight, text }: Props) => {
         pictureTagClassName={styles.picture}
         sources={imageSources}
       />
-      <p className={styles.text}>{text}</p>
+      <p className={styles.text}>{unescapeNewlines(text)}</p>
     </div>
   )
 }
