@@ -8,11 +8,11 @@ import { useCommentView } from "@/components/views/CommentView.hooks"
 import styles from "@/components/views/CommentView.module.css"
 import { isDefined, isValidArray } from "@/utils"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 import type { ComponentProps } from "react"
 
 /** Props */
-type Props = Pick<ArticleInfo, "articleUrlId">
+type Props = Pick<CalculatedArticle, "articleUrlId">
 
 /**
  * コメントセクション表示用コンポーネント

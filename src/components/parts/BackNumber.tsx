@@ -2,13 +2,13 @@ import clsx from "clsx"
 
 import styles from "@/components/parts/BackNumber.module.css"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 
 /** Props */
 type Props = {
   /** 文字を少し左にずらすかどうか */
   isShiftLeft?: boolean
-} & Pick<ArticleInfo, "backNumber">
+} & Pick<CalculatedArticle, "backNumber">
 
 /** バックナンバー */
 export const BackNumber = ({ backNumber, isShiftLeft = false }: Props) => {

@@ -9,7 +9,7 @@ import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { isDefined } from "@/utils"
 import { determineWhiteTextColor } from "@/utils/color"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 
 /** フォールバック表示時のProps */
 type FallbackProps = {
@@ -19,7 +19,7 @@ type FallbackProps = {
 
 /** 通常表示時のProps */
 type NormalProps = Pick<
-  ArticleInfo,
+  CalculatedArticle,
   "articleUrlId" | "createdAt" | "updatedAt" | "thumbnail" | "themeColor" | "title"
 > & {
   /** フォールバック表示するかどうか */

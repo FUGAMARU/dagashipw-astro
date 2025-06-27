@@ -6,7 +6,7 @@ import styles from "@/components/templates/ArticleInfoBar.module.css"
 import { selfHostedFetcher } from "@/services/self-hosted-api"
 import { isDefined } from "@/utils"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 
 /** Props */
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
   isWhiteStyle?: boolean
   /** ボーダーを非表示にするかどうか */
   isBorderHidden?: boolean
-} & Pick<ArticleInfo, "articleUrlId" | "createdAt" | "updatedAt">
+} & Pick<CalculatedArticle, "articleUrlId" | "createdAt" | "updatedAt">
 
 /** 記事情報 */
 export const ArticleInfoBar = ({

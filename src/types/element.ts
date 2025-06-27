@@ -5,7 +5,7 @@
 import type { BackNumber } from "@/components/parts/BackNumber"
 import type { Tag } from "@/components/parts/Tag"
 import type { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 import type { ComponentProps } from "react"
 
 /** Heroコンポーネント共通Props */
@@ -14,6 +14,6 @@ export type HeroProps = {
   title: string
   /** タグ一覧 */
   tags: Array<ComponentProps<typeof Tag>["text"]>
-} & Pick<ArticleInfo, "thumbnail"> &
+} & Pick<CalculatedArticle, "thumbnail"> &
   ComponentProps<typeof BackNumber> &
   Pick<ComponentProps<typeof ArticleInfoBar>, "articleUrlId" | "createdAt" | "updatedAt">

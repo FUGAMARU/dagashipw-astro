@@ -2,30 +2,6 @@
  * @file モデルに関連する型定義
  */
 
-import type { ImageSources } from "@/types/image"
-
-/** 記事情報 (CMSで保持しているフォーマットではなく内部的に記事情報を扱う場合に用いるフォーマット) */
-export type ArticleInfo = {
-  /** 記事URL ID */
-  articleUrlId: string
-  /** バックナンバー */
-  backNumber: number
-  /** 記事タイトル */
-  title: string
-  /** サムネイル */
-  thumbnail: ImageSources
-  /** サムネイルに紐づくテーマカラー */
-  themeColor: string
-  /** タグ */
-  tags: Array<string>
-  /** 記事本文段落冒頭 */
-  bodyBeginningParagraph: string
-  /** 作成日 */
-  createdAt: string
-  /** 更新日 */
-  updatedAt?: string
-}
-
 /** 子コメントのフォーマット */
 type MainCommentInfo = {
   /** コメントID */
@@ -59,12 +35,4 @@ export type IntermediateCommentInfo = Omit<CommentInfo, "commentId" | "replies">
       documentId: string
     }
   >
-}
-
-/** 記事ごとのタグの一覧 */
-export type ArticleTags = {
-  /** 記事URL ID */
-  articleUrlId: string
-  /** タグ一覧 */
-  tags: Array<string>
 }

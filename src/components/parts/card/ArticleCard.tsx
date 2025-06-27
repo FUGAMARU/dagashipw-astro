@@ -8,14 +8,14 @@ import { Tag } from "@/components/parts/Tag"
 import { ArticleInfoBar } from "@/components/templates/ArticleInfoBar"
 import { determineWhiteTextColor } from "@/utils/color"
 
-import type { ArticleInfo } from "@/types/models"
+import type { CalculatedArticle } from "@/types/api"
 import type { ComponentProps } from "react"
 
 /** Props */
 type Props = {
   /** サムネイルを即時読込するかどうか */
   isThumbnailEager?: ComponentProps<typeof Image>["isEager"]
-} & ArticleInfo
+} & CalculatedArticle
 
 /** 記事情報カード */
 export const ArticleCard = ({
