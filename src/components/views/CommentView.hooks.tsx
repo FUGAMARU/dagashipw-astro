@@ -128,7 +128,7 @@ export const useCommentView = (articleUrlId: string): UseCommentView => {
         parentCommentDocumentId
       )
 
-      location.href = `${window.location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // 投稿したコメントの位置まで自動スクロールためのハッシュを追加
+      location.href = `${location.pathname}#${COMMENT_ELEMENT_ID_PREFIX}${createdCommentDocumentId}` // 投稿したコメントの位置まで自動スクロールためのハッシュを追加
       location.reload() // リロード
     } catch (e) {
       if (!isAxiosError(e)) {

@@ -45,7 +45,12 @@ export const Pagination = ({ currentPage, totalPageCount, useCase, ...rest }: Pr
   const handlePageChange = (page: number) => {
     switch (useCase) {
       case "list":
-        window.location.href = replaceTextInSquareBracket(
+        if (page === 1) {
+          location.href = PAGE_PATH.TOP
+          break
+        }
+
+        location.href = replaceTextInSquareBracket(
           PAGE_PATH.ARTICLE_LIST_WITH_PAGE,
           "page",
           String(page)
@@ -55,7 +60,8 @@ export const Pagination = ({ currentPage, totalPageCount, useCase, ...rest }: Pr
         if (!("keyword" in rest)) {
           break
         }
-        window.location.href = `${replaceTextInSquareBracket(
+
+        location.href = `${replaceTextInSquareBracket(
           PAGE_PATH.SEARCH,
           "keyword",
           String(page)
@@ -65,7 +71,8 @@ export const Pagination = ({ currentPage, totalPageCount, useCase, ...rest }: Pr
         if (!("keyword" in rest)) {
           break
         }
-        window.location.href = `${replaceTextInSquareBracket(
+
+        location.href = `${replaceTextInSquareBracket(
           PAGE_PATH.SEARCH,
           "keyword",
           String(rest.keyword)
