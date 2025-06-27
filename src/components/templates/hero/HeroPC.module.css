@@ -8,6 +8,11 @@
   border: solid 1px var(--color-hero-pc-border);
   border-radius: 16px;
   box-shadow: 0 4px 4px var(--color-black-20);
+
+  > .picture {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .overlayContainer {

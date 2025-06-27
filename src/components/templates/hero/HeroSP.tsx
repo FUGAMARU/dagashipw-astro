@@ -31,6 +31,7 @@ export const HeroSP = ({
           isEager
           isObjectFitCover
           isWide
+          pictureTagClassName={styles.picture}
           sources={thumbnail}
         />
         <div className={styles.overlay} />

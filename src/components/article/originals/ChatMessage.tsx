@@ -28,7 +28,6 @@ export const ChatMessage = async ({ role, icon, name, text, isFullWidth = "false
   return (
     <div className={clsx(styles.chatMessage, styles[capitalize(role)])}>
       <Image
-        figureTagClassName={styles.icon}
         height={40}
         imageSize="smaller"
         isCircle

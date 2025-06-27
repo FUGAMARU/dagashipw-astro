@@ -36,6 +36,8 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcS
     align?: "start" | "right" | "end"
     /** figureタグに充てるclassName */
     figureTagClassName?: string
+    /** pictureタグに充てるclassName */
+    pictureTagClassName?: string
     /** HeightAdjustedImageコンポーネントからの呼び出しかどうか */
     isHeightAdjustedImage?: boolean
   }
@@ -55,6 +57,7 @@ export const Image = ({
   borderRadius,
   align = "start",
   figureTagClassName,
+  pictureTagClassName,
   isHeightAdjustedImage = false,
   ...props
 }: Props) => {
@@ -65,10 +68,21 @@ export const Image = ({
       className={clsx(
         styles.imageComponent,
         isValidString(align) && styles[`Align${capitalize(align)}`],
+        isHeightAdjustedImage && styles.HeightAdjustedFigure,
         figureTagClassName
       )}
     >
-      <picture>
+      <picture
+        className={clsx(
+          styles.pictureTag,
+          isHeightAdjustedImage && styles.HeightAdjustedPicture,
+          isValidString(cssWidth) && cssWidth === "full" && styles.WidthFull,
+          isValidString(cssHeight) && cssHeight === "full" && styles.HeightFull,
+          isValidString(cssHeight) && cssHeight === "auto" && styles.HeightAuto,
+          isWide && styles.WideAspectRatio,
+          pictureTagClassName
+        )}
+      >
         {/* SP表示 */}
         <source
           media={`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`}
@@ -90,7 +104,8 @@ export const Image = ({
             isValidString(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
             isMaxHeight100 && styles.MaxHeight100,
             isWide && styles.Wide,
-            isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`]
+            isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`],
+            isHeightAdjustedImage && styles.HeightAdjustedImg
           )}
           loading={isEager ? "eager" : "lazy"}
           src={selectedSources.pc1x}

@@ -10,6 +10,51 @@
   &.AlignEnd {
     text-align: end;
   }
+
+  &.HeightAdjustedFigure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+  }
+}
+
+.pictureTag {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+
+  &.HeightAdjustedPicture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+  }
+
+  &.WidthFull {
+    width: 100%;
+  }
+
+  &.HeightFull {
+    height: 100%;
+  }
+
+  &.HeightAuto {
+    height: auto;
+  }
+
+  &.FixedSize40 {
+    width: 40px;
+    height: 40px;
+  }
+
+  &.InlineBlock {
+    display: inline-block;
+  }
+
+  &.WideAspectRatio {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .imgTag {
@@ -56,5 +101,11 @@
 
   &.BorderRadius0 {
     border-radius: 0;
+  }
+
+  &.HeightAdjustedImg {
+    width: auto;
+    height: auto;
+    max-height: 100%;
   }
 }

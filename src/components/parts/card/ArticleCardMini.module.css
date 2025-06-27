@@ -11,7 +11,8 @@
     aspect-ratio: 16 / 9;
     border-bottom: solid 1px var(--color-border-gray);
 
-    > .figure {
+    > .picture {
+      width: 100%;
       height: 100%;
     }
   }

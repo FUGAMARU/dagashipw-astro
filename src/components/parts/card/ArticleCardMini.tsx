@@ -69,11 +69,12 @@ export const ArticleCardMini = (props: Props) => {
       <div className={styles.thumbnail}>
         <Image
           borderRadius="0"
-          cssHeight="auto"
+          cssHeight="full"
           cssWidth="full"
-          figureTagClassName={styles.figure}
           imageSize="smaller"
           isObjectFitCover
+          isWide
+          pictureTagClassName={styles.picture}
           sources={thumbnail}
         />
       </div>

@@ -9,10 +9,6 @@
     flex-direction: row-reverse;
   }
 
-  > .icon {
-    flex-shrink: 0;
-  }
-
   > .message {
     display: flex;
     flex-direction: column;

@@ -4,8 +4,12 @@
 
   @mixin section-article-common-spacing;
 
-  > .image {
+  > .figure {
     text-align: center;
+  }
+
+  > .picture {
+    display: inline-block;
   }
 
   > .text {
