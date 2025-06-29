@@ -8,19 +8,6 @@
     gap: 24px;
   }
 
-  > .empty {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    font-size: 14px;
-
-    > .text {
-      color: var(--color-text-gray);
-      text-align: center;
-    }
-  }
-
   > .pagination {
     margin-top: 36px;
   }

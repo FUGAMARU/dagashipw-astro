@@ -1,12 +1,11 @@
 ---
-import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { ArticleCard } from "@/components/parts/card/ArticleCard"
 import { DividerHorizontal } from "@/components/parts/common/DividerHorizontal"
 import { Link } from "@/components/parts/common/Link"
 import { Pagination } from "@/components/templates/Pagination"
 import styles from "@/components/views/ArticleListView.module.css"
+import { ErrorView } from "@/components/views/ErrorView"
 import { DEVELOPMENT_ARTICLE_URL_ID } from "@/constants/env"
-import { PAGE_PATH } from "@/constants/page"
 import { isValidArray } from "@/utils"
 
 import type { CalculatedArticle } from "@/types/api"
@@ -25,9 +24,9 @@ const developmentArticleExcludedArticleInfoList = import.meta.env.PROD
   : articleInfoList
 ---
 
-<div class={styles.articleList}>
-  {
-    isValidArray(developmentArticleExcludedArticleInfoList) || !("keyword" in paginationProps) ? (
+{
+  isValidArray(developmentArticleExcludedArticleInfoList) || !("keyword" in paginationProps) ? (
+    <div class={styles.articleList}>
       <div class={styles.list}>
         {developmentArticleExcludedArticleInfoList.map((articleInfo, index) => (
           <>
@@ -44,21 +43,16 @@ const developmentArticleExcludedArticleInfoList = import.meta.env.PROD
           </>
         ))}
       </div>
-    ) : (
-      <div class={styles.empty}>
-        <span
-          class={styles.text}
-        >{`「${paginationProps.keyword}」に関連する記事は存在しません`}</span>
-        <LinkInArticle href={PAGE_PATH.TOP}>トップページに戻る</LinkInArticle>
-      </div>
-    )
-  }
 
-  {
-    paginationProps.totalPageCount >= 2 && (
-      <div class={styles.pagination}>
-        <Pagination client:visible {...paginationProps} />
-      </div>
-    )
-  }
-</div>
+      {paginationProps.totalPageCount >= 2 && (
+        <div class={styles.pagination}>
+          <Pagination client:visible {...paginationProps} />
+        </div>
+      )}
+    </div>
+  ) : (
+    <ErrorView
+      japaneseMessage={`「${paginationProps.keyword}」${"\n"}に関連する記事は存在しません`}
+    />
+  )
+}

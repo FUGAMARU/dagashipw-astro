@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 28px 0;
+  padding: 28px 24px;
   color: var(--color-text-gray);
 
   > .code {
@@ -21,6 +21,12 @@
   > .japanese {
     font-size: 16px;
     font-weight: bold;
+    line-height: 1.5;
+
+    &.EmptyPage {
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
   }
 }
 
@@ -40,6 +46,11 @@
 
     > .japanese {
       font-size: 32px;
+
+      &.EmptyPage {
+        text-align: left;
+        white-space: pre-wrap;
+      }
     }
   }
 }
