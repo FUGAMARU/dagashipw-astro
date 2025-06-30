@@ -10,6 +10,7 @@ import { YouTube } from "@/components/article/originals/iframe/YouTube"
 import { HeightAdjustedImage } from "@/components/article/originals/image/HeightAdjustedImage"
 import { ImageRow } from "@/components/article/originals/image/ImageRow"
 import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
+import { InlineArticleCard } from "@/components/article/originals/InlineArticleCard"
 import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
 import { TableWithoutHeader } from "@/components/article/originals/TableWithoutHeader"
 import { Blockquote } from "@/components/article/standards/Blockquote"
@@ -100,7 +101,8 @@ const processedContent = startSyncPipe(article.body)
         kbd: Kbd,
         AccordionInfo: AccordionInfoWrapper,
         ChatMessage,
-        TableWithoutHeader
+        TableWithoutHeader,
+        InlineArticleCard
       }}
       content={processedContent}
       sanitize={{
