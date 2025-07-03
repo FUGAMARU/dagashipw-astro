@@ -21,6 +21,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/sitemap": "^3.4.1",
     "@nanostores/react": "^0.8.4",
     "@radix-ui/react-dialog": "^1.1.11",
     "@types/animejs": "^3.1.13",
