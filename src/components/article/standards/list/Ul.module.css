@@ -4,9 +4,4 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-
-  &.Nested {
-    gap: 8px;
-    margin-top: 0;
-  }
 }
