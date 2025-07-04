@@ -124,19 +124,23 @@ const schema = isDefined(article)
       </div>
     </ResponsiveContainer>
 
-    <script data-website-id={UMAMI_WEBSITE_ID} src={UMAMI_SCRIPT_SRC} type="text/partytown"
-    ></script>
+    {
+      import.meta.env.PROD && (
+        <script data-website-id={UMAMI_WEBSITE_ID} src={UMAMI_SCRIPT_SRC} type="text/partytown"></script>
 
-    <script>
-      ;(() => {
-        const name = "outbound-link-click"
-        document.querySelectorAll("a").forEach(a => {
-          if (a.host !== window.location.host && !a.getAttribute("data-umami-event")) {
-            a.setAttribute("data-umami-event", name)
-            a.setAttribute("data-umami-event-url", a.href)
-          }
-        })
-      })()
-    </script>
+        <script>
+          ;(() => {
+            const name = "outbound-link-click"
+            document.querySelectorAll("a").forEach(a => {
+              if (a.host !== window.location.host && !a.getAttribute("data-umami-event")) {
+                a.setAttribute("data-umami-event", name)
+                a.setAttribute("data-umami-event-url", a.href)
+              }
+            })
+          })()
+        </script>
+      )
+    }
+
   </body>
 </html>
