@@ -10,26 +10,12 @@
   &.AlignEnd {
     text-align: end;
   }
-
-  &.HeightAdjustedFigure {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-height: 100%;
-  }
 }
 
 .pictureTag {
   display: block;
   max-width: 100%;
   max-height: 100%;
-
-  &.HeightAdjustedPicture {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-height: 100%;
-  }
 
   &.WidthFull {
     width: 100%;
@@ -87,10 +73,6 @@
     height: auto;
   }
 
-  &.MaxHeight100 {
-    max-height: 100%;
-  }
-
   &.Wide {
     aspect-ratio: 16 / 9;
   }
@@ -101,11 +83,5 @@
 
   &.BorderRadius0 {
     border-radius: 0;
-  }
-
-  &.HeightAdjustedImg {
-    width: auto;
-    height: auto;
-    max-height: 100%;
   }
 }

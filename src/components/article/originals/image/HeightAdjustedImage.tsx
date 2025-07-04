@@ -1,3 +1,5 @@
+import clsx from "clsx"
+
 import styles from "@/components/article/originals/image/HeightAdjustedImage.module.css"
 import { Image } from "@/components/parts/common/Image"
 import { ImageCaption } from "@/components/parts/ImageCaption"
@@ -20,15 +22,13 @@ export const HeightAdjustedImage = async ({ caption, ...imageProps }: Props) => 
 
   return (
     <figure className={styles.heightAdjustedImage}>
-      <div className={styles.image}>
-        <Image
-          imageSize="normal"
-          isHeightAdjustedImage
-          isMaxHeight100
-          sources={imageSources}
-          {...imageProps}
-        />
-      </div>
+      <Image
+        cssHeight="full"
+        figureTagClassName={clsx(styles.figure, styles.height100)}
+        imageSize="normal"
+        pictureTagClassName={styles.height100}
+        sources={imageSources}
+      />
 
       {isValidString(caption) && <ImageCaption caption={caption} />}
     </figure>

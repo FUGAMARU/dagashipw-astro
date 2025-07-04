@@ -1,15 +1,35 @@
 .heightAdjustedImage {
   @mixin section-article-common-spacing;
+
+  display: flow-root;
+
+  &:has(figcaption) {
+    margin-bottom: calc(
+      var(--spacing-article-parts-common-sp) + 12px
+    ); /* なぜかfigcaptionの高さが相殺されるので仕方なくトリッキーな指定をしている */
+  }
 }
 
 @media (--pc) {
   .heightAdjustedImage {
-    > .image {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: gray;
+
+    &:has(figcaption) {
+      margin-bottom: calc(
+        var(--spacing-article-parts-common-pc) + 16px
+      ); /* なぜかfigcaptionの高さが相殺されるので仕方なくトリッキーな指定をしている */
+    }
+
+    > .figure {
       display: flex;
       justify-content: center;
-      width: 100%;
-      max-height: calc(100% * 9 / 16);
-      text-align: center;
     }
+  }
+
+  .height100 {
+    height: 100%;
   }
 }
