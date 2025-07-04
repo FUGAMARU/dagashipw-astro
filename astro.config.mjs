@@ -1,4 +1,5 @@
 import node from "@astrojs/node"
+import partytown from "@astrojs/partytown"
 import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
 import { defineConfig } from "astro/config"
@@ -11,7 +12,8 @@ export default defineConfig({
     sitemap({
       /** サイトマップに含めるページのフィルター */
       filter: page => !page.includes("/umami-control")
-    })
+    }),
+    partytown()
   ],
   adapter: node({
     mode: "standalone"

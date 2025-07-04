@@ -27,6 +27,7 @@
     "imgproxy",
     "axios",
     "infobar",
-    "umami"
+    "umami",
+    "partytown"
   ]
 }
