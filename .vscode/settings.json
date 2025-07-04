@@ -26,6 +26,7 @@
     "nanostores",
     "imgproxy",
     "axios",
-    "infobar"
+    "infobar",
+    "umami"
   ]
 }

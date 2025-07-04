@@ -1,0 +1,72 @@
+---
+import styles from "@/pages/umami-control.module.css"
+
+const ELEMENT_ID_PREFIX = "umami-control-"
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Umami Control</title>
+    <meta content="noindex, nofollow, noarchive, nosnippet" name="robots" />
+  </head>
+  <body>
+    <div class={styles.umamiControl}>
+      <div class={styles.container}>
+        <div class={styles.status} id={`${ELEMENT_ID_PREFIX}status`}>
+          現在のトラッキングステータス: 確認中...
+        </div>
+
+        <button class={styles.button} id={`${ELEMENT_ID_PREFIX}disable-btn`} type="button">
+          Umamiトラッキングを無効にする
+        </button>
+        <button class={styles.button} id={`${ELEMENT_ID_PREFIX}enable-btn`} type="button">
+          Umamiトラッキングを有効にする
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const ELEMENT_ID_PREFIX = "umami-control-"
+
+      const updateStatus = () => {
+        const isDisabled = localStorage.getItem("umami.disabled") === "1"
+        const statusElement = document.getElementById(`${ELEMENT_ID_PREFIX}status`)
+
+        if (!statusElement) {
+          return
+        }
+
+        if (isDisabled) {
+          statusElement.textContent = "現在のステータス: 無効"
+          statusElement.className = "status disabled"
+        } else {
+          statusElement.textContent = "現在のステータス: 有効"
+          statusElement.className = "status enabled"
+        }
+      }
+
+      const disableUmami = () => {
+        localStorage.setItem("umami.disabled", "1")
+        updateStatus()
+        alert("Umamiトラッキングを無効にしました。")
+      }
+
+      const enableUmami = () => {
+        localStorage.removeItem("umami.disabled")
+        updateStatus()
+        alert("Umamiトラッキングを有効にしました。")
+      }
+
+      document
+        .getElementById(`${ELEMENT_ID_PREFIX}disable-btn`)
+        ?.addEventListener("click", disableUmami)
+      document
+        .getElementById(`${ELEMENT_ID_PREFIX}enable-btn`)
+        ?.addEventListener("click", enableUmami)
+
+      updateStatus()
+    </script>
+  </body>
+</html>
