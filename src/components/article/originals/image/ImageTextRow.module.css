@@ -8,10 +8,6 @@
     text-align: center;
   }
 
-  > .picture {
-    display: inline-block;
-  }
-
   > .text {
     @mixin article-paragraph;
     @mixin section-article-common-spacing;

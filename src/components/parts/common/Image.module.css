@@ -12,37 +12,6 @@
   }
 }
 
-.pictureTag {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-
-  &.WidthFull {
-    width: 100%;
-  }
-
-  &.HeightFull {
-    height: 100%;
-  }
-
-  &.HeightAuto {
-    height: auto;
-  }
-
-  &.FixedSize40 {
-    width: 40px;
-    height: 40px;
-  }
-
-  &.InlineBlock {
-    display: inline-block;
-  }
-
-  &.WideAspectRatio {
-    aspect-ratio: 16 / 9;
-  }
-}
-
 .imgTag {
   max-width: 100%;
   max-height: 100%;

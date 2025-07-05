@@ -74,7 +74,6 @@ export const ArticleCardMini = (props: Props) => {
           imageSize="smaller"
           isObjectFitCover
           isWide
-          pictureTagClassName={styles.picture}
           sources={thumbnail}
         />
       </div>

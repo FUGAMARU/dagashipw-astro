@@ -66,16 +66,7 @@ export const Image = ({
         figureTagClassName
       )}
     >
-      <picture
-        className={clsx(
-          styles.pictureTag,
-          isValidString(cssWidth) && cssWidth === "full" && styles.WidthFull,
-          isValidString(cssHeight) && cssHeight === "full" && styles.HeightFull,
-          isValidString(cssHeight) && cssHeight === "auto" && styles.HeightAuto,
-          isWide && styles.WideAspectRatio,
-          pictureTagClassName
-        )}
-      >
+      <picture className={pictureTagClassName}>
         {/* SP表示 */}
         <source
           media={`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`}

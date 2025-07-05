@@ -88,6 +88,10 @@
   }
 }
 
+.imageFigureTag {
+  height: 100%;
+}
+
 .imagePictureTag {
   height: 100%;
 }

@@ -30,7 +30,6 @@ export const HeroPC = ({
           isEager
           isObjectFitCover
           isWide
-          pictureTagClassName={styles.picture}
           sources={thumbnail}
         />
       </div>

@@ -1,13 +1,22 @@
 .heightAdjustedImage {
   @mixin section-article-common-spacing;
 
-  display: flow-root;
-
   &:has(figcaption) {
     margin-bottom: calc(
       var(--spacing-article-parts-common-sp) + 12px
     ); /* なぜかfigcaptionの高さが相殺されるので仕方なくトリッキーな指定をしている */
   }
+
+  > .figure {
+    display: flex;
+    justify-content: center;
+    max-height: 500px;
+  }
+}
+
+.pictureTag {
+  display: flex;
+  justify-content: center;
 }
 
 @media (--pc) {
@@ -23,8 +32,7 @@
     }
 
     > .figure {
-      display: flex;
-      justify-content: center;
+      max-height: unset;
     }
   }
 

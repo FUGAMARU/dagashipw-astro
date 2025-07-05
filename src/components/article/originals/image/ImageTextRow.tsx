@@ -23,7 +23,6 @@ export const ImageTextRow = async ({ imageUrl, imageHeight, text }: Props) => {
         figureTagClassName={styles.figure}
         height={imageHeight}
         imageSize="normal"
-        pictureTagClassName={styles.picture}
         sources={imageSources}
       />
       <p className={styles.text}>{unescapeNewlines(text)}</p>

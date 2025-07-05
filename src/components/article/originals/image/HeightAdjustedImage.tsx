@@ -26,7 +26,7 @@ export const HeightAdjustedImage = async ({ caption, ...imageProps }: Props) => 
         cssHeight="full"
         figureTagClassName={clsx(styles.figure, styles.height100)}
         imageSize="normal"
-        pictureTagClassName={styles.height100}
+        pictureTagClassName={styles.pictureTag}
         sources={imageSources}
       />
 
