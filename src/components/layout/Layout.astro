@@ -10,7 +10,6 @@ import { LogoWrapper } from "@/components/layout/LogoWrapper"
 import Sidebar from "@/components/layout/sidebar/Sidebar.astro"
 import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
-import { UMAMI_SCRIPT_SRC, UMAMI_WEBSITE_ID } from "@/constants/env"
 import { DEFAULT_OGP_IMAGE_FILENAME } from "@/constants/value"
 import { isDefined } from "@/utils"
 
@@ -126,21 +125,13 @@ const schema = isDefined(article)
 
     {
       import.meta.env.PROD && (
-        <script data-website-id={UMAMI_WEBSITE_ID} src={UMAMI_SCRIPT_SRC} type="text/partytown"></script>
-
-        <script>
-          ;(() => {
-            const name = "outbound-link-click"
-            document.querySelectorAll("a").forEach(a => {
-              if (a.host !== window.location.host && !a.getAttribute("data-umami-event")) {
-                a.setAttribute("data-umami-event", name)
-                a.setAttribute("data-umami-event-url", a.href)
-              }
-            })
-          })()
-        </script>
+        <>
+          <script async src="//accaii.com/fugamaru/script.js" type="text/partytown" />
+          <noscript>
+            <img src="//accaii.com/fugamaru/script?guid=on" />
+          </noscript>
+        </>
       )
     }
-
   </body>
 </html>

@@ -31,10 +31,6 @@ export const TURNSTILE_SITE_KEY = import.meta.env.DEV
 export const TURNSTILE_SECRET_KEY = import.meta.env.TURNSTILE_SECRET_KEY
 /** 開発用ページの記事URL ID */
 export const DEVELOPMENT_ARTICLE_URL_ID = import.meta.env.DEVELOPMENT_ARTICLE_URL_ID
-/** UmamiのスクリプトURL */
-export const UMAMI_SCRIPT_SRC = import.meta.env.UMAMI_SCRIPT_SRC
-/** UmamiのウェブサイトID */
-export const UMAMI_WEBSITE_ID = import.meta.env.UMAMI_WEBSITE_ID
 
 if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))) {
   const missingEnvironmentVariables = [
@@ -49,9 +45,7 @@ if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))
     !isValidString(TURNSTILE_SITE_KEY) && "TURNSTILE_SITE_KEYが環境変数に設定されていません",
     !isValidString(TURNSTILE_SECRET_KEY) && "TURNSTILE_SECRET_KEYが環境変数に設定されていません",
     !isValidString(DEVELOPMENT_ARTICLE_URL_ID) &&
-      "DEVELOPMENT_ARTICLE_URL_IDが環境変数に設定されていません",
-    !isValidString(UMAMI_SCRIPT_SRC) && "UMAMI_SCRIPT_SRCが環境変数に設定されていません",
-    !isValidString(UMAMI_WEBSITE_ID) && "UMAMI_WEBSITE_IDが環境変数に設定されていません"
+      "DEVELOPMENT_ARTICLE_URL_IDが環境変数に設定されていません"
   ]
     .filter(isDefined)
     .join("\n")
