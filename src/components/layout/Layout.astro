@@ -126,7 +126,8 @@ const schema = isDefined(article)
     {
       import.meta.env.PROD && (
         <>
-          <script async src="//accaii.com/fugamaru/script.js" type="text/partytown" />
+          {/* Partytown使うとCORSエラー出るので使わない */}
+          <script async src="//accaii.com/fugamaru/script.js" />
           <noscript>
             <img src="//accaii.com/fugamaru/script?guid=on" />
           </noscript>
