@@ -15,7 +15,6 @@ export type SvgComponentName =
   | "reverseClock"
   | "commentWithPen"
   | "doubleRightArrow"
-  | "background"
   | "notByAi"
   | "warning"
   | "inspiration"

@@ -56,11 +56,6 @@ const SVG_COMPONENTS = {
       default: IconDoubleRightArrow
     }))
   ),
-  background: lazy(() =>
-    import("@/components/parts/svg/PatternBackground").then(({ PatternBackground }) => ({
-      default: PatternBackground
-    }))
-  ),
   notByAi: lazy(() =>
     import("@/components/parts/svg/IconNotByAi").then(({ IconNotByAi }) => ({
       default: IconNotByAi
@@ -150,10 +145,7 @@ export const SvgLoader = forwardRef<HTMLSpanElement, Props>(({ name, className }
   const SvgComponent = SVG_COMPONENTS[name]
 
   return (
-    <span
-      ref={ref}
-      className={clsx(className, styles.svgLoader, name === "background" && styles.Background)}
-    >
+    <span ref={ref} className={clsx(className, styles.svgLoader)}>
       <SvgComponent />
     </span>
   )

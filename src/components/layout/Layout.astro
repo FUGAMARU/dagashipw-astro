@@ -7,9 +7,9 @@ import { Footer } from "@/components/layout/Footer"
 import { createArticleSchema, createDefaultSchema } from "@/components/layout/Layout.helpers"
 import styles from "@/components/layout/Layout.module.css"
 import { LogoWrapper } from "@/components/layout/LogoWrapper"
+import Scripts from "@/components/layout/Scripts.astro"
 import Sidebar from "@/components/layout/sidebar/Sidebar.astro"
 import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
-import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import { DEFAULT_OGP_IMAGE_FILENAME } from "@/constants/value"
 import { isDefined } from "@/utils"
 
@@ -117,30 +117,9 @@ const schema = isDefined(article)
     </footer>
 
     <ResponsiveContainer isPC>
-      <div class={styles.backgroundPattern}>
-        <SvgLoader name="background" />
-        <div class={styles.overlay}></div>
-      </div>
+      <img class={styles.backgroundPattern} src="/bg-minified.svg" />
     </ResponsiveContainer>
 
-    {
-      import.meta.env.PROD && (
-        <>
-          {/* Partytown使うとCORSエラー出るので使わない */}
-          <script async src="//accaii.com/fugamaru/script.js" />
-          <noscript>
-            <img src="//accaii.com/fugamaru/script?guid=on" />
-          </noscript>
-
-          <script src="https://www.googletagmanager.com/gtag/js?id=G-F86VG2KC9W" type="text/partytown"></script>
-          <script type="text/partytown">
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-F86VG2KC9W');
-          </script>
-        </>
-      )
-    }
+    {import.meta.env.PROD && <Scripts />}
   </body>
 </html>
