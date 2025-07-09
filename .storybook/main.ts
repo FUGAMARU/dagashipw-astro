@@ -26,10 +26,7 @@ const config: StorybookConfig = {
         autoStoryGenerator.vite({
           preset: "react",
           imports: ["src/components/**/*.tsx"],
-          ignores: [
-            "src/components/article/originals/Inserter.tsx",
-            "src/components/views/**/*.tsx"
-          ],
+          ignores: ["src/components/views/**/*.tsx"],
           prettierConfigPath: resolve(__dirname, "../.prettierrc.js")
         })
       ]

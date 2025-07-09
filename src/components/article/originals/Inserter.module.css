@@ -1,3 +1,7 @@
 .inserterContainer {
   padding: 28px 0;
 }
+
+.tableOfContentsHidden {
+  display: none;
+}

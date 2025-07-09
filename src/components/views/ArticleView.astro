@@ -11,7 +11,7 @@ import { HeightAdjustedImage } from "@/components/article/originals/image/Height
 import { ImageRow } from "@/components/article/originals/image/ImageRow"
 import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
 import { InlineArticleCard } from "@/components/article/originals/InlineArticleCard"
-import InserterWrapper from "@/components/article/originals/InserterWrapper.astro"
+import Inserter from "@/components/article/originals/Inserter.astro"
 import { TableWithoutHeader } from "@/components/article/originals/TableWithoutHeader"
 import { Blockquote } from "@/components/article/standards/Blockquote"
 import { Code } from "@/components/article/standards/Code"
@@ -92,7 +92,7 @@ const processedContent = startSyncPipe(article.body)
         blockquote: Blockquote,
         ImageRow,
         ImageTextRow,
-        Inserter: InserterWrapper,
+        Inserter,
         DownloadButton,
         YouTube,
         CodeBlock: CodeBlockWrapper,

@@ -1,0 +1,108 @@
+---
+import styles from "@/components/article/originals/Inserter.module.css"
+import { TableOfContents } from "@/components/templates/TableOfContents"
+import { INSERTER_WRAPPER_ID } from "@/constants/element"
+import { isDefined, isValidArray } from "@/utils"
+import { generateTableOfContentsFormat } from "@/utils/markdown"
+import { calculateReadingTime } from "@/utils/table-of-contents"
+
+/** Props */
+type Props = {
+  /** 表示するもの */
+  type: "tableOfContents" | "ad"
+}
+
+const { type } = Astro.props
+const { article } = Astro.locals
+
+if (!isDefined(article)) {
+  throw new Error("ミドルウェアで記事の取得に失敗している可能性があります")
+}
+
+const tableOfContentsData = generateTableOfContentsFormat(article.body)
+const minutesToRead = calculateReadingTime(article.body)
+---
+
+<div class={`${styles.inserterContainer} ${styles.tableOfContentsHidden}`} id={INSERTER_WRAPPER_ID}>
+  {
+    type === "tableOfContents" && isValidArray(tableOfContentsData) && (
+      <TableOfContents
+        client:load
+        minutesToRead={minutesToRead}
+        tableOfContentsData={tableOfContentsData}
+      />
+    )
+  }
+</div>
+
+<variable-bridge
+  data-has-table-of-contents={isValidArray(tableOfContentsData)}
+  data-table-of-contents-hidden-class={styles.tableOfContentsHidden}
+  data-type={type}></variable-bridge>
+
+<script>
+  import { INSERTER_WRAPPER_ID } from "@/constants/element"
+  import { RESPONSIVE_SP_MAX_WIDTH } from "@/constants/value"
+  import { isDefined } from "@/utils"
+
+  const VARIABLE_BRIDGE_TAG_NAME = "variable-bridge"
+
+  const isSP = () => {
+    return window.matchMedia(`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`).matches
+  }
+
+  const handleInserterDisplay = (
+    type: string,
+    hasTableOfContents: boolean,
+    tableOfContentsHiddenClass: string
+  ) => {
+    const inserterWrapper = document.getElementById(INSERTER_WRAPPER_ID)
+
+    if (!isDefined(inserterWrapper)) {
+      return
+    }
+
+    if (
+      type !== "tableOfContents" ||
+      !hasTableOfContents ||
+      !isSP() // PCではサイドバーに目次を表示するので記事中には表示しない
+    ) {
+      inserterWrapper.classList.add(tableOfContentsHiddenClass)
+      return
+    }
+
+    inserterWrapper.classList.remove(tableOfContentsHiddenClass)
+  }
+
+  const getDataFromVariableBridge = () => {
+    const variableBridge = document.querySelector(VARIABLE_BRIDGE_TAG_NAME)
+    if (!isDefined(variableBridge)) {
+      return { type: "", hasTableOfContents: false, tableOfContentsHiddenClass: "" }
+    }
+
+    return {
+      type: variableBridge.getAttribute("data-type") ?? "",
+      hasTableOfContents: variableBridge.getAttribute("data-has-table-of-contents") === "true",
+      tableOfContentsHiddenClass:
+        variableBridge.getAttribute("data-table-of-contents-hidden-class") ?? ""
+    }
+  }
+
+  class VariableBridge extends HTMLElement {
+    constructor() {
+      super()
+    }
+
+    connectedCallback() {
+      const { type, hasTableOfContents, tableOfContentsHiddenClass } = getDataFromVariableBridge()
+      handleInserterDisplay(type, hasTableOfContents, tableOfContentsHiddenClass)
+    }
+  }
+
+  customElements.define(VARIABLE_BRIDGE_TAG_NAME, VariableBridge)
+
+  window.addEventListener("resize", () => {
+    const { type, hasTableOfContents, tableOfContentsHiddenClass } = getDataFromVariableBridge()
+    handleInserterDisplay(type, hasTableOfContents, tableOfContentsHiddenClass)
+  })
+</script>

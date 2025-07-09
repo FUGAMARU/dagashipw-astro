@@ -16,3 +16,6 @@ export const COMMENT_ELEMENT_ID_PREFIX = "comment-"
 
 /** キーワード入力欄のname属性の値 */
 export const KEYWORD_INPUT_NAME = "keyword"
+
+/** Inserter要素のID */
+export const INSERTER_WRAPPER_ID = "inserter-wrapper"
