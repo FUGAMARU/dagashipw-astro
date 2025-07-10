@@ -22,72 +22,98 @@ const adsClientId = "ca-pub-5828524546032275"
     data-ad-layout="in-article"
     data-ad-slot={adSlot}
     style="display:block; text-align:center;"></ins>
-
-  {
-    isProd ? (
-      <script data-astro-rerun is:inline>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    ) : (
-      <script data-astro-rerun is:inline>
-        window.adsbygoogle = window.adsbygoogle || [];
-        const adBreak = adConfig = function(o) {
-          adsbygoogle.push(o);
-        }
-      </script>
-    )
-  }
 </div>
 
 <script data-astro-rerun define:vars={{ adsClientId, isProd, ADS_CONTAINER_CLASS }} is:inline>
+  let isAdsenseScriptLoaded = false
+  let isAdsenseScriptLoading = false
+
   const initAdsense = () => {
-    const adElements = document.querySelectorAll("." + ADS_CONTAINER_CLASS);
+    const adElements = document.querySelectorAll("." + ADS_CONTAINER_CLASS)
 
     adElements.forEach(adElement => {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          // Google AdSenseスクリプトが既に読み込まれているかチェック
-          const existingScript = document.querySelector('script[src*="adsbygoogle.js"]');
+      // 既に処理済みの要素はスキップ
+      if (adElement.dataset.adsenseProcessed) {
+        return
+      }
 
-          if (!existingScript) {
-            let ad = document.createElement("script");
-            ad.type = "text/javascript";
-            ad.async = true;
-            ad.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClientId}`;
-            ad.crossOrigin = "anonymous";
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            // 処理済みマークを付ける
+            adElement.dataset.adsenseProcessed = "true"
 
-            if (!isProd) {
-              ad.dataset.adbreakTest = "on";
+            const insElement = adElement.querySelector(".adsbygoogle")
+
+            // 既に広告が表示されている場合はスキップ
+            if (insElement && insElement.dataset.adsbygoogleStatus) {
+              observer.disconnect()
+              return
             }
 
-            // スクリプト読み込み完了後に広告を初期化
-            ad.onload = () => {
+            const loadAndInitAd = () => {
               if (typeof window.adsbygoogle !== "undefined") {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
+                // 開発環境用の設定
+                if (!isProd) {
+                  window.adsbygoogle = window.adsbygoogle || []
+                  const adBreak = (adConfig = o => {
+                    adsbygoogle.push(o)
+                  })
+                }
+
+                // 広告を初期化
+                try {
+                  ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+                } catch (error) {
+                  console.warn("AdSense initialization failed:", error)
+                }
               }
-            };
-
-            document.head.appendChild(ad);
-          } else {
-            // 既にスクリプトが読み込まれている場合は直接実行
-            if (typeof window.adsbygoogle !== "undefined") {
-              (window.adsbygoogle = window.adsbygoogle || []).push({});
             }
+
+            if (!isAdsenseScriptLoaded && !isAdsenseScriptLoading) {
+              isAdsenseScriptLoading = true
+
+              let ad = document.createElement("script")
+              ad.type = "text/javascript"
+              ad.async = true
+              ad.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClientId}`
+              ad.crossOrigin = "anonymous"
+
+              if (!isProd) {
+                ad.dataset.adbreakTest = "on"
+              }
+
+              ad.onload = () => {
+                isAdsenseScriptLoaded = true
+                isAdsenseScriptLoading = false
+                loadAndInitAd()
+              }
+
+              ad.onerror = () => {
+                isAdsenseScriptLoading = false
+                console.error("Failed to load AdSense script")
+              }
+
+              document.head.appendChild(ad)
+            } else if (isAdsenseScriptLoaded) {
+              loadAndInitAd()
+            }
+
+            observer.disconnect()
           }
-
-          observer.disconnect();
+        },
+        {
+          rootMargin: "100px" // 広告が画面に入る100px前に読み込み開始
         }
-      }, {
-        rootMargin: "100px" // 広告が画面に入る100px前に読み込み開始
-      });
+      )
 
-      observer.observe(adElement);
-    });
-  };
+      observer.observe(adElement)
+    })
+  }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAdsense);
+    document.addEventListener("DOMContentLoaded", initAdsense)
   } else {
-    initAdsense();
+    initAdsense()
   }
 </script>
