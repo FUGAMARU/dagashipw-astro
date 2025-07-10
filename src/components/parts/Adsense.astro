@@ -1,4 +1,8 @@
 ---
+import { ADS_CONTAINER_CLASS } from "@/constants/element"
+
+/** 参考ページ: https://www.neputa-note.net/2024/07/adsense-lazy-loading/ */
+
 /** Props */
 type Props = {
   /** Ad Slot */
@@ -6,15 +10,84 @@ type Props = {
 }
 
 const { adSlot } = Astro.props
+const isProd = import.meta.env.PROD
+const adsClientId = "ca-pub-5828524546032275"
 ---
 
-<ins
-  class="adsbygoogle"
-  data-ad-client="ca-pub-5828524546032275"
-  data-ad-format="fluid"
-  data-ad-layout="in-article"
-  data-ad-slot={adSlot}
-  style="display:block; text-align:center;"></ins>
-<script>
-  ;(adsbygoogle = window.adsbygoogle || []).push({})
+<div class={ADS_CONTAINER_CLASS} data-ad-slot={adSlot}>
+  <ins
+    class="adsbygoogle"
+    data-ad-client={adsClientId}
+    data-ad-format="fluid"
+    data-ad-layout="in-article"
+    data-ad-slot={adSlot}
+    style="display:block; text-align:center;"></ins>
+
+  {
+    isProd ? (
+      <script data-astro-rerun is:inline>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    ) : (
+      <script data-astro-rerun is:inline>
+        window.adsbygoogle = window.adsbygoogle || [];
+        const adBreak = adConfig = function(o) {
+          adsbygoogle.push(o);
+        }
+      </script>
+    )
+  }
+</div>
+
+<script data-astro-rerun define:vars={{ adsClientId, isProd, ADS_CONTAINER_CLASS }} is:inline>
+  const initAdsense = () => {
+    const adElements = document.querySelectorAll("." + ADS_CONTAINER_CLASS);
+
+    adElements.forEach(adElement => {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          // Google AdSenseスクリプトが既に読み込まれているかチェック
+          const existingScript = document.querySelector('script[src*="adsbygoogle.js"]');
+
+          if (!existingScript) {
+            let ad = document.createElement("script");
+            ad.type = "text/javascript";
+            ad.async = true;
+            ad.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClientId}`;
+            ad.crossOrigin = "anonymous";
+
+            if (!isProd) {
+              ad.dataset.adbreakTest = "on";
+            }
+
+            // スクリプト読み込み完了後に広告を初期化
+            ad.onload = () => {
+              if (typeof window.adsbygoogle !== "undefined") {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+              }
+            };
+
+            document.head.appendChild(ad);
+          } else {
+            // 既にスクリプトが読み込まれている場合は直接実行
+            if (typeof window.adsbygoogle !== "undefined") {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            }
+          }
+
+          observer.disconnect();
+        }
+      }, {
+        rootMargin: "100px" // 広告が画面に入る100px前に読み込み開始
+      });
+
+      observer.observe(adElement);
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAdsense);
+  } else {
+    initAdsense();
+  }
 </script>
