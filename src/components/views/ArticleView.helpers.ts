@@ -1,15 +1,35 @@
+import { isValidArray } from "@/utils"
+
 /**
- * マークダウンに目次挿入用のコンポーネントを挿入する
+ * マークダウンに目次と広告コンポーネントを挿入する
  *
  * @param markdown - マークダウン
- * @returns 目次挿入後のマークダウン (h2が見つからない場合はそのまま返す)
+ * @returns 目次・広告挿入後のマークダウン (h2が見つからない場合はそのまま返す)
  */
-export const insertTableOfContentsToMarkdown = (markdown: string): string => {
-  const headingRegex = /##\s/
+export const insertTableOfContentsAndAds = (markdown: string): string => {
+  const H2_REGEX = /##\s/
+  const sections = markdown.split(H2_REGEX)
 
-  const parts = markdown.split(headingRegex)
+  // h2が見つからない場合はそのまま返す
+  if (sections.length <= 1) {
+    return markdown
+  }
 
-  return parts.length > 1
-    ? `${parts[0]}<Inserter type="tableOfContents" />\n\n## ${parts.slice(1).join("## ")}`
-    : markdown
+  const [firstSection, ...h2Sections] = sections
+  const middleIndex = Math.floor(h2Sections.length / 2)
+
+  const processedSections = h2Sections.map((section, index) => {
+    const isFirstH2 = index === 0
+    const isMiddleH2 = index === middleIndex && h2Sections.length > 1
+
+    const inserters = [
+      ...(isFirstH2 ? ['<Inserter type="tableOfContents" />', '<Inserter type="adTop" />'] : []),
+      ...(isMiddleH2 ? ['<Inserter type="adMiddle" />'] : [])
+    ]
+
+    const inserterString = isValidArray(inserters) ? `${inserters.join("\n")}\n\n` : ""
+    return `${inserterString}## ${section}`
+  })
+
+  return `${firstSection}${processedSections.join("")}`
 }

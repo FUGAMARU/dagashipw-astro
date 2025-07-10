@@ -1,7 +1,11 @@
-.inserterContainer {
-  padding: 28px 0;
+.tableOfContentsContainer {
+  padding-top: 28px;
 }
 
-.tableOfContentsHidden {
+.initialHidden {
   display: none;
+}
+
+.adContainer {
+  padding: 28px 0;
 }

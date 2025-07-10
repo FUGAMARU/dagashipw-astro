@@ -18,4 +18,4 @@ export const COMMENT_ELEMENT_ID_PREFIX = "comment-"
 export const KEYWORD_INPUT_NAME = "keyword"
 
 /** Inserter要素のID */
-export const INSERTER_WRAPPER_ID = "inserter-wrapper"
+export const INSERTER_CONTAINER_ID = "inserter-wrapper"

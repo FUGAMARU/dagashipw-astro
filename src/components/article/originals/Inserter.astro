@@ -1,7 +1,10 @@
 ---
+import { randomUUID } from "node:crypto"
+
 import styles from "@/components/article/originals/Inserter.module.css"
+import Adsense from "@/components/parts/Adsense.astro"
 import { TableOfContents } from "@/components/templates/TableOfContents"
-import { INSERTER_WRAPPER_ID } from "@/constants/element"
+import { INSERTER_CONTAINER_ID } from "@/constants/element"
 import { isDefined, isValidArray } from "@/utils"
 import { generateTableOfContentsFormat } from "@/utils/markdown"
 import { calculateReadingTime } from "@/utils/table-of-contents"
@@ -9,7 +12,7 @@ import { calculateReadingTime } from "@/utils/table-of-contents"
 /** Props */
 type Props = {
   /** 表示するもの */
-  type: "tableOfContents" | "ad"
+  type: "tableOfContents" | "adTop" | "adMiddle"
 }
 
 const { type } = Astro.props
@@ -21,70 +24,103 @@ if (!isDefined(article)) {
 
 const tableOfContentsData = generateTableOfContentsFormat(article.body)
 const minutesToRead = calculateReadingTime(article.body)
+const isProd = import.meta.env.PROD
+
+/**
+ * InserterコンテナのID
+ * UUIDを入れないと同一ページ内で複数のInserterコンポーネントが存在する際にIDが重複し、JS側でgetElementByIdが最初の要素しか取得できなくなり表示制御が正常に動作しなくなる
+ */
+const inserterContainerId = `${INSERTER_CONTAINER_ID}-${type}-${randomUUID()}`
+
+/**
+ * 初期表示クラス
+ * 広告タイプの場合は最初から表示、目次の場合は非表示から開始
+ */
+const initialVisibilityClass = type === "adTop" || type === "adMiddle" ? "" : styles.initialHidden
 ---
 
-<div class={`${styles.inserterContainer} ${styles.tableOfContentsHidden}`} id={INSERTER_WRAPPER_ID}>
+<div class={initialVisibilityClass} id={inserterContainerId}>
   {
     type === "tableOfContents" && isValidArray(tableOfContentsData) && (
-      <TableOfContents
-        client:load
-        minutesToRead={minutesToRead}
-        tableOfContentsData={tableOfContentsData}
-      />
+      <div class={styles.tableOfContentsContainer}>
+        <TableOfContents
+          client:load
+          minutesToRead={minutesToRead}
+          tableOfContentsData={tableOfContentsData}
+        />
+      </div>
+    )
+  }
+  {
+    isProd && type === "adTop" && (
+      <div class={styles.adContainer}>
+        <Adsense adSlot="6671490146" />
+      </div>
+    )
+  }
+  {
+    isProd && type === "adMiddle" && (
+      <div class={styles.adContainer}>
+        <Adsense adSlot="3434355859" />
+      </div>
     )
   }
 </div>
 
 <variable-bridge
   data-has-table-of-contents={isValidArray(tableOfContentsData)}
-  data-table-of-contents-hidden-class={styles.tableOfContentsHidden}
+  data-inserter-id={inserterContainerId}
+  data-table-of-contents-hidden-class={styles.initialHidden}
   data-type={type}></variable-bridge>
 
 <script>
-  import { INSERTER_WRAPPER_ID } from "@/constants/element"
   import { RESPONSIVE_SP_MAX_WIDTH } from "@/constants/value"
   import { isDefined } from "@/utils"
 
   const VARIABLE_BRIDGE_TAG_NAME = "variable-bridge"
 
-  const isSP = () => {
+  const checkIsSP = () => {
     return window.matchMedia(`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`).matches
   }
 
   const handleInserterDisplay = (
     type: string,
     hasTableOfContents: boolean,
-    tableOfContentsHiddenClass: string
+    initialHiddenClass: string,
+    inserterId: string
   ) => {
-    const inserterWrapper = document.getElementById(INSERTER_WRAPPER_ID)
+    const inserterWrapper = document.getElementById(inserterId)
 
     if (!isDefined(inserterWrapper)) {
       return
     }
 
-    if (
-      type !== "tableOfContents" ||
-      !hasTableOfContents ||
-      !isSP() // PCではサイドバーに目次を表示するので記事中には表示しない
-    ) {
-      inserterWrapper.classList.add(tableOfContentsHiddenClass)
+    // 広告はPC/SP両方で常に表示
+    if (type === "adTop" || type === "adMiddle") {
+      inserterWrapper.classList.remove(initialHiddenClass)
       return
     }
 
-    inserterWrapper.classList.remove(tableOfContentsHiddenClass)
+    // 目次はPCではサイドバーに表示されるため、SPのみ記事中に表示
+    if (type !== "tableOfContents" || !hasTableOfContents || !checkIsSP()) {
+      inserterWrapper.classList.add(initialHiddenClass)
+      return
+    }
+
+    inserterWrapper.classList.remove(initialHiddenClass)
   }
 
   const getDataFromVariableBridge = () => {
     const variableBridge = document.querySelector(VARIABLE_BRIDGE_TAG_NAME)
     if (!isDefined(variableBridge)) {
-      return { type: "", hasTableOfContents: false, tableOfContentsHiddenClass: "" }
+      return { type: "", hasTableOfContents: false, initialHiddenClass: "", inserterId: "" }
     }
 
     return {
       type: variableBridge.getAttribute("data-type") ?? "",
       hasTableOfContents: variableBridge.getAttribute("data-has-table-of-contents") === "true",
-      tableOfContentsHiddenClass:
-        variableBridge.getAttribute("data-table-of-contents-hidden-class") ?? ""
+      initialHiddenClass: variableBridge.getAttribute("data-table-of-contents-hidden-class") ?? "",
+      inserterId: variableBridge.getAttribute("data-inserter-id") ?? ""
     }
   }
 
@@ -94,15 +130,16 @@ const minutesToRead = calculateReadingTime(article.body)
     }
 
     connectedCallback() {
-      const { type, hasTableOfContents, tableOfContentsHiddenClass } = getDataFromVariableBridge()
-      handleInserterDisplay(type, hasTableOfContents, tableOfContentsHiddenClass)
+      const { type, hasTableOfContents, initialHiddenClass, inserterId } =
+        getDataFromVariableBridge()
+      handleInserterDisplay(type, hasTableOfContents, initialHiddenClass, inserterId)
     }
   }
 
   customElements.define(VARIABLE_BRIDGE_TAG_NAME, VariableBridge)
 
   window.addEventListener("resize", () => {
-    const { type, hasTableOfContents, tableOfContentsHiddenClass } = getDataFromVariableBridge()
-    handleInserterDisplay(type, hasTableOfContents, tableOfContentsHiddenClass)
+    const { type, hasTableOfContents, initialHiddenClass, inserterId } = getDataFromVariableBridge()
+    handleInserterDisplay(type, hasTableOfContents, initialHiddenClass, inserterId)
   })
 </script>

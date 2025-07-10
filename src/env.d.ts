@@ -11,4 +11,6 @@ declare global {
       article?: CalculatedArticle
     }
   }
+
+  var adsbygoogle: { [key: string]: unknown }[]
 }

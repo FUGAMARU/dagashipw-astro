@@ -28,6 +28,8 @@
     "axios",
     "infobar",
     "umami",
-    "partytown"
+    "partytown",
+    "adsbygoogle",
+    "adsense"
   ]
 }
