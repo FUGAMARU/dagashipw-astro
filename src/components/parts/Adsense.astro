@@ -1,9 +1,4 @@
 ---
-import styles from "@/components/parts/Adsense.module.css"
-import { ADS_CONTAINER_CSS_CLASS } from "@/constants/element"
-
-/** 参考ページ: https://www.neputa-note.net/2024/07/adsense-lazy-loading/ */
-
 /** Props */
 type Props = {
   /** Ad Slot */
@@ -11,111 +6,16 @@ type Props = {
 }
 
 const { adSlot } = Astro.props
-const isProd = import.meta.env.PROD
-const adsClientId = "ca-pub-5828524546032275"
 ---
 
-<div class={styles.adsContainer} data-ad-slot={adSlot}>
-  <ins
-    class="adsbygoogle"
-    data-ad-client={adsClientId}
-    data-ad-format="auto"
-    data-ad-layout="in-article"
-    data-ad-slot={adSlot}
-    data-full-width-responsive="true"
-    style="display:block; text-align:center;"></ins>
-</div>
-
-<script data-astro-rerun define:vars={{ adsClientId, isProd, ADS_CONTAINER_CSS_CLASS }} is:inline>
-  let isAdsenseScriptLoaded = false
-  let isAdsenseScriptLoading = false
-
-  const initAdsense = () => {
-    const adElements = document.querySelectorAll("." + ADS_CONTAINER_CSS_CLASS)
-
-    adElements.forEach(adElement => {
-      // 既に処理済みの要素はスキップ
-      if (adElement.dataset.adsenseProcessed) {
-        return
-      }
-
-      const observer = new IntersectionObserver(
-        entries => {
-          if (entries[0].isIntersecting) {
-            // 処理済みマークを付ける
-            adElement.dataset.adsenseProcessed = "true"
-
-            const insElement = adElement.querySelector(".adsbygoogle")
-
-            // 既に広告が表示されている場合はスキップ
-            if (insElement && insElement.dataset.adsbygoogleStatus) {
-              observer.disconnect()
-              return
-            }
-
-            const loadAndInitAd = () => {
-              if (typeof window.adsbygoogle !== "undefined") {
-                // 開発環境用の設定
-                if (!isProd) {
-                  window.adsbygoogle = window.adsbygoogle || []
-                  const adBreak = (adConfig = o => {
-                    adsbygoogle.push(o)
-                  })
-                }
-
-                // 広告を初期化
-                try {
-                  ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-                } catch (error) {
-                  console.warn("AdSense initialization failed:", error)
-                }
-              }
-            }
-
-            if (!isAdsenseScriptLoaded && !isAdsenseScriptLoading) {
-              isAdsenseScriptLoading = true
-
-              let ad = document.createElement("script")
-              ad.type = "text/javascript"
-              ad.async = true
-              ad.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClientId}`
-              ad.crossOrigin = "anonymous"
-
-              if (!isProd) {
-                ad.dataset.adbreakTest = "on"
-              }
-
-              ad.onload = () => {
-                isAdsenseScriptLoaded = true
-                isAdsenseScriptLoading = false
-                loadAndInitAd()
-              }
-
-              ad.onerror = () => {
-                isAdsenseScriptLoading = false
-                console.error("Failed to load AdSense script")
-              }
-
-              document.head.appendChild(ad)
-            } else if (isAdsenseScriptLoaded) {
-              loadAndInitAd()
-            }
-
-            observer.disconnect()
-          }
-        },
-        {
-          rootMargin: "100px" // 広告が画面に入る100px前に読み込み開始
-        }
-      )
-
-      observer.observe(adElement)
-    })
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAdsense)
-  } else {
-    initAdsense()
-  }
+<ins
+  class="adsbygoogle"
+  data-ad-client="ca-pub-5828524546032275"
+  data-ad-format="fluid"
+  data-ad-layout="in-article"
+  data-ad-slot={adSlot}
+  data-full-width-responsive="false"
+  style="display:block; text-align:center;"></ins>
+<script>
+  ;(adsbygoogle = window.adsbygoogle || []).push({})
 </script>

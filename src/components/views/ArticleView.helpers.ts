@@ -1,4 +1,4 @@
-import { isValidArray } from "@/utils"
+import { isDefined, isValidArray } from "@/utils"
 
 /**
  * マークダウンに目次と広告コンポーネントを挿入する
@@ -7,7 +7,7 @@ import { isValidArray } from "@/utils"
  * @returns 目次・広告挿入後のマークダウン (h2が見つからない場合はそのまま返す)
  */
 export const insertTableOfContentsAndAds = (markdown: string): string => {
-  const H2_REGEX = /##\s/
+  const H2_REGEX = /(##\s)/
   const sections = markdown.split(H2_REGEX)
 
   // h2が見つからない場合はそのまま返す
@@ -15,7 +15,15 @@ export const insertTableOfContentsAndAds = (markdown: string): string => {
     return markdown
   }
 
-  const [firstSection, ...h2Sections] = sections
+  const [firstSection, ...rest] = sections
+  const h2Sections = []
+
+  for (let i = 1; i < rest.length; i += 2) {
+    if (isDefined(rest[i + 1])) {
+      h2Sections.push(rest[i + 1])
+    }
+  }
+
   const middleIndex = Math.floor(h2Sections.length / 2)
 
   const processedSections = h2Sections.map((section, index) => {
