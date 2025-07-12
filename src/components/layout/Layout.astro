@@ -120,7 +120,6 @@ const schema = isDefined(article)
       <img class={styles.backgroundPattern} src="/bg-minified.svg" />
     </ResponsiveContainer>
 
-    <!-- {import.meta.env.PROD && <Scripts />} -->
-    <Scripts />
+    {import.meta.env.PROD && <Scripts />}
   </body>
 </html>
