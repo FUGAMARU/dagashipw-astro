@@ -12,6 +12,10 @@
       margin-top: 0;
     }
 
+    > .ad {
+      @mixin section-article-common-spacing;
+    }
+
     > .built {
       padding: 10px 0;
       font-size: 11px;

@@ -27,6 +27,7 @@ import ArticleImage from "@/components/article/standards/media/ArticleImage.astr
 import { Video } from "@/components/article/standards/media/Video"
 import { Paragraph } from "@/components/article/standards/Paragraph"
 import { Table } from "@/components/article/standards/Table"
+import Adsense from "@/components/parts/Adsense.astro"
 import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { HeroPC } from "@/components/templates/hero/HeroPC"
 import { HeroSP } from "@/components/templates/hero/HeroSP"
@@ -109,6 +110,10 @@ const processedContent = startSyncPipe(article.body)
         allowComponents: true
       }}
     />
+
+    <div class={styles.ad}>
+      <Adsense adSlot="4281130529" />
+    </div>
 
     <p class={styles.built}>
       {`この記事は ${formatDateToString(new Date(), "yyyy/MM/dd HH:mm:ss")} にビルドされました`}
