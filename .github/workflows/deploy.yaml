@@ -19,4 +19,4 @@ jobs:
       - name: Execute deployment script
         run: |
           ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          ssh -T -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "${{ secrets.SCRIPT_PATH }}"
+          ssh -T -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "nohup ${{ secrets.SCRIPT_PATH }} > /dev/null 2>&1 &"
