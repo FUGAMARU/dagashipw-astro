@@ -121,13 +121,5 @@ const schema = isDefined(article)
     </ResponsiveContainer>
 
     {import.meta.env.PROD && <Scripts />}
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        ;[].forEach.call(document.querySelectorAll(".adsbygoogle"), function () {
-          ;(adsbygoogle = window.adsbygoogle || []).push({})
-        })
-      })
-    </script>
   </body>
 </html>

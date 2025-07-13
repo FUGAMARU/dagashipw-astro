@@ -21,10 +21,15 @@
   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5828524546032275"
 ></script>
 
-{/* 参考: https://corekara-web.net/blog/2021/09/17/165602/44/ */}
+{
+  /**
+   * 1つのページに複数のAdsenseを埋め込んでいるのにも関わらず1箇所しか表示されない問題が発生してしまう問題への対処
+   * 参考: https://corekara-web.net/blog/2021/09/17/165602/44/
+   */
+}
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    ;[].forEach.call(document.querySelectorAll(".adsbygoogle"), function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    ;[].forEach.call(document.querySelectorAll(".adsbygoogle"), () => {
       ;(adsbygoogle = window.adsbygoogle || []).push({})
     })
   })
