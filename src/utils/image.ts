@@ -33,8 +33,12 @@ const getSignedImgproxyUrl = async (
 ): Promise<string> => {
   const nodeCrypto = await import("node:crypto")
 
-  // CMSで管理していないリモート画像や既に軽量化されているwebpの場合はそのまま返す
-  if (!absoluteImageUrl.startsWith(API_ORIGIN) || absoluteImageUrl.endsWith(".webp")) {
+  // CMSで管理していないリモート画像やgifや既に軽量化されているwebpの場合はそのまま返す
+  if (
+    !absoluteImageUrl.startsWith(API_ORIGIN) ||
+    absoluteImageUrl.endsWith(".gif") ||
+    absoluteImageUrl.endsWith(".webp")
+  ) {
     return absoluteImageUrl
   }
 
