@@ -151,7 +151,6 @@ export const CodeBlock = ({ languageInfo, animationInfo, code }: Props) => {
           `}
         </style>
       </root.div>
-      <div className={styles.footer} />
     </div>
   )
 }

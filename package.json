@@ -6,7 +6,8 @@
     "dev": "astro dev --host",
     "start": "astro dev --host",
     "start:prod": "node ./dist/server/entry.mjs",
-    "build": "astro check && astro build",
+    "check": "cmk && astro check && stylelint '**/*.css' && eslint .",
+    "build": "npm run check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,astro,css}\"",
@@ -15,7 +16,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "auto-theme-color-picker": "node ./scripts/auto-theme-color-picker.js",
-    "searcher": "node ./scripts/searcher.js"
+    "searcher": "node ./scripts/searcher.js",
+    "gen": "cmk"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -52,6 +54,8 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.6",
+    "@css-modules-kit/codegen": "^0.4.1",
+    "@css-modules-kit/stylelint-plugin": "^0.3.1",
     "@csstools/postcss-global-data": "^3.0.0",
     "@eslint/js": "^9.24.0",
     "@storybook/addon-essentials": "^8.6.12",

@@ -1,12 +1,18 @@
 {
   "$schema": "./tsconfig-schema.json",
   "extends": "astro/tsconfigs/strict",
+  "include": ["**/*"],
+  "exclude": ["dist"],
   "compilerOptions": {
+    "rootDirs": [".", "cmk"],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*", "cmk/src/*"]
     }
+  },
+  "cmkOptions": {
+    "dtsOutDir": "cmk"
   }
 }

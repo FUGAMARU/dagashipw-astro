@@ -1,3 +1,4 @@
+/* stylelint-disable css-modules-kit/no-unused-class-names */
 .imageComponent {
   &.AlignStart {
     text-align: start;

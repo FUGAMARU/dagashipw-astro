@@ -1,5 +1,9 @@
 export default {
-  extends: ["stylelint-config-standard", "stylelint-config-recess-order"],
+  extends: [
+    "stylelint-config-standard",
+    "stylelint-config-recess-order",
+    "@css-modules-kit/stylelint-plugin/recommended"
+  ],
   rules: {
     /** class名はkebab-caseを今回は使用しないので無効化 */
     "selector-class-pattern": null,
@@ -9,7 +13,9 @@ export default {
       {
         ignoreAtRules: ["define-mixin", "mixin"]
       }
-    ]
+    ],
+    /** Astroコンポーネントだとバグる問題への暫定対応 */
+    "css-modules-kit/no-missing-component-file": null
   },
-  ignoreFiles: ["**/node_modules/**"]
+  ignoreFiles: ["**/node_modules/**", "dist/**", "src/styles/destyle.css"]
 }

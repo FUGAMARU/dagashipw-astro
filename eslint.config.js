@@ -22,7 +22,8 @@ export default [
       ".storybook/preview.ts",
       "src/env.d.ts",
       "src/types/schema.ts",
-      "postcss.config.cjs"
+      "postcss.config.cjs",
+      "cmk/**"
     ]
   },
   {

@@ -35,9 +35,7 @@ export const ArticleCardMini = (props: Props) => {
     return (
       <div className={styles.articleCardMini}>
         <div className={styles.thumbnail}>
-          <div className={styles.figure}>
-            <AnimatedSkeleton />
-          </div>
+          <AnimatedSkeleton />
         </div>
         <div className={styles.main}>
           <div className={styles.upper}>

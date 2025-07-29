@@ -61,8 +61,8 @@ export const Image = ({
     <figure
       className={clsx(
         styles.imageComponent,
+        // @ts-expect-error capitalizeによる動的クラスには対応不可能なため
         isValidString(align) && styles[`Align${capitalize(align)}`],
-
         figureTagClassName
       )}
     >
