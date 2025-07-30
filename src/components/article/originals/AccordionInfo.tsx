@@ -33,6 +33,8 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
   const bodyTextRef = useRef<HTMLParagraphElement>(null)
   const triangleIconRef = useRef<HTMLSpanElement>(null)
 
+  const bodyText = parseMarkdownLinks(body)
+
   /** タイトルをクリックした時の処理 */
   const handleTitleClick = (e: MouseEvent) => {
     e.preventDefault() // detailsタグのデフォルトの動作があるのでpreventDefaultしないとアニメーションが効かない
@@ -147,14 +149,14 @@ export const AccordionInfo = ({ displayType, title, body }: Props) => {
 
         <div ref={bodyRef} className={styles.sectionBody}>
           <p ref={bodyTextRef} className={styles.text}>
-            {parseMarkdownLinks(body)}
+            {bodyText}
           </p>
         </div>
       </details>
 
       {/* Safariにおいて、要素の初期スタイルとしてheight: 0が指定されているとアコーディオンを開く時に要素のscrollHeightが0になってしまいアニメーションの最終地点が取得できなくなるので、高さ計算用にダミーの要素を設けている */}
       <div ref={hiddenBodyRef} className={clsx(styles.sectionBody, styles.Hidden)}>
-        <p className={styles.text}>{body}</p>
+        <p className={styles.text}>{bodyText}</p>
       </div>
     </div>
   )
