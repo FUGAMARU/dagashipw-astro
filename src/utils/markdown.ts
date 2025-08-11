@@ -60,8 +60,23 @@ export const generateTableOfContentsFormat = (markdown: string): TableOfContents
 
   let currentH2: H2ItemStructure | undefined
   let currentH3: H3ItemStructure | undefined
+  // コードフェンス( ``` ～ ``` )内に含まれる `#` は、
+  // シェルや多くの言語のコメントとして使われることがあり、見出しではない。
+  // 誤って目次に取り込まないよう、フェンス内は処理対象から除外する。
+  let inCodeBlock = false
 
   lines.forEach(line => {
+    const trimmedLineStart = line.trimStart()
+    // インデントを無視して、コードフェンスの開始/終了を検出してフラグを切り替える
+    if (trimmedLineStart.startsWith("```") || trimmedLineStart.startsWith("````")) {
+      inCodeBlock = !inCodeBlock
+      return
+    }
+
+    // フェンス内の行は見出し検出の対象外
+    if (inCodeBlock) {
+      return
+    }
     const h2Match = line.match(/^##\s+(.*?)(?:\s*#+\s*)?$/)
     const h3Match = line.match(/^###\s+(.*?)(?:\s*#+\s*)?$/)
     const h4Match = line.match(/^####\s+(.*?)(?:\s*#+\s*)?$/)
@@ -117,7 +132,21 @@ export const convertMarkdownHeadingsToHtml = (markdown: string): string => {
   const headingIdCountMap = new Map<string, number>()
   const lines = markdown.split("\n")
 
+  // コードフェンス内の `#` はコメント等として現れるため、見出し変換から除外する
+  let inCodeBlock = false
   const processedLines = lines.map(line => {
+    const trimmedLineStart = line.trimStart()
+    // インデントを無視したコードフェンスの開始/終了検出
+    if (trimmedLineStart.startsWith("```") || trimmedLineStart.startsWith("````")) {
+      inCodeBlock = !inCodeBlock
+      return line
+    }
+
+    // フェンス内の行は見出し変換しない
+    if (inCodeBlock) {
+      return line
+    }
+
     const headingMatch = line.match(/^(#{1,4})\s+(.*?)(?:\s*#+\s*)?$/)
 
     if (!isDefined(headingMatch)) {
