@@ -1,6 +1,7 @@
 .imageRow {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
 
   @mixin section-article-common-spacing;
 }
