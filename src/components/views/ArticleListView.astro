@@ -5,7 +5,6 @@ import { Link } from "@/components/parts/common/Link"
 import { Pagination } from "@/components/templates/Pagination"
 import styles from "@/components/views/ArticleListView.module.css"
 import { ErrorView } from "@/components/views/ErrorView"
-import { DEVELOPMENT_ARTICLE_URL_ID } from "@/constants/env"
 import { isValidArray } from "@/utils"
 
 import type { CalculatedArticle } from "@/types/api"
@@ -18,17 +17,13 @@ type Props = {
 } & ComponentProps<typeof Pagination>
 
 const { articleInfoList, ...paginationProps } = Astro.props
-
-const developmentArticleExcludedArticleInfoList = import.meta.env.PROD
-  ? articleInfoList.filter(articleInfo => articleInfo.articleUrlId !== DEVELOPMENT_ARTICLE_URL_ID)
-  : articleInfoList
 ---
 
 {
-  isValidArray(developmentArticleExcludedArticleInfoList) || !("keyword" in paginationProps) ? (
+  isValidArray(articleInfoList) || !("keyword" in paginationProps) ? (
     <div class={styles.articleList}>
       <div class={styles.list}>
-        {developmentArticleExcludedArticleInfoList.map((articleInfo, index) => (
+        {articleInfoList.map((articleInfo, index) => (
           <>
             <Link href={`/${articleInfo.articleUrlId}`}>
               <article>
@@ -37,9 +32,7 @@ const developmentArticleExcludedArticleInfoList = import.meta.env.PROD
               </article>
             </Link>
 
-            {index !== developmentArticleExcludedArticleInfoList.length - 1 && (
-              <DividerHorizontal />
-            )}
+            {index !== articleInfoList.length - 1 && <DividerHorizontal />}
           </>
         ))}
       </div>
