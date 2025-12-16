@@ -101,5 +101,9 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "volta": {
+    "node": "24.12.0",
+    "npm": "11.6.2"
   }
 }
