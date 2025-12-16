@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 16px;
   overflow: hidden;
-  border-radius: 16px;
+  border-top-left-radius: 16px;
 
   > .thumbnail {
     width: 100%;
