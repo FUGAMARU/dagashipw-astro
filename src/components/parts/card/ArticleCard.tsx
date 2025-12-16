@@ -47,7 +47,7 @@ export const ArticleCard = ({
         />
       </div>
       <div className={styles.index}>
-        <BackNumber backNumber={backNumber} />
+        <BackNumber backNumber={backNumber} purpose="articleCard" />
       </div>
 
       <div className={styles.main}>

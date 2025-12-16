@@ -6,15 +6,20 @@ import type { CalculatedArticle } from "@/types/api"
 
 /** Props */
 type Props = {
-  /** 文字を少し左にずらすかどうか */
-  isShiftLeft?: boolean
+  /** 用途 */
+  purpose: "articleCard" | "hero"
 } & Pick<CalculatedArticle, "backNumber">
 
 /** バックナンバー */
-export const BackNumber = ({ backNumber, isShiftLeft = false }: Props) => {
+export const BackNumber = ({ backNumber, purpose }: Props) => {
   return (
     <div className={styles.backNumber}>
-      <span className={clsx(styles.text, isShiftLeft && styles.ShiftLeft)}>{`#${backNumber}`}</span>
+      <span
+        className={clsx(styles.text, {
+          [styles.ArticleCard]: purpose === "articleCard",
+          [styles.Hero]: purpose === "hero"
+        })}
+      >{`#${backNumber}`}</span>
     </div>
   )
 }

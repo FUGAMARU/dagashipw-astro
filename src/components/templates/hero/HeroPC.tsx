@@ -52,7 +52,7 @@ export const HeroPC = ({
           </div>
 
           <div className={styles.number}>
-            <BackNumber backNumber={backNumber} isShiftLeft />
+            <BackNumber backNumber={backNumber} purpose="hero" />
           </div>
         </div>
       </div>

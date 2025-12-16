@@ -1,26 +1,41 @@
 .backNumber {
   position: relative;
+  z-index: 0;
   display: grid;
   place-items: center;
   width: 100px;
   height: 26px;
-  background: linear-gradient(
-    140deg,
-    var(--color-gradient-green-start) 0%,
-    var(--color-gradient-green-end) 85%,
-    var(--color-gradient-green-end) 100%
-  );
-  border-radius: 4px;
-  transform: skew(-28deg);
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background: linear-gradient(
+      140deg,
+      var(--color-gradient-green-start) 0%,
+      var(--color-gradient-green-end) 85%,
+      var(--color-gradient-green-end) 100%
+    );
+    border-radius: 4px;
+    transform: skew(-28deg);
+  }
 
   > .text {
-    position: absolute;
+    @mixin noto-sans-text-adjust;
+
     font-size: 18px;
     font-weight: bold;
     color: var(--color-black);
-    transform: skew(28deg);
 
-    &.ShiftLeft {
+    &.ArticleCard {
+      padding-top: 4px; /* ArticleCardでBackNumberを配置する時の上方向のオフセットを指定 */
+    }
+
+    &.Hero {
       padding-right: 10px;
     }
   }

@@ -15,5 +15,5 @@ export type HeroProps = {
   /** タグ一覧 */
   tags: Array<ComponentProps<typeof Tag>["text"]>
 } & Pick<CalculatedArticle, "thumbnail"> &
-  ComponentProps<typeof BackNumber> &
+  Omit<ComponentProps<typeof BackNumber>, "purpose"> &
   Pick<ComponentProps<typeof ArticleInfoBar>, "articleUrlId" | "createdAt" | "updatedAt">

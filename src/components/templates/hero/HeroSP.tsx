@@ -35,7 +35,7 @@ export const HeroSP = ({
         />
         <div className={styles.overlay} />
         <div className={styles.number}>
-          <BackNumber backNumber={backNumber} isShiftLeft />
+          <BackNumber backNumber={backNumber} purpose="hero" />
         </div>
       </div>
 
