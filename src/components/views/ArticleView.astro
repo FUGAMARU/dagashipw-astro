@@ -116,7 +116,9 @@ const processedContent = startSyncPipe(article.body)
     </div>
 
     <p class={styles.built}>
-      {`この記事は ${formatDateToString(new Date(), "yyyy/MM/dd HH:mm:ss")} にビルドされました`}
+      {
+        `この記事は ${formatDateToString(new Date(new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })), "yyyy/MM/dd HH:mm:ss")} にビルドされました`
+      }
     </p>
   </div>
 </div>
