@@ -13,7 +13,16 @@ import { isDefined, isServerSide, isValidString } from "@/utils"
  */
 const getEnvVar = (key: string): string => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return import.meta.env[key as any] ?? process.env[key] ?? ""
+  const viteEnv = import.meta.env[key as any]
+  if (isValidString(viteEnv)) {
+    return viteEnv
+  }
+
+  if (isServerSide && isDefined(process.env)) {
+    return process.env[key] ?? ""
+  }
+
+  return ""
 }
 
 /** サイトオリジン */
