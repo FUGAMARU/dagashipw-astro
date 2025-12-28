@@ -11,9 +11,9 @@ import { isDefined, isServerSide, isValidString } from "@/utils"
  * @param key - キー
  * @returns 環境変数の値
  */
-const getEnvVar = (key: string): string | undefined => {
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any
-  return import.meta.env[key as any] || process.env[key]
+const getEnvVar = (key: string): string => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return import.meta.env[key as any] ?? process.env[key] ?? ""
 }
 
 /** サイトオリジン */
