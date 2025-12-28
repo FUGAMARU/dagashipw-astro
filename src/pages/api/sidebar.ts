@@ -13,8 +13,13 @@ export const GET: APIRoute = ({ clientAddress, request }) => {
     return address.split(".").length === 4
   }
 
+  const cfConnectingIp = request.headers.get("cf-connecting-ip") // Cloudflare用
   const forwardedFor = request.headers.get("x-forwarded-for") // Traefik用
-  const clientIpAddress = isValidString(forwardedFor) ? forwardedFor.split(",")[0] : clientAddress
+  const clientIpAddress = isValidString(cfConnectingIp)
+    ? cfConnectingIp
+    : isValidString(forwardedFor)
+      ? forwardedFor.split(",")[0]
+      : clientAddress
 
   const isIPv4Address = checkIsIPv4Address(clientIpAddress)
 
