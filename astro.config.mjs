@@ -7,14 +7,7 @@ import { defineConfig } from "astro/config"
 // https://astro.build/config
 export default defineConfig({
   site: "https://dagashi.pw",
-  integrations: [
-    react(),
-    sitemap({
-      /** サイトマップに含めるページのフィルター */
-      filter: page => !page.includes("/umami-control")
-    }),
-    partytown()
-  ],
+  integrations: [react(), sitemap(), partytown()],
   adapter: node({
     mode: "standalone"
   }),
