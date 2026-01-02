@@ -46,10 +46,27 @@ axiosInstance.interceptors.request.use(
 
     // リクエストログの出力
     if (isServerSide) {
-      const fullUrl = isValidString(config.baseURL)
-        ? new URL(config.url ?? "", config.baseURL).href
-        : config.url
-      console.log(`[AstroRequest - ${config.method?.toUpperCase()}] ${fullUrl}`)
+      /**
+       * フルURLを構築するヘルパー関数
+       *
+       * @param baseURL - baseURL
+       * @param url - URL
+       * @returns フルURL
+       */
+      const buildFullUrl = (baseURL: string | undefined, url: string | undefined): string => {
+        if (!isValidString(baseURL) || !isValidString(url)) {
+          return url ?? ""
+        }
+
+        const normalizedBaseUrl = baseURL.endsWith("/") ? baseURL : `${baseURL}/`
+        const normalizedUrl = url.startsWith("/") ? url.slice(1) : url
+
+        return new URL(normalizedUrl, normalizedBaseUrl).href
+      }
+
+      console.log(
+        `[AstroRequest - ${config.method?.toUpperCase()}] ${buildFullUrl(config.baseURL, config.url)}`
+      )
     }
 
     return config
