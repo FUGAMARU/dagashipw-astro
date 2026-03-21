@@ -1,10 +1,12 @@
+import { cubicBezier } from "animejs"
+
 import type { SvgComponentName } from "@/types/svg"
 
 /** 表示タイプ一覧 */
 export type AccordionInfoDisplayType = "tips" | "warning"
 
 /** 共通イージングスタイル */
-export const ACCORDION_INFO_COMMON_EASING_STYLE = "cubicBezier(0.77,0,0.18,1)"
+export const ACCORDION_INFO_COMMON_EASING_STYLE = cubicBezier(0.77, 0, 0.18, 1)
 
 /**
  * 表示タイプごとのリソース定義
