@@ -22,7 +22,13 @@ export const ImageRow = async ({ images, gap = "16" }: Props) => {
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>
       {imageUrlList.map((imageUrl, index) => (
-        <Image key={imageUrl} alt="" imageSize="normal" sources={imageSourcesList[index]} />
+        <Image
+          key={imageUrl}
+          alt=""
+          imageSize="normal"
+          isContain
+          sources={imageSourcesList[index]}
+        />
       ))}
     </div>
   )

@@ -1,5 +1,7 @@
 /* stylelint-disable css-modules-kit/no-unused-class-names */
 .imageComponent {
+  display: block;
+
   &.AlignStart {
     text-align: start;
   }
@@ -16,11 +18,11 @@
 .imgTag {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 4px;
 
-  &.Covered {
-    object-fit: cover;
+  &.Contained {
+    object-fit: contain;
   }
 
   &.Circle {
@@ -29,10 +31,6 @@
 
   &.WidthFull {
     width: 100%;
-  }
-
-  &.WidthAuto {
-    width: auto;
   }
 
   &.HeightFull {
@@ -54,4 +52,8 @@
   &.BorderRadius0 {
     border-radius: 0;
   }
+}
+
+.imageCaption {
+  margin-top: 10px;
 }

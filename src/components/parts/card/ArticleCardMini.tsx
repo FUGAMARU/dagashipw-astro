@@ -70,7 +70,6 @@ export const ArticleCardMini = (props: Props) => {
           cssHeight="full"
           cssWidth="full"
           imageSize="smaller"
-          isObjectFitCover
           isWide
           sources={thumbnail}
         />

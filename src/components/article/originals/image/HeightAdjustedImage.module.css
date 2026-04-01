@@ -1,16 +1,20 @@
 .heightAdjustedImage {
   @mixin section-article-common-spacing;
 
-  &:has(figcaption) {
+  &.HasCaption {
     margin-bottom: calc(
       var(--spacing-article-parts-common-sp) + 12px
-    ); /* なぜかfigcaptionの高さが相殺されるので仕方なくトリッキーな指定をしている */
+    ); /* なぜかキャプションの高さが相殺されるので仕方なくトリッキーな指定をしている */
   }
 
   > .figure {
     display: flex;
     justify-content: center;
     max-height: 500px;
+  }
+
+  > .caption {
+    margin-top: 10px;
   }
 }
 
@@ -25,10 +29,10 @@
     height: 100%;
     aspect-ratio: 16 / 9;
 
-    &:has(figcaption) {
+    &.HasCaption {
       margin-bottom: calc(
         var(--spacing-article-parts-common-pc) + 16px
-      ); /* なぜかfigcaptionの高さが相殺されるので仕方なくトリッキーな指定をしている */
+      ); /* なぜかキャプションの高さが相殺されるので仕方なくトリッキーな指定をしている */
     }
 
     > .figure {

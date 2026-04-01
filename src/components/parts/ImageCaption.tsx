@@ -9,5 +9,5 @@ type Props = {
 
 /** 画像キャプション */
 export const ImageCaption = ({ caption }: Props) => {
-  return <figcaption className={styles.imageCaption}>{parseMarkdownLinks(caption)}</figcaption>
+  return <p className={styles.imageCaption}>{parseMarkdownLinks(caption)}</p>
 }

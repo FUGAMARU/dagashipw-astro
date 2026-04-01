@@ -29,7 +29,6 @@ export const HeroSP = ({
           cssWidth="full"
           imageSize="normal"
           isEager
-          isObjectFitCover
           isWide
           sources={thumbnail}
         />

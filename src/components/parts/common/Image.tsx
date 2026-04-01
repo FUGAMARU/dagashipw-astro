@@ -18,12 +18,12 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcS
     imageSize: ImageSizeType
     /** 画像を即時読み込みするかどうか */
     isEager?: boolean
-    /** object-fir: cover指定かどうか */
-    isObjectFitCover?: boolean
+    /** object-fit: contain指定かどうか */
+    isContain?: boolean
     /** 円形画像かどうか */
     isCircle?: boolean
     /** CSSで指定するwidth */
-    cssWidth?: "full" | "auto"
+    cssWidth?: "full"
     /** CSSで指定するheight */
     cssHeight?: "full" | "auto"
     /** アスペクト比を16:9にするかどうか */
@@ -32,10 +32,8 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcS
     borderRadius?: "16" | "0"
     /** align */
     align?: "start" | "right" | "end"
-    /** figureタグに充てるclassName */
-    figureTagClassName?: string
-    /** pictureタグに充てるclassName */
-    pictureTagClassName?: string
+    /** ルートタグ(pictureタグ)に充てるclassName */
+    rootTagClassName?: string
   }
 
 /** 画像コンポーネント */
@@ -44,29 +42,28 @@ export const Image = ({
   imageSize,
   caption,
   isEager = false,
-  isObjectFitCover = false,
+  isContain = false,
   isCircle = false,
   cssWidth,
   cssHeight,
   isWide = false,
   borderRadius,
   align = "start",
-  figureTagClassName,
-  pictureTagClassName,
+  rootTagClassName,
   ...props
 }: Props) => {
   const selectedSources = sources[imageSize]
 
   return (
-    <figure
-      className={clsx(
-        styles.imageComponent,
-        // @ts-expect-error capitalizeによる動的クラスには対応不可能なため
-        isValidString(align) && styles[`Align${capitalize(align)}`],
-        figureTagClassName
-      )}
-    >
-      <picture className={pictureTagClassName}>
+    <>
+      <picture
+        className={clsx(
+          styles.imageComponent,
+          // @ts-expect-error capitalizeによる動的クラスには対応不可能なため
+          isValidString(align) && styles[`Align${capitalize(align)}`],
+          rootTagClassName
+        )}
+      >
         {/* SP表示 */}
         <source
           media={`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`}
@@ -82,7 +79,7 @@ export const Image = ({
           // TODO: 画像押下の場合は画像拡大モーダルを開くようにするかどうか要検討
           className={clsx(
             styles.imgTag,
-            isObjectFitCover && styles.Covered,
+            isContain && styles.Contained,
             isCircle && styles.Circle,
             isValidString(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
             isValidString(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
@@ -95,7 +92,11 @@ export const Image = ({
         />
       </picture>
 
-      {isValidString(caption) && <ImageCaption caption={caption} />}
-    </figure>
+      {isValidString(caption) && (
+        <div className={styles.imageCaption}>
+          <ImageCaption caption={caption} />
+        </div>
+      )}
+    </>
   )
 }

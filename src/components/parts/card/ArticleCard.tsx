@@ -38,11 +38,9 @@ export const ArticleCard = ({
         <Image
           cssHeight="full"
           cssWidth="full"
-          figureTagClassName={styles.imageFigureTag}
           imageSize="smaller"
           isEager={isThumbnailEager}
-          isObjectFitCover
-          pictureTagClassName={styles.imagePictureTag}
+          rootTagClassName={styles.imageTag}
           sources={thumbnail}
         />
       </div>

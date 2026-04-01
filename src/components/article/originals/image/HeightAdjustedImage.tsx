@@ -21,16 +21,20 @@ export const HeightAdjustedImage = async ({ caption, ...imageProps }: Props) => 
   const imageSources = await generateImageSources(imageProps.src ?? "")
 
   return (
-    <figure className={styles.heightAdjustedImage}>
+    <div className={clsx(styles.heightAdjustedImage, isValidString(caption) && styles.HasCaption)}>
       <Image
         cssHeight="full"
-        figureTagClassName={clsx(styles.figure, styles.height100)}
         imageSize="normal"
-        pictureTagClassName={styles.pictureTag}
+        isContain
+        rootTagClassName={clsx(styles.figure, styles.height100, styles.pictureTag)}
         sources={imageSources}
       />
 
-      {isValidString(caption) && <ImageCaption caption={caption} />}
-    </figure>
+      {isValidString(caption) && (
+        <div className={styles.caption}>
+          <ImageCaption caption={caption} />
+        </div>
+      )}
+    </div>
   )
 }

@@ -20,9 +20,10 @@ export const ImageTextRow = async ({ imageUrl, imageHeight, text }: Props) => {
   return (
     <div className={styles.imageTextRow}>
       <Image
-        figureTagClassName={styles.figure}
         height={imageHeight}
         imageSize="normal"
+        isContain
+        rootTagClassName={styles.figure}
         sources={imageSources}
       />
       <p className={styles.text}>{unescapeNewlines(text)}</p>

@@ -19,10 +19,9 @@ export const InlineArticleCard = async ({ articleUrlId }: Props) => {
         borderRadius="0"
         cssHeight="full"
         cssWidth="full"
-        figureTagClassName={styles.thumbnail}
         height={75}
         imageSize="smaller"
-        isObjectFitCover
+        rootTagClassName={styles.thumbnail}
         sources={article.thumbnail}
         width={133}
       />

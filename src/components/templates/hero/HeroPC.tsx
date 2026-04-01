@@ -28,7 +28,6 @@ export const HeroPC = ({
           cssWidth="full"
           imageSize="normal"
           isEager
-          isObjectFitCover
           isWide
           sources={thumbnail}
         />
