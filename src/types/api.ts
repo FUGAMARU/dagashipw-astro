@@ -3,15 +3,12 @@
  */
 
 import type { ImageSources } from "@/types/image"
-import type { operations, paths } from "@/types/schema"
-
-/** APIの/articlesのレスポンス */
-type ArticlesPathResponse =
-  paths["/articles"]["get"]["responses"]["200"]["content"]["application/json"]
-
-/** APIの/commentsのレスポンス */
-export type CommentsPathResponse =
-  paths["/comments"]["get"]["responses"]["200"]["content"]["application/json"]
+import type {
+  CalculatedApiMeta,
+  DirectusCommentItem,
+  DirectusItemsMeta,
+  DirectusSingleItemResponse
+} from "@/types/schema"
 
 /** 計算済み記事データー (計算はCMS側で行う) */
 export type CalculatedArticle = {
@@ -39,11 +36,13 @@ export type CalculatedArticle = {
   updatedAt?: string
 }
 
-/** 計算済み記事データーをカスタムエンドポイントから取得した時のレスポンス (CMSのDocumentation Pluginが拾ってくれないので手打ち) */
+/** 計算済み記事データのレスポンス */
 export type CalculatedArticleResponse = {
   /** data */
   data: Array<CalculatedArticle>
-} & Pick<ArticlesPathResponse, "meta">
+  /** メタ情報 */
+  meta?: CalculatedApiMeta
+}
 
 /** 子コメントのフォーマット */
 type MainCommentInfo = {
@@ -65,35 +64,44 @@ export type CalculatedComment = MainCommentInfo & {
   replies: Array<MainCommentInfo>
 }
 
-/** 計算済みコメントデーターをカスタムエンドポイントから取得した時のレスポンス (CMSのDocumentation Pluginが拾ってくれないので手打ち) */
+/** 計算済みコメントデータのレスポンス */
 export type CalculatedCommentResponse = {
   /** data */
   data: Array<CalculatedComment>
-} & Pick<CommentsPathResponse, "meta">
+}
+
+/** コメント一覧レスポンス */
+export type CommentsItemsResponse = {
+  /** データ */
+  data: Array<DirectusCommentItem>
+  /** メタ情報 */
+  meta?: DirectusItemsMeta
+}
 
 /** コメント投稿時のリクエストパラメーター */
-export type PostCommentRequestBody = {
-  /** データー */
-  data: Pick<
-    operations["post/comments"]["requestBody"]["content"]["application/json"]["data"],
-    | "userName"
-    | "body"
-    | "forceCreatedAt"
-    | "articleUrlId"
-    | "isAdministratorComment"
-    | "parentCommentDocumentId"
-  >
+export type PostCommentRequestBody = Pick<
+  DirectusCommentItem,
+  "article_url_id" | "body" | "force_created_at"
+> & {
+  /** ユーザー名 */
+  user_name?: DirectusCommentItem["user_name"]
+  /** 親コメントID */
+  parent_comment_id?: DirectusCommentItem["parent_comment_id"]
+  /** 管理者コメントかどうか */
+  is_administrator_comment: NonNullable<DirectusCommentItem["is_administrator_comment"]>
 }
 
 /** コメント投稿時のレスポンス */
-export type PostCommentResponse =
-  operations["post/comments"]["responses"]["200"]["content"]["application/json"]
+export type PostCommentResponse = DirectusSingleItemResponse<DirectusCommentItem>
 
 /** ブラウザーから自己ホストしているコメント投稿用プロキシAPIにリクエストする時のパラメーター */
-export type PostCommentFromBrowserRequestBody = Pick<
-  PostCommentRequestBody["data"],
-  "userName" | "body" | "parentCommentDocumentId"
-> & {
+export type PostCommentFromBrowserRequestBody = {
+  /** ユーザー名 */
+  userName?: string
+  /** 本文 */
+  body: string
+  /** 親コメントID */
+  parentCommentDocumentId?: string
   /** Cloudflare Turnstileのトークン */
   turnstileToken: string
 }

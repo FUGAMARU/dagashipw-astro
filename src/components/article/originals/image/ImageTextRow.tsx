@@ -1,6 +1,5 @@
 import styles from "@/components/article/originals/image/ImageTextRow.module.css"
 import { Image } from "@/components/parts/common/Image"
-import { unescapeNewlines } from "@/utils/formatter"
 import { generateImageSources } from "@/utils/image"
 
 /** Props */
@@ -14,8 +13,8 @@ type Props = {
 }
 
 /** 画像をテキストを横並びに表示するコンポーネント (SP表示では縦表示) */
-export const ImageTextRow = async ({ imageUrl, imageHeight, text }: Props) => {
-  const imageSources = await generateImageSources(imageUrl)
+export const ImageTextRow = ({ imageUrl, imageHeight, text }: Props) => {
+  const imageSources = generateImageSources(imageUrl)
 
   return (
     <div className={styles.imageTextRow}>
@@ -26,7 +25,7 @@ export const ImageTextRow = async ({ imageUrl, imageHeight, text }: Props) => {
         rootTagClassName={styles.figure}
         sources={imageSources}
       />
-      <p className={styles.text}>{unescapeNewlines(text)}</p>
+      <p className={styles.text}>{text}</p>
     </div>
   )
 }

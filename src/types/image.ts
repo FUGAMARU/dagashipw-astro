@@ -31,8 +31,8 @@ export type ImageSources = {
 /** 画像のサイズタイプの一覧 */
 export type ImageSizeType = "normal" | "smaller"
 
-/** imgproxy側で用意しているプリセットの一覧 */
-export type ImgproxyPresets =
+/** Directusのアセット変換で用意しているプリセットの一覧 */
+export type AssetPresets =
   | "normal-pc"
   | "normal-pc-2x"
   | "normal-sp"

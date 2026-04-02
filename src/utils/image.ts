@@ -2,55 +2,24 @@
  * @file 画像関連の関数群
  */
 
-import {
-  API_ORIGIN,
-  CMS_STATIC_CONTENTS_DIRECTORY,
-  IMGPROXY_ORIGIN,
-  IMGPROXY_SIGNING_KEY,
-  IMGPROXY_SIGNING_SALT
-} from "@/constants/env"
+import { API_ORIGIN } from "@/constants/env"
 
-import type { ImageSizeType, ImageSources, ImgproxyPresets } from "@/types/image"
+import type { ImageSizeType, ImageSources, AssetPresets } from "@/types/image"
 
 /**
- * HexをBufferにデコードする
- *
- * @param hex - Hex文字列
- * @returns Buffer
- */
-const decodeHexToBuffer = (hex: string): Uint8Array => new Uint8Array(Buffer.from(hex, "hex"))
-
-/**
- * imgproxyの署名付きURLを生成する
+ * Directusのアセット変換URLを生成する
  *
  * @param absoluteImageUrl - オリジナル画像の絶対URL
- * @param preset - imgproxyの設定で定義したプリセット名
- * @returns 署名付きimgproxy URL
+ * @param preset - Directusのアセット変換で定義したプリセット名
+ * @returns アセット変換URL
  */
-const getSignedImgproxyUrl = async (
-  absoluteImageUrl: string,
-  preset: ImgproxyPresets
-): Promise<string> => {
-  const nodeCrypto = await import("node:crypto")
-
-  // CMSで管理していないリモート画像やgifや既に軽量化されているwebpの場合はそのまま返す
-  if (
-    !absoluteImageUrl.startsWith(API_ORIGIN) ||
-    absoluteImageUrl.endsWith(".gif") ||
-    absoluteImageUrl.endsWith(".webp")
-  ) {
+const getAssetTransformUrl = (absoluteImageUrl: string, preset: AssetPresets): string => {
+  // CMSで管理していないリモート画像の場合はそのまま返す
+  if (!absoluteImageUrl.startsWith(API_ORIGIN)) {
     return absoluteImageUrl
   }
 
-  const filename = absoluteImageUrl.replace(`${API_ORIGIN}${CMS_STATIC_CONTENTS_DIRECTORY}/`, "")
-  const path = `/${preset}/plain/local:///${filename}`
-
-  const hmac = nodeCrypto.createHmac("sha256", decodeHexToBuffer(IMGPROXY_SIGNING_KEY))
-  hmac.update(decodeHexToBuffer(IMGPROXY_SIGNING_SALT))
-  hmac.update(path)
-  const signature = hmac.digest("base64url")
-
-  return `${IMGPROXY_ORIGIN}/${signature}${path}`
+  return `${absoluteImageUrl}?key=${preset}`
 }
 
 /**
@@ -59,9 +28,9 @@ const getSignedImgproxyUrl = async (
  * @param originalUrl - オリジナル画像のURL
  * @returns レスポンシブ対応用のURLセット
  */
-export const generateImageSources = async (originalUrl: string): Promise<ImageSources> => {
-  const normalUrls = await generateSizeUrls(originalUrl, "normal")
-  const smallerUrls = await generateSizeUrls(originalUrl, "smaller")
+export const generateImageSources = (originalUrl: string): ImageSources => {
+  const normalUrls = generateSizeUrls(originalUrl, "normal")
+  const smallerUrls = generateSizeUrls(originalUrl, "smaller")
 
   return {
     normal: normalUrls,
@@ -76,10 +45,10 @@ export const generateImageSources = async (originalUrl: string): Promise<ImageSo
  * @param sizeType - サイズタイプ
  * @returns 画像URLセット
  */
-const generateSizeUrls = async (
+const generateSizeUrls = (
   originalUrl: string,
   sizeType: ImageSizeType
-): Promise<{
+): {
   /** PC 1倍 */
   pc1x: string
   /** PC 2倍 */
@@ -88,12 +57,12 @@ const generateSizeUrls = async (
   sp1x: string
   /** SP 2倍 */
   sp2x: string
-}> => {
+} => {
   const presets: Array<{
     /** プリセット名に対応するキー */
     key: "pc1x" | "pc2x" | "sp1x" | "sp2x"
     /** プリセット名 */
-    name: ImgproxyPresets
+    name: AssetPresets
   }> = [
     { key: "pc1x", name: `${sizeType}-pc` },
     { key: "pc2x", name: `${sizeType}-pc-2x` },
@@ -101,14 +70,9 @@ const generateSizeUrls = async (
     { key: "sp2x", name: `${sizeType}-sp-2x` }
   ]
 
-  const urlEntries = await Promise.all(
-    presets.map(async ({ key, name }) => {
-      const url = await getSignedImgproxyUrl(originalUrl, name)
-      return [key, url]
-    })
-  )
-
-  const urlMap = Object.fromEntries(urlEntries) as Record<"pc1x" | "pc2x" | "sp1x" | "sp2x", string>
+  const urlMap = Object.fromEntries(
+    presets.map(({ key, name }) => [key, getAssetTransformUrl(originalUrl, name)])
+  ) as Record<"pc1x" | "pc2x" | "sp1x" | "sp2x", string>
 
   return {
     pc1x: urlMap.pc1x,

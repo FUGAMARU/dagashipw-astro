@@ -4,7 +4,6 @@
 
 import { LinkInArticle } from "@/components/article/standards/LinkInArticle"
 import { isValidString } from "@/utils"
-import { unescapeNewlines } from "@/utils/formatter"
 
 import type { ReactNode } from "react"
 
@@ -15,10 +14,9 @@ import type { ReactNode } from "react"
  * @returns リンクがLinkInArticleコンポーネントに置き換えられたJSXの配列
  */
 export const parseMarkdownLinks = (text: string): Array<ReactNode> => {
-  const normalizedText = unescapeNewlines(text)
   const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g
 
-  return normalizedText
+  return text
     .split(regex)
     .reduce<
       Array<string | ReactNode>

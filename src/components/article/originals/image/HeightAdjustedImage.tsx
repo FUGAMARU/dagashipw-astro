@@ -17,8 +17,8 @@ type Props = Omit<
   Pick<ComponentProps<"img">, "src">
 
 /** PC表示の時に縦長だったり正方形だったりする画像の高さを見やすくして表示するためのコンポーネント */
-export const HeightAdjustedImage = async ({ caption, ...imageProps }: Props) => {
-  const imageSources = await generateImageSources(imageProps.src ?? "")
+export const HeightAdjustedImage = ({ caption, ...imageProps }: Props) => {
+  const imageSources = generateImageSources(imageProps.src ?? "")
 
   return (
     <div className={clsx(styles.heightAdjustedImage, isValidString(caption) && styles.HasCaption)}>

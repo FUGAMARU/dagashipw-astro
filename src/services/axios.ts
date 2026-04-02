@@ -9,7 +9,7 @@ import { isServerSide, isValidString } from "@/utils"
 
 /** API接続する時に使用するAxiosのインスタンス */
 export const axiosInstance = axios.create({
-  baseURL: `${API_ORIGIN}/api`,
+  baseURL: `${API_ORIGIN}`,
   headers: {
     Authorization: `Bearer ${API_TOKEN}`
   }
@@ -24,25 +24,6 @@ export const selfHostedAxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   config => {
     // リクエストが送信される前の処理
-    // 開発環境では /articles/calculated 系エンドポイントに includeDevelopmentPage=true を自動付与
-    if (import.meta.env.DEV && typeof config.url === "string") {
-      // フラグメント(#...)は API リクエストでは通常使わないが安全のため分離
-      const hashIndex = config.url.indexOf("#")
-      const hashPart = hashIndex >= 0 ? config.url.slice(hashIndex) : ""
-      const urlWithoutHash = hashIndex >= 0 ? config.url.slice(0, hashIndex) : config.url
-
-      const [pathPart, queryPart = ""] = urlWithoutHash.split("?")
-      if (pathPart.startsWith("/articles/calculated")) {
-        const alreadyHasParam = /(^|&)?includeDevelopmentPage=/.test(queryPart)
-        if (!alreadyHasParam) {
-          const hasExistingQuery = queryPart !== ""
-          const newQuery = hasExistingQuery
-            ? `${queryPart}&includeDevelopmentPage=true`
-            : "includeDevelopmentPage=true"
-          config.url = `${pathPart}?${newQuery}${hashPart}`
-        }
-      }
-    }
 
     // リクエストログの出力
     if (isServerSide) {

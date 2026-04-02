@@ -12,12 +12,10 @@ type Props = {
 }
 
 /** 画像を横並びに表示するコンポーネント */
-export const ImageRow = async ({ images, gap = "16" }: Props) => {
+export const ImageRow = ({ images, gap = "16" }: Props) => {
   const imageUrlList = convertCommaSeparatedStringToArray(images)
 
-  const imageSourcesList = await Promise.all(
-    imageUrlList.map(imageUrl => generateImageSources(imageUrl))
-  )
+  const imageSourcesList = imageUrlList.map(imageUrl => generateImageSources(imageUrl))
 
   return (
     <div className={styles.imageRow} style={{ gap: `${gap}px` }}>

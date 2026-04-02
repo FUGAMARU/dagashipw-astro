@@ -31,14 +31,6 @@ export const SITE_ORIGIN = getEnvVar("SITE_ORIGIN")
 export const API_ORIGIN = getEnvVar("API_ORIGIN")
 /** APIトークン */
 export const API_TOKEN = getEnvVar("API_TOKEN")
-/** CMSが配信している静的ファイルのディレクトリ */
-export const CMS_STATIC_CONTENTS_DIRECTORY = getEnvVar("CMS_STATIC_CONTENTS_DIRECTORY")
-/** imgproxyオリジン */
-export const IMGPROXY_ORIGIN = getEnvVar("IMGPROXY_ORIGIN")
-/** imgproxyの署名URL生成用キー */
-export const IMGPROXY_SIGNING_KEY = getEnvVar("IMGPROXY_SIGNING_KEY")
-/** imgproxyの署名URL生成用ソルト */
-export const IMGPROXY_SIGNING_SALT = getEnvVar("IMGPROXY_SIGNING_SALT")
 /**
  * Cloudflare Turnstileのサイトキー
  * ダミーのサイトキーに関しては以下を参照
@@ -58,11 +50,6 @@ if (isServerSide && [API_ORIGIN, API_TOKEN].some(value => !isValidString(value))
     !isValidString(SITE_ORIGIN) && "SITE_ORIGINが環境変数に設定されていません",
     !isValidString(API_ORIGIN) && "API_ORIGINが環境変数に設定されていません",
     !isValidString(API_TOKEN) && "API_TOKENが環境変数に設定されていません",
-    !isValidString(CMS_STATIC_CONTENTS_DIRECTORY) &&
-      "CMS_STATIC_CONTENTS_DIRECTORYが環境変数に設定されていません",
-    !isValidString(IMGPROXY_ORIGIN) && "IMGPROXY_ORIGINが環境変数に設定されていません",
-    !isValidString(IMGPROXY_SIGNING_KEY) && "IMGPROXY_SIGNING_KEYが環境変数に設定されていません",
-    !isValidString(IMGPROXY_SIGNING_SALT) && "IMGPROXY_SIGNING_SALTが環境変数に設定されていません",
     !isValidString(TURNSTILE_SITE_KEY) && "TURNSTILE_SITE_KEYが環境変数に設定されていません",
     !isValidString(TURNSTILE_SECRET_KEY) && "TURNSTILE_SECRET_KEYが環境変数に設定されていません",
     !isValidString(DEVELOPMENT_ARTICLE_URL_ID) &&

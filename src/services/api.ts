@@ -7,7 +7,7 @@ import { axiosInstance } from "@/services/axios"
 import { isDefined } from "@/utils"
 
 import type {
-  CommentsPathResponse,
+  CommentsItemsResponse,
   PostCommentRequestBody,
   PostCommentResponse,
   CalculatedArticleResponse,
@@ -25,7 +25,7 @@ import type { AxiosResponse } from "axios"
  */
 export const getArticle = async (articleUrlId: string): Promise<CalculatedArticle> => {
   const response = await axiosInstance.get<CalculatedArticle>(
-    `/articles/calculated/${articleUrlId}`
+    `/calculated-api/articles/calculated/${articleUrlId}`
   )
 
   return response.data
@@ -37,7 +37,9 @@ export const getArticle = async (articleUrlId: string): Promise<CalculatedArticl
  * @returns articleUrlId一覧
  */
 export const getAllArticleUrlIdList = async (): Promise<Array<string>> => {
-  const articles = await axiosInstance.get<Array<string>>("/articles/all-article-url-id")
+  const articles = await axiosInstance.get<Array<string>>(
+    "/calculated-api/articles/all-article-url-id"
+  )
 
   return articles.data
 }
@@ -52,7 +54,7 @@ export const getArticlesWithPagination = async (
   pageNumber: number
 ): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+    `/calculated-api/articles/calculated?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
 
   if (!isDefined(response.data.data)) {
@@ -69,7 +71,7 @@ export const getArticlesWithPagination = async (
  */
 export const getTotalArticlePageCount = async (): Promise<number> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated?pagination[pageSize]=${ARTICLES_PER_PAGE}`
+    `/calculated-api/articles/calculated?pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
   return response.data?.meta?.pagination?.pageCount ?? 0
 }
@@ -82,7 +84,7 @@ export const getTotalArticlePageCount = async (): Promise<number> => {
  */
 export const getTotalArticlePageCountByKeyword = async (keyword: string): Promise<number> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated?filters[title][$containsi]=${keyword}&filters[body][$containsi]=${keyword}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
+    `/calculated-api/articles/search/keyword?keyword=${encodeURIComponent(keyword)}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
   return response.data?.meta?.pagination?.pageCount ?? 0
 }
@@ -95,7 +97,7 @@ export const getTotalArticlePageCountByKeyword = async (keyword: string): Promis
  */
 export const getTotalArticlePageCountByTag = async (tag: string): Promise<number> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated?filters[tags][_contains]=${tag}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
+    `/calculated-api/articles/search/tag?tag=${encodeURIComponent(tag)}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
   return response.data?.meta?.pagination?.pageCount ?? 0
 }
@@ -108,23 +110,22 @@ export const getTotalArticlePageCountByTag = async (tag: string): Promise<number
  */
 export const getComments = async (articleUrlId: string): Promise<Array<CalculatedComment>> => {
   const response = await axiosInstance.get<CalculatedCommentResponse>(
-    `/comments/calculated/${articleUrlId}`
+    `/calculated-api/comments/calculated/${articleUrlId}`
   )
   return response.data.data
 }
 
 /**
  * 指定した記事に寄せられているコメント数を取得する
- * (子コメントも含めてカウントしたいのでcalculatedエンドポイントは使用しない)
  *
  * @param articleUrlId - 記事のURL ID
  * @returns コメント数
  */
 export const getCommentCount = async (articleUrlId: string): Promise<number> => {
-  const response = await axiosInstance.get<CommentsPathResponse>(
-    `/comments?filters[articleUrlId][$eq]=${articleUrlId}&pagination[withCount]=true`
+  const response = await axiosInstance.get<CommentsItemsResponse>(
+    `/items/comments?filter[article_url_id][_eq]=${articleUrlId}&limit=0&meta=filter_count`
   )
-  return response.data.meta?.pagination?.total ?? 0
+  return response.data.meta?.filter_count ?? 0
 }
 
 /**
@@ -137,7 +138,7 @@ export const getSameTagArticles = async (
   articleUrlId: string
 ): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated/${articleUrlId}/related?limit=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
+    `/calculated-api/articles/calculated/${articleUrlId}/related?limit=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
   )
   return response.data.data
 }
@@ -149,7 +150,7 @@ export const getSameTagArticles = async (
  */
 export const getRecentArticles = async (): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated/?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+    `/calculated-api/articles/calculated/?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
   )
   return response.data.data ?? []
 }
@@ -160,35 +161,31 @@ export const getRecentArticles = async (): Promise<Array<CalculatedArticle>> => 
  * @param articleUrlId - 記事のURL ID
  * @param body - コメント本文
  * @param userName - ユーザー名
- * @param parentCommentDocumentId - 親コメントのドキュメントID
- * @returns 投稿されたコメントのdocumentId
+ * @param parentCommentId - 親コメントのID
+ * @returns 投稿されたコメントのcomment_id
  */
 export const postComment = async (
   articleUrlId: string,
   body: string,
   userName?: string,
-  parentCommentDocumentId?: string
+  parentCommentId?: string
 ): Promise<string> => {
-  const now = new Date()
-  now.setHours(now.getHours() - 9) // DBでは日時データーをUTCで保持したいが、toISOString()したStringをPOSTしてもStrapiが勝手にJSTに変換するという鬼畜仕様のためさらに-9時間した日時をforceCreatedAtとしてPOSTする (createdAtも同様に勝手にJSTが入るので使用しない)
-  const forceCreatedAt = now.toISOString()
+  const forceCreatedAt = new Date().toISOString()
 
   const { data } = await axiosInstance.post<
     PostCommentResponse,
     AxiosResponse<PostCommentResponse>,
     PostCommentRequestBody
-  >("/comments", {
-    data: {
-      articleUrlId,
-      body,
-      userName,
-      parentCommentDocumentId,
-      isAdministratorComment: false, // 管理者コメントは今のところCMSからのみ投稿する想定なので固定でfalse指定
-      forceCreatedAt
-    }
+  >("/items/comments", {
+    article_url_id: articleUrlId,
+    body,
+    user_name: userName,
+    parent_comment_id: parentCommentId,
+    is_administrator_comment: false, // 管理者コメントは今のところCMSからのみ投稿する想定なので固定でfalse指定
+    force_created_at: forceCreatedAt
   })
 
-  return data?.data?.documentId ?? ""
+  return data?.data?.comment_id ?? ""
 }
 
 /**
@@ -203,9 +200,8 @@ export const searchArticlesByKeywordWithPagination = async (
   pageNumber: number
 ): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated?filters[title][$containsi]=${keyword}&filters[body][$containsi]=${keyword}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+    `/calculated-api/articles/search/keyword?keyword=${encodeURIComponent(keyword)}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
-
   return response.data.data
 }
 
@@ -221,8 +217,7 @@ export const searchArticlesByTagWithPagination = async (
   pageNumber: number
 ): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/articles/calculated?filters[tags][$contains]=${tag}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}&pagination[withCount]=true&sort[0]=forceCreatedAt:desc&sort[1]=createdAt:desc&populate=*`
+    `/calculated-api/articles/search/tag?tag=${encodeURIComponent(tag)}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
-
   return response.data.data
 }

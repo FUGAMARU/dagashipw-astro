@@ -140,13 +140,13 @@ export const POST: APIRoute = async ({ params, request, clientAddress }) => {
   }
 
   try {
-    const createdCommentDocumentId = await postComment(
+    const createdCommentId = await postComment(
       articleUrlId,
       requestBody.body.trim(),
       isValidString(requestBody.userName) ? requestBody.userName.trim() : undefined,
       requestBody.parentCommentDocumentId
     )
-    return new Response(JSON.stringify(createdCommentDocumentId), {
+    return new Response(JSON.stringify(createdCommentId), {
       status: 201
     })
   } catch (error) {
