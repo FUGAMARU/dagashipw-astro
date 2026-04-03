@@ -35,7 +35,7 @@ import { StaleContentWarning } from "@/components/templates/StaleContentWarning"
 import { insertTableOfContentsAndAds } from "@/components/views/ArticleView.helpers"
 import styles from "@/components/views/ArticleView.module.css"
 import { isDefined } from "@/utils"
-import { formatDateToString } from "@/utils/datetime"
+import { convertDateStringFormat } from "@/utils/datetime"
 import { convertMarkdownHeadingsToHtml } from "@/utils/markdown"
 import { startSyncPipe } from "@/utils/pipe"
 
@@ -117,7 +117,7 @@ const processedContent = startSyncPipe(article.body)
 
     <p class={styles.built}>
       {
-        `この記事は ${formatDateToString(new Date(new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" })), "yyyy/MM/dd HH:mm:ss")} にビルドされました`
+        `この記事は ${convertDateStringFormat(new Date().toISOString(), "yyyy/MM/dd HH:mm:ss")} にビルドされました`
       }
     </p>
   </div>

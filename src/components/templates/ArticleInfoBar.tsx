@@ -4,7 +4,8 @@ import useSWR from "swr"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
 import styles from "@/components/templates/ArticleInfoBar.module.css"
 import { selfHostedFetcher } from "@/services/self-hosted-api"
-import { isDefined } from "@/utils"
+import { isDefined, isValidString } from "@/utils"
+import { convertDateStringFormat } from "@/utils/datetime"
 
 import type { CalculatedArticle } from "@/types/api"
 
@@ -24,6 +25,11 @@ export const ArticleInfoBar = ({
   isWhiteStyle = false,
   isBorderHidden = false
 }: Props) => {
+  const formattedCreatedAt = convertDateStringFormat(createdAt, "yyyy-MM-dd")
+  const formattedUpdatedAt = isValidString(updatedAt)
+    ? convertDateStringFormat(updatedAt, "yyyy-MM-dd")
+    : undefined
+
   const { data: commentCount } = useSWR<number>(
     {
       apiFunction: "getArticleCommentCount",
@@ -42,10 +48,10 @@ export const ArticleInfoBar = ({
         )}
       >
         <SvgLoader className={styles.iconSize} name="writingPen" />
-        <span>{createdAt}</span>
+        <span>{formattedCreatedAt}</span>
       </div>
 
-      {isDefined(updatedAt) && (
+      {isDefined(formattedUpdatedAt) && (
         <div
           className={clsx(
             styles.sectionCommonStyle,
@@ -54,7 +60,7 @@ export const ArticleInfoBar = ({
           )}
         >
           <SvgLoader className={clsx(styles.iconSize, styles.Large)} name="reverseClock" />
-          <span>{updatedAt}</span>
+          <span>{formattedUpdatedAt}</span>
         </div>
       )}
 

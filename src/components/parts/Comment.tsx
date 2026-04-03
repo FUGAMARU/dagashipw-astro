@@ -1,6 +1,7 @@
 import styles from "@/components/parts/Comment.module.css"
 import { ItemNumber } from "@/components/parts/common/ItemNumber"
 import { SvgLoader } from "@/components/parts/svg/SvgLoader"
+import { convertDateStringFormat } from "@/utils/datetime"
 import { parsePlainTextUrls } from "@/utils/link"
 
 import type { CalculatedComment } from "@/types/api"
@@ -33,6 +34,7 @@ type Props = (ParentComment | ChildComment) & {
 /** コメント表示用コンポーネント */
 export const Comment = ({ commentInfo, ...rest }: Props) => {
   const handleReplyButtonClick = rest.displayType === "parent" ? rest.onReplyButtonClick : undefined
+  const formattedSubmittedAt = convertDateStringFormat(commentInfo.submittedAt, "yyyy-MM-dd HH:mm")
 
   return (
     <div className={styles.commentComponent}>
@@ -47,7 +49,7 @@ export const Comment = ({ commentInfo, ...rest }: Props) => {
             <SvgLoader className={styles.verified} name="verified" />
           )}
         </div>
-        <span className={styles.datetime}>{commentInfo.submittedAt}</span>
+        <span className={styles.datetime}>{formattedSubmittedAt}</span>
       </div>
 
       <p className={styles.body}>{parsePlainTextUrls(commentInfo.body)}</p>

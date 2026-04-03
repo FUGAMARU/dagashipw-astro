@@ -3,40 +3,45 @@
  */
 
 /**
- * Dateオブジェクトを指定したフォーマットの文字列に変換する
+ * 日時文字列を指定したフォーマットの文字列に変換する
  *
- * @param date - Dateオブジェクト
+ * @param dateString - ISO形式の日時文字列
  * @param format - フォーマット形式
  * @returns 指定した形式にフォーマットされた日時文字列
  */
-export const formatDateToString = (
-  date: Date,
-  format: "yyyy/MM/dd" | "yyyy/MM/dd HH:mm:ss" | "yyyy"
+export const convertDateStringFormat = (
+  dateString: string,
+  format: "yyyy/MM/dd HH:mm:ss" | "yyyy-MM-dd" | "yyyy-MM-dd HH:mm" | "yyyy"
 ): string => {
-  const year = date.getFullYear()
-  const month = `0${date.getMonth() + 1}`.slice(-2)
-  const day = `0${date.getDate()}`.slice(-2)
-  const hours = `0${date.getHours()}`.slice(-2)
-  const minutes = `0${date.getMinutes()}`.slice(-2)
-  const seconds = `0${date.getSeconds()}`.slice(-2)
+  const date = new Date(dateString)
+  const parts = new Intl.DateTimeFormat("ja-JP", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(date)
+
+  const partMap = new Map(parts.map(part => [part.type, part.value]))
+
+  const year = partMap.get("year") ?? ""
+  const month = partMap.get("month") ?? ""
+  const day = partMap.get("day") ?? ""
+  const hours = partMap.get("hour") ?? ""
+  const minutes = partMap.get("minute") ?? ""
+  const seconds = partMap.get("second") ?? ""
 
   switch (format) {
-    case "yyyy/MM/dd":
-      return `${year}/${month}/${day}`
     case "yyyy/MM/dd HH:mm:ss":
       return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`
+    case "yyyy-MM-dd":
+      return `${year}-${month}-${day}`
+    case "yyyy-MM-dd HH:mm":
+      return `${year}-${month}-${day} ${hours}:${minutes}`
     case "yyyy":
-      return `${year}`
+      return year
   }
-}
-
-/**
- * UTCをJSTに変換する
- *
- * @param date - UTCのDateオブジェクト
- * @returns JSTのDateオブジェクト
- */
-export const convertUTCToJST = (date: Date): Date => {
-  // UTCをJSTに変換するために9時間(32400000ミリ秒)を加算
-  return new Date(date.getTime() + 32400000)
 }
