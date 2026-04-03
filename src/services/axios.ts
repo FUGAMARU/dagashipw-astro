@@ -4,6 +4,7 @@
 
 import axios from "axios"
 
+import { CALCULATED_API_ARTICLES_PATH_PREFIX, INCLUDE_DEV_ARTICLE_QUERY_KEY } from "@/constants/api"
 import { API_ORIGIN, API_TOKEN } from "@/constants/env"
 import { isServerSide, isValidString } from "@/utils"
 
@@ -24,6 +25,25 @@ export const selfHostedAxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   config => {
     // リクエストが送信される前の処理
+
+    // 開発環境では記事系APIにinclude-dev-articleクエリを自動付与する
+    if (import.meta.env.DEV && isValidString(config.url)) {
+      const isAbsoluteUrl = /^https?:\/\//.test(config.url)
+      const urlObject = new URL(
+        config.url,
+        isValidString(config.baseURL) ? config.baseURL : "http://localhost"
+      )
+
+      if (
+        urlObject.pathname.startsWith(CALCULATED_API_ARTICLES_PATH_PREFIX) &&
+        !urlObject.searchParams.has(INCLUDE_DEV_ARTICLE_QUERY_KEY)
+      ) {
+        urlObject.searchParams.append(INCLUDE_DEV_ARTICLE_QUERY_KEY, "true")
+        config.url = isAbsoluteUrl
+          ? urlObject.toString()
+          : `${urlObject.pathname}${urlObject.search}${urlObject.hash}`
+      }
+    }
 
     // リクエストログの出力
     if (isServerSide) {
