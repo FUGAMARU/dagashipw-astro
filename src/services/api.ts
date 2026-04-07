@@ -25,7 +25,7 @@ import type { AxiosResponse } from "axios"
  */
 export const getArticle = async (articleUrlId: string): Promise<CalculatedArticle> => {
   const response = await axiosInstance.get<CalculatedArticle>(
-    `/calculated-api/articles/calculated/${articleUrlId}`
+    `/calculated-api/articles/${articleUrlId}`
   )
 
   return response.data
@@ -54,7 +54,7 @@ export const getArticlesWithPagination = async (
   pageNumber: number
 ): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/calculated-api/articles/calculated?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
+    `/calculated-api/articles?pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
 
   if (!isDefined(response.data.data)) {
@@ -71,7 +71,7 @@ export const getArticlesWithPagination = async (
  */
 export const getTotalArticlePageCount = async (): Promise<number> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/calculated-api/articles/calculated?pagination[pageSize]=${ARTICLES_PER_PAGE}`
+    `/calculated-api/articles?pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
   return response.data?.meta?.pagination?.pageCount ?? 0
 }
@@ -110,7 +110,7 @@ export const getTotalArticlePageCountByTag = async (tag: string): Promise<number
  */
 export const getComments = async (articleUrlId: string): Promise<Array<CalculatedComment>> => {
   const response = await axiosInstance.get<CalculatedCommentResponse>(
-    `/calculated-api/comments/calculated/${articleUrlId}`
+    `/calculated-api/comments/${articleUrlId}`
   )
   return response.data.data
 }
@@ -138,7 +138,7 @@ export const getSameTagArticles = async (
   articleUrlId: string
 ): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/calculated-api/articles/calculated/${articleUrlId}/related?limit=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
+    `/calculated-api/articles/${articleUrlId}/related?limit=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
   )
   return response.data.data
 }
@@ -150,7 +150,7 @@ export const getSameTagArticles = async (
  */
 export const getRecentArticles = async (): Promise<Array<CalculatedArticle>> => {
   const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/calculated-api/articles/calculated/?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
+    `/calculated-api/articles?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
   )
   return response.data.data ?? []
 }
