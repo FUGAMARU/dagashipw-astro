@@ -10,3 +10,7 @@
     margin: 0;
   }
 }
+
+ol > .liTag {
+  list-style-type: decimal;
+}
