@@ -22,3 +22,10 @@ export const Primary: Story = {
     )
   }
 }
+
+/** 改行あり */
+export const WithLineBreaks: Story = {
+  args: {
+    children: <Paragraph>{"最初の行\n\n次の段落\n最後の行"}</Paragraph>
+  }
+}

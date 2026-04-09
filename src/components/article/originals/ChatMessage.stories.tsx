@@ -59,3 +59,13 @@ export const FullWidth: Story = {
     ...commonProps
   }
 }
+
+/** 改行あり */
+export const WithLineBreaks: Story = {
+  args: {
+    role: "me",
+    name: "美川憲一",
+    ...commonProps,
+    text: "1行目\n2行目\n\n3行目"
+  }
+}

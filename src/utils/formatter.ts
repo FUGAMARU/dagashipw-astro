@@ -22,7 +22,18 @@ export const convertCommaSeparatedStringToArray = (str: string): Array<string> =
  * @param body - エスケープされた改行コードを含む文字列
  * @returns 改行コードがアンエスケープされた文字列
  */
-export const unescapeNewlines = (body: string): string => JSON.parse(`"${body}"`)
+export const unescapeNewlines = (body: string): string => {
+  if (!(body.includes("\\n") || body.includes("\\r"))) {
+    return body
+  }
+
+  try {
+    return JSON.parse(`"${body}"`)
+  } catch {
+    // 変換に失敗した場合は改行コードのみを最小限アンエスケープする
+    return body.replace(/\\r\\n|\\n|\\r/g, "\n")
+  }
+}
 
 /**
  * 角括弧で囲まれた特定の文字列を別の文字列に置き換える関数
