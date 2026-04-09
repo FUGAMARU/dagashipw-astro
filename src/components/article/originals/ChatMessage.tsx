@@ -4,6 +4,7 @@ import { capitalize } from "es-toolkit"
 import styles from "@/components/article/originals/ChatMessage.module.css"
 import { Image } from "@/components/parts/common/Image"
 import { isDefined } from "@/utils"
+import { unescapeNewlines } from "@/utils/formatter"
 import { generateImageSources } from "@/utils/image"
 
 /** Props */
@@ -41,7 +42,7 @@ export const ChatMessage = ({ role, icon, name, text, isFullWidth = "false" }: P
         )}
 
         <div className={clsx(styles.bubble, styles[capitalize(role)])}>
-          <p className={styles.text}>{text}</p>
+          <p className={styles.text}>{unescapeNewlines(text)}</p>
         </div>
       </div>
     </div>

@@ -16,6 +16,15 @@ export const convertCommaSeparatedStringToArray = (str: string): Array<string> =
   str.replace(/\s+/g, "").split(",")
 
 /**
+ * エスケープされた改行コードをアンエスケープする
+ * (Strapiがデフォルトで改行コードをエスケープしてレスポンスしてくるため)
+ *
+ * @param body - エスケープされた改行コードを含む文字列
+ * @returns 改行コードがアンエスケープされた文字列
+ */
+export const unescapeNewlines = (body: string): string => JSON.parse(`"${body}"`)
+
+/**
  * 角括弧で囲まれた特定の文字列を別の文字列に置き換える関数
  *
  * @param baseTemplate - 置き換え元のテンプレート文字列

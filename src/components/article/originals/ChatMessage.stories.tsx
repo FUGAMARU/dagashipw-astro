@@ -12,7 +12,7 @@ const meta: Meta<typeof ChatMessage> = {
     icon: { control: "text" },
     name: { control: "text" },
     text: { control: "text" },
-    isFullWidth: { control: "boolean" }
+    isFullWidth: { control: "text" }
   }
 }
 

@@ -1,6 +1,7 @@
 import clsx from "clsx"
 import { capitalize } from "es-toolkit"
 
+import { createSourceSet } from "@/components/parts/common/Image.helpers"
 import styles from "@/components/parts/common/Image.module.css"
 import { ImageCaption } from "@/components/parts/ImageCaption"
 import { RESPONSIVE_SP_MAX_WIDTH } from "@/constants/value"
@@ -34,6 +35,8 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcS
     align?: "start" | "right" | "end"
     /** ルートタグ(pictureタグ)に充てるclassName */
     rootTagClassName?: string
+    /** imgタグに充てるclassName */
+    imgTagClassName?: string
   }
 
 /** 画像コンポーネント */
@@ -50,6 +53,7 @@ export const Image = ({
   borderRadius,
   align = "start",
   rootTagClassName,
+  imgTagClassName,
   ...props
 }: Props) => {
   const selectedSources = sources[imageSize]
@@ -67,12 +71,12 @@ export const Image = ({
         {/* SP表示 */}
         <source
           media={`(max-width: ${RESPONSIVE_SP_MAX_WIDTH}px)`}
-          srcSet={`${selectedSources.sp1x} 1x, ${selectedSources.sp2x} 2x`}
+          srcSet={createSourceSet(selectedSources.sp1x, selectedSources.sp2x)}
         />
         {/* PC表示 */}
         <source
           media={`(min-width: ${RESPONSIVE_SP_MAX_WIDTH + 1}px)`}
-          srcSet={`${selectedSources.pc1x} 1x, ${selectedSources.pc2x} 2x`}
+          srcSet={createSourceSet(selectedSources.pc1x, selectedSources.pc2x)}
         />
         {/* フォールバック */}
         <img
@@ -84,7 +88,8 @@ export const Image = ({
             isValidString(cssWidth) && styles[`Width${capitalize(cssWidth)}`],
             isValidString(cssHeight) && styles[`Height${capitalize(cssHeight)}`],
             isWide && styles.Wide,
-            isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`]
+            isValidString(borderRadius) && styles[`BorderRadius${borderRadius}`],
+            imgTagClassName
           )}
           loading={isEager ? "eager" : "lazy"}
           src={selectedSources.pc1x}
