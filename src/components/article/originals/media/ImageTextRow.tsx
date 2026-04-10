@@ -1,4 +1,4 @@
-import styles from "@/components/article/originals/image/ImageTextRow.module.css"
+import styles from "@/components/article/originals/media/ImageTextRow.module.css"
 import { Image } from "@/components/parts/common/Image"
 import { isValidString } from "@/utils"
 import { unescapeNewlines } from "@/utils/formatter"

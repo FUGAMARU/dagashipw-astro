@@ -1,4 +1,4 @@
-import { HeightAdjustedImage } from "@/components/article/originals/image/HeightAdjustedImage"
+import { HeightAdjustedImage } from "@/components/article/originals/media/HeightAdjustedImage"
 
 import type { Meta, StoryObj } from "@storybook/react"
 

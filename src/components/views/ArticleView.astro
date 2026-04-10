@@ -7,11 +7,12 @@ import CodeBlockWrapper from "@/components/article/originals/CodeBlockWrapper.as
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 import { Spotify } from "@/components/article/originals/iframe/Spotify"
 import { YouTube } from "@/components/article/originals/iframe/YouTube"
-import { HeightAdjustedImage } from "@/components/article/originals/image/HeightAdjustedImage"
-import { ImageRow } from "@/components/article/originals/image/ImageRow"
-import { ImageTextRow } from "@/components/article/originals/image/ImageTextRow"
 import { InlineArticleCard } from "@/components/article/originals/InlineArticleCard"
 import Inserter from "@/components/article/originals/Inserter.astro"
+import { HeightAdjustedImage } from "@/components/article/originals/media/HeightAdjustedImage"
+import { HeightAdjustedVideo } from "@/components/article/originals/media/HeightAdjustedVideo"
+import { ImageRow } from "@/components/article/originals/media/ImageRow"
+import { ImageTextRow } from "@/components/article/originals/media/ImageTextRow"
 import { TableWithoutHeader } from "@/components/article/originals/TableWithoutHeader"
 import { Blockquote } from "@/components/article/standards/Blockquote"
 import { Code } from "@/components/article/standards/Code"
@@ -98,6 +99,7 @@ const processedContent = startSyncPipe(article.body)
         YouTube,
         CodeBlock: CodeBlockWrapper,
         HeightAdjustedImage,
+        HeightAdjustedVideo,
         Spotify,
         kbd: Kbd,
         AccordionInfo: AccordionInfoWrapper,
