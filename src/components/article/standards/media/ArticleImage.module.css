@@ -1,3 +1,16 @@
 .articleImage {
   @mixin section-article-common-spacing;
+
+  margin-inline: auto;
+}
+
+.imageComponent {
+  display: flex;
+  justify-content: center;
+}
+
+@media (--pc) {
+  .articleImage {
+    max-width: var(--article-media-max-width-for-pc);
+  }
 }

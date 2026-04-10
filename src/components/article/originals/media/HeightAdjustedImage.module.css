@@ -1,6 +1,8 @@
 .heightAdjustedImage {
   @mixin section-article-common-spacing;
 
+  margin-inline: auto;
+
   &.HasCaption {
     margin-bottom: calc(
       var(--spacing-article-parts-common-sp) + 12px
@@ -21,6 +23,7 @@
 @media (--pc) {
   .heightAdjustedImage {
     width: 100%;
+    max-width: var(--article-media-max-width-for-pc);
     height: 100%;
     aspect-ratio: 16 / 9;
 

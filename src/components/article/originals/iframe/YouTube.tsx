@@ -1,4 +1,3 @@
-import clsx from "clsx"
 import { memo } from "react"
 
 import styles from "@/components/article/originals/iframe/YouTube.module.css"
@@ -7,14 +6,12 @@ import styles from "@/components/article/originals/iframe/YouTube.module.css"
 type Props = {
   /** 動画ID */
   videoId: string
-  /** 中央寄せするかどうか */
-  isCentered?: boolean
 }
 
 /** YouTube埋め込み用コンポーネント */
-export const YouTube = memo(({ videoId, isCentered = false }: Props) => {
+export const YouTube = memo(({ videoId }: Props) => {
   return (
-    <div className={clsx(styles.youTube, isCentered && styles.Centered)}>
+    <div className={styles.youTube}>
       <iframe
         allowFullScreen
         className={styles.iframe}

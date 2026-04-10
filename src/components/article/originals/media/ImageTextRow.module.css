@@ -5,6 +5,7 @@
   @mixin section-article-common-spacing;
 
   > .figure {
+    margin-inline: auto;
     text-align: center;
 
     > .img {
@@ -37,6 +38,7 @@
       justify-content: center;
       width: calc((100% - var(--pc-gap)) / 2);
       max-width: calc((100% - var(--pc-gap)) / 2);
+      margin-inline: 0;
     }
 
     > .text {

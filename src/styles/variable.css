@@ -51,6 +51,7 @@
   --spacing-article-heading-sp: 24px 0 12px;
   --spacing-article-heading-h2-pc: 36px 0 12px;
   --spacing-article-heading-h3-pc: 30px 0 12px;
+  --article-media-max-width-for-pc: 80%;
 
   /* react-responsive-pagination関連 */
   --pagination-color: #67a700;

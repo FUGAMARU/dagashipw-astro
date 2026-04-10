@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta: Meta<typeof YouTube> = {
   component: YouTube,
   tags: ["autodocs"],
-  args: { videoId: undefined, isCentered: undefined },
-  argTypes: { videoId: { control: "text" }, isCentered: { control: "boolean" } }
+  args: { videoId: undefined },
+  argTypes: { videoId: { control: "text" } }
 }
 
 export default meta
@@ -20,7 +20,6 @@ export const Primary: Story = {
 
 export const Centered: Story = {
   args: {
-    videoId: "JodIjt0Oq-o",
-    isCentered: true
+    videoId: "JodIjt0Oq-o"
   }
 }
