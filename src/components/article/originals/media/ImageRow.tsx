@@ -24,7 +24,9 @@ export const ImageRow = ({ images, gap = "16" }: Props) => {
           key={imageUrl}
           alt=""
           imageSize="normal"
+          imgTagClassName={styles.img}
           isContain
+          rootTagClassName={styles.figure}
           sources={imageSourcesList[index]}
         />
       ))}
