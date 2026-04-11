@@ -18,6 +18,7 @@
     /* なぜかastro-remoteがchildrenをpタグでラップして渡してくるので仕方なくタグ直指定 */
     padding: 4px 0 4px 22px;
     color: var(--color-light-dark);
+    overflow-wrap: anywhere; /* 長いURLなどが入ってきた時に折り返されるようにする */
     white-space: pre-wrap;
   }
 }

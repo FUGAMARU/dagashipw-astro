@@ -29,3 +29,14 @@ export const WithLineBreaks: Story = {
     children: <Paragraph>{"最初の行\n\n次の段落\n最後の行"}</Paragraph>
   }
 }
+
+/** 長いURLあり */
+export const WithLongUrl: Story = {
+  args: {
+    children: (
+      <Paragraph>
+        https://www.google.com/search?q=%E8%97%A4%E6%B2%A2%E9%A7%85&oq=%E8%97%A4%E6%B2%A2%E9%A7%85&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIGCAEQRRg7MgYIAhBFGDsyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyBwgGEAAYgAQyBwgHEAAYgAQyBwgIEAAYgAQyBwgJEAAYgATSAQgxMjM2ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8
+      </Paragraph>
+    )
+  }
+}
