@@ -2,6 +2,7 @@
   padding: 0.2em 0.4em;
   font-family: "HackGen35", monospace;
   font-size: 85%;
+  overflow-wrap: anywhere;
   white-space: break-spaces;
   background-color: var(--color-code-tag-background);
   border-radius: 6px;
