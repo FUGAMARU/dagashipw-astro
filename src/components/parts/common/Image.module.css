@@ -6,12 +6,12 @@
     text-align: start;
   }
 
-  &.AlignCenter {
-    text-align: center;
+  &.AlignRight {
+    text-align: right;
   }
 
-  &.AlignEnd {
-    text-align: end;
+  &.AlignCenter {
+    text-align: center;
   }
 }
 

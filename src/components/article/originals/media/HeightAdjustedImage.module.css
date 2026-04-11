@@ -1,6 +1,9 @@
 .heightAdjustedImage {
   @mixin section-article-common-spacing;
 
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
   margin-inline: auto;
 
   &.HasCaption {
@@ -12,6 +15,7 @@
   > .figure {
     display: flex;
     justify-content: center;
+    height: 100%;
   }
 
   > .caption {
@@ -21,20 +25,12 @@
 
 @media (--pc) {
   .heightAdjustedImage {
-    width: 100%;
     max-width: var(--article-media-max-width-for-pc);
-    height: 100%;
-    aspect-ratio: 16 / 9;
 
     &.HasCaption {
       margin-bottom: calc(
         var(--spacing-article-parts-common-pc) + 16px
       ); /* なぜかキャプションの高さが相殺されるので仕方なくトリッキーな指定をしている */
-    }
-
-    > .figure {
-      height: 100%;
-      max-height: unset;
     }
   }
 }

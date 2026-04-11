@@ -32,7 +32,7 @@ type Props = Omit<ComponentProps<"img">, "className" | "loading" | "src" | "srcS
     /** border-radiusの値 */
     borderRadius?: "16" | "0"
     /** align */
-    align?: "start" | "right" | "end"
+    align?: "start" | "right" | "end" | "center"
     /** ルートタグ(pictureタグ)に充てるclassName */
     rootTagClassName?: string
     /** imgタグに充てるclassName */
