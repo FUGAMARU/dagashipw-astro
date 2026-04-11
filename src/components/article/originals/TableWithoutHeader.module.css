@@ -2,6 +2,8 @@
   @mixin section-article-common-spacing;
 
   > .main {
+    width: 100%;
+
     > tbody {
       @mixin tbody-common;
 
@@ -11,6 +13,8 @@
         }
 
         > td {
+          overflow-wrap: anywhere;
+
           &:not(:last-child) {
             border-right: solid 1px var(--color-light-gray);
           }
