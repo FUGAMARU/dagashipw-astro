@@ -3,7 +3,7 @@
 
   width: 100%;
   height: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   margin-inline: auto;
 
   &.HasCaption {
@@ -26,6 +26,7 @@
 @media (--pc) {
   .heightAdjustedImage {
     max-width: var(--article-media-max-width-for-pc);
+    aspect-ratio: 16 / 9;
 
     &.HasCaption {
       margin-bottom: calc(
