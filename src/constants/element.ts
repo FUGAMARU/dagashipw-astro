@@ -19,9 +19,3 @@ export const KEYWORD_INPUT_NAME = "keyword"
 
 /** Inserter要素のID */
 export const INSERTER_CONTAINER_ID = "inserter-wrapper"
-
-/** 広告コンテナのクラス名 */
-export const ADS_CONTAINER_CLASS = "ads-container"
-
-/** 広告コンテナのCSS Moduleクラス名 */
-export const ADS_CONTAINER_CSS_CLASS = "adsContainer"

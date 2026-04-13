@@ -31,7 +31,7 @@ if ([API_ORIGIN, API_TOKEN].some(value => !isDefined(value))) {
 }
 
 /** API接続する時に使用するAxiosのインスタンス */
-export const axiosInstance = axios.create({
+const axiosInstance = axios.create({
   baseURL: `${API_ORIGIN}/api`,
   headers: {
     Authorization: `Bearer ${API_TOKEN}`

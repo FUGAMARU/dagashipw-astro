@@ -27,7 +27,6 @@
     "@astrojs/sitemap": "^3.6.0",
     "@nanostores/react": "^1.0.0",
     "@radix-ui/react-dialog": "^1.1.15",
-    "@types/animejs": "^3.1.13",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "animejs": "^4.2.2",
@@ -48,7 +47,6 @@
     "react-turnstile": "^1.1.4",
     "shiki": "^3.20.0",
     "swr": "^2.3.8",
-    "typescanner": "^0.5.3",
     "typescript": "^5.8.3",
     "usehooks-ts": "^3.1.1"
   },
@@ -68,7 +66,6 @@
     "@storybook/react-vite": "^8.6.12",
     "@storybook/test": "^8.6.12",
     "@takuma-ru/auto-story-generator": "^0.4.0",
-    "@types/color-thief-node": "^1.0.4",
     "@types/probe-image-size": "^7.2.5",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",

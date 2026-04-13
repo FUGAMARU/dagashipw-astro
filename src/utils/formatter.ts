@@ -58,7 +58,7 @@ export const replaceTextInSquareBracket = (
  * @param text - 元の見出しテキスト
  * @returns 正規化された見出しテキスト
  */
-export const normalizeHeadingText = (text: string): string =>
+const normalizeHeadingText = (text: string): string =>
   startSyncPipe(text)
     .pipe(t => t.replace(/^\d/, ""))
     .pipe(t => t.replace(/\s+/g, "_"))

@@ -93,19 +93,6 @@ export const getTotalArticlePageCountByKeyword = async (keyword: string): Promis
 }
 
 /**
- * タグで絞り込んだ状態の記事一覧をページネーション付きで表示する場合に全部で何ページあるのか取得する
- *
- * @param tag - タグ
- * @returns タグで絞り込んだ状態の記事一覧の合計ページ数
- */
-export const getTotalArticlePageCountByTag = async (tag: string): Promise<number> => {
-  const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/calculated-api/articles/search/tag?tag=${encodeURIComponent(tag)}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
-  )
-  return response.data?.meta?.pagination?.pageCount ?? 0
-}
-
-/**
  * 指定した記事に寄せられているコメント一覧を取得する
  *
  * @param articleUrlId - 記事のURL ID

@@ -47,7 +47,7 @@ export const selfHostedFetcher = <T>(option: {
  *
  * @returns サイドバーに表示する情報
  */
-export const getSidebarInfo = async (): Promise<SidebarApiResponse> => {
+const getSidebarInfo = async (): Promise<SidebarApiResponse> => {
   const response = await selfHostedAxiosInstance.get<SidebarApiResponse>("/sidebar")
   return response.data
 }
