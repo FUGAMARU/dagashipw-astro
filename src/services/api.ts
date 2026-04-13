@@ -17,6 +17,9 @@ import type {
 } from "@/types/api"
 import type { AxiosResponse } from "axios"
 
+/** 最新記事を何度もFetchしないようにするためのメモ用変数 */
+let recentArticlesPromise: Promise<Array<CalculatedArticle>> | undefined
+
 /**
  * 記事を取得する
  *
@@ -149,10 +152,19 @@ export const getSameTagArticles = async (
  * @returns 最新記事4件
  */
 export const getRecentArticles = async (): Promise<Array<CalculatedArticle>> => {
-  const response = await axiosInstance.get<CalculatedArticleResponse>(
-    `/calculated-api/articles?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
-  )
-  return response.data.data ?? []
+  if (!isDefined(recentArticlesPromise)) {
+    recentArticlesPromise = axiosInstance
+      .get<CalculatedArticleResponse>(
+        `/calculated-api/articles?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
+      )
+      .then(response => response.data.data ?? [])
+      .catch(error => {
+        recentArticlesPromise = undefined
+        throw error
+      })
+  }
+
+  return recentArticlesPromise
 }
 
 /**
