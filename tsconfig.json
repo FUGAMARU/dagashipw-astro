@@ -7,12 +7,13 @@
     "rootDirs": [".", "cmk"],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "baseUrl": ".",
+    "types": ["node"],
     "paths": {
-      "@/*": ["src/*", "cmk/src/*"]
+      "@/*": ["./src/*", "./cmk/src/*"]
     }
   },
   "cmkOptions": {
+    "enabled": true,
     "dtsOutDir": "cmk"
   }
 }
