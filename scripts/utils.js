@@ -32,7 +32,7 @@ if ([API_ORIGIN, API_TOKEN].some(value => !isDefined(value))) {
 
 /** API接続する時に使用するAxiosのインスタンス */
 const axiosInstance = axios.create({
-  baseURL: `${API_ORIGIN}/api`,
+  baseURL: `${API_ORIGIN}`,
   headers: {
     Authorization: `Bearer ${API_TOKEN}`
   }
@@ -46,9 +46,9 @@ const axiosInstance = axios.create({
  */
 export const getArticle = async articleUrlId => {
   const response = await axiosInstance.get(
-    `/articles?filters[articleUrlId][$eq]=${articleUrlId}&populate=*`
+    `/calculated-api/articles/${encodeURIComponent(articleUrlId)}`
   )
-  return response.data.data?.[0]
+  return response.data
 }
 
 /**
@@ -57,38 +57,8 @@ export const getArticle = async articleUrlId => {
  * @returns articleUrlId一覧
  */
 export const getAllArticleUrlIdList = async () => {
-  let currentPage = 1
-  let totalArticleCount = 0
-  let loadedPageCount = 0
-  const articleUrlIdList = []
-
-  do {
-    const response = await axiosInstance.get(
-      `/articles?pagination[page]=${currentPage}&pagination[withCount]=true`
-    )
-
-    const totalArticleCountResponse = response.data.meta?.pagination?.total
-    const itemCountPerPageResponse = response.data.meta?.pagination?.pageSize
-
-    if (!isDefined(totalArticleCountResponse) || !isDefined(itemCountPerPageResponse)) {
-      break
-    }
-
-    totalArticleCount = totalArticleCountResponse
-
-    response.data.data?.forEach(article => {
-      const articleUrlId = article.articleUrlId
-
-      if (isDefined(articleUrlId)) {
-        articleUrlIdList.push(articleUrlId)
-      }
-    })
-
-    loadedPageCount += itemCountPerPageResponse
-    currentPage++
-  } while (loadedPageCount < totalArticleCount)
-
-  return articleUrlIdList
+  const response = await axiosInstance.get("/calculated-api/articles/all-article-url-id")
+  return response.data
 }
 
 /**
@@ -98,18 +68,21 @@ export const getAllArticleUrlIdList = async () => {
  * @param themeColor - テーマカラー(Hex)
  */
 export const setArticleThemeColor = async (articleUrlId, themeColor) => {
-  const data = await axiosInstance.get(`/articles?filters[articleUrlId][$eq]=${articleUrlId}`)
+  const response = await axiosInstance.get("/items/articles", {
+    params: {
+      "filter[article_url_id][_eq]": articleUrlId,
+      limit: 1
+    }
+  })
 
-  const articleId = data.data.data?.[0].documentId
+  const articleId = response.data.data?.[0]?.article_url_id
 
   if (!isDefined(articleId)) {
     return
   }
 
-  axiosInstance.put(`/articles/${articleId}`, {
-    data: {
-      themeColor
-    }
+  await axiosInstance.patch(`/items/articles/${encodeURIComponent(articleId)}`, {
+    theme_color: themeColor
   })
 }
 

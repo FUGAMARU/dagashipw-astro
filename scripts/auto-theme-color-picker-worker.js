@@ -24,6 +24,26 @@ const getThemeColor = async src => {
   return palette.Vibrant?.hex ?? THEME_COLOR_FALLBACK
 }
 
+/**
+ * サムネイルURLからテーマカラーを取得する
+ *
+ * @param thumbnailUrl - サムネイルURL
+ * @returns テーマカラー (HEX)
+ */
+const getThemeColorFromThumbnailUrl = async thumbnailUrl => {
+  const response = await fetch(thumbnailUrl)
+
+  if (!response.ok) {
+    throw new Error(`画像の取得に失敗しました: ${thumbnailUrl}`)
+  }
+
+  const responseBuffer = await response.arrayBuffer()
+  const imageBuffer = Buffer.from(responseBuffer)
+  const pngBuffer = await sharp(imageBuffer).png().toBuffer()
+
+  return getThemeColor(pngBuffer)
+}
+
 /** Main */
 const main = async () => {
   const articleUrlId = workerData.payload.articleUrlId
@@ -31,25 +51,13 @@ const main = async () => {
 
   console.log(`#${threadId}】処理中: ${articleUrlId}`)
 
-  const isWebp = thumbnailUrl.endsWith(".webp")
-
   let themeColor = THEME_COLOR_FALLBACK
 
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (isWebp) {
-    const response = await fetch(thumbnailUrl)
-
-    if (!response.ok) {
-      console.error(`画像の取得に失敗しました: ${thumbnailUrl}`)
-    }
-
-    const responseBuffer = await response.arrayBuffer()
-    const webpBuffer = Buffer.from(responseBuffer)
-    const pngBuffer = await sharp(webpBuffer).toFormat("png").toBuffer()
-
-    themeColor = await getThemeColor(pngBuffer)
-  } else {
-    themeColor = await getThemeColor(thumbnailUrl)
+  try {
+    themeColor = await getThemeColorFromThumbnailUrl(thumbnailUrl)
+  } catch (error) {
+    console.error(`テーマカラー取得に失敗しました: ${articleUrlId}`)
+    console.error(error)
   }
 
   await setArticleThemeColor(articleUrlId, themeColor)

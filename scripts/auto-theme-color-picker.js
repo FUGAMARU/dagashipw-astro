@@ -20,12 +20,19 @@ const main = async () => {
 
   const articleThumbnails = articles
     .filter(article => {
-      const thumbnail = article.thumbnail.url
-      return isDefined(article) && isDefined(thumbnail)
+      const originalThumbnailUrl = article.originalThumbnailUrl
+      return (
+        isDefined(article) &&
+        typeof originalThumbnailUrl === "string" &&
+        originalThumbnailUrl.length > 0
+      )
     })
     .map(article => ({
+      originalThumbnailUrl: String(article.originalThumbnailUrl),
       articleUrlId: article.articleUrlId,
-      thumbnailUrl: `${API_ORIGIN}${article.thumbnail.url}`
+      thumbnailUrl: /^https?:\/\//.test(String(article.originalThumbnailUrl))
+        ? String(article.originalThumbnailUrl)
+        : `${API_ORIGIN}${String(article.originalThumbnailUrl)}`
     }))
 
   let completedWorkers = 0
