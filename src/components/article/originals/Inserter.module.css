@@ -9,3 +9,10 @@
 .adContainer {
   padding: 28px 0;
 }
+
+.kakeiBoardAdImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: solid 0.5px var(--color-soft-gray);
+}

@@ -3,16 +3,22 @@ import { randomUUID } from "node:crypto"
 
 import styles from "@/components/article/originals/Inserter.module.css"
 import Adsense from "@/components/parts/Adsense.astro"
+import { Image } from "@/components/parts/common/Image"
+import { Link } from "@/components/parts/common/Link"
+import { ResponsiveContainer } from "@/components/parts/common/ResponsiveContainer"
 import { TableOfContents } from "@/components/templates/TableOfContents"
 import { INSERTER_CONTAINER_ID } from "@/constants/element"
+import { PAGE_PATH } from "@/constants/page"
 import { isDefined, isValidArray } from "@/utils"
 import { generateTableOfContentsFormat } from "@/utils/markdown"
 import { calculateReadingTime } from "@/utils/table-of-contents"
 
+import type { ImageSources } from "@/types/image"
+
 /** Props */
 type Props = {
   /** 表示するもの */
-  type: "tableOfContents" | "adTop" | "adMiddle"
+  type: "tableOfContents" | "adTop" | "adMiddle" | "kakeiBoardAd"
 }
 
 const { type } = Astro.props
@@ -26,6 +32,35 @@ const tableOfContentsData = generateTableOfContentsFormat(article.body)
 const minutesToRead = calculateReadingTime(article.body)
 const isProd = import.meta.env.PROD
 
+const kakeiBoardBannerSpSources = {
+  normal: {
+    pc1x: "/kakei-board-banner-sp.webp",
+    pc2x: "/kakei-board-banner-sp.webp",
+    sp1x: "/kakei-board-banner-sp.webp",
+    sp2x: "/kakei-board-banner-sp.webp"
+  },
+  smaller: {
+    pc1x: "/kakei-board-banner-sp.webp",
+    pc2x: "/kakei-board-banner-sp.webp",
+    sp1x: "/kakei-board-banner-sp.webp",
+    sp2x: "/kakei-board-banner-sp.webp"
+  }
+} satisfies ImageSources
+const kakeiBoardBannerPcSources = {
+  normal: {
+    pc1x: "/kakei-board-banner-pc.webp",
+    pc2x: "/kakei-board-banner-pc.webp",
+    sp1x: "/kakei-board-banner-pc.webp",
+    sp2x: "/kakei-board-banner-pc.webp"
+  },
+  smaller: {
+    pc1x: "/kakei-board-banner-pc.webp",
+    pc2x: "/kakei-board-banner-pc.webp",
+    sp1x: "/kakei-board-banner-pc.webp",
+    sp2x: "/kakei-board-banner-pc.webp"
+  }
+} satisfies ImageSources
+
 /**
  * InserterコンテナのID
  * UUIDを入れないと同一ページ内で複数のInserterコンポーネントが存在する際にIDが重複し、JS側でgetElementByIdが最初の要素しか取得できなくなり表示制御が正常に動作しなくなる
@@ -36,7 +71,8 @@ const inserterContainerId = `${INSERTER_CONTAINER_ID}-${type}-${randomUUID()}`
  * 初期表示クラス
  * 広告タイプの場合は最初から表示、目次の場合は非表示から開始
  */
-const initialVisibilityClass = type === "adTop" || type === "adMiddle" ? "" : styles.initialHidden
+const initialVisibilityClass =
+  type === "adTop" || type === "adMiddle" || type === "kakeiBoardAd" ? "" : styles.initialHidden
 ---
 
 <div class={initialVisibilityClass} id={inserterContainerId}>
@@ -62,6 +98,33 @@ const initialVisibilityClass = type === "adTop" || type === "adMiddle" ? "" : st
     isProd && type === "adMiddle" && (
       <div class={styles.adContainer}>
         <Adsense adSlot="3434355859" />
+      </div>
+    )
+  }
+  {
+    type === "kakeiBoardAd" && (
+      <div class={styles.adContainer}>
+        <Link href={PAGE_PATH.KAKEI_BOARD_ARTICLE}>
+          <ResponsiveContainer>
+            <Image
+              height={1000}
+              imageSize="normal"
+              imgTagClassName={styles.kakeiBoardAdImage}
+              sources={kakeiBoardBannerSpSources}
+              width={1400}
+            />
+          </ResponsiveContainer>
+
+          <ResponsiveContainer isPC>
+            <Image
+              height={320}
+              imageSize="normal"
+              imgTagClassName={styles.kakeiBoardAdImage}
+              sources={kakeiBoardBannerPcSources}
+              width={2400}
+            />
+          </ResponsiveContainer>
+        </Link>
       </div>
     )
   }
@@ -96,7 +159,7 @@ const initialVisibilityClass = type === "adTop" || type === "adMiddle" ? "" : st
     }
 
     // 広告はPC/SP両方で常に表示
-    if (type === "adTop" || type === "adMiddle") {
+    if (type === "adTop" || type === "adMiddle" || type === "kakeiBoardAd") {
       inserterWrapper.classList.remove(initialHiddenClass)
       return
     }
