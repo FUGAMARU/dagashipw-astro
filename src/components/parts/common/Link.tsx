@@ -15,7 +15,13 @@ export const Link = ({ href, children, ...rest }: Props) => {
 
   if (isExternalLink) {
     return (
-      <a href={href} rel="noopener noreferrer" target="_blank" {...rest}>
+      <a
+        href={href}
+        referrerPolicy="strict-origin-when-cross-origin"
+        rel="noopener"
+        target="_blank"
+        {...rest}
+      >
         {children}
       </a>
     )

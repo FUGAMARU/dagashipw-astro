@@ -212,7 +212,9 @@ export default [
             { pattern: "src/components/**", group: "internal", position: "before" }
           ]
         }
-      ]
+      ],
+      /** 前提が古いので無効化 */
+      "react/jsx-no-target-blank": "off"
     },
     settings: {
       "import/resolver": {
