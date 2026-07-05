@@ -1,6 +1,6 @@
 import { InlineArticleCard } from "@/components/article/originals/InlineArticleCard"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof InlineArticleCard> = {
   component: InlineArticleCard,

@@ -1,6 +1,6 @@
 import { HeightAdjustedVideo } from "@/components/article/originals/media/HeightAdjustedVideo"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof HeightAdjustedVideo> = {
   component: HeightAdjustedVideo,

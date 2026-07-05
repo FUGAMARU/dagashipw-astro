@@ -1,6 +1,6 @@
 import { HeroSP } from "@/components/templates/hero/HeroSP"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof HeroSP> = {
   component: HeroSP,

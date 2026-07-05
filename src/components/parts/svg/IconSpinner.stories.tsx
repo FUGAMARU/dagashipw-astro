@@ -1,6 +1,6 @@
 import { IconSpinner } from "@/components/parts/svg/IconSpinner"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconSpinner> = {
   component: IconSpinner,

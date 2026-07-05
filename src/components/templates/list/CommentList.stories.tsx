@@ -1,6 +1,6 @@
 import { CommentList } from "@/components/templates/list/CommentList"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof CommentList> = {
   component: CommentList,

@@ -1,7 +1,7 @@
 import { Li } from "@/components/article/standards/list/Li"
 import { Ul } from "@/components/article/standards/list/Ul"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Ul> = {
   component: Ul,

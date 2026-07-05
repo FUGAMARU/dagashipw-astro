@@ -6,7 +6,7 @@ import { CommentPostButton } from "@/components/templates/CommentPostButton"
 import { CommentPostModal } from "@/components/templates/modal/CommentPostModal"
 import { useCommentView } from "@/components/views/CommentView.hooks"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import type { ComponentProps } from "react"
 
 const meta: Meta<typeof CommonViewContainer> = {

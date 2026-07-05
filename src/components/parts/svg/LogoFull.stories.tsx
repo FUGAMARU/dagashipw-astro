@@ -1,6 +1,6 @@
 import { LogoFull } from "@/components/parts/svg/LogoFull"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof LogoFull> = {
   component: LogoFull,

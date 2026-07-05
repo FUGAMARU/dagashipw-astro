@@ -1,6 +1,6 @@
 import { IconSnsFacebook } from "@/components/parts/svg/IconSnsFacebook"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconSnsFacebook> = {
   component: IconSnsFacebook,

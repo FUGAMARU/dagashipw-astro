@@ -1,6 +1,6 @@
 import { TextArea } from "@/components/parts/input/TextArea"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof TextArea> = {
   component: TextArea,

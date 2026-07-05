@@ -1,6 +1,6 @@
 import { DownloadButton } from "@/components/article/originals/DownloadButton"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof DownloadButton> = {
   component: DownloadButton,

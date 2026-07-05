@@ -1,6 +1,6 @@
 import { BackNumber } from "@/components/parts/BackNumber"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof BackNumber> = {
   component: BackNumber,

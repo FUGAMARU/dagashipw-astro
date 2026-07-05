@@ -1,6 +1,6 @@
 import { Iframe } from "@/components/article/standards/Iframe"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Iframe> = {
   component: Iframe,

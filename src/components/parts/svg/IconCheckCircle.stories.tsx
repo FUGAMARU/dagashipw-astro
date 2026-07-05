@@ -1,6 +1,6 @@
 import { IconCheckCircle } from "@/components/parts/svg/IconCheckCircle"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconCheckCircle> = {
   component: IconCheckCircle,

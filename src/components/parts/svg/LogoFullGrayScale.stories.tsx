@@ -1,6 +1,6 @@
 import { LogoFullGrayScale } from "@/components/parts/svg/LogoFullGrayScale"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof LogoFullGrayScale> = {
   component: LogoFullGrayScale,

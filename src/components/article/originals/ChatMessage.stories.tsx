@@ -1,6 +1,6 @@
 import { ChatMessage } from "@/components/article/originals/ChatMessage"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 import type { ComponentProps } from "react"
 
 const meta: Meta<typeof ChatMessage> = {

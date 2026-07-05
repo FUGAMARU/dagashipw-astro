@@ -1,6 +1,6 @@
 import { ImageTextRow } from "@/components/article/originals/media/ImageTextRow"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof ImageTextRow> = {
   component: ImageTextRow,

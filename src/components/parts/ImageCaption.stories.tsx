@@ -1,6 +1,6 @@
 import { ImageCaption } from "@/components/parts/ImageCaption"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof ImageCaption> = {
   component: ImageCaption,

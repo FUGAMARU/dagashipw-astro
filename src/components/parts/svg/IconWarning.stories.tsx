@@ -1,6 +1,6 @@
 import { IconWarning } from "@/components/parts/svg/IconWarning"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconWarning> = {
   component: IconWarning,

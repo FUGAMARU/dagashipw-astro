@@ -3,7 +3,7 @@
 import { CommentPostModal } from "@/components/templates/modal/CommentPostModal"
 import { useCommentView } from "@/components/views/CommentView.hooks"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof CommentPostModal> = {
   component: CommentPostModal,

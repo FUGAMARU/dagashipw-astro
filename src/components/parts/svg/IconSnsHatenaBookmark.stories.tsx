@@ -1,6 +1,6 @@
 import { IconSnsHatenaBookmark } from "@/components/parts/svg/IconSnsHatenaBookmark"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconSnsHatenaBookmark> = {
   component: IconSnsHatenaBookmark,

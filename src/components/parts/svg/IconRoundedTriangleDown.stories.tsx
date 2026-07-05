@@ -1,6 +1,6 @@
 import { IconRoundedTriangleDown } from "@/components/parts/svg/IconRoundedTriangleDown"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconRoundedTriangleDown> = {
   component: IconRoundedTriangleDown,

@@ -1,6 +1,6 @@
 import { ArticleCardMini } from "@/components/parts/card/ArticleCardMini"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof ArticleCardMini> = {
   component: ArticleCardMini,

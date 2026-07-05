@@ -1,6 +1,6 @@
 import { Link } from "@/components/parts/common/Link"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Link> = {
   component: Link,

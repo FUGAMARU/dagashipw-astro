@@ -1,6 +1,6 @@
 import { H2 } from "@/components/article/standards/heading/H2"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof H2> = {
   component: H2,

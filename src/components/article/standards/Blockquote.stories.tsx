@@ -1,7 +1,7 @@
 import { Blockquote } from "@/components/article/standards/Blockquote"
 import { Paragraph } from "@/components/article/standards/Paragraph"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Blockquote> = {
   component: Blockquote,

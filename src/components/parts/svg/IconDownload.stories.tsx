@@ -1,6 +1,6 @@
 import { IconDownload } from "@/components/parts/svg/IconDownload"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconDownload> = {
   component: IconDownload,

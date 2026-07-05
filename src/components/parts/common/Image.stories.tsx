@@ -1,7 +1,7 @@
 import { Image } from "@/components/parts/common/Image"
 
 import type { ImageSources } from "@/types/image"
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const dummySources: ImageSources = {
   normal: {

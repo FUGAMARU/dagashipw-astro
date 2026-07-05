@@ -3,7 +3,7 @@ import { useState } from "react"
 
 import { Modal } from "@/components/parts/Modal"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Modal> = {
   component: Modal,

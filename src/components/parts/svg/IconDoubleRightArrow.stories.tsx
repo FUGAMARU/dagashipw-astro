@@ -1,6 +1,6 @@
 import { IconDoubleRightArrow } from "@/components/parts/svg/IconDoubleRightArrow"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof IconDoubleRightArrow> = {
   component: IconDoubleRightArrow,

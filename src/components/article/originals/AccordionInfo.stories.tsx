@@ -1,6 +1,6 @@
 import { AccordionInfo } from "@/components/article/originals/AccordionInfo"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof AccordionInfo> = {
   component: AccordionInfo,

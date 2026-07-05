@@ -1,6 +1,6 @@
 import { Input } from "@/components/parts/input/Input"
 
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta: Meta<typeof Input> = {
   component: Input,
