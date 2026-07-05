@@ -55,7 +55,7 @@ export const FullWidth: Story = {
   args: {
     role: "me",
     name: "美川憲一",
-    isFullWidth: true,
+    isFullWidth: "true",
     ...commonProps
   }
 }

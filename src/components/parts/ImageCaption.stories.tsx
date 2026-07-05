@@ -22,8 +22,6 @@ export const Primary: Story = {
 export const HasCaptionLink: Story = {
   args: {
     caption:
-      "ヘアメイクアップアーティストでタレントのIKKOこと豊田一幸は2017年10月24日～10月28日の間に全くの他人と入れ替わっている。",
-    captionLinkTexts: "IKKOこと豊田一幸",
-    captionLinks: "https://ja.wikipedia.org/wiki/IKKO"
+      "ヘアメイクアップアーティストでタレントの[IKKOこと豊田一幸](https://ja.wikipedia.org/wiki/IKKO)は2017年10月24日～10月28日の間に全くの他人と入れ替わっている。"
   }
 }

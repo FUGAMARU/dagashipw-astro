@@ -38,7 +38,7 @@
       position: relative;
       padding: 10px;
       font-size: 14px;
-      word-wrap: break-word;
+      overflow-wrap: break-word;
       border-radius: 10px;
 
       &::before {

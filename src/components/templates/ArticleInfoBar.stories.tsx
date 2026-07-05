@@ -20,17 +20,17 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
+    articleUrlId: "example-article-id",
     createdAt: "2021/01/01",
-    updatedAt: "2021/01/02",
-    commentCount: 1
+    updatedAt: "2021/01/02"
   }
 }
 
 export const NoBorder: Story = {
   args: {
+    articleUrlId: "example-article-id",
     createdAt: "2021/01/01",
     updatedAt: "2021/01/02",
-    commentCount: 1,
     isBorderHidden: true
   }
 }

@@ -104,7 +104,5 @@ export const Primary: Story = {
 }
 
 export const Fallback: Story = {
-  args: {
-    isFallback: true
-  }
+  args: {}
 }

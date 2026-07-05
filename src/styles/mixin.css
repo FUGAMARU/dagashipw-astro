@@ -3,6 +3,7 @@
   margin: var(--spacing-article-parts-common-sp) 0;
 
   @media (--pc) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
     margin: var(--spacing-article-parts-common-pc) 0;
   }
 }
@@ -21,6 +22,7 @@
   line-height: 1.875;
 
   @media (--pc) {
+    /* stylelint-disable-next-line no-invalid-position-declaration */
     font-size: 16px;
   }
 }

@@ -62,8 +62,7 @@ export const HasCaptionLink: Story = {
   args: {
     sources: nagaraParkSources,
     imageSize: "normal",
-    caption: "長良公園は、岐阜県岐阜市にある公園である。",
-    captionLinkTexts: "長良公園,岐阜県岐阜市",
-    captionLinks: "http://www.nagarakouen.jp/,https://www.city.gifu.lg.jp/"
+    caption:
+      "[長良公園](http://www.nagarakouen.jp/)は、[岐阜県岐阜市](https://www.city.gifu.lg.jp/)にある公園である。"
   }
 }

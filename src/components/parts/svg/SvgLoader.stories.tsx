@@ -14,8 +14,13 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    name: "search",
-    width: 128,
-    height: 128
-  }
+    name: "search"
+  },
+  decorators: [
+    Story => (
+      <div style={{ width: 128, height: 128 }}>
+        <Story />
+      </div>
+    )
+  ]
 }
