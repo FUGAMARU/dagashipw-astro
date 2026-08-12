@@ -2,7 +2,11 @@
  * @file APIにアクセスしデーターを整形する関数群
  */
 
-import { ARTICLES_PER_PAGE, MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT } from "@/constants/value"
+import {
+  ARTICLES_PER_PAGE,
+  MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT,
+  THEME_COLOR_FALLBACK
+} from "@/constants/value"
 import { axiosInstance } from "@/services/axios"
 import { isDefined } from "@/utils"
 
@@ -21,6 +25,29 @@ import type { AxiosResponse } from "axios"
 let recentArticlesPromise: Promise<Array<CalculatedArticle>> | undefined
 
 /**
+ * APIから取得した記事のテーマカラーを正規化する
+ *
+ * @param article - 記事データ
+ * @returns テーマカラーを正規化した記事データ
+ */
+const normalizeArticle = (article: CalculatedArticle): CalculatedArticle => ({
+  ...article,
+  themeColor:
+    typeof article.themeColor === "string" && article.themeColor.trim().length > 0
+      ? article.themeColor
+      : THEME_COLOR_FALLBACK
+})
+
+/**
+ * APIから取得した記事一覧のテーマカラーを正規化する
+ *
+ * @param articles - 記事データ一覧
+ * @returns テーマカラーを正規化した記事データ一覧
+ */
+const normalizeArticles = (articles: Array<CalculatedArticle>): Array<CalculatedArticle> =>
+  articles.map(normalizeArticle)
+
+/**
  * 記事を取得する
  *
  * @param articleUrlId - 記事のURL ID
@@ -31,7 +58,7 @@ export const getArticle = async (articleUrlId: string): Promise<CalculatedArticl
     `/calculated-api/articles/${articleUrlId}`
   )
 
-  return response.data
+  return normalizeArticle(response.data)
 }
 
 /**
@@ -64,7 +91,7 @@ export const getArticlesWithPagination = async (
     throw new Error("ページ情報が存在しません")
   }
 
-  return response.data.data
+  return normalizeArticles(response.data.data)
 }
 
 /**
@@ -130,7 +157,7 @@ export const getSameTagArticles = async (
   const response = await axiosInstance.get<CalculatedArticleResponse>(
     `/calculated-api/articles/${articleUrlId}/related?limit=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
   )
-  return response.data.data
+  return normalizeArticles(response.data.data)
 }
 
 /**
@@ -144,7 +171,7 @@ export const getRecentArticles = async (): Promise<Array<CalculatedArticle>> => 
       .get<CalculatedArticleResponse>(
         `/calculated-api/articles?pagination[page]=1&pagination[pageSize]=${MAX_ARTICLE_CARD_MINI_LIST_DISPLAY_COUNT}`
       )
-      .then(response => response.data.data ?? [])
+      .then(response => normalizeArticles(response.data.data ?? []))
       .catch(error => {
         recentArticlesPromise = undefined
         throw error
@@ -201,7 +228,7 @@ export const searchArticlesByKeywordWithPagination = async (
   const response = await axiosInstance.get<CalculatedArticleResponse>(
     `/calculated-api/articles/search/keyword?keyword=${encodeURIComponent(keyword)}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
-  return response.data.data
+  return normalizeArticles(response.data.data)
 }
 
 /**
@@ -218,5 +245,5 @@ export const searchArticlesByTagWithPagination = async (
   const response = await axiosInstance.get<CalculatedArticleResponse>(
     `/calculated-api/articles/search/tag?tag=${encodeURIComponent(tag)}&pagination[page]=${pageNumber}&pagination[pageSize]=${ARTICLES_PER_PAGE}`
   )
-  return response.data.data
+  return normalizeArticles(response.data.data)
 }

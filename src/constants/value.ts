@@ -26,3 +26,6 @@ export const DEFAULT_OGP_IMAGE_FILENAME = "ogp.jpg"
 
 /** レスポンシブ対応する際のSP表示の最大サイズ */
 export const RESPONSIVE_SP_MAX_WIDTH = 999
+
+/** テーマカラーが未指定の場合のフォールバック色 */
+export const THEME_COLOR_FALLBACK = "#343434"
