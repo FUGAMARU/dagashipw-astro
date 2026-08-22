@@ -1,8 +1,18 @@
-{/* Partytown使うとCORSエラー出るので使わない */}
-<script async src="//accaii.com/fugamaru/script.js"></script>
-<noscript>
-  <img src="//accaii.com/fugamaru/script?guid=on" />
-</noscript>
+<!-- Matomo -->
+<script is:inline>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//matomo.dagashi.pw/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
 
 <script src="https://www.googletagmanager.com/gtag/js?id=G-F86VG2KC9W" type="text/partytown"
 ></script>
