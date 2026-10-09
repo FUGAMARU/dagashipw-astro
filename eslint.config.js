@@ -16,6 +16,7 @@ export default [
       "**/dist/**",
       "**/node_modules/**",
       "**/.astro/**",
+      "**/.vrt/**",
       ".prettierrc.js",
       ".stylelintrc.js",
       ".storybook/main.ts",
@@ -300,6 +301,16 @@ export default [
           contexts: ["TSTypeAliasDeclaration"]
         }
       ]
+    }
+  },
+  {
+    ...tsEslint.configs.disableTypeChecked,
+    files: ["scripts/vrt.mjs"],
+    rules: {
+      ...tsEslint.configs.disableTypeChecked.rules,
+      "no-restricted-imports": "off",
+      "jsdoc/require-jsdoc": "off",
+      "jsdoc/require-description": "off"
     }
   }
 ]

@@ -55,6 +55,11 @@ if (!isDefined(article)) {
      * 参考: https://qiita.com/iwmy/items/7e557c7777c927d1bfaa
      */
     document.addEventListener("DOMContentLoaded", () => {
+      // VRT撮影時は目次のアクティブ状態を初期表示に固定する
+      if (document.documentElement.hasAttribute("data-vrt")) {
+        return
+      }
+
       const relatedHeadingElements = document.querySelectorAll(
         "h1, h1 ~ *, h2, h2 ~ *, h3, h3 ~ *, h4, h4 ~ *"
       )

@@ -26,3 +26,6 @@ pnpm-debug.log*
 .idea/
 
 *storybook.log
+
+# local VRT screenshots, manifests and HTML reports
+.vrt/
